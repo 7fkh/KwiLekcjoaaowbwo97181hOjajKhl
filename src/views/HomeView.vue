@@ -22,8 +22,8 @@ export default{
     <div class="home">
       <NavBar />
       <div class="text">
-        <h1>متجر برين</h1>
-        <h2>يقدم لكم متجر برين كل المنتجات التي تخص الديسكورد او حتي خارج الديسكورد باسعار رمزية متوفرة لدي الحميع</h2>
+        <h1> خلي ستور</h1>
+        <h2>متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونيه  </h2>
         <div class="btns">
           <RouterLink class="btn" to="/products">المنتجات</RouterLink>
           <RouterLink class="btn" to="/order">اطلب الان</RouterLink>
