@@ -29,7 +29,7 @@ export default {
         }
     },
     mounted() {
-        fetch('https://bren-shop.glitch.me/api/products')
+        fetch('')
             .then(response => response.json())
             .then(data => {
                 this.products = data;
