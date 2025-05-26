@@ -7,9 +7,9 @@
       <a href="/order">اطلب الان</a>
     </div>
     <div class="btns">
-      <a class="btn" href="https://discord.gg/bren">سيرفر الديسكورد</a>
+      <a class="btn" href="https://discord.gg/khli">سيرفر الديسكورد</a>
       <a class="btn" href="
-https://www.tiktok.com/@brenshop0?_t=8ml5v0rDaS8&_r=1">حساب التيكتوك</a>
+https://linktr.ee/KhLiStoRe">حسابات المتجر</a>
     </div>
   </div>
 </template>
@@ -62,7 +62,7 @@ https://www.tiktok.com/@brenshop0?_t=8ml5v0rDaS8&_r=1">حساب التيكتوك
 
 .nav .btn{
   text-decoration:none;
-  color:#5870f6;
+  color:#4758b0;
   padding:5px 15px;
   border-radius:8px;
   background-color:white;
