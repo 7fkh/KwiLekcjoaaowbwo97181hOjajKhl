@@ -1,21 +1,21 @@
 <template>
   <footer>
       <div class="left">
-          <img src="https://i.ibb.co/5YZdWRq/C6-FFEB54-BC01-4292-956-F-65-A205-FF3316.png" alt="Bren logo">
-          <h4>© Bren Shop</h4>
+          <img src="https://cdn.discordapp.com/attachments/1324222259878957098/1376569206203748352/Photoroom__.png?ex=6835cd7a&is=68347bfa&hm=3e45d130487f89ecd912518f22f6939b89d15a1a7b7358d9499c077e25811b36&" alt="KhLi logo">
+          <h4>© KhLi StoRe</h4>
       </div>
       <list>
           <nav>
           <a href="/">Home</a>
           <a href="/">About</a>
           <a href="#prices">Products</a>
-          <a href="https://discord.gg/bren">Contact</a>
+          <a href="https://discord.gg/khli">Contact</a>
       </nav>
       <nav>
-          <a href="/order">الطلب</a>
-          <a href="/">عنا</a>
+          <a href="/order">الصفحه الرئيسيه</a>
+          <a href="/">عن خلي ستور</a>
           <a href="#prices">المنتجات</a>
-          <a href="https://discord.gg/bren">التواصل</a>
+          <a href="https://discord.gg/khli">السوشل ميديا</a>
       </nav>
       </list>
   </footer>
@@ -30,7 +30,7 @@ list{
 
 footer {
   margin-top:200px;
-  background-color:#EA394B;
+  background-color:#5870f6;
           color: #fff;
           padding: 20px 0;
           text-align: center;
