@@ -32,7 +32,7 @@ export default{
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,128L48,149.3C96,171,192,213,288,224C384,235,480,213,576,186.7C672,160,768,128,864,133.3C960,139,1056,181,1152,186.7C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
     </div>
     <div class="feedbacks">
-      <h1>الأراء <font-awesome-icon :icon="['fas', 'comment']" /></h1>
+      <h1> تـقـييمـات المـتـجـر <font-awesome-icon :icon="['fas', 'comment']" /></h1>
       <div class="cont">
         <div data-aos="fade-right" data-aos-duration="1500" class="cont1">
                     <div class="top">
@@ -168,7 +168,7 @@ main{
 .home{
   width:100%;
   height:100vh;
-  background-color:#EA394B;
+  background-color:#4758b0;
   background-size:cover;
 }
 
@@ -206,7 +206,7 @@ main{
 
 .btn{
   text-decoration:none;
-  color:#EA394B;
+  color:#4758b0;
   padding:8px 30px;
   border-radius:25px;
   background-color:white;
@@ -216,7 +216,7 @@ main{
 
 .feedbacks img{
   border-radius:100%;
-  background-color:#EA394B;
+  background-color:#4758b0;
   width:50px;
   height:50px;
   display:none;
@@ -231,7 +231,7 @@ main{
     display:flex;
     flex-direction:column;
     border-top:4px solid #EA394B;
-    border-bottom:4px solid #EA394B;
+    border-bottom:4px solid #4758b0;
 }
 
 .top{
