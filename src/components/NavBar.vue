@@ -62,7 +62,7 @@ https://www.tiktok.com/@brenshop0?_t=8ml5v0rDaS8&_r=1">حساب التيكتوك
 
 .nav .btn{
   text-decoration:none;
-  color:#525359;
+  color:#5870f6;
   padding:5px 15px;
   border-radius:8px;
   background-color:white;
