@@ -1,7 +1,7 @@
 <template>
   <footer>
       <div class="left">
-          <img src="https://cdn.discordapp.com/attachments/1324222259878957098/1376569206203748352/Photoroom__.png?ex=6835cd7a&is=68347bfa&hm=3e45d130487f89ecd912518f22f6939b89d15a1a7b7358d9499c077e25811b36&" alt="KhLi logo">
+          <img src="https://cdn.discordapp.com/attachments/1324222259878957098/1376572237980766298/IMG_1254.png?ex=6835d04d&is=68347ecd&hm=62d6457ef80fd03ce1a4b38c06a0585e889fbcd6cda1d8736ae59ad2098767aa&" alt="KhLi logo">
           <h4>© KhLi StoRe</h4>
       </div>
       <list>
