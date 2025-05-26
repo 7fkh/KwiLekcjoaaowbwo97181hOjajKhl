@@ -30,7 +30,7 @@ list{
 
 footer {
   margin-top:200px;
-  background-color:#5870f6;
+  background-color:#4758b0;
           color: #fff;
           padding: 20px 0;
           text-align: center;
