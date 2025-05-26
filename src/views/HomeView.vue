@@ -38,37 +38,37 @@ export default{
                     <div class="top">
                         <div class="left">
                           <img src="">
-                          <p>kg.r</p>
+                          <p>.11m</p>
                         </div>
                         <div class="right">
-                            <p>✨✨✨✨✨</p>
+                            <p>⭐️⭐️⭐️⭐️⭐️</p>
                         </div>
                     </div>
-                    <h3>افضل متجر حرفيا واضمن سيرفر</h3>
+                    <h3>قسم بالله عسل قليله بحقه رجال أخلاق وأسلوب وصبر علي مدري كيف</h3>
                     </div>
                     <div data-aos="fade-right" data-aos-duration="1500" class="cont1">
                     <div class="top">
                         <div class="left">
                           <img src="">
-                          <p>naseer1319</p>
+                          <p>_9nj</p>
                         </div>
                         <div class="right">
-                            <p>✨✨✨✨✨</p>
+                            <p>⭐️⭐️⭐️⭐️⭐️</p>
                         </div>
                     </div>
-                    <h3>انصحكم فيه الافضل بلا منازع</h3>
+                    <h3>الأفضل و الأسرع  أسلوب واخلاق ومضمون</h3>
                     </div>
                     <div data-aos="fade-right" data-aos-duration="1500" class="cont1">
                     <div class="top">
                         <div class="left">
                             <img src="">
-                        <p>3we6</p>
+                        <p>0.pa</p>
                         </div>
                         <div class="right">
-                            <p>✨✨✨✨✨</p>
+                            <p>⭐️⭐️⭐️⭐️⭐️</p>
                         </div>
                     </div>
-                    <h3>اي شي تبغاه ان شاء الله موجود هناك وضمان مرة اسطوري وتعامل حلو</h3>
+                    <h3> انا متعامل مع الرجال و اسلوبه مرا حلو + اسعار بوتاته رخيصه رُغم الميزات الي فيها انصح التعامُل مع الرجال و من افضل المبرمجين الي شريت بوتات مـن عندهم </h3>
                     </div>
       </div>
     </div>
