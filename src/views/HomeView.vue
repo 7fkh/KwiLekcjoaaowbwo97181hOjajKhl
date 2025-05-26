@@ -230,7 +230,7 @@ main{
     height:250px;
     display:flex;
     flex-direction:column;
-    border-top:4px solid #EA394B;
+    border-top:4px solid #4758b0;
     border-bottom:4px solid #4758b0;
 }
 
