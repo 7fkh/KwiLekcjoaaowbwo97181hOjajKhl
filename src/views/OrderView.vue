@@ -123,7 +123,7 @@ export default{
 
 .main{
     min-height:100vh;
-    background-color:#EA394B;
+    background-color:#5870f6;
 }
 
 .cont img{
