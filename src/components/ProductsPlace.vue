@@ -1,243 +1,259 @@
 <script>
 export default {
-    data() {
-        return {
-            products:[],
-            filteredproducts2: [],
-            selectedCategory:'الكل',
-            fp:[],
-            fp1:[],
-            fp2:[],
-            fp3:[],
-        }
-    },
-    methods: {
-        filterProducts(categoryname){
-            this.selectedCategory = categoryname;
-           if(categoryname === 'الكل'){
-            return this.filteredproducts2 = this.products;
-           }
-           let filteredProducts = this.products.filter( (product) => {
-                return product.category === categoryname;
-            })
-            
-            this.filteredproducts2 = [];
-            this.filteredproducts2 = filteredProducts;
+  data() {
+    return {
+      products: [
+        {
+          title: "تصميم شعار احترافي",
+          description: "شعار بجودة عالية",
+          price: 25,
+          category: "لوقوهات",
+          image: "https://via.placeholder.com/250"
         },
-        addToCart(){
-            this.$router.push('/order')
+        {
+          title: "بوت ديسكورد متكامل",
+          description: "مع مميزات عديدة",
+          price: 50,
+          category: "ديسكورد",
+          image: "https://via.placeholder.com/250"
+        },
+        {
+          title: "إدارة حسابات التواصل",
+          description: "نشاط يومي ومتابعة",
+          price: 30,
+          category: "سوشيال ميديا",
+          image: "https://via.placeholder.com/250"
+        },
+        {
+          title: "طلب مخصص",
+          description: "حدد ما تريده وسننفذه",
+          price: 100,
+          category: "طلب خاص",
+          image: "https://via.placeholder.com/250"
         }
+      ],
+      filteredproducts2: [],
+      selectedCategory: 'الكل',
+    };
+  },
+  methods: {
+    filterProducts(categoryname) {
+      this.selectedCategory = categoryname;
+      if (categoryname === 'الكل') {
+        this.filteredproducts2 = this.products;
+      } else {
+        this.filteredproducts2 = this.products.filter(product => product.category === categoryname);
+      }
     },
-    mounted() {
-        fetch('')
-            .then(response => response.json())
-            .then(data => {
-                this.products = data;
-
-                let filteredProducts = this.products.filter((product) => {
-                    return product.category === 'ديسكورد';
-                });
-
-                this.fp = [];
-                this.fp = filteredProducts;
-
-                let filteredProducts1 = this.products.filter((product) => {
-                    return product.category === 'سوشيال ميديا';
-                });
-
-                this.fp1 = [];
-                this.fp1 = filteredProducts1;
-
-                let filteredProducts2 = this.products.filter((product) => {
-                    return product.category === 'لوقوهات';
-                });
-
-                this.fp2 = [];
-                this.fp2 = filteredProducts2;
-
-                let filteredProducts3 = this.products.filter((product) => {
-                    return product.category === 'طلب خاص';
-                });
-
-                this.fp3 = [];
-                this.fp3 = filteredProducts3;
-            })
-            .catch(error => {
-                console.error('Error fetching products:', error);
-            });
-    },
+    addToCart() {
+      this.$router.push('/order');
+    }
+  },
+  mounted() {
+    // عرض كل المنتجات عند التحميل
+    this.filteredproducts2 = this.products;
+  }
 };
 </script>
-
 <template>
-    <div class="type">
-      <h1 class="start" data-aos="fade-up">المنتجات</h1>
-  <div class="cont">
-      <div class="card" data-aos="fade-left" v-for="(product, index) in products" :key="index">
-          <img :src="product.image" alt="Product Image">
-          <h3>{{ product.title }}</h3>
-          <p>{{ product.description }}</p>
-          <div class="btn">
-              <a>{{ product.price }} SAR</a>
-              <a class="button" @click="addToCart"><font-awesome-icon :icon="['fas', 'cart-plus']" /></a>
-          </div>
-      </div>
-  </div>
+  <div class="type">
+    <h1 class="start" data-aos="fade-up">المنتجات</h1>
+
+    <div class="filter">
+      <ul>
+        <li @click="filterProducts('الكل')">الكل</li>
+        <li @click="filterProducts('ديسكورد')">ديسكورد</li>
+        <li @click="filterProducts('سوشيال ميديا')">سوشيال ميديا</li>
+        <li @click="filterProducts('لوقوهات')">لوقوهات</li>
+        <li @click="filterProducts('طلب خاص')">طلب خاص</li>
+      </ul>
     </div>
-  </template>
-  
-  <style scoped>
-  
-  .active{
-      color:#000000;
-  }
-  
-  .filter{
-      margin-top:100px;
-      width:100%;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      margin-bottom:50px;
-  }
-  
-  .filter ul{
-      list-style:none;
-      width:30%;
-      display:flex;
-      flex-direction:row-reverse;
-      justify-content:center;
-      align-items:center;
-      
-  }
-  
-  .type{
-      margin-top:100px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      gap:40px;
-  }
-  
-  .filter ul li{
-      padding:0 10px;
-      cursor:pointer;
-  }
-  
-  .filter ul li:nth-child(2),.filter ul li:nth-child(3),.filter ul li:nth-child(4),.filter ul li:nth-child(1){
-      border-left:1px solid #000000;
-      color:rgb(99, 99, 99);
-  }
-  
-  .filter ul li:nth-child(5){
-      color:rgb(99, 99, 99);
-  }
-  
-  .filter ul li:hover{
-      color:#000000;
-  }
-  
-  .icon{
-      text-decoration:none;
-  }
-  
-  .cont{
-      width:100%;
-      margin-top:10px;
-      display:flex;
-      flex-direction:row;
-      justify-content:center;
-      align-items:center;
-      flex-wrap:wrap;
-      gap:50px;
-  }
-  
-  .category{
-      color:rgb(66, 66, 66);
-  }
-  
-  .card{
-      font-family:'Rubik';
-      width:300px;
-      min-height:400px;
-      border-radius:8px;
-      display:flex;
-      flex-direction:column;
-      justify-content:end;
-      align-items:end;
-      text-align:end;
-      gap:5px;
-      color:#000000;
-      margin:30px 0;
-      transition:1s;
-      padding:10px 20px;
-  }
-  
-  .start{
-      color:black;
-      font-size:50px;
-      text-align:center;
-  }
-  
-  .card img{
-      width:250px;
-      margin-bottom:20px;
-  }
-  
-  .btn{
-      margin-top:20px;
-      font-size:20px;
-      text-align:center;
-      display:flex;
-      flex-direction:row-reverse;
-      justify-content:center;
-      align-items:center;
-      gap:50px;
-  }
-  
-  .button{
-      color:#000000;
-      cursor:pointer;
-      background:none;
-      margin-bottom:18px;
-  }
-  
-  .button2{
-      padding:15px 15px;
-      margin-top:23px;
-      border:1px solid #000000;
-      border-radius:4px;
-      cursor:pointer;
-      color:#000000;
-  }
-  
-  .card:hover{
-      box-shadow:1px 5px 5px rgba(24, 23, 23, 0.445);
-      background-color:rgba(250, 250, 250, 0.329);
-  }
-  
-  @media screen and (max-width: 768px) {
-      .card{
-          width:90vw;
-      }
-  
-      .card img{
-      width:250px;
-      margin-bottom:20px;
-  }
-  
-  .card h3{
-      font-size:20px;
-  }
-  
-  .card p{
-      font-size:15px;
+
+    <div class="cont">
+      <div
+        class="card"
+        data-aos="fade-left"
+        v-for="(product, index) in filteredproducts2"
+        :key="index"
+      >
+        <img :src="product.image" alt="Product Image" />
+        <h3>{{ product.title }}</h3>
+        <p>{{ product.description }}</p>
+        <div class="btn">
+          <a>
+            <img src="@/assets/coin.png" alt="coin" class="coin-icon" />
+            {{ product.price }} SAR
+          </a>
+          <a class="button" @click="addToCart">
+            <font-awesome-icon :icon="['fas', 'cart-plus']" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<style scoped>
+.active {
+  color: #000000;
+}
+
+.filter {
+  margin-top: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.filter ul {
+  list-style: none;
+  width: 80%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0;
+}
+
+.filter ul li {
+  padding: 0 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.filter ul li:not(:last-child) {
+  border-left: 1px solid #000000;
+}
+
+.filter ul li:hover {
+  color: #000000;
+}
+
+.type {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.cont {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.category {
+  color: rgb(66, 66, 66);
+}
+
+.card {
+  font-family: 'Rubik';
+  width: 300px;
+  min-height: 400px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: end;
+  text-align: end;
+  gap: 5px;
+  color: #000000;
+  margin: 30px 0;
+  transition: 1s;
+  padding: 10px 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.card:hover {
+  box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(250, 250, 250, 0.329);
+}
+
+.card img {
+  width: 250px;
+  margin-bottom: 20px;
+}
+
+.card h3 {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.card p {
+  font-size: 16px;
+  color: #555;
+}
+
+.start {
+  color: black;
+  font-size: 50px;
+  text-align: center;
+}
+
+.btn {
+  margin-top: 20px;
+  font-size: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.button {
+  color: #000000;
+  cursor: pointer;
+  background: none;
+  margin-bottom: 18px;
+}
+
+.coin-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 90vw;
   }
 
-  .start{
-    font-size:30px;
+  .card img {
+    width: 250px;
+    margin-bottom: 20px;
   }
+
+  .card h3 {
+    font-size: 20px;
   }
-  </style>
-  
+
+  .card p {
+    font-size: 15px;
+  }
+
+  .start {
+    font-size: 30px;
+  }
+
+  .filter ul {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .filter ul li {
+    font-size: 14px;
+    padding: 5px;
+  }
+}
+</style>
