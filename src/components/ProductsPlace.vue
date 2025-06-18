@@ -1,48 +1,49 @@
 <script>
 export default {
-  data() {
-    return {
-      selectedCategory: 'الكل',
-      cart: [],
-      products: [
-        {
-          title: "تصميم شعار احترافي",
-          description: "شعار بجودة عالية",
-          price: 25,
-          category: "لوقوهات",
-          image: "https://i.imgur.com/mywu.png"
-        },
-        {
-          title: "بوت ديسكورد متكامل",
-          description: "مع مميزات عديدة",
-          price: 50,
-          category: "ديسكورد",
-          image: "https://i.imgur.com/myww.png"
-        },
-        {
-          title: "إدارة حسابات التواصل",
-          description: "نشاط يومي ومتابعة",
-          price: 30,
-          category: "سوشيال ميديا",
-          image: "https://i.imgur.com/myw.png"
-        },
-        {
-          title: "طلب مخصص",
-          description: "حدد ما تريده وسننفذه",
-          price: 100,
-          category: "طلب خاص",
-          image: "https://i.imgur.com/my.png"
-        }
-      ]
-    };
-  },
-  computed: {
-    filteredproducts2() {
-      if (this.selectedCategory === 'الكل') return this.products;
-      return this.products.filter(p => p.category === this.selectedCategory);
-    }
-  },
-  methods: {
+data() {
+  return {
+    selectedCategory: 'الكل',
+    cart: [],
+    sidebarOpen: false,
+    products: [
+      {
+        title: "تصميم شعار احترافي",
+        description: "شعار بجودة عالية",
+        price: 25,
+        category: "لوقوهات",
+        image: "https://i.imgur.com/mywu.png"
+      },
+      {
+        title: "بوت ديسكورد متكامل",
+        description: "مع مميزات عديدة",
+        price: 50,
+        category: "ديسكورد",
+        image: "https://i.imgur.com/myww.png"
+      },
+      {
+        title: "إدارة حسابات التواصل",
+        description: "نشاط يومي ومتابعة",
+        price: 30,
+        category: "سوشيال ميديا",
+        image: "https://i.imgur.com/myw.png"
+      },
+      {
+        title: "طلب مخصص",
+        description: "حدد ما تريده وسننفذه",
+        price: 100,
+        category: "طلب خاص",
+        image: "https://i.imgur.com/my.png"
+      }
+    ]
+  };
+},
+computed: {
+  filteredproducts2() {
+    if (this.selectedCategory === 'الكل') return this.products;
+    return this.products.filter(p => p.category === this.selectedCategory);
+  }
+},
+methods: {
   filterProducts(category) {
     this.selectedCategory = category;
     this.sidebarOpen = false; // إغلاق الشريط بعد الاختيار
