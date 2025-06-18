@@ -11,28 +11,28 @@ export default {
           description: "من الصفر",
           price: 25,
           category: "فايف ام",
-          image: "https://i.imgur.com/kAg2dI.jpeg"
+          image: "https://i.imgur.com/kAg2dIa.jpeg"
         },
         {
           title: "بوت ديسكورد",
           description: "مع مميزات عديدة",
           price: 50,
           category: "ديسكورد",
-          image: "https://i.imgur.com/kAg2dI.jpeg"
+          image: "https://i.imgur.com/kAg2dIa.jpeg"
         },
         {
           title: "موقع خاص",
           description: "بلغات جديده",
           price: 30,
           category: "مواقع",
-          image: "https://i.imgur.com/kAg2dI.jpeg"
+          image: "https://i.imgur.com/kAg2dIa.jpeg"
         },
         {
           title: "طلب مخصص",
           description: "حدد ما تريده",
           price: 100,
           category: "طلب خاص",
-          image: "https://i.imgur.com/kAg2dI.jpeg"
+          image: "https://i.imgur.com/kAg2dIa.jpeg"
         }
       ]
     };
@@ -189,7 +189,7 @@ p {
 /* الصورة داخل البطاقة */
 .card img {
   width: 100%;
-  height: 160px; /* تصغير الصورة */
+  height: 170px; /* تصغير الصورة */
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 10px;
