@@ -57,20 +57,30 @@ export default {
 </script>
 
 <template>
-  <div class="animated-bg">
-    <div class="type">
-      <h1 class="start" data-aos="fade-up">المنتجات</h1>
-      <div class="cont">
-        <div class="card" data-aos="fade-left" v-for="(product, index) in products" :key="index">
-          <img :src="product.image" alt="Product Image" />
-          <h3>{{ product.title }}</h3>
-          <p>{{ product.description }}</p>
-          <div class="btn">
-            <a>{{ product.price }} SAR</a>
-            <a class="button" @click="addToCart">
-              <font-awesome-icon :icon="['fas', 'cart-plus']" />
-            </a>
-          </div>
+  <div class="type">
+    <h1 class="start" data-aos="fade-up">المنتجات</h1>
+    <div class="filter">
+      <ul>
+        <li @click="filterProducts('الكل')" :class="{ active: selectedCategory === 'الكل' }">الكل</li>
+        <li @click="filterProducts('ديسكورد')" :class="{ active: selectedCategory === 'ديسكورد' }">ديسكورد</li>
+        <li @click="filterProducts('سوشيال ميديا')" :class="{ active: selectedCategory === 'سوشيال ميديا' }">سوشيال ميديا</li>
+        <li @click="filterProducts('لوقوهات')" :class="{ active: selectedCategory === 'لوقوهات' }">لوقوهات</li>
+        <li @click="filterProducts('طلب خاص')" :class="{ active: selectedCategory === 'طلب خاص' }">طلب خاص</li>
+      </ul>
+    </div>
+    <div class="cont">
+      <div class="card" data-aos="fade-left" v-for="(product, index) in filteredproducts2" :key="index">
+        <img :src="product.image" alt="Product Image" />
+        <h3>{{ product.title }}</h3>
+        <p>{{ product.description }}</p>
+        <div class="btn">
+          <a>
+            <img class="coin-icon" src="https://cdn-icons-png.flaticon.com/128/929/929426.png" />
+            {{ product.price }} SAR
+          </a>
+          <a class="button" @click="addToCart(product)">
+            <font-awesome-icon :icon="['fas', 'cart-plus']" />
+          </a>
         </div>
       </div>
     </div>
@@ -158,6 +168,7 @@ body {
   align-items: end;
   transition: 0.5s;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  text-align: end;
 }
 
 .card:hover {
@@ -169,6 +180,7 @@ body {
   width: 100%;
   border-radius: 8px;
   margin-bottom: 15px;
+  object-fit: cover;
 }
 
 .card h3 {
@@ -190,20 +202,21 @@ body {
 }
 
 .btn {
-  margin-top: 20px;
+  margin-top: 10px;
   font-size: 20px;
   display: flex;
   flex-direction: row-reverse;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
+  width: 100%;
 }
 
 .button {
   color: #000000;
   cursor: pointer;
   background: none;
-  margin-bottom: 18px;
+  font-size: 24px;
 }
 
 .coin-icon {
@@ -217,11 +230,6 @@ body {
 @media screen and (max-width: 768px) {
   .card {
     width: 90vw;
-  }
-
-  .card img {
-    width: 100%;
-    margin-bottom: 15px;
   }
 
   .card h3 {
@@ -246,3 +254,57 @@ body {
   }
 }
 </style>
+
+<script>
+export default {
+  data() {
+    return {
+      selectedCategory: 'الكل',
+      products: [
+        {
+          title: "خدمة ديسكورد",
+          description: "إنشاء بوت حسب الطلب",
+          price: 50,
+          category: "ديسكورد",
+          image: "https://i.imgur.com/7D7I6dI.png"
+        },
+        {
+          title: "تصميم لوقو",
+          description: "احترافي وفريد",
+          price: 70,
+          category: "لوقوهات",
+          image: "https://i.imgur.com/KDIDiSE.png"
+        },
+        {
+          title: "إعلان سناب",
+          description: "لمنتجك أو خدمتك",
+          price: 30,
+          category: "سوشيال ميديا",
+          image: "https://i.imgur.com/OdL0XPt.png"
+        },
+        {
+          title: "طلب خاص",
+          description: "أرسل التفاصيل وسننفذ",
+          price: 100,
+          category: "طلب خاص",
+          image: "https://i.imgur.com/j9N4kMB.png"
+        }
+      ]
+    };
+  },
+  computed: {
+    filteredproducts2() {
+      if (this.selectedCategory === 'الكل') return this.products;
+      return this.products.filter(p => p.category === this.selectedCategory);
+    }
+  },
+  methods: {
+    filterProducts(category) {
+      this.selectedCategory = category;
+    },
+    addToCart(product) {
+      alert(`تمت إضافة ${product.title} إلى السلة ✅`);
+    }
+  }
+};
+</script>
