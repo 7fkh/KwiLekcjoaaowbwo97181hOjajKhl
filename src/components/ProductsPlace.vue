@@ -8,28 +8,28 @@ export default {
           description: "شعار بجودة عالية",
           price: 25,
           category: "لوقوهات",
-          image: "https://via.placeholder.com/250"
+          image: "https://i.imgur.com/V6gL51v.png"
         },
         {
           title: "بوت ديسكورد متكامل",
           description: "مع مميزات عديدة",
           price: 50,
           category: "ديسكورد",
-          image: "https://via.placeholder.com/250"
+          image: "https://i.imgur.com/V6gL51v.png"
         },
         {
           title: "إدارة حسابات التواصل",
           description: "نشاط يومي ومتابعة",
           price: 30,
           category: "سوشيال ميديا",
-          image: "https://via.placeholder.com/250"
+          image: "https://i.imgur.com/V6gL51v.png"
         },
         {
           title: "طلب مخصص",
           description: "حدد ما تريده وسننفذه",
           price: 100,
           category: "طلب خاص",
-          image: "https://via.placeholder.com/250"
+          image: "https://i.imgur.com/V6gL51v.png"
         }
       ],
       filteredproducts2: [],
