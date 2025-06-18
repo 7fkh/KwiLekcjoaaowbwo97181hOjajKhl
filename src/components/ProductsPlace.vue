@@ -81,7 +81,7 @@ export default {
         <p>{{ product.description }}</p>
         <div class="btn">
           <a>
-            <img src="@/assets/coin.png" alt="coin" class="coin-icon" />
+            <img src="@/assets/IMG_1399.png" alt="coin" class="coin-icon" />
             {{ product.price }} SAR
           </a>
           <a class="button" @click="addToCart">
