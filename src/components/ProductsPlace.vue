@@ -11,28 +11,28 @@ export default {
           description: "من الصفر",
           price: 25,
           category: "فايف ام",
-          image: "https://i.imgur.com/kAg2dIa.jpeg"
+          image: "https://i.imgur.com/kAg2dI.jpeg"
         },
         {
           title: "بوت ديسكورد",
           description: "مع مميزات عديدة",
           price: 50,
           category: "ديسكورد",
-          image: "https://i.imgur.com/kAg2dIa.jpeg"
+          image: "https://i.imgur.com/kAg2dI.jpeg"
         },
         {
           title: "موقع خاص",
           description: "بلغات جديده",
           price: 30,
           category: "مواقع",
-          image: "https://i.imgur.com/kAg2dIa.jpeg"
+          image: "https://i.imgur.com/kAg2dI.jpeg"
         },
         {
           title: "طلب مخصص",
           description: "حدد ما تريده",
           price: 100,
           category: "طلب خاص",
-          image: "https://i.imgur.com/kAg2dIa.jpeg"
+          image: "https://i.imgur.com/kAg2dI.jpeg"
         }
       ]
     };
