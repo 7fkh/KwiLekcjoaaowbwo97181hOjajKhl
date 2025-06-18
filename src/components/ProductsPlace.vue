@@ -1,61 +1,62 @@
 <script>
 export default {
-data() {
-  return {
-    selectedCategory: 'الكل',
-    cart: [],
-    sidebarOpen: false,
-    products: [
-      {
-        title: "تصميم شعار احترافي",
-        description: "شعار بجودة عالية",
-        price: 25,
-        category: "لوقوهات",
-        image: "https://i.imgur.com/mywu.png"
-      },
-      {
-        title: "بوت ديسكورد متكامل",
-        description: "مع مميزات عديدة",
-        price: 50,
-        category: "ديسكورد",
-        image: "https://i.imgur.com/myww.png"
-      },
-      {
-        title: "إدارة حسابات التواصل",
-        description: "نشاط يومي ومتابعة",
-        price: 30,
-        category: "سوشيال ميديا",
-        image: "https://i.imgur.com/myw.png"
-      },
-      {
-        title: "طلب مخصص",
-        description: "حدد ما تريده وسننفذه",
-        price: 100,
-        category: "طلب خاص",
-        image: "https://i.imgur.com/my.png"
-      }
-    ]
-  };
-},
-computed: {
-  filteredproducts2() {
-    if (this.selectedCategory === 'الكل') return this.products;
-    return this.products.filter(p => p.category === this.selectedCategory);
-  }
-},
-methods: {
-  filterProducts(category) {
-    this.selectedCategory = category;
-    this.sidebarOpen = false; // إغلاق الشريط بعد الاختيار
+  data() {
+    return {
+      selectedCategory: 'الكل',
+      cart: [],
+      sidebarOpen: false,
+      products: [
+        {
+          title: "تصميم شعار احترافي",
+          description: "شعار بجودة عالية",
+          price: 25,
+          category: "لوقوهات",
+          image: "https://i.imgur.com/mywu.png"
+        },
+        {
+          title: "بوت ديسكورد متكامل",
+          description: "مع مميزات عديدة",
+          price: 50,
+          category: "ديسكورد",
+          image: "https://i.imgur.com/myww.png"
+        },
+        {
+          title: "إدارة حسابات التواصل",
+          description: "نشاط يومي ومتابعة",
+          price: 30,
+          category: "سوشيال ميديا",
+          image: "https://i.imgur.com/myw.png"
+        },
+        {
+          title: "طلب مخصص",
+          description: "حدد ما تريده وسننفذه",
+          price: 100,
+          category: "طلب خاص",
+          image: "https://i.imgur.com/my.png"
+        }
+      ]
+    };
   },
-  addToCart(product) {
-    this.cart.push(product);
-    alert(`✅ تمت إضافة ${product.title} إلى السلة. عدد المنتجات: ${this.cart.length}`);
+  computed: {
+    filteredproducts2() {
+      if (this.selectedCategory === 'الكل') return this.products;
+      return this.products.filter(p => p.category === this.selectedCategory);
+    }
   },
-  toggleSidebar() {
-    this.sidebarOpen = !this.sidebarOpen;
+  methods: {
+    filterProducts(category) {
+      this.selectedCategory = category;
+      this.sidebarOpen = false;
+    },
+    addToCart(product) {
+      this.cart.push(product);
+      alert(`✅ تمت إضافة ${product.title} إلى السلة. عدد المنتجات: ${this.cart.length}`);
+    },
+    toggleSidebar() {
+      this.sidebarOpen = !this.sidebarOpen;
+    }
   }
-}
+};
 </script>
 
 <template>
@@ -65,7 +66,6 @@ methods: {
       <div class="cart-info">
         🛒 عدد المنتجات: {{ cart.length }}
       </div>
-
       <div class="menu-icon" @click="toggleSidebar">
         ☰
       </div>
@@ -117,6 +117,7 @@ methods: {
     </div>
   </div>
 </template>
+
 <style>
 body {
   margin: 0;
@@ -135,6 +136,7 @@ body {
   display: flex;
   gap: 10px;
   padding: 0;
+  flex-wrap: wrap;
 }
 
 .filter ul li {
