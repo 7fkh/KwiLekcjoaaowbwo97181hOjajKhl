@@ -55,14 +55,9 @@ export default {
   }
 };
 </script>
-<template>
-  <div class="video-background">
-    <video autoplay muted loop playsinline>
-      <source src="https://i.imgur.com/jfVh12B.mp4" type="video/mp4" />
-    </video>
-  </div>
 
-  <div class="overlay-content">
+<template>
+  <div class="animated-bg">
     <div class="type">
       <h1 class="start" data-aos="fade-up">المنتجات</h1>
       <div class="cont">
@@ -83,41 +78,171 @@ export default {
 </template>
 
 <style scoped>
-.video-background {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  z-index: -1;
+/* ==== الخلفية الزرقاء المتحركة ==== */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(-45deg, #3a7bd5, #00d2ff, #2193b0, #6dd5ed);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  font-family: 'Rubik', sans-serif;
 }
 
-.video-background video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.overlay-content {
-  position: relative;
-  z-index: 1;
+/* ==== الأنماط العامة ==== */
+.active {
+  color: #000;
 }
 
-/* بقية التنسيق الخاص بك يبقى كما هو */
 .type {
   margin-top: 100px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 40px;
 }
 
-/* مثال بسيط لبقية التنسيقات التي ذكرتها */
-.card {
-  background-color: rgba(255, 255, 255, 0.85); /* شفافية بسيطة لتحسين وضوح البطاقة على الخلفية */
+.filter {
+  margin-bottom: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  gap: 15px;
+}
+
+.filter ul li {
+  padding: 10px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #ffffff44;
   border-radius: 8px;
-  padding: 15px;
-  transition: all 0.3s ease-in-out;
+  transition: 0.3s;
+}
+
+.filter ul li:hover,
+.filter ul li.active {
+  background: #ffffffaa;
+  color: #000;
+}
+
+/* ==== الكروت ==== */
+.cont {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.card {
+  background-color: #ffffffdd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  transition: 0.5s;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+}
+
+.card p {
+  font-size: 16px;
+  color: #555;
+  margin: 0 0 10px 0;
+}
+
+.start {
+  color: black;
+  font-size: 50px;
+  text-align: center;
+}
+
+.btn {
+  margin-top: 20px;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.button {
+  color: #000000;
+  cursor: pointer;
+  background: none;
+  margin-bottom: 18px;
+}
+
+.coin-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* ===== استجابة الشاشات ===== */
+@media screen and (max-width: 768px) {
+  .card {
+    width: 90vw;
+  }
+
+  .card img {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .card h3 {
+    font-size: 20px;
+  }
+
+  .card p {
+    font-size: 15px;
+  }
+
+  .start {
+    font-size: 30px;
+  }
+
+  .filter ul {
+    gap: 10px;
+  }
+
+  .filter ul li {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
 }
 </style>
