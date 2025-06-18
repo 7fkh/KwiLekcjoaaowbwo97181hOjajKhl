@@ -121,31 +121,72 @@ methods: {
 body {
   margin: 0;
   padding: 0;
-  background: #4758b0; /* خلفية موحدة */
+  background: #000; /* خلفية سوداء */
   font-family: 'Rubik', sans-serif;
+  color: white;
+}
+
+.type {
+  padding: 20px;
+}
+
+.filter ul {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  padding: 0;
 }
 
 .filter ul li {
   padding: 10px 15px;
   font-weight: bold;
   cursor: pointer;
-  background: #4758b0; /* لون الزر */
+  background: #333; /* رصاصي */
   border-radius: 8px;
-  color: white; /* لون النص */
+  color: white;
   transition: 0.3s;
   border: none;
 }
 
 .filter ul li:hover,
 .filter ul li.active {
-  background: #3541a1; /* لون أغمق عند التحديد أو التمرير */
-  color: #fff;
+  background: #666; /* رصاصي أفتح عند التحديد */
 }
 
-/* زر السلة */
+p {
+  color: white;
+  font-size: 18px;
+}
+
+.card {
+  background: #111;
+  color: white;
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #222;
+  text-align: center;
+}
+
+.card img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.card h3 {
+  margin: 10px 0;
+}
+
+.btn {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .button {
   color: white;
-  background-color: #4758b0;
+  background-color: #444;
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 20px;
@@ -153,14 +194,9 @@ body {
 }
 
 .button:hover {
-  background-color: #3541a1;
+  background-color: #666;
 }
 
-/* تحسين عرض عدد المنتجات */
-p {
-  color: white;
-  font-size: 18px;
-}
 .header {
   width: 100%;
   display: flex;
@@ -170,13 +206,13 @@ p {
   color: white;
 }
 
-.cart-info {
-  font-size: 18px;
-}
-
 .menu-icon {
   font-size: 26px;
   cursor: pointer;
+}
+
+.cart-info {
+  font-size: 18px;
 }
 
 /* الشريط الجانبي */
@@ -186,29 +222,36 @@ p {
   right: -250px;
   width: 220px;
   height: 100%;
-  background-color: #ffffff;
-  color: #000;
+  background-color: #111;
+  color: white;
   padding: 20px;
-  box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+  box-shadow: -2px 0 5px rgba(255, 255, 255, 0.1);
   transition: right 0.3s ease;
   z-index: 999;
 }
+
 .sidebar.open {
   right: 0;
 }
+
 .sidebar h3 {
   margin-bottom: 15px;
+  color: white;
 }
+
 .sidebar ul {
   list-style: none;
   padding: 0;
 }
+
 .sidebar ul li {
   padding: 10px;
   cursor: pointer;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #444;
+  color: white;
 }
+
 .sidebar ul li:hover {
-  background-color: #eee;
+  background-color: #333;
 }
 </style>
