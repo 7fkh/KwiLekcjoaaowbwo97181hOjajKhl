@@ -23,16 +23,16 @@ export default{
             const price = document.getElementById("priceinput").value
             
             const applyMessage = {
-                content: '**طلب جديد:**',
+                content: '**طلب جديد ⚡️ ! **',
                 embeds: [{
-                    title: 'تفاصيل الطلب',
+                    title: 'تفاصيل الطلب كالأتي',
                     color: 0x4E40CC,
                     fields: [
-                        { name: 'الايدي', value: user },
-                        { name: 'النوع', value: birthday },
-                        { name: 'تفاصيل الطلب', value: country },
-                        { name: 'رقم التواصل او اليوزر', value: work },
-                        { name: 'مثال للطلب', value: languages },
+                        { name: 'نوع التواصل', value: user },
+                        { name: 'رقم التواصل', value: birthday },
+                        { name: 'فئة الطلب', value: country },
+                        { name: 'الطلب', value: work },
+                        { name: 'رقم تواصل البائع', value: languages },
                         { name: 'طريقة الدفع', value: price }
                     ]
                 }]
@@ -40,7 +40,8 @@ export default{
 
 
             if(user === '' || country === '' || birthday === '' || work === '' || languages === ''){
-                alert("Please Complete The Apply Form")
+                alert("عميلنا العزيز ⚡️ !
+يرجى اكمال الطلب بشكل صحيح يوجد خطاء في سردك للطلب")
             } else{
 
 
@@ -83,7 +84,7 @@ export default{
         <div class="apply">
             <div class="cont">
                 <RouterLink to="/">
-                    <img src="https://i.ibb.co/5YZdWRq/C6-FFEB54-BC01-4292-956-F-65-A205-FF3316.png">
+                    <img src="https://i.imgur.com/cgrAYPN.png">
                 </RouterLink>
                 <div class="inp">
                     <label>ايدي الديسكورد حقك</label>
