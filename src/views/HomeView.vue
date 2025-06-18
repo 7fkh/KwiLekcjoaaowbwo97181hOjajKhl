@@ -22,7 +22,7 @@
 ‏    <div class="home">
 ‏      <NavBar />
 ‏      <div class="text">
-‏        <h1> خلي ستور</h1>
+‏        <h1>وحده وحده وحده</h1>
 ‏        <h2>متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونيه  </h2>
 ‏        <div class="btns">
 ‏          <RouterLink class="btn" to="/products">المنتجات</RouterLink>
