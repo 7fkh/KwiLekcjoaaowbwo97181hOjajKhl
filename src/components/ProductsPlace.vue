@@ -10,28 +10,28 @@ export default {
           description: "شعار بجودة عالية",
           price: 25,
           category: "لوقوهات",
-          image: "https://i.imgur.com/myww9Xu.png"
+          image: "https://i.imgur.com/mywu.png"
         },
         {
           title: "بوت ديسكورد متكامل",
           description: "مع مميزات عديدة",
           price: 50,
           category: "ديسكورد",
-          image: "https://i.imgur.com/myww9Xu.png"
+          image: "https://i.imgur.com/myww.png"
         },
         {
           title: "إدارة حسابات التواصل",
           description: "نشاط يومي ومتابعة",
           price: 30,
           category: "سوشيال ميديا",
-          image: "https://i.imgur.com/myww9Xu.png"
+          image: "https://i.imgur.com/myw.png"
         },
         {
           title: "طلب مخصص",
           description: "حدد ما تريده وسننفذه",
           price: 100,
           category: "طلب خاص",
-          image: "https://i.imgur.com/myww9Xu.png"
+          image: "https://i.imgur.com/my.png"
         }
       ]
     };
@@ -80,7 +80,7 @@ export default {
         <p>{{ product.description }}</p>
         <div class="btn">
           <a>
-            <img class="coin-icon" src="https://i.imgur.com/diTEzxH.png" />
+            <img class="coin-icon" src="" />
             {{ product.price }} SAR
           </a>
           <a class="button" @click="addToCart(product)">
