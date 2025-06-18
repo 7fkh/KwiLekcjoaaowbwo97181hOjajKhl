@@ -16,7 +16,6 @@
   },
 }
 ‏</script>
-
 ‏<template>
 ‏  <main>
 ‏    <div class="home">
