@@ -43,21 +43,46 @@ export default {
     }
   },
   methods: {
-    filterProducts(category) {
-      this.selectedCategory = category;
-    },
-    addToCart(product) {
-      this.cart.push(product);
-      alert(`✅ تمت إضافة ${product.title} إلى السلة. عدد المنتجات: ${this.cart.length}`);
-    }
+  filterProducts(category) {
+    this.selectedCategory = category;
+    this.sidebarOpen = false; // إغلاق الشريط بعد الاختيار
+  },
+  addToCart(product) {
+    this.cart.push(product);
+    alert(`✅ تمت إضافة ${product.title} إلى السلة. عدد المنتجات: ${this.cart.length}`);
+  },
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
   }
-};
+}
 </script>
 
 <template>
   <div class="type">
+    <!-- رأس الصفحة -->
+    <div class="header">
+      <div class="cart-info">
+        🛒 عدد المنتجات: {{ cart.length }}
+      </div>
+
+      <div class="menu-icon" @click="toggleSidebar">
+        ☰
+      </div>
+    </div>
+
+    <!-- الشريط الجانبي -->
+    <div class="sidebar" :class="{ open: sidebarOpen }">
+      <h3>القائمة</h3>
+      <ul>
+        <li @click="filterProducts('الكل')">عرض الكل</li>
+        <li @click="filterProducts('ديسكورد')">ديسكورد</li>
+        <li @click="filterProducts('سوشيال ميديا')">سوشيال ميديا</li>
+        <li @click="filterProducts('لوقوهات')">لوقوهات</li>
+        <li @click="filterProducts('طلب خاص')">طلب خاص</li>
+      </ul>
+    </div>
+
     <h1 class="start" data-aos="fade-up">المنتجات</h1>
-    <p style="font-weight: bold; color: white;">🛒 عدد المنتجات في السلة: {{ cart.length }}</p>
 
     <div class="filter">
       <ul>
@@ -91,9 +116,7 @@ export default {
     </div>
   </div>
 </template>
-
 <style>
-/* استبدل هذا القسم من CSS فقط */
 body {
   margin: 0;
   padding: 0;
