@@ -7,29 +7,29 @@ export default {
       sidebarOpen: false,
       products: [
         {
-          title: "تصميم شعار احترافي",
-          description: "شعار بجودة عالية",
+          title: "برمجة سيرفر فايف ام",
+          description: "من الصفر",
           price: 25,
-          category: "لوقوهات",
+          category: "فايف ام",
           image: "https://i.imgur.com/kAg2dIa.jpeg"
         },
         {
-          title: "بوت ديسكورد متكامل",
+          title: "بوت ديسكورد",
           description: "مع مميزات عديدة",
           price: 50,
           category: "ديسكورد",
           image: "https://i.imgur.com/kAg2dIa.jpeg"
         },
         {
-          title: "إدارة حسابات التواصل",
-          description: "نشاط يومي ومتابعة",
+          title: "موقع خاص",
+          description: "بلغات جديده",
           price: 30,
-          category: "سوشيال ميديا",
+          category: "مواقع",
           image: "https://i.imgur.com/kAg2dIa.jpeg"
         },
         {
           title: "طلب مخصص",
-          description: "حدد ما تريده وسننفذه",
+          description: "حدد ما تريده",
           price: 100,
           category: "طلب خاص",
           image: "https://i.imgur.com/kAg2dIa.jpeg"
