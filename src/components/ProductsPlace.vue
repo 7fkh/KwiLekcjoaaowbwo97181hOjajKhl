@@ -1,6 +1,66 @@
+<script>
+export default {
+  data() {
+    return {
+      selectedCategory: 'الكل',
+      cart: [],
+      products: [
+        {
+          title: "تصميم شعار احترافي",
+          description: "شعار بجودة عالية",
+          price: 25,
+          category: "لوقوهات",
+          image: "https://via.placeholder.com/250"
+        },
+        {
+          title: "بوت ديسكورد متكامل",
+          description: "مع مميزات عديدة",
+          price: 50,
+          category: "ديسكورد",
+          image: "https://via.placeholder.com/250"
+        },
+        {
+          title: "إدارة حسابات التواصل",
+          description: "نشاط يومي ومتابعة",
+          price: 30,
+          category: "سوشيال ميديا",
+          image: "https://via.placeholder.com/250"
+        },
+        {
+          title: "طلب مخصص",
+          description: "حدد ما تريده وسننفذه",
+          price: 100,
+          category: "طلب خاص",
+          image: "https://via.placeholder.com/250"
+        }
+      ]
+    };
+  },
+  computed: {
+    filteredproducts2() {
+      if (this.selectedCategory === 'الكل') {
+        return this.products;
+      }
+      return this.products.filter(product => product.category === this.selectedCategory);
+    }
+  },
+  methods: {
+    filterProducts(categoryname) {
+      this.selectedCategory = categoryname;
+    },
+    addToCart(product) {
+      this.cart.push(product);
+      alert(`✅ تمت إضافة "${product.title}" إلى السلة. عدد المنتجات الآن: ${this.cart.length}`);
+    }
+  }
+};
+</script>
+
 <template>
   <div class="type">
     <h1 class="start" data-aos="fade-up">المنتجات</h1>
+    <p style="font-weight: bold; color: white;">🛒 عدد المنتجات في السلة: {{ cart.length }}</p>
+
     <div class="filter">
       <ul>
         <li @click="filterProducts('الكل')" :class="{ active: selectedCategory === 'الكل' }">الكل</li>
@@ -10,9 +70,14 @@
         <li @click="filterProducts('طلب خاص')" :class="{ active: selectedCategory === 'طلب خاص' }">طلب خاص</li>
       </ul>
     </div>
+
     <div class="cont">
+      <div v-if="filteredproducts2.length === 0" class="no-products">
+        لا توجد منتجات في هذا القسم حاليًا.
+      </div>
+
       <div class="card" data-aos="fade-left" v-for="(product, index) in filteredproducts2" :key="index">
-        <img :src="product.image" alt="Product Image" />
+        <img :src="product.image" alt="صورة المنتج" />
         <h3>{{ product.title }}</h3>
         <p>{{ product.description }}</p>
         <div class="btn">
@@ -20,7 +85,7 @@
             <img class="coin-icon" src="https://cdn-icons-png.flaticon.com/128/929/929426.png" />
             {{ product.price }} SAR
           </a>
-          <a class="button" @click="addToCart(product)">
+          <a class="button" @click="addToCart(product)" title="أضف إلى السلة">
             <font-awesome-icon :icon="['fas', 'cart-plus']" />
           </a>
         </div>
@@ -30,7 +95,6 @@
 </template>
 
 <style scoped>
-/* ==== الخلفية الزرقاء المتحركة ==== */
 body {
   margin: 0;
   padding: 0;
@@ -46,7 +110,6 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* ==== الأنماط العامة ==== */
 .active {
   color: #000;
 }
@@ -91,7 +154,6 @@ body {
   color: #000;
 }
 
-/* ==== الكروت ==== */
 .cont {
   width: 100%;
   display: flex;
@@ -168,7 +230,16 @@ body {
   vertical-align: middle;
 }
 
-/* ===== استجابة الشاشات ===== */
+.no-products {
+  font-size: 20px;
+  color: white;
+  background-color: #00000066;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+}
+
 @media screen and (max-width: 768px) {
   .card {
     width: 90vw;
@@ -196,57 +267,3 @@ body {
   }
 }
 </style>
-
-<script>
-export default {
-  data() {
-    return {
-      selectedCategory: 'الكل',
-      products: [
-        {
-          title: "خدمة ديسكورد",
-          description: "إنشاء بوت حسب الطلب",
-          price: 50,
-          category: "ديسكورد",
-          image: "https://i.imgur.com/7D7I6dI.png"
-        },
-        {
-          title: "تصميم لوقو",
-          description: "احترافي وفريد",
-          price: 70,
-          category: "لوقوهات",
-          image: "https://i.imgur.com/KDIDiSE.png"
-        },
-        {
-          title: "إعلان سناب",
-          description: "لمنتجك أو خدمتك",
-          price: 30,
-          category: "سوشيال ميديا",
-          image: "https://i.imgur.com/OdL0XPt.png"
-        },
-        {
-          title: "طلب خاص",
-          description: "أرسل التفاصيل وسننفذ",
-          price: 100,
-          category: "طلب خاص",
-          image: "https://i.imgur.com/j9N4kMB.png"
-        }
-      ]
-    };
-  },
-  computed: {
-    filteredproducts2() {
-      if (this.selectedCategory === 'الكل') return this.products;
-      return this.products.filter(p => p.category === this.selectedCategory);
-    }
-  },
-  methods: {
-    filterProducts(category) {
-      this.selectedCategory = category;
-    },
-    addToCart(product) {
-      alert(`تمت إضافة ${product.title} إلى السلة ✅`);
-    }
-  }
-};
-</script>
