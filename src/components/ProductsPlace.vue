@@ -89,8 +89,8 @@ export default {
       <ul>
         <li @click="filterProducts('الكل')" :class="{ active: selectedCategory === 'الكل' }">الكل</li>
         <li @click="filterProducts('ديسكورد')" :class="{ active: selectedCategory === 'ديسكورد' }">ديسكورد</li>
-        <li @click="filterProducts('فايف ام')" :class="{ active: selectedCategory === 'سوشيال ميديا' }">سوشيال ميديا</li>
-        <li @click="filterProducts('موقع خاص')" :class="{ active: selectedCategory === 'لوقوهات' }">لوقوهات</li>
+        <li @click="filterProducts('فايف ام')" :class="{ active: selectedCategory === 'فايف ام' }">فايف ام</li>
+        <li @click="filterProducts('موقع خاص')" :class="{ active: selectedCategory === 'موقع خاص' }">موقع خاص</li>
         <li @click="filterProducts('طلب خاص')" :class="{ active: selectedCategory === 'طلب خاص' }">طلب خاص</li>
       </ul>
     </div>
