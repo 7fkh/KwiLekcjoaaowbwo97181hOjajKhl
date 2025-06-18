@@ -160,25 +160,61 @@ p {
   font-size: 18px;
 }
 
+/* الحاوية التي تحتوي المنتجات */
+.cont {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+/* البطاقة الواحدة */
 .card {
   background: #111;
   color: white;
   padding: 20px;
-  margin: 10px 0;
   border-radius: 10px;
   box-shadow: 0 0 5px #222;
   text-align: center;
+  width: 260px; /* حجم البطاقة العرضي */
+  flex-shrink: 0;
+  transition: transform 0.3s;
 }
 
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* الصورة داخل البطاقة */
 .card img {
-  max-width: 100%;
+  width: 100%;
+  height: 160px; /* تصغير الصورة */
+  object-fit: cover;
   border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 .card h3 {
   margin: 10px 0;
+  font-size: 18px;
 }
 
+/* استجابة للجوال */
+@media (max-width: 768px) {
+  .cont {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+  }
+
+  .card img {
+    height: 180px;
+  }
+}
 .btn {
   margin-top: 10px;
   display: flex;
