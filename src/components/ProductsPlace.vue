@@ -161,4 +161,54 @@ p {
   color: white;
   font-size: 18px;
 }
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.cart-info {
+  font-size: 18px;
+}
+
+.menu-icon {
+  font-size: 26px;
+  cursor: pointer;
+}
+
+/* الشريط الجانبي */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 220px;
+  height: 100%;
+  background-color: #ffffff;
+  color: #000;
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+  transition: right 0.3s ease;
+  z-index: 999;
+}
+.sidebar.open {
+  right: 0;
+}
+.sidebar h3 {
+  margin-bottom: 15px;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar ul li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+}
+.sidebar ul li:hover {
+  background-color: #eee;
+}
 </style>
