@@ -38,19 +38,17 @@ export default {
   },
   computed: {
     filteredproducts2() {
-      if (this.selectedCategory === 'الكل') {
-        return this.products;
-      }
-      return this.products.filter(product => product.category === this.selectedCategory);
+      if (this.selectedCategory === 'الكل') return this.products;
+      return this.products.filter(p => p.category === this.selectedCategory);
     }
   },
   methods: {
-    filterProducts(categoryname) {
-      this.selectedCategory = categoryname;
+    filterProducts(category) {
+      this.selectedCategory = category;
     },
     addToCart(product) {
       this.cart.push(product);
-      alert(`✅ تمت إضافة "${product.title}" إلى السلة. عدد المنتجات الآن: ${this.cart.length}`);
+      alert(`✅ تمت إضافة ${product.title} إلى السلة. عدد المنتجات: ${this.cart.length}`);
     }
   }
 };
@@ -77,7 +75,7 @@ export default {
       </div>
 
       <div class="card" data-aos="fade-left" v-for="(product, index) in filteredproducts2" :key="index">
-        <img :src="product.image" alt="صورة المنتج" />
+        <img :src="product.image" alt="Product Image" />
         <h3>{{ product.title }}</h3>
         <p>{{ product.description }}</p>
         <div class="btn">
@@ -85,7 +83,7 @@ export default {
             <img class="coin-icon" src="https://cdn-icons-png.flaticon.com/128/929/929426.png" />
             {{ product.price }} SAR
           </a>
-          <a class="button" @click="addToCart(product)" title="أضف إلى السلة">
+          <a class="button" @click="addToCart(product)">
             <font-awesome-icon :icon="['fas', 'cart-plus']" />
           </a>
         </div>
@@ -94,7 +92,7 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style>
 body {
   margin: 0;
   padding: 0;
