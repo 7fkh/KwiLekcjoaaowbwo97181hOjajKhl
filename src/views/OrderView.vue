@@ -40,8 +40,7 @@ export default{
 
 
             if(user === '' || country === '' || birthday === '' || work === '' || languages === ''){
-                alert("عميلنا العزيز ⚡️ !
-يرجى اكمال الطلب بشكل صحيح يوجد خطاء في سردك للطلب")
+                alert("عميلنا العزيز ⚡️ !")
             } else{
 
 
