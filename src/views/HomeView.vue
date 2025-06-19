@@ -67,7 +67,6 @@ export default {
     <div class="home">
       <NavBar />
 
-      <!-- ✅ شريط تسجيل الدخول -->
       <div class="login-header">
         <div v-if="!discordUser">
           <a :href="discordLoginUrl" class="discord-btn">🔐 تسجيل الدخول عبر ديسكورد</a>
@@ -82,7 +81,6 @@ export default {
         </div>
       </div>
 
-      <!-- النص الرئيسي -->
       <div class="text">
         <h1>خلي ستور</h1>
         <h2>متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونية</h2>
@@ -92,14 +90,13 @@ export default {
         </div>
       </div>
 
-      <!-- موجة -->
+      <!-- موجة بلون رمادي غامق بدل الأبيض -->
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path fill="#ffffff" fill-opacity="1"
+        <path fill="#222" fill-opacity="1"
           d="M0,128L48,149.3C96,171,192,213,288,224C384,235,480,213,576,186.7C672,160,768,128,864,133.3C960,139,1056,181,1152,186.7C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" />
       </svg>
     </div>
 
-    <!-- تقييمات -->
     <div class="feedbacks">
       <h1>تـقـييمـات المـتـجـر <font-awesome-icon :icon="['fas', 'comment']" /></h1>
       <div class="cont">
@@ -130,6 +127,17 @@ export default {
   --button-text: #fff;
   --card-bg: #111;
   --highlight: #4758b0;
+}
+
+body {
+  background-color: var(--main-bg);
+  margin: 0;
+  padding: 0;
+  font-family: "Cairo", sans-serif;
+}
+
+a {
+  color: var(--button-text);
 }
 
 main {
