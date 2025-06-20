@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="footer-content">
-      <img src="https://i.imgur.com/V6gL51v.png" alt="شعار خلي ستور" class="footer-logo" />
+      <img src="/assets/IMG_1254.png" alt="شعار خلي ستور" class="footer-logo" />
       <p class="desc">
         هنا حيث المتجر الأفضل - بالمنتجات الأعلى جودة والأقل سعراً<br />
         خلي ستور، وفّـرلك اللي تحبه بأفضل شكل
@@ -28,13 +28,13 @@
       </div>
 
       <div class="payment-icons">
-        <img src="/payments/gpay.png" alt="Google Pay" />
-        <img src="/payments/applepay.png" alt="Apple Pay" />
-        <img src="/payments/stcpay.png" alt="STC Pay" />
-        <img src="/payments/paypal.png" alt="PayPal" />
-        <img src="/payments/visa.png" alt="Visa" />
-        <img src="/payments/mastercard.png" alt="MasterCard" />
-        <img src="/payments/mada.png" alt="Mada" />
+        <img src="/assets/IMG_1484.jpeg" alt="Google Pay" />
+        <img src="/assets/IMG_1484.jpeg" alt="Apple Pay" />
+        <img src="/assets/IMG_1483.jpeg" alt="STC Pay" />
+        <img src="/assets/IMG_1482.jpeg" alt="PayPal" />
+        <img src="/assets/IMG_1482.jpeg" alt="Visa" />
+        <img src="/assets/IMG_1481.jpeg" alt="MasterCard" />
+        <img src="/assets/IMG_1481.jpeg" alt="Mada" />
       </div>
     </div>
   </footer>
