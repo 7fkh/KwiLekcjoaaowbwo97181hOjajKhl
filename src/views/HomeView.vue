@@ -3,10 +3,10 @@ import { RouterLink } from 'vue-router'
 import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
 
-// استيراد Swiper و Autoplay
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/autoplay';
+import { Autoplay } from 'swiper/modules';
 
 export default {
   components: {
@@ -14,6 +14,11 @@ export default {
     Footer,
     Swiper,
     SwiperSlide
+  },
+  setup() {
+    return {
+      modules: [Autoplay]
+    };
   },
   data() {
     return {
@@ -60,24 +65,26 @@ export default {
       </svg>
     </div>
 
-    <!-- قسم التقييمات المتحركة -->
+    <!-- قسم التقييمات -->
     <div class="feedbacks">
       <h1>شهادة عملائنا لنا - KhLi StoRe</h1>
       <Swiper
-        :modules="[Autoplay]"
+        :modules="modules"
         :slides-per-view="1"
         :loop="true"
         :autoplay="{ delay: 4000, disableOnInteraction: false }"
         class="testimonial-swiper"
       >
         <SwiperSlide v-for="feedback in feedbackList" :key="feedback.id">
-          <div class="cont1">
+          <div class="cont1 animated">
             <div class="top">
               <div class="left">
                 <img :src="feedback.avatar || '/default-avatar.png'" />
                 <p>{{ feedback.username }}</p>
               </div>
-              <div class="right"></div>
+              <div class="right stars">
+                <span v-for="n in 5" :key="n" class="star">★</span>
+              </div>
             </div>
             <h3>{{ feedback.text }}</h3>
           </div>
@@ -90,6 +97,35 @@ export default {
 </template>
 
 <style scoped>
+/* النجوم */
+.star {
+  color: gold;
+  font-size: 20px;
+  margin-left: 2px;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+}
+
+/* حركة انميشن */
+.animated {
+  animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* باقي التنسيقات من كودك الأصلي */
 .cont img {
   border-radius: 8px;
   width: 40%;
