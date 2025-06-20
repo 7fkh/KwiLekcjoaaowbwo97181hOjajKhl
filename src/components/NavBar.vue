@@ -40,8 +40,8 @@ https://linktr.ee/KhLiStoRe">حسابات المتجر</a>
 }
 
 .nav img{
-  width:80px;
-  height:100px;
+  width:120px;
+  height:85px;
 }
 
 /*
