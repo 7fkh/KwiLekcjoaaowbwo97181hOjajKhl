@@ -1,71 +1,130 @@
 <template>
-  <footer>
-      <div class="left">
-          <img src="https://i.imgur.com/V6gL51v.png" alt="KhLi logo">
-          <h4>© KhLi StoRe</h4>
-      </div>
-      <list>
-          <nav>
-          <a href="/">Home</a>
-          <a href="/">About</a>
-          <a href="#prices">Products</a>
-          <a href="https://discord.gg/khli">Contact</a>
-      </nav>
-      <nav>
-          <a href="/order">الصفحه الرئيسيه</a>
-          <a href="/">عن خلي ستور</a>
-          <a href="#prices">المنتجات</a>
-          <a href="https://discord.gg/khli">السوشل ميديا</a>
-      </nav>
-      </list>
-  </footer>
-</template>
+<footer class="footer">
+  <div class="footer-content">
+    <img src="/logo.png" alt="شعار خلي ستور" class="footer-logo" />
+    <p class="desc">
+      هنا حيث المتجر الأفضل - بالمنتجات الأعلى جودة والأقل سعراً<br />
+      خلي ستور، وفّـرلك اللي تحبه بأفضل شكل
+    </p>
 
-<style scoped>
+    <h3 class="section-title">روابط تهمك</h3>
+    <ul class="links">
+      <li>الضمان الذهبي وسياسة المتجر</li>
+      <li>نبذة عن خلي ستور</li>
+      <li>تفعيل العضوية المميزة</li>
+      <li>استخراج الأكواد الاحتياطية</li>
+    </ul>
 
-list{
-  display:flex;
-  gap:60px;
+    <h3 class="section-title">خدمة العملاء</h3>
+    <div class="contact-btns">
+      <a href="tel:+966123456789" class="contact-button">جوال</a>
+      <a href="https://t.me/yourTelegram" target="_blank" class="contact-button">تيليجرام</a>
+    </div>
+
+    <div class="trusted">
+      <hr />
+      <p>موثّق في منصة الأعمال</p>
+      <img src="/business-logo.png" alt="منصة الأعمال" class="trusted-img" />
+    </div>
+
+    <div class="payment-icons">
+      <img src="/payments/gpay.png" alt="Google Pay" />
+      <img src="/payments/applepay.png" alt="Apple Pay" />
+      <img src="/payments/stcpay.png" alt="STC Pay" />
+      <img src="/payments/paypal.png" alt="PayPal" />
+      <img src="/payments/visa.png" alt="Visa" />
+      <img src="/payments/mastercard.png" alt="MasterCard" />
+      <img src="/payments/mada.png" alt="Mada" />
+    </div>
+  </div>
+</footer>
+<template>
+
+</style scoped>
+.footer {
+  background-color: #0c0c0c;
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  font-family: "Cairo", sans-serif;
 }
 
-footer {
-  margin-top:200px;
-  background-color:#4758b0;
-          color: #fff;
-          padding: 20px 0;
-          text-align: center;
-          width: 100%;
-          min-height: 40vh;
-          display: flex;
-          flex-direction:row;
-          flex-wrap:wrap;
-          gap:80px;
-          justify-content:space-around;
-          align-items: center;
-      }
+.footer-logo {
+  width: 80px;
+  margin-bottom: 15px;
+}
 
-      nav{
-          display:flex;
-          flex-direction:column;
-          gap:30px;
-      }
+.desc {
+  font-size: 16px;
+  color: #ddd;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
 
-      footer a {
-          color: #fff;
-          text-decoration: none;
-          margin: 0 10px;
-      }
+.section-title {
+  color: #e3b04b;
+  margin: 20px 0 10px;
+  font-size: 18px;
+}
 
-      footer img {
-          width:400px;
-          height:400px;
-          margin-left:10px;
-      }
+.links {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 30px;
+  max-width: 250px;
+}
 
-      @media (max-width:768px){
-        footer img {
-          width:200px;
-          height:200px;
-        }
-      }
+.links li {
+  margin: 8px 0;
+  color: #eee;
+  cursor: pointer;
+}
+
+.links li:hover {
+  color: #e3b04b;
+}
+
+.contact-btns {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.contact-button {
+  background-color: #8b2c2c;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.contact-button:hover {
+  background-color: #a34040;
+}
+
+.trusted {
+  margin: 20px 0;
+  color: #bbb;
+}
+
+.trusted-img {
+  width: 50px;
+  margin-top: 10px;
+}
+
+.payment-icons {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.payment-icons img {
+  width: 40px;
+  height: auto;
+}
 </style>
