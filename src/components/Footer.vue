@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="footer-content">
-      <img src="/assets/IMG_1254.png" alt="شعار خلي ستور" class="footer-logo" />
+      <img src="/assets/IMG_1254.png" alt="شعار خلي ستور" class="src/assets/IMG_1254.png" />
       <p class="desc">
         هنا حيث المتجر الأفضل - بالمنتجات الأعلى جودة والأقل سعراً<br />
         خلي ستور، وفّـرلك اللي تحبه بأفضل شكل
