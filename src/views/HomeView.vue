@@ -284,21 +284,72 @@ main {
   padding: 5px 5px;
 }
 
+/* 🟡 تنسيق الهاتف المحمول */
 @media screen and (max-width: 768px) {
+  .login-header {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .text h1 {
+    font-size: 40px;
+  }
+
+  .text h2 {
+    font-size: 16px;
+    width: 90%;
+  }
+
+  .btns {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .btn {
+    width: 80%;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .cont {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .cont1 {
+    width: 90%;
+    height: auto;
+    padding: 15px;
+  }
+
+  .cont1 h3 {
+    font-size: 14px;
+    margin-top: 30px;
+  }
+
+  .feedbacks h1 {
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .top {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .left,
+  .right {
+    flex-direction: column;
+  }
+
   .home svg {
     display: none;
   }
 
   .home {
     min-height: 120vh;
-  }
-
-  .text h2 {
-    width: 90%;
-  }
-
-  .cont1 {
-    width: 90%;
   }
 }
 </style>
