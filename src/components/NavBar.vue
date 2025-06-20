@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-    <img src="https://i.imgur.com/V6gL51v.png">
+    <img src="https://i.imgur.com/n4eXXyq.png">
     <div class="pages">
       <a href="/">الرئيسية</a>
       <a href="#prices">المنتجات</a>
