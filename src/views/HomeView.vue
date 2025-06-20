@@ -25,20 +25,20 @@ export default {
       feedbackList: [
         {
           id: 1,
-          username: "kg.r",
-          avatar: "",
-          text: "أفضل متجر حرفياً وأضمن سيرفر"
+          username: "خالد الحربي",
+          avatar: "src/assets/IMG_1500.webp",
+          text: " رهييييب 👏 10/10"
         },
         {
           id: 2,
           username: "naseer1319",
-          avatar: "",
+          avatar: "src/assets/IMG_1500.webp",
           text: "أنصحكم فيه، الأفضل بلا منازع"
         },
         {
           id: 3,
           username: "3we6",
-          avatar: "",
+          avatar: "src/assets/IMG_1500.webp",
           text: "أي شيء تبغاه إن شاء الله موجود هناك وضمان مرة أسطوري وتعامل حلو"
         }
       ]
@@ -76,17 +76,13 @@ export default {
         class="testimonial-swiper"
       >
         <SwiperSlide v-for="feedback in feedbackList" :key="feedback.id">
-          <div class="cont1 animated">
-            <div class="top">
-              <div class="left">
-                <img :src="feedback.avatar || '/default-avatar.png'" />
-                <p>{{ feedback.username }}</p>
-              </div>
-              <div class="right stars">
-                <span v-for="n in 5" :key="n" class="star">★</span>
-              </div>
+          <div class="testimonial-card animated">
+            <img class="user-img" :src="feedback.avatar" alt="avatar" />
+            <p class="username">{{ feedback.username }}</p>
+            <div class="stars">
+              <span v-for="n in 5" :key="n" class="star">★</span>
             </div>
-            <h3>{{ feedback.text }}</h3>
+            <p class="feedback-text">{{ feedback.text }}</p>
           </div>
         </SwiperSlide>
       </Swiper>
@@ -97,23 +93,54 @@ export default {
 </template>
 
 <style scoped>
-/* النجوم */
-.star {
-  color: gold;
-  font-size: 20px;
-  margin-left: 2px;
-}
-
-.stars {
+/* تصميم بطاقة التقييم */
+.testimonial-card {
+  background-color: #3e3e3e;
+  color: white;
+  border-radius: 15px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
   display: flex;
+  flex-direction: column;
   align-items: center;
-}
-
-/* حركة انميشن */
-.animated {
   animation: fadeInUp 1s ease;
 }
 
+.user-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-top: -50px;
+  border: 5px solid #3e3e3e;
+  object-fit: cover;
+}
+
+.username {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.stars {
+  margin: 10px 0;
+}
+
+.star {
+  color: gold;
+  font-size: 22px;
+  margin: 0 2px;
+}
+
+.feedback-text {
+  font-size: 18px;
+  color: #ccc;
+}
+
+/* حركة الدخول */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -125,83 +152,7 @@ export default {
   }
 }
 
-/* باقي التنسيقات من كودك الأصلي */
-.cont img {
-  border-radius: 8px;
-  width: 40%;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 20px;
-  border-radius: 10px;
-  gap: 30px;
-}
-
-.home svg {
-  margin-top: auto;
-}
-
-.card h2 {
-  font-size: 30px;
-  color: #3e404e;
-}
-
-.card .info {
-  width: 100%;
-  font-size: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: end;
-}
-
-.cont {
-  margin-top: 100px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  gap: 80px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.card .price {
-  width: 100%;
-  direction: rtl;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
-  gap: 10px;
-}
-
-.prices h1,
-.feedbacks h1,
-.works h1 {
-  color: #3e404e;
-  font-size: 50px;
-}
-
-main {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.prices,
-.feedbacks,
-.works {
-  margin-top: 100px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
+/* خلفية الموقع */
 .home {
   width: 100%;
   height: 100vh;
@@ -209,6 +160,13 @@ main {
   background-size: cover;
 }
 
+.feedbacks h1 {
+  color: white;
+  font-size: 40px;
+  margin-bottom: 40px;
+}
+
+/* باقي تنسيقات الواجهة */
 .text {
   text-align: center;
   margin-top: 150px;
@@ -251,103 +209,26 @@ main {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
 }
 
-.feedbacks img {
-  border-radius: 100%;
-  background-color: #3e404e;
-  width: 50px;
-  height: 50px;
-  display: inline-block;
-}
-
-.cont1 {
-  border-radius: 8px;
-  background-color: whitesmoke;
-  width: 400px;
-  padding: 5px 10px;
-  height: 250px;
-  display: flex;
-  flex-direction: column;
-  border-top: 4px solid #000000;
-  border-bottom: 4px solid #000000;
-}
-
-.top {
-  margin-top: 15px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.left {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.top img {
-  width: 40px;
-  margin-right: 10px;
-}
-
-.cont1 h3 {
-  text-align: end;
-  margin-top: 60px;
-  padding: 5px 5px;
-}
-
 @media screen and (max-width: 768px) {
-  .home svg {
-    display: none;
-  }
-
-  .home {
-    min-height: 100vh;
-  }
-
-  .home .text h2 {
+  .text h2 {
     width: 90%;
   }
 
-  .prices {
-    margin-top: 200px;
+  .testimonial-card {
+    width: 95%;
   }
 
-  .works img {
-    width: 80%;
+  .user-img {
+    width: 70px;
+    height: 70px;
   }
 
-  .cont1 {
-    width: 90%;
+  .username {
+    font-size: 18px;
   }
 
-  .prices .card {
-    width: 90%;
-  }
-
-  .card img {
-    width: 200px;
-  }
-
-  .cont1 p {
-    font-size: 20px;
-  }
-
-  .prices .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-
-  .prices .card h2,
-  .prices .card .info,
-  .prices .card .price {
-    width: 300px;
-  }
-
-  .home {
-    min-height: 120vh;
+  .feedback-text {
+    font-size: 16px;
   }
 }
 </style>
