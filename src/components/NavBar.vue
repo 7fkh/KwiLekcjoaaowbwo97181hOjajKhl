@@ -42,6 +42,7 @@ https://linktr.ee/KhLiStoRe">حسابات المتجر</a>
 .nav img{
   width:120px;
   height:85px;
+  size:85px;
 }
 
 /*
