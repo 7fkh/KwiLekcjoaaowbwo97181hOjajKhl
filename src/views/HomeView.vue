@@ -67,7 +67,7 @@ export default {
 
     <!-- قسم التقييمات -->
     <div class="feedbacks">
-      <h1>شهادة عملائنا لنا - KhLi StoRe</h1>
+      <h1 class="section-title">شهادة عملائنا || KhLiStoRe</h1>
       <Swiper
         :modules="modules"
         :slides-per-view="1"
@@ -93,6 +93,15 @@ export default {
 </template>
 
 <style scoped>
+/* عنوان التقييمات */
+.section-title {
+  color: #00aaff;
+  font-size: 40px;
+  margin-bottom: 40px;
+  text-align: center;
+  font-weight: bold;
+}
+
 /* تصميم بطاقة التقييم */
 .testimonial-card {
   background-color: #3e3e3e;
@@ -160,10 +169,8 @@ export default {
   background-size: cover;
 }
 
-.feedbacks h1 {
-  color: white;
-  font-size: 40px;
-  margin-bottom: 40px;
+.feedbacks {
+  padding: 50px 0;
 }
 
 /* باقي تنسيقات الواجهة */
