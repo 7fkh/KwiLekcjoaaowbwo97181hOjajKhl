@@ -24,7 +24,7 @@
       <div class="trusted">
         <hr />
         <p>موثّق في منصة الأعمال</p>
-        <img src="/business-logo.png" alt="منصة الأعمال" class="trusted-img" />
+        <img src="/assets/IMG_1485.jpeg" alt="منصة الأعمال" class="trusted-img" />
       </div>
 
       <div class="payment-icons">
