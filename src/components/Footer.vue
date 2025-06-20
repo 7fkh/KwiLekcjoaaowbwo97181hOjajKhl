@@ -1,7 +1,36 @@
+<script>
+import logo from '@/assets/IMG_1254.png'
+import businessLogo from '@/assets/IMG_1485.jpeg'
+import gpay from '@/assets/IMG_1484.jpeg'
+import applepay from '@/assets/IMG_1484.jpeg'
+import stcpay from '@/assets/IMG_1483.jpeg'
+import paypal from '@/assets/IMG_1482.jpeg'
+import visa from '@/assets/IMG_1482.jpeg'
+import mastercard from '@/assets/IMG_1481.jpeg'
+import mada from '@/assets/IMG_1481.jpeg'
+
+export default {
+  data() {
+    return {
+      logo,
+      businessLogo,
+      gpay,
+      applepay,
+      stcpay,
+      paypal,
+      visa,
+      mastercard,
+      mada
+    }
+  }
+}
+</script>
+
 <template>
   <footer class="footer">
     <div class="footer-content">
-      <img src="/assets/IMG_1254.png" alt="شعار خلي ستور" class="src/assets/IMG_1254.png" />
+      <img :src="logo" alt="شعار خلي ستور" class="footer-logo" />
+
       <p class="desc">
         هنا حيث المتجر الأفضل - بالمنتجات الأعلى جودة والأقل سعراً<br />
         خلي ستور، وفّـرلك اللي تحبه بأفضل شكل
@@ -24,17 +53,17 @@
       <div class="trusted">
         <hr />
         <p>موثّق في منصة الأعمال</p>
-        <img src="/assets/IMG_1485.jpeg" alt="منصة الأعمال" class="trusted-img" />
+        <img :src="businessLogo" alt="منصة الأعمال" class="trusted-img" />
       </div>
 
       <div class="payment-icons">
-        <img src="/assets/IMG_1484.jpeg" alt="Google Pay" />
-        <img src="/assets/IMG_1484.jpeg" alt="Apple Pay" />
-        <img src="/assets/IMG_1483.jpeg" alt="STC Pay" />
-        <img src="/assets/IMG_1482.jpeg" alt="PayPal" />
-        <img src="/assets/IMG_1482.jpeg" alt="Visa" />
-        <img src="/assets/IMG_1481.jpeg" alt="MasterCard" />
-        <img src="/assets/IMG_1481.jpeg" alt="Mada" />
+        <img :src="gpay" alt="Google Pay" />
+        <img :src="applepay" alt="Apple Pay" />
+        <img :src="stcpay" alt="STC Pay" />
+        <img :src="paypal" alt="PayPal" />
+        <img :src="visa" alt="Visa" />
+        <img :src="mastercard" alt="MasterCard" />
+        <img :src="mada" alt="Mada" />
       </div>
     </div>
   </footer>
