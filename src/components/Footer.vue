@@ -1,46 +1,46 @@
 <template>
-<footer class="footer">
-  <div class="footer-content">
-    <img src="/logo.png" alt="شعار خلي ستور" class="footer-logo" />
-    <p class="desc">
-      هنا حيث المتجر الأفضل - بالمنتجات الأعلى جودة والأقل سعراً<br />
-      خلي ستور، وفّـرلك اللي تحبه بأفضل شكل
-    </p>
+  <footer class="footer">
+    <div class="footer-content">
+      <img src="https://i.imgur.com/V6gL51v.png" alt="شعار خلي ستور" class="footer-logo" />
+      <p class="desc">
+        هنا حيث المتجر الأفضل - بالمنتجات الأعلى جودة والأقل سعراً<br />
+        خلي ستور، وفّـرلك اللي تحبه بأفضل شكل
+      </p>
 
-    <h3 class="section-title">روابط تهمك</h3>
-    <ul class="links">
-      <li>الضمان الذهبي وسياسة المتجر</li>
-      <li>نبذة عن خلي ستور</li>
-      <li>تفعيل العضوية المميزة</li>
-      <li>استخراج الأكواد الاحتياطية</li>
-    </ul>
+      <h3 class="section-title">روابط تهمك</h3>
+      <ul class="links">
+        <li>الضمان الذهبي وسياسة المتجر</li>
+        <li>نبذة عن خلي ستور</li>
+        <li>تفعيل العضوية المميزة</li>
+        <li>استخراج الأكواد الاحتياطية</li>
+      </ul>
 
-    <h3 class="section-title">خدمة العملاء</h3>
-    <div class="contact-btns">
-      <a href="tel:+966123456789" class="contact-button">جوال</a>
-      <a href="https://t.me/yourTelegram" target="_blank" class="contact-button">تيليجرام</a>
+      <h3 class="section-title">خدمة العملاء</h3>
+      <div class="contact-btns">
+        <a href="tel:+966123456789" class="contact-button">جوال</a>
+        <a href="https://t.me/yourTelegram" target="_blank" class="contact-button">تيليجرام</a>
+      </div>
+
+      <div class="trusted">
+        <hr />
+        <p>موثّق في منصة الأعمال</p>
+        <img src="/business-logo.png" alt="منصة الأعمال" class="trusted-img" />
+      </div>
+
+      <div class="payment-icons">
+        <img src="/payments/gpay.png" alt="Google Pay" />
+        <img src="/payments/applepay.png" alt="Apple Pay" />
+        <img src="/payments/stcpay.png" alt="STC Pay" />
+        <img src="/payments/paypal.png" alt="PayPal" />
+        <img src="/payments/visa.png" alt="Visa" />
+        <img src="/payments/mastercard.png" alt="MasterCard" />
+        <img src="/payments/mada.png" alt="Mada" />
+      </div>
     </div>
+  </footer>
+</template>
 
-    <div class="trusted">
-      <hr />
-      <p>موثّق في منصة الأعمال</p>
-      <img src="/business-logo.png" alt="منصة الأعمال" class="trusted-img" />
-    </div>
-
-    <div class="payment-icons">
-      <img src="/payments/gpay.png" alt="Google Pay" />
-      <img src="/payments/applepay.png" alt="Apple Pay" />
-      <img src="/payments/stcpay.png" alt="STC Pay" />
-      <img src="/payments/paypal.png" alt="PayPal" />
-      <img src="/payments/visa.png" alt="Visa" />
-      <img src="/payments/mastercard.png" alt="MasterCard" />
-      <img src="/payments/mada.png" alt="Mada" />
-    </div>
-  </div>
-</footer>
-<template>
-
-</style scoped>
+<style scoped>
 .footer {
   background-color: #0c0c0c;
   color: white;
