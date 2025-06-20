@@ -25,20 +25,20 @@ export default {
       feedbackList: [
         {
           id: 1,
-          username: "خالد الحربي",
-          avatar: "src/assets/IMG_1500.webp",
-          text: " رهييييب 👏 10/10"
+          username: "عوض الحربي",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "10/10 افضل متجر باذن الله مب اخر مره"
         },
         {
           id: 2,
-          username: "naseer1319",
-          avatar: "src/assets/IMG_1500.webp",
-          text: "أنصحكم فيه، الأفضل بلا منازع"
+          username: "سعد مرتضى",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "أنصحكم فيه, ماكان عندي قيمة الطلب كامل ونقص المبلغ الله يسعده"
         },
         {
           id: 3,
-          username: "3we6",
-          avatar: "src/assets/IMG_1500.webp",
+          username: "فهد عبدالله",
+          avatar: "https://i.imgur.com/COjYjpR.png",
           text: "أي شيء تبغاه إن شاء الله موجود هناك وضمان مرة أسطوري وتعامل حلو"
         }
       ]
