@@ -1,64 +1,19 @@
 <script>
-import { RouterLink } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router'
 import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
 
-export default {
-  components: {
+export default{
+  components:{
     NavBar,
     Footer
   },
   data() {
     return {
-      discordUser: null,
-      feedbackList: [
-        {
-          id: 1,
-          username: ".11m",
-          avatar: "",
-          text: "قسم بالله عسل قليله بحقه رجال أخلاق وأسلوب وصبر علي مدري كيف"
-        },
-        {
-          id: 2,
-          username: "_9nj",
-          avatar: "",
-          text: "الأفضل و الأسرع  أسلوب واخلاق ومضمون"
-        },
-        {
-          id: 3,
-          username: "0.pa",
-          avatar: "",
-          text: "انا متعامل مع الرجال و اسلوبه مرا حلو + اسعار بوتاته رخيصه رغم الميزات انصح بالتعامل"
-        }
+      images:[
       ]
     };
   },
-  computed: {
-    discordLoginUrl() {
-      const CLIENT_ID = "ضع_هنا_CLIENT_ID";
-      const REDIRECT_URI = encodeURIComponent("https://your-vercel-app.vercel.app");
-      return `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=identify`;
-    }
-  },
-  async mounted() {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
-
-    if (code) {
-      try {
-        const response = await fetch(`https://your-vercel-app.vercel.app/api/auth/discord?code=${code}`);
-        const data = await response.json();
-        this.discordUser = data.user;
-        localStorage.setItem("discordUser", JSON.stringify(data.user));
-        window.history.replaceState({}, document.title, "/");
-      } catch (err) {
-        console.error("فشل تسجيل الدخول", err);
-      }
-    } else {
-      const saved = localStorage.getItem("discordUser");
-      if (saved) this.discordUser = JSON.parse(saved);
-    }
-  }
 }
 </script>
 
@@ -66,290 +21,290 @@ export default {
   <main>
     <div class="home">
       <NavBar />
-
-      <div class="login-header">
-        <div v-if="!discordUser">
-          <a :href="discordLoginUrl" class="discord-btn">🔐 تسجيل الدخول عبر ديسكورد</a>
-        </div>
-        <div v-else class="profile">
-          <img
-            :src="`https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`"
-            alt="Avatar"
-            class="avatar"
-          />
-          <p>مرحباً، {{ discordUser.username }}#{{ discordUser.discriminator }}</p>
-        </div>
-      </div>
-
       <div class="text">
         <h1>خلي ستور</h1>
-        <h2>متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونية</h2>
+        <h2>متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونيه</h2>
         <div class="btns">
           <RouterLink class="btn" to="/products">المنتجات</RouterLink>
-          <RouterLink class="btn" to="/order">اطلب الآن</RouterLink>
+          <RouterLink class="btn" to="/order">اطلب الان</RouterLink>
         </div>
       </div>
-
-      <!-- موجة بلون رمادي غامق بدل الأبيض -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path fill="#222" fill-opacity="1"
-          d="M0,128L48,149.3C96,171,192,213,288,224C384,235,480,213,576,186.7C672,160,768,128,864,133.3C960,139,1056,181,1152,186.7C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" />
-      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ffffff" fill-opacity="1" d="M0,128L48,149.3C96,171,192,213,288,224C384,235,480,213,576,186.7C672,160,768,128,864,133.3C960,139,1056,181,1152,186.7C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
     </div>
-
     <div class="feedbacks">
-      <h1>تـقـييمـات المـتـجـر <font-awesome-icon :icon="['fas', 'comment']" /></h1>
+      <h1>الأراء <font-awesome-icon :icon="['fas', 'comment']" /></h1>
       <div class="cont">
-        <div v-for="feedback in feedbackList" :key="feedback.id" class="cont1" data-aos="fade-right" data-aos-duration="1500">
-          <div class="top">
-            <div class="left">
-              <img :src="feedback.avatar" />
-              <p>{{ feedback.username }}</p>
-            </div>
-            <div class="right">
-              <p>⭐️⭐️⭐️⭐️⭐️</p>
-            </div>
-          </div>
-          <h3>{{ feedback.text }}</h3>
-        </div>
+        <div data-aos="fade-right" data-aos-duration="1500" class="cont1">
+                    <div class="top">
+                        <div class="left">
+                          <img src="">
+                          <p>kg.r</p>
+                        </div>
+                        <div class="right">
+                            <p>✨✨✨✨✨</p>
+                        </div>
+                    </div>
+                    <h3>افضل متجر حرفيا واضمن سيرفر</h3>
+                    </div>
+                    <div data-aos="fade-right" data-aos-duration="1500" class="cont1">
+                    <div class="top">
+                        <div class="left">
+                          <img src="">
+                          <p>naseer1319</p>
+                        </div>
+                        <div class="right">
+                            <p>✨✨✨✨✨</p>
+                        </div>
+                    </div>
+                    <h3>انصحكم فيه الافضل بلا منازع</h3>
+                    </div>
+                    <div data-aos="fade-right" data-aos-duration="1500" class="cont1">
+                    <div class="top">
+                        <div class="left">
+                            <img src="">
+                        <p>3we6</p>
+                        </div>
+                        <div class="right">
+                            <p>✨✨✨✨✨</p>
+                        </div>
+                    </div>
+                    <h3>اي شي تبغاه ان شاء الله موجود هناك وضمان مرة اسطوري وتعامل حلو</h3>
+                    </div>
       </div>
     </div>
-
     <Footer />
   </main>
 </template>
 
+
 <style scoped>
-:root {
-  --main-bg: #000;
-  --main-text: #fff;
-  --button-bg: #555;
-  --button-text: #fff;
-  --card-bg: #111;
-  --highlight: #4758b0;
+.cont img{
+  border-radius:8px;
+  width:40%;
 }
 
-body {
-  background-color: var(--main-bg);
-  margin: 0;
-  padding: 0;
-  font-family: "Cairo", sans-serif;
+.card{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:20px 20px;
+  border-radius:10px;
+  gap:30px;
 }
 
-a {
-  color: var(--button-text);
+  .home svg{
+    margin-top:auto;
+  }
+.card h2{
+  font-size:30px;
+  color:#3e404e;
 }
 
-main {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background-color: var(--main-bg);
-  color: var(--main-text);
+.card .info{
+  width:100%;
+  font-size:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:end;
 }
 
-.home {
-  width: 100%;
-  height: 100vh;
-  background-color: var(--main-bg);
-  background-size: cover;
+.cont{
+  margin-top:100px;
+  width:100%;
+  display:flex;
+  flex-direction:row;
+  gap:80px;
+  justify-content:center;
+  flex-wrap:wrap;
 }
 
-.login-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  margin-top: 15px;
+.card .price{
+  width:100%;
+  direction:rtl;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:start;
+  gap:10px;
 }
 
-.discord-btn {
-  padding: 10px 25px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border-radius: 30px;
-  text-decoration: none;
-  transition: background-color 0.3s;
+.prices h1,.feedbacks h1,.works h1{
+  color:#3e404e;
+  font-size:50px;
 }
 
-.discord-btn:hover {
-  background-color: #777;
+main{
+  width:100%;
+  height:100%;
+  overflow:hidden;
 }
 
-.avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+.prices{
+  margin-top:100px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
-.text {
-  text-align: center;
-  margin-top: 150px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
+.feedbacks{
+  margin-top:100px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
-.text h1 {
-  color: var(--main-text);
-  font-size: 55px;
-  text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.2);
+.works{
+  margin-top:100px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
-.text h2 {
-  color: var(--main-text);
-  font-weight: lighter;
-  width: 40%;
-  text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.1);
+.home{
+  width:100%;
+  height:100vh;
+  background-color:#000000;
+  background-size:cover;
 }
 
-.btns {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
+.text{
+  text-align:center;
+  margin-top:150px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
 }
 
-.btn {
-  text-decoration: none;
-  color: var(--button-text);
-  padding: 8px 30px;
-  border-radius: 25px;
-  background-color: var(--button-bg);
-  cursor: pointer;
-  box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.2);
+.text h1{
+  color:white;
+  font-size:55px;
+  text-shadow:1px 1px 3px rgba(0, 0, 0, 0.425);
 }
 
-.feedbacks {
-  margin-top: 100px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.text h2{
+  color:rgb(255, 255, 255);
+  font-weight:lighter;
+  width:40%;
+  text-shadow:2px 2px 5px rgba(0, 0, 0, 0.377);
 }
 
-.feedbacks h1 {
-  color: var(--highlight);
-  font-size: 55px;
+.btns{
+  margin-top:10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
 }
 
-.cont {
-  margin-top: 30px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  gap: 40px;
-  justify-content: center;
-  flex-wrap: wrap;
+.btn{
+  text-decoration:none;
+  color:#333;
+  padding:8px 30px;
+  border-radius:25px;
+  background-color:white;
+  cursor:pointer;
+  box-shadow:2px 2px 5px rgba(0, 0, 0, 0.377);
 }
 
-.cont1 {
-  border-radius: 8px;
-  background-color: var(--card-bg);
-  width: 400px;
-  padding: 5px 10px;
-  height: 250px;
-  display: flex;
-  flex-direction: column;
-  border-top: 4px solid var(--highlight);
-  border-bottom: 4px solid var(--highlight);
-  color: var(--main-text);
+.feedbacks img{
+  border-radius:100%;
+  background-color:#3e404e;
+  width:50px;
+  height:50px;
+  display:none;
 }
 
-.top {
-  margin-top: 15px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+.cont1{
+    border-radius:8px;
+    background-color:whitesmoke;
+    width:400px;
+    padding:5px 10px;
+    height:250px;
+    display:flex;
+    flex-direction:column;
+    border-top:4px solid #000000;
+    border-bottom:4px solid #000000;
 }
 
-.left {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+.top{
+    margin-top:15px;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
 }
 
-.top img {
-  width: 40px;
-  margin-right: 10px;
+.left{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
 }
 
-.cont1 h3 {
-  text-align: end;
-  margin-top: 60px;
-  padding: 5px 5px;
+.top img{
+    width:40px;
+    margin-right:10px;
 }
 
-/* 🟡 تنسيق الهاتف المحمول */
+.cont1 h3{
+    text-align:end;
+    margin-top:60px;
+    padding:5px 5px;
+}
+
 @media screen and (max-width: 768px) {
-  .login-header {
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
+  .home svg{
+    display:none;
   }
 
-  .text h1 {
-    font-size: 40px;
+  .home{
+    min-height:100vh;
   }
 
-  .text h2 {
-    font-size: 16px;
-    width: 90%;
+  .home .text h2{
+    width:90%;
   }
 
-  .btns {
-    flex-direction: column;
-    gap: 15px;
+  .prices{
+    margin-top:200px;
   }
 
-  .btn {
-    width: 80%;
-    text-align: center;
-    font-size: 18px;
+  .works img{
+    width:80%;
+  }
+  .cont1{
+    width:90%;
   }
 
-  .cont {
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
+  .prices .card{
+    width:90%;
+  }
+  .card img{
+    width:200px;
+  }
+  .cont1 p{
+    font-size:20px;
   }
 
-  .cont1 {
-    width: 90%;
-    height: auto;
-    padding: 15px;
+  .prices .card{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
   }
-
-  .cont1 h3 {
-    font-size: 14px;
-    margin-top: 30px;
+  
+  .prices .card h2,.prices .card .info,.prices .card .price{
+    width:300px;
   }
-
-  .feedbacks h1 {
-    font-size: 32px;
-    text-align: center;
-  }
-
-  .top {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .left,
-  .right {
-    flex-direction: column;
-  }
-
-  .home svg {
-    display: none;
-  }
-
-  .home {
-    min-height: 120vh;
+  .home{
+    min-height:120vh;
   }
 }
 </style>
