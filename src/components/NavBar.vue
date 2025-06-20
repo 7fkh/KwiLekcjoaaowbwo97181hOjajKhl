@@ -1,6 +1,5 @@
 <template>
   <div class="nav">
-    <img src="https://i.imgur.com/n4eXXyq.png">
     <div class="pages">
       <a href="/">الرئيسية</a>
       <a href="#prices">المنتجات</a>
@@ -37,12 +36,6 @@ https://linktr.ee/KhLiStoRe">حسابات المتجر</a>
   text-decoration:none;
   color:white;
   cursor:pointer;
-}
-
-.nav img{
-  width:120px;
-  height:85px;
-  size:85px;
 }
 
 /*
