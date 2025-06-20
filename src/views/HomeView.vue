@@ -48,10 +48,10 @@ export default {
       <NavBar />
       <div class="text">
         <h1>خلي ستور</h1>
-        <h2>متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الإلكترونية</h2>
+        <h2>متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونيه</h2>
         <div class="btns">
           <RouterLink class="btn" to="/products">المنتجات</RouterLink>
-          <RouterLink class="btn" to="/order">اطلب الآن</RouterLink>
+          <RouterLink class="btn" to="/order">اطلب الان</RouterLink>
         </div>
       </div>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -60,7 +60,8 @@ export default {
       </svg>
     </div>
 
-    <div class="feedbacks-slider">
+    <!-- قسم التقييمات المتحركة -->
+    <div class="feedbacks">
       <h1>شهادة عملائنا لنا - KhLi StoRe</h1>
       <Swiper
         :modules="[Autoplay]"
@@ -70,10 +71,13 @@ export default {
         class="testimonial-swiper"
       >
         <SwiperSlide v-for="feedback in feedbackList" :key="feedback.id">
-          <div class="testimonial-card">
+          <div class="cont1">
             <div class="top">
-              <img :src="feedback.avatar || '/IMG_1500.webp'" />
-              <p>{{ feedback.username }}</p>
+              <div class="left">
+                <img :src="feedback.avatar || '/default-avatar.png'" />
+                <p>{{ feedback.username }}</p>
+              </div>
+              <div class="right"></div>
             </div>
             <h3>{{ feedback.text }}</h3>
           </div>
@@ -86,44 +90,228 @@ export default {
 </template>
 
 <style scoped>
-/* أضف تنسيق CSS المناسب هنا حسب تنسيقاتك السابقة */
-.feedbacks-slider {
+.cont img {
+  border-radius: 8px;
+  width: 40%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 20px;
+  border-radius: 10px;
+  gap: 30px;
+}
+
+.home svg {
+  margin-top: auto;
+}
+
+.card h2 {
+  font-size: 30px;
+  color: #3e404e;
+}
+
+.card .info {
+  width: 100%;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+}
+
+.cont {
   margin-top: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card .price {
+  width: 100%;
+  direction: rtl;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 10px;
+}
+
+.prices h1,
+.feedbacks h1,
+.works h1 {
+  color: #3e404e;
+  font-size: 50px;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.prices,
+.feedbacks,
+.works {
+  margin-top: 100px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.feedbacks-slider h1 {
-  font-size: 50px;
-  color: #3e404e;
-  margin-bottom: 30px;
+
+.home {
+  width: 100%;
+  height: 100vh;
+  background-color: #000000;
+  background-size: cover;
 }
-.testimonial-swiper {
-  width: 90%;
-  max-width: 500px;
-}
-.testimonial-card {
-  background-color: whitesmoke;
-  padding: 20px;
-  border-radius: 10px;
-  border-top: 4px solid black;
-  border-bottom: 4px solid black;
-  text-align: right;
-}
-.testimonial-card .top {
+
+.text {
+  text-align: center;
+  margin-top: 150px;
+  width: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
-.testimonial-card img {
+
+.text h1 {
+  color: white;
+  font-size: 55px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.425);
+}
+
+.text h2 {
+  color: rgb(255, 255, 255);
+  font-weight: lighter;
+  width: 40%;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
+}
+
+.btns {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn {
+  text-decoration: none;
+  color: #333;
+  padding: 8px 30px;
+  border-radius: 25px;
+  background-color: white;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
+}
+
+.feedbacks img {
+  border-radius: 100%;
+  background-color: #3e404e;
   width: 50px;
   height: 50px;
-  border-radius: 50%;
-  background-color: #3e404e;
+  display: inline-block;
 }
-.testimonial-card h3 {
-  margin-top: 20px;
-  font-size: 18px;
-  color: #000;
+
+.cont1 {
+  border-radius: 8px;
+  background-color: whitesmoke;
+  width: 400px;
+  padding: 5px 10px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  border-top: 4px solid #000000;
+  border-bottom: 4px solid #000000;
+}
+
+.top {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.top img {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.cont1 h3 {
+  text-align: end;
+  margin-top: 60px;
+  padding: 5px 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .home svg {
+    display: none;
+  }
+
+  .home {
+    min-height: 100vh;
+  }
+
+  .home .text h2 {
+    width: 90%;
+  }
+
+  .prices {
+    margin-top: 200px;
+  }
+
+  .works img {
+    width: 80%;
+  }
+
+  .cont1 {
+    width: 90%;
+  }
+
+  .prices .card {
+    width: 90%;
+  }
+
+  .card img {
+    width: 200px;
+  }
+
+  .cont1 p {
+    font-size: 20px;
+  }
+
+  .prices .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .prices .card h2,
+  .prices .card .info,
+  .prices .card .price {
+    width: 300px;
+  }
+
+  .home {
+    min-height: 120vh;
+  }
 }
 </style>
