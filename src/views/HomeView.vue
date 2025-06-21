@@ -101,8 +101,8 @@ export default {
 
 /* تصميم الخلفيه والتقييم */
 .testimonial-card {
-  background-color: #3498DB;
-  color: #000000;
+  background-color: #000000;
+  color: #ffffff;
   border-radius: 15px;
   padding: 20px;
   width: 90%;
@@ -143,7 +143,7 @@ export default {
 
 .feedback-text {
   font-size: 18px;
-  color: #ccc;
+  color: #ffffff;
 }
 
 /* حركة الدخول */
