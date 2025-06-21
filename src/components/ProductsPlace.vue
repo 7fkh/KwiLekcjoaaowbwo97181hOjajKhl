@@ -166,26 +166,25 @@ export default {
   </div>
 </div>
 
-<!-- الشريط الجانبي -->
+<!-- الشريط الجانبي --><!-- الشريط الجانبي -->
 <div class="sidebar animated-background-dark" :class="{ open: sidebarOpen }">
   <h3>القائمة</h3>
   <ul>
     <li @click="filterProducts('الكل')">عرض الكل</li>
     <li @click="filterProducts('ديسكورد')">ديسكورد</li>
     <li @click="filterProducts('فايف ام')">فايف ام</li>
-    <li @click="filterProducts('موقع خاص')">مواقع خاصه</li>
+    <li @click="filterProducts('مواقع')">مواقع خاصه</li> <!-- ✅ تم التعديل هنا -->
     <li @click="filterProducts('طلب خاص')">طلب خاص</li>
   </ul>
 </div>
 
-<h1 class="start" data-aos="fade-up">المنتجات</h1>
-
+<!-- فلترة المنتجات -->
 <div class="filter">
   <ul>
     <li @click="filterProducts('الكل')" :class="{ active: selectedCategory === 'الكل' }">الكل</li>
     <li @click="filterProducts('ديسكورد')" :class="{ active: selectedCategory === 'ديسكورد' }">ديسكورد</li>
     <li @click="filterProducts('فايف ام')" :class="{ active: selectedCategory === 'فايف ام' }">فايف ام</li>
-    <li @click="filterProducts('موقع خاص')" :class="{ active: selectedCategory === 'موقع خاص' }">موقع خاص</li>
+    <li @click="filterProducts('مواقع')" :class="{ active: selectedCategory === 'مواقع' }">مواقع خاصه</li> <!-- ✅ تم التعديل هنا -->
     <li @click="filterProducts('طلب خاص')" :class="{ active: selectedCategory === 'طلب خاص' }">طلب خاص</li>
   </ul>
 </div>
