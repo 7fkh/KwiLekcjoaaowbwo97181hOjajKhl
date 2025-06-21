@@ -92,7 +92,7 @@ export default {
 <style scoped>
 /* عنوان التقييمات */
 .section-title {
-  color: #00aaff;
+  color: #ffffff;
   font-size: 40px;
   margin-bottom: 40px;
   text-align: center;
