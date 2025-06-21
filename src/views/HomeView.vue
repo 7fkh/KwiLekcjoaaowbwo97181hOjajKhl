@@ -1,168 +1,225 @@
 <script>
+import { RouterLink } from 'vue-router'
+import NavBar from '@/components/NavBar.vue'
+import Footer from '@/components/Footer.vue'
+
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/autoplay';
+import { Autoplay } from 'swiper/modules';
+
 export default {
+  components: {
+    NavBar,
+    Footer,
+    Swiper,
+    SwiperSlide
+  },
   data() {
     return {
-      selectedCategory: 'الكل',
-      cart: [],
-      sidebarOpen: false,
-      cartOpen: false,
-      showNotification: false,
-      lastAddedProduct: null,
-      products: [
+      modules: [Autoplay],
+      feedbackList: [
         {
-          title: "برمجة سيرفر فايف ام",
-          description: "من الصفر",
-          price: 25,
-          category: "فايف ام",
-          image: "https://i.imgur.com/kAg2dIa.jpeg"
+          id: 1,
+          username: "عوض الحربي",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "10/10 افضل متجر باذن الله مب اخر مره"
         },
         {
-          title: "بوت ديسكورد",
-          description: "مع مميزات عديدة",
-          price: 50,
-          category: "ديسكورد",
-          image: "https://i.imgur.com/kAg2dIa.jpeg"
+          id: 2,
+          username: "سعد مرتضى",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "أنصحكم فيه, ماكان عندي قيمة الطلب كامل ونقص المبلغ الله يسعده"
         },
         {
-          title: "موقع خاص",
-          description: "بلغات جديده",
-          price: 30,
-          category: "مواقع",
-          image: "https://i.imgur.com/kAg2dIa.jpeg"
+          id: 3,
+          username: "عبدالله الغامدي",
+          avatar: "https://i.imgur.com/QP1AlsJ.jpeg",
+          text: "الافضل ابو خلي و موثوقققق مره انصحكم فيه،"
         },
         {
-          title: "طلب مخصص",
-          description: "حدد ما تريده",
-          price: 100,
-          category: "طلب خاص",
-          image: "https://i.imgur.com/kAg2dIa.jpeg"
+          id: 4,
+          username: "ابو زهره",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "خلي ستور امبراطور الساحة .."
+        },
+        {
+          id: 5,
+          username: "فهد عبدالله",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "أي شيء تبغاه إن شاء الله موجود هناك وضمان مرة أسطوري وتعامل حلو"
+        },
+        {
+          id: 6,
+          username: "صالح المريسي",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: " ابو خلي ما يقصر فنان بكل شي تبي بوتات واقعية تبي شوب تبي اي شي بس كلمه وجهز فلوسك"
+        },
+        {
+          id: 7,
+          username: "سالم التميمي",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "متجر جميل وجيد اسعاره مقبوله وسريعين بالخدمه"
         }
       ]
     };
-  },
-  computed: {
-    filteredproducts2() {
-      if (this.selectedCategory === 'الكل') return this.products;
-      return this.products.filter(p => p.category === this.selectedCategory);
-    }
-  },
-  methods: {
-    filterProducts(category) {
-      this.selectedCategory = category;
-      this.sidebarOpen = false;
-    },
-    addToCart(product) {
-      this.cart.push(product);
-      this.lastAddedProduct = product;
-      this.showNotification = true;
-      setTimeout(() => {
-        this.showNotification = false;
-      }, 2500);
-    },
-    toggleSidebar() {
-      this.sidebarOpen = !this.sidebarOpen;
-    },
-    toggleCart() {
-      this.cartOpen = !this.cartOpen;
-    }
   }
-};
+}
 </script>
 
 <template>
-  <div class="type home">
-    <!-- إشعار الإضافة للسلة -->
-    <div v-if="showNotification" class="notification-card testimonial-card" data-aos="fade-down">
-      ✅ تمت إضافة {{ lastAddedProduct.title }} إلى السلة!
-    </div>
-
-    <!-- رأس الصفحة -->
-    <div class="header">
-      <div class="cart-icon" @click="toggleCart" title="عرض السلة">
-        🛒 ({{ cart.length }})
-      </div>
-      <div class="menu-icon" @click="toggleSidebar" title="القائمة">
-        ☰
-      </div>
-    </div>
-
-    <!-- نافذة السلة -->
-    <div v-if="cartOpen" class="cart-popup testimonial-card" data-aos="fade-left">
-      <h3>السلة</h3>
-      <div v-if="cart.length === 0">السلة فارغة.</div>
-      <ul v-else>
-        <li v-for="(item, index) in cart" :key="index">
-          {{ item.title }} - {{ item.price }} SAR
-        </li>
-      </ul>
-    </div>
-
-    <!-- الشريط الجانبي -->
-    <div class="sidebar" :class="{ open: sidebarOpen }" data-aos="fade-left">
-      <h3>القائمة</h3>
-      <ul>
-        <li @click="filterProducts('الكل')">عرض الكل</li>
-        <li @click="filterProducts('ديسكورد')">ديسكورد</li>
-        <li @click="filterProducts('فايف ام')">فايف ام</li>
-        <li @click="filterProducts('موقع خاص')">مواقع خاصه</li>
-        <li @click="filterProducts('طلب خاص')">طلب خاص</li>
-      </ul>
-    </div>
-
-    <h1 class="start" data-aos="fade-up">المنتجات</h1>
-
-    <!-- فلاتر التصنيفات -->
-    <div class="filter feedbacks">
-      <ul>
-        <li @click="filterProducts('الكل')" :class="{ active: selectedCategory === 'الكل' }">الكل</li>
-        <li @click="filterProducts('ديسكورد')" :class="{ active: selectedCategory === 'ديسكورد' }">ديسكورد</li>
-        <li @click="filterProducts('فايف ام')" :class="{ active: selectedCategory === 'فايف ام' }">فايف ام</li>
-        <li @click="filterProducts('موقع خاص')" :class="{ active: selectedCategory === 'موقع خاص' }">موقع خاص</li>
-        <li @click="filterProducts('طلب خاص')" :class="{ active: selectedCategory === 'طلب خاص' }">طلب خاص</li>
-      </ul>
-    </div>
-
-    <!-- عرض المنتجات -->
-    <div class="cont">
-      <div v-if="filteredproducts2.length === 0" class="no-products">
-        لا توجد منتجات في هذا القسم حاليًا.
-      </div>
-
-      <div class="card testimonial-card" data-aos="zoom-in" v-for="(product, index) in filteredproducts2" :key="index">
-        <img :src="product.image" alt="Product Image" />
-        <h3>{{ product.title }}</h3>
-        <p>{{ product.description }}</p>
-        <div class="btn">
-          <a>
-            {{ product.price }} SAR
-          </a>
-          <a class="button" @click="addToCart(product)">
-            ➕ أضف للسلة
-          </a>
+  <main>
+    <div class="home">
+      <NavBar />
+      <div class="text">
+        <h1>خلي ستور</h1>
+        <h2>متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونيه</h2>
+        <div class="btns">
+          <RouterLink class="btn" to="/products">المنتجات</RouterLink>
+          <RouterLink class="btn" to="/order">اطلب الان</RouterLink>
         </div>
       </div>
     </div>
-  </div>
+
+    <div class="feedbacks">
+      <h1 class="section-title">شهادة عملاء خلي ستور || KhLiStoRe</h1>
+      <Swiper
+        :modules="modules"
+        :slides-per-view="1"
+        :loop="true"
+        :autoplay="{ delay: 4000, disableOnInteraction: false }"
+        class="testimonial-swiper"
+      >
+        <SwiperSlide v-for="feedback in feedbackList" :key="feedback.id">
+          <div class="testimonial-card animated">
+            <img class="user-img" :src="feedback.avatar" alt="avatar" />
+            <p class="username">{{ feedback.username }}</p>
+            <div class="stars">
+              <span v-for="n in 5" :key="n" class="star">★</span>
+            </div>
+            <p class="feedback-text">{{ feedback.text }}</p>
+          </div>
+        </SwiperSlide>
+      </Swiper>
+    </div>
+
+    <Footer />
+  </main>
 </template>
 
-<style>
-body {
-  margin: 0;
-  padding: 0;
-  background: #000; /* خلفية سوداء */
-  font-family: 'Rubik', sans-serif;
-  color: white;
+<style scoped>
+.section-title {
+  color: #ffffff;
+  font-size: 40px;
+  margin-bottom: 40px;
+  text-align: center;
+  font-weight: bold;
 }
 
-/* تطبيق الأنميشن على خلفيات معينة */
+.testimonial-card {
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeInUp 1s ease;
+}
+
+.user-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-top: -50px;
+  border: 5px solid #3e3e3e;
+  object-fit: cover;
+}
+
+.username {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.stars {
+  margin: 10px 0;
+}
+
+.star {
+  color: gold;
+  font-size: 22px;
+  margin: 0 2px;
+}
+
+.feedback-text {
+  font-size: 18px;
+  color: #ffffff;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .home {
-  animation: gradientMove 4s ease-in-out infinite;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
   background-size: 400% 400%;
+  animation: gradientMove 4s ease-in-out infinite;
+  position: relative;
+}
+
+.home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.home > * {
+  position: relative;
+  z-index: 2;
 }
 
 .feedbacks {
-  animation: gradientMove 4s ease-in-out infinite;
+  padding: 50px 0;
+  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
   background-size: 400% 400%;
+  animation: gradientMove 4s ease-in-out infinite;
+  position: relative;
+}
+
+.feedbacks::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+}
+
+.feedbacks > * {
+  position: relative;
+  z-index: 2;
 }
 
 @keyframes gradientMove {
@@ -177,260 +234,74 @@ body {
   }
 }
 
-/* بطاقة التقييم / المنتجات و الإشعار مع انميشن fadeInUp */
-.testimonial-card {
-  animation: fadeInUp 1s ease;
-}
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.type {
-  padding: 20px;
-}
-
-.filter ul {
-  list-style: none;
-  display: flex;
-  gap: 10px;
-  padding: 0;
-  flex-wrap: wrap;
-}
-
-.filter ul li {
-  padding: 10px 15px;
-  font-weight: bold;
-  cursor: pointer;
-  background: #333; /* رصاصي */
-  border-radius: 8px;
-  color: white;
-  transition: 0.3s;
-  border: none;
-}
-
-.filter ul li:hover,
-.filter ul li.active {
-  background: #666; /* رصاصي أفتح عند التحديد */
-}
-
-p {
-  color: white;
-  font-size: 18px;
-}
-
-/* الحاوية التي تحتوي المنتجات */
-.cont {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-/* البطاقة الواحدة */
-.card {
-  background: #111;
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 5px #222;
+.text {
   text-align: center;
-  width: 260px; /* حجم البطاقة العرضي */
-  flex-shrink: 0;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 5px 15px #555;
-}
-
-/* الصورة داخل البطاقة */
-.card img {
+  margin-top: 150px;
   width: 100%;
-  height: 170px; /* تصغير الصورة */
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
-.card h3 {
-  margin: 10px 0;
-  font-size: 18px;
+.text h1 {
+  color: white;
+  font-size: 55px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.425);
 }
 
-/* استجابة للجوال */
-@media (max-width: 768px) {
-  .cont {
-    flex-direction: column;
-    align-items: center;
-  }
+.text h2 {
+  color: rgb(255, 255, 255);
+  font-weight: lighter;
+  width: 40%;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
+}
 
-  .card {
-    width: 90%;
-  }
-
-  .card img {
-    height: 180px;
-  }
+.btns {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .btn {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-decoration: none;
+  color: #000000;
+  padding: 8px 30px;
+  border-radius: 25px;
+  background-color: #5870f6;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
+  transition: all 0.3s ease;
 }
 
 .btn:hover {
-  transition: all 0.3s ease;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
 }
 
-.button {
-  color: white;
-  background-color: #444;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 18px;
-  transition: 0.3s;
-  cursor: pointer;
-}
+@media screen and (max-width: 768px) {
+  .text h2 {
+    width: 90%;
+  }
 
-.button:hover {
-  background-color: #666;
-}
+  .testimonial-card {
+    width: 95%;
+  }
 
-/* رأس الصفحة */
-.header {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  padding: 20px;
-  font-weight: bold;
-  color: white;
-  gap: 15px;
-  position: relative;
-  z-index: 10;
-}
+  .user-img {
+    width: 70px;
+    height: 70px;
+  }
 
-.menu-icon {
-  font-size: 26px;
-  cursor: pointer;
-}
+  .username {
+    font-size: 18px;
+  }
 
-.cart-icon {
-  font-size: 22px;
-  cursor: pointer;
-  background: #333;
-  padding: 10px 15px;
-  border-radius: 8px;
-  transition: 0.3s;
-  user-select: none;
-}
-.cart-icon:hover {
-  background: #555;
-}
-
-/* نافذة السلة */
-.cart-popup {
-  position: absolute;
-  top: 70px;
-  right: 20px;
-  background-color: #111;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px #222;
-  width: 280px;
-  max-height: 350px;
-  overflow-y: auto;
-  z-index: 1000;
-}
-
-.cart-popup h3 {
-  margin-bottom: 10px;
-  color: white;
-  font-size: 20px;
-  border-bottom: 1px solid #444;
-  padding-bottom: 6px;
-}
-
-.cart-popup ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.cart-popup ul li {
-  padding: 8px 0;
-  border-bottom: 1px solid #333;
-  font-size: 16px;
-  color: #ddd;
-}
-
-/* الشريط الجانبي */
-.sidebar {
-  position: fixed;
-  top: 0;
-  right: -250px;
-  width: 220px;
-  height: 100%;
-  background-color: #111;
-  color: white;
-  padding: 20px;
-  box-shadow: -2px 0 5px rgba(255, 255, 255, 0.1);
-  transition: right 0.3s ease;
-  z-index: 999;
-}
-
-.sidebar.open {
-  right: 0;
-}
-
-.sidebar h3 {
-  margin-bottom: 15px;
-  color: white;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar ul li {
-  padding: 10px;
-  cursor: pointer;
-  border-bottom: 1px solid #444;
-  color: white;
-}
-
-.sidebar ul li:hover {
-  background-color: #333;
-}
-
-/* إشعار الإضافة للسلة */
-.notification-card {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #222;
-  color: white;
-  padding: 15px 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px #444;
-  font-weight: bold;
-  z-index: 10000;
-  animation: fadeInUp 0.3s ease-out;
-  user-select: none;
+  .feedback-text {
+    font-size: 16px;
+  }
 }
 </style>
