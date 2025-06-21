@@ -15,10 +15,10 @@ const router = createRouter({
       component: () => import('../views/OrderView.vue')
     },
     {
-      path: '/products',
-      name: 'products',
-      component: () => import('../views/Products.vue')
-    }
+  path: '/products',
+  name: 'ProductsPlace',
+  component: () => import('@/views/ProductsPlace.vue')
+}
   ]
 })
 
