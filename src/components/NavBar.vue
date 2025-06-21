@@ -1,11 +1,11 @@
 <template>
-  <div class="nav home">
-    <div class="pages fadeUpCustom">
+  <div class="nav">
+    <div class="pages">
       <a href="/">الرئيسية</a>
       <a href="#prices">المنتجات</a>
       <a href="/order">اطلب الان</a>
     </div>
-    <div class="btns fadeUpCustom">
+    <div class="btns">
       <a class="btn" href="https://discord.gg/khli" target="_blank" rel="noopener">سيرفر الديسكورد</a>
       <a class="btn" href="https://linktr.ee/KhLiStoRe" target="_blank" rel="noopener">حسابات المتجر</a>
     </div>
@@ -13,60 +13,6 @@
 </template>
 
 <style scoped>
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.fadeUpCustom {
-  animation: fadeInUp 0.8s ease;
-}
-
-.home {
-  width: 100%;
-  min-height: 15vh; /* height حسب navbar */
-  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
-  background-size: 400% 400%;
-  animation: gradientMove 4s ease-in-out infinite;
-  position: relative;
-  overflow-x: hidden;
-}
-
-.home::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 1;
-}
-
-.home > * {
-  position: relative;
-  z-index: 2;
-}
-
-/* التنسيق العام للنافبار */
 .nav {
   width: 100%;
   height: 15vh;
@@ -75,6 +21,7 @@
   justify-content: center;
   align-items: center;
   gap: 20%;
+  background: transparent; /* خلفية شفافة */
   color: white;
 }
 
