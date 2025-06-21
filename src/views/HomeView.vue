@@ -164,9 +164,9 @@ export default {
 .home {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
-  background-size: 400% 400%;
-  animation: gradientMove 4s ease-in-out infinite;
+  background: linear-gradient(45deg, #5870f6, #5c6074, #3a4ed8, #7d8596, #5870f6, #5c6074);
+  background-size: 600% 600%;
+  animation: gradientMove 3s ease-in-out infinite;
   position: relative;
 }
 
@@ -177,7 +177,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
 
@@ -189,9 +189,9 @@ export default {
 /* قسم التقييمات مع انميشن */
 .feedbacks {
   padding: 50px 0;
-  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
-  background-size: 400% 400%;
-  animation: gradientMove 4s ease-in-out infinite;
+  background: linear-gradient(45deg, #5870f6, #5c6074, #3a4ed8, #7d8596, #5870f6, #5c6074);
+  background-size: 600% 600%;
+  animation: gradientMove 3s ease-in-out infinite;
   position: relative;
 }
 
@@ -202,7 +202,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1;
 }
 
@@ -214,13 +214,19 @@ export default {
 /* انميشن الخلفية المحسن */
 @keyframes gradientMove {
   0% {
-    background-position: 0% 50%;
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
   }
   50% {
-    background-position: 100% 50%;
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
   }
   100% {
-    background-position: 0% 50%;
+    background-position: 0% 0%;
   }
 }
 
