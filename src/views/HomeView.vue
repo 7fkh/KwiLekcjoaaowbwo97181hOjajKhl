@@ -61,7 +61,7 @@
 ‏      </div>
 ‏    </div>
 
-
+```
 ‏<div class="feedbacks">
 ‏  <h1 class="section-title">شهادة عملاء خلي ستور || KhLiStoRe</h1>
 ‏  <Swiper
@@ -83,7 +83,7 @@
 ‏    </SwiperSlide>
 ‏  </Swiper>
 ‏</div>
-
+```
 ‏<Footer />
 
 
