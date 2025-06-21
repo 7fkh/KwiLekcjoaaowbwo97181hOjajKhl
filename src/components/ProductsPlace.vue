@@ -77,7 +77,7 @@ export default {
     </div>
 
     <!-- رأس الصفحة -->
-    <div class="header">
+    <div class="header fadeUpCustom">
       <div class="cart-icon" @click="toggleCart" title="عرض السلة">
         🛒 ({{ cart.length }})
       </div>
@@ -146,19 +146,7 @@ export default {
 </template>
 
 <style>
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Rubik', sans-serif;
-  color: white;
-  background: black;
-}
-
-.fadeUpCustom {
-  animation: fadeUpCustom 0.8s ease;
-}
-
-@keyframes fadeUpCustom {
+@keyframes fadeInUp {
   0% {
     opacity: 0;
     transform: translateY(30px);
@@ -167,13 +155,6 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.home {
-  background: linear-gradient(270deg, #0f0f0f, #1a1a1a, #222, #1a1a1a, #0f0f0f);
-  background-size: 400% 400%;
-  animation: gradientMove 10s ease infinite;
-  min-height: 100vh;
 }
 
 @keyframes gradientMove {
@@ -188,10 +169,42 @@ body {
   }
 }
 
-.btn:hover {
-  transition: all 0.3s ease;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+.fadeUpCustom {
+  animation: fadeInUp 0.8s ease;
+}
+
+.home {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
+  background-size: 400% 400%;
+  animation: gradientMove 4s ease-in-out infinite;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.home > * {
+  position: relative;
+  z-index: 2;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Rubik', sans-serif;
+  color: white;
+  background: black;
 }
 
 .type {
