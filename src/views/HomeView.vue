@@ -102,7 +102,7 @@ export default {
 /* تصميم الخلفيه والتقييم */
 .testimonial-card {
   background-color: #000000;
-  color: #ffffff;
+  color: #000000;
   border-radius: 15px;
   padding: 20px;
   width: 90%;
