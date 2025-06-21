@@ -70,10 +70,9 @@ export default {
 </script>
 
 <template>
-  <div class="type">
-
+  <div class="type home">
     <!-- إشعار الإضافة للسلة -->
-    <div v-if="showNotification" class="notification-card" data-aos="fade-down">
+    <div v-if="showNotification" class="notification-card testimonial-card" data-aos="fade-down">
       ✅ تمت إضافة {{ lastAddedProduct.title }} إلى السلة!
     </div>
 
@@ -88,7 +87,7 @@ export default {
     </div>
 
     <!-- نافذة السلة -->
-    <div v-if="cartOpen" class="cart-popup" data-aos="fade-left">
+    <div v-if="cartOpen" class="cart-popup testimonial-card" data-aos="fade-left">
       <h3>السلة</h3>
       <div v-if="cart.length === 0">السلة فارغة.</div>
       <ul v-else>
@@ -113,7 +112,7 @@ export default {
     <h1 class="start" data-aos="fade-up">المنتجات</h1>
 
     <!-- فلاتر التصنيفات -->
-    <div class="filter">
+    <div class="filter feedbacks">
       <ul>
         <li @click="filterProducts('الكل')" :class="{ active: selectedCategory === 'الكل' }">الكل</li>
         <li @click="filterProducts('ديسكورد')" :class="{ active: selectedCategory === 'ديسكورد' }">ديسكورد</li>
@@ -129,7 +128,7 @@ export default {
         لا توجد منتجات في هذا القسم حاليًا.
       </div>
 
-      <div class="card" data-aos="zoom-in" v-for="(product, index) in filteredproducts2" :key="index">
+      <div class="card testimonial-card" data-aos="zoom-in" v-for="(product, index) in filteredproducts2" :key="index">
         <img :src="product.image" alt="Product Image" />
         <h3>{{ product.title }}</h3>
         <p>{{ product.description }}</p>
@@ -143,7 +142,6 @@ export default {
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -154,6 +152,45 @@ body {
   background: #000; /* خلفية سوداء */
   font-family: 'Rubik', sans-serif;
   color: white;
+}
+
+/* تطبيق الأنميشن على خلفيات معينة */
+.home {
+  animation: gradientMove 4s ease-in-out infinite;
+  background-size: 400% 400%;
+}
+
+.feedbacks {
+  animation: gradientMove 4s ease-in-out infinite;
+  background-size: 400% 400%;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* بطاقة التقييم / المنتجات و الإشعار مع انميشن fadeInUp */
+.testimonial-card {
+  animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .type {
@@ -252,6 +289,12 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.btn:hover {
+  transition: all 0.3s ease;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
 }
 
 .button {
@@ -389,16 +432,5 @@ p {
   z-index: 10000;
   animation: fadeInUp 0.3s ease-out;
   user-select: none;
-}
-
-@keyframes fadeInUp {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
 </style>
