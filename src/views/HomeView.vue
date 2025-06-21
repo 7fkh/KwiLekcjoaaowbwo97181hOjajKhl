@@ -38,6 +38,12 @@ export default {
 			       text: "الافضل ابو خلي و موثوقققق مره انصحكم فيه،"
         },
         {
+          id: 5,
+          username: "ابو زهره",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+			       text: "خلي ستور امبراطور الساحة .."
+        },
+        {
           id: 4,
           username: "فهد عبدالله",
           avatar: "https://i.imgur.com/COjYjpR.png",
