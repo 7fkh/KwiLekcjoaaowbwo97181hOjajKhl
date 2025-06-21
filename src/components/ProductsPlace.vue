@@ -72,7 +72,7 @@ export default {
 <template>
   <div class="type home">
     <!-- إشعار الإضافة للسلة -->
-    <div v-if="showNotification" class="notification-card testimonial-card" data-aos="fade-down">
+    <div v-if="showNotification" class="notification-card fadeUpCustom">
       ✅ تمت إضافة {{ lastAddedProduct.title }} إلى السلة!
     </div>
 
@@ -87,7 +87,7 @@ export default {
     </div>
 
     <!-- نافذة السلة -->
-    <div v-if="cartOpen" class="cart-popup testimonial-card" data-aos="fade-left">
+    <div v-if="cartOpen" class="cart-popup fadeUpCustom">
       <h3>السلة</h3>
       <div v-if="cart.length === 0">السلة فارغة.</div>
       <ul v-else>
@@ -98,7 +98,7 @@ export default {
     </div>
 
     <!-- الشريط الجانبي -->
-    <div class="sidebar" :class="{ open: sidebarOpen }" data-aos="fade-left">
+    <div class="sidebar" :class="{ open: sidebarOpen }">
       <h3>القائمة</h3>
       <ul>
         <li @click="filterProducts('الكل')">عرض الكل</li>
@@ -109,10 +109,10 @@ export default {
       </ul>
     </div>
 
-    <h1 class="start" data-aos="fade-up">المنتجات</h1>
+    <h1 class="start fadeUpCustom">المنتجات</h1>
 
     <!-- فلاتر التصنيفات -->
-    <div class="filter feedbacks">
+    <div class="filter fadeUpCustom">
       <ul>
         <li @click="filterProducts('الكل')" :class="{ active: selectedCategory === 'الكل' }">الكل</li>
         <li @click="filterProducts('ديسكورد')" :class="{ active: selectedCategory === 'ديسكورد' }">ديسكورد</li>
@@ -128,7 +128,7 @@ export default {
         لا توجد منتجات في هذا القسم حاليًا.
       </div>
 
-      <div class="card testimonial-card" data-aos="zoom-in" v-for="(product, index) in filteredproducts2" :key="index">
+      <div class="card fadeUpCustom" v-for="(product, index) in filteredproducts2" :key="index">
         <img :src="product.image" alt="Product Image" />
         <h3>{{ product.title }}</h3>
         <p>{{ product.description }}</p>
@@ -149,18 +149,27 @@ export default {
 body {
   margin: 0;
   padding: 0;
-  background: #000; /* خلفية سوداء */
+  background: #000;
   font-family: 'Rubik', sans-serif;
   color: white;
 }
 
-/* تطبيق الأنميشن على خلفيات معينة */
-.home {
-  animation: gradientMove 4s ease-in-out infinite;
-  background-size: 400% 400%;
+.fadeUpCustom {
+  animation: fadeUpCustom 0.8s ease;
 }
 
-.feedbacks {
+@keyframes fadeUpCustom {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home {
   animation: gradientMove 4s ease-in-out infinite;
   background-size: 400% 400%;
 }
@@ -177,20 +186,10 @@ body {
   }
 }
 
-/* بطاقة التقييم / المنتجات و الإشعار مع انميشن fadeInUp */
-.testimonial-card {
-  animation: fadeInUp 1s ease;
-}
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.btn:hover {
+  transition: all 0.3s ease;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
 }
 
 .type {
@@ -209,16 +208,15 @@ body {
   padding: 10px 15px;
   font-weight: bold;
   cursor: pointer;
-  background: #333; /* رصاصي */
+  background: #333;
   border-radius: 8px;
   color: white;
   transition: 0.3s;
-  border: none;
 }
 
 .filter ul li:hover,
 .filter ul li.active {
-  background: #666; /* رصاصي أفتح عند التحديد */
+  background: #666;
 }
 
 p {
@@ -226,7 +224,6 @@ p {
   font-size: 18px;
 }
 
-/* الحاوية التي تحتوي المنتجات */
 .cont {
   display: flex;
   flex-wrap: wrap;
@@ -235,7 +232,6 @@ p {
   align-items: flex-start;
 }
 
-/* البطاقة الواحدة */
 .card {
   background: #111;
   color: white;
@@ -243,10 +239,8 @@ p {
   border-radius: 10px;
   box-shadow: 0 0 5px #222;
   text-align: center;
-  width: 260px; /* حجم البطاقة العرضي */
-  flex-shrink: 0;
+  width: 260px;
   transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
 }
 
 .card:hover {
@@ -254,10 +248,9 @@ p {
   box-shadow: 0 5px 15px #555;
 }
 
-/* الصورة داخل البطاقة */
 .card img {
   width: 100%;
-  height: 170px; /* تصغير الصورة */
+  height: 170px;
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 10px;
@@ -268,7 +261,6 @@ p {
   font-size: 18px;
 }
 
-/* استجابة للجوال */
 @media (max-width: 768px) {
   .cont {
     flex-direction: column;
@@ -291,12 +283,6 @@ p {
   align-items: center;
 }
 
-.btn:hover {
-  transition: all 0.3s ease;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
-}
-
 .button {
   color: white;
   background-color: #444;
@@ -311,38 +297,29 @@ p {
   background-color: #666;
 }
 
-/* رأس الصفحة */
 .header {
-  width: 100%;
   display: flex;
   justify-content: flex-end;
   padding: 20px;
   font-weight: bold;
   color: white;
   gap: 15px;
-  position: relative;
-  z-index: 10;
 }
 
-.menu-icon {
-  font-size: 26px;
-  cursor: pointer;
-}
-
+.menu-icon,
 .cart-icon {
   font-size: 22px;
-  cursor: pointer;
   background: #333;
   padding: 10px 15px;
   border-radius: 8px;
-  transition: 0.3s;
-  user-select: none;
+  cursor: pointer;
 }
-.cart-icon:hover {
+
+.cart-icon:hover,
+.menu-icon:hover {
   background: #555;
 }
 
-/* نافذة السلة */
 .cart-popup {
   position: absolute;
   top: 70px;
@@ -378,7 +355,6 @@ p {
   color: #ddd;
 }
 
-/* الشريط الجانبي */
 .sidebar {
   position: fixed;
   top: 0;
@@ -399,7 +375,6 @@ p {
 
 .sidebar h3 {
   margin-bottom: 15px;
-  color: white;
 }
 
 .sidebar ul {
@@ -418,7 +393,6 @@ p {
   background-color: #333;
 }
 
-/* إشعار الإضافة للسلة */
 .notification-card {
   position: fixed;
   top: 20px;
@@ -430,7 +404,6 @@ p {
   box-shadow: 0 0 15px #444;
   font-weight: bold;
   z-index: 10000;
-  animation: fadeInUp 0.3s ease-out;
   user-select: none;
 }
 </style>
