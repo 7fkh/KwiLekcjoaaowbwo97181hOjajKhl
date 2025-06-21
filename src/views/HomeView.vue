@@ -167,6 +167,7 @@ export default {
 
 .feedbacks {
   padding: 50px 0;
+  background-color: #000000;
 }
 
 /* باقي تنسيقات الواجهة */
