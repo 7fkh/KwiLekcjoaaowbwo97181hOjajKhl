@@ -208,7 +208,7 @@ export default {
   color: #333;
   padding: 8px 30px;
   border-radius: 25px;
-  background-color: white;
+  background-color: #000000;
   cursor: pointer;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
 }
