@@ -61,8 +61,7 @@
 ‏      </div>
 ‏    </div>
 
-```
-<!-- قسم التقييمات -->
+
 ‏<div class="feedbacks">
 ‏  <h1 class="section-title">شهادة عملاء خلي ستور || KhLiStoRe</h1>
 ‏  <Swiper
@@ -86,7 +85,7 @@
 ‏</div>
 
 ‏<Footer />
-```
+
 
 ‏  </main>
 ‏</template>
@@ -101,7 +100,7 @@
 ‏  font-weight: bold;
 }
 
-/* تصميم الخلفيه والتقييم */
+/* تصميم التقييم */
 ‏.testimonial-card {
 ‏  background-color: #000000;
 ‏  color: #ffffff;
@@ -262,7 +261,7 @@
 ‏  color: #000000;
 ‏  padding: 8px 30px;
 ‏  border-radius: 25px;
-‏  background-color: #3498DB;
+‏  background-color: #5870f6;
 ‏  cursor: pointer;
 ‏  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
 ‏  transition: all 0.3s ease;
