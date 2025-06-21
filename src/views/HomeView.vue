@@ -59,7 +59,6 @@ export default {
           <RouterLink class="btn" to="/order">اطلب الان</RouterLink>
         </div>
       </div>
-      <!-- تم حذف عنصر SVG هنا -->
     </div>
 
     <!-- قسم التقييمات -->
@@ -92,7 +91,7 @@ export default {
 <style scoped>
 /* عنوان التقييمات */
 .section-title {
-  color: #ffffff;
+  color: #000000;
   font-size: 40px;
   margin-bottom: 40px;
   text-align: center;
@@ -205,7 +204,7 @@ export default {
 
 .btn {
   text-decoration: none;
-  color: #333;
+  color: #000000;
   padding: 8px 30px;
   border-radius: 25px;
   background-color: #3498DB;
