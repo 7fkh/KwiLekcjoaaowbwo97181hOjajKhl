@@ -33,6 +33,12 @@ export default {
         },
         {
           id: 3,
+          username: "عبدالله الغامدي",
+          avatar: "https://i.imgur.com/QP1AlsJ.jpeg",
+			       text: "الافضل ابو خلي و موثوقققق مره انصحكم فيه،"
+        },
+        {
+          id: 4,
           username: "فهد عبدالله",
           avatar: "https://i.imgur.com/COjYjpR.png",
           text: "أي شيء تبغاه إن شاء الله موجود هناك وضمان مرة أسطوري وتعامل حلو"
