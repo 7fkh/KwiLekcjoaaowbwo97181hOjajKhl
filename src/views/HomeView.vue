@@ -99,10 +99,10 @@ export default {
   font-weight: bold;
 }
 
-/* تصميم بطاقة التقييم */
+/* تصميم الخلفيه والتقييم */
 .testimonial-card {
-  background-color: #3e3e3e;
-  color: white;
+  background-color: ‏#3498DB;
+  color: #000000;
   border-radius: 15px;
   padding: 20px;
   width: 90%;
@@ -208,7 +208,7 @@ export default {
   color: #333;
   padding: 8px 30px;
   border-radius: 25px;
-  background-color: #000000;
+  background-color: ‏#3498DB;
   cursor: pointer;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
 }
