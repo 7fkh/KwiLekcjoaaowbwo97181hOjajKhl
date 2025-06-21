@@ -149,9 +149,9 @@ export default {
 body {
   margin: 0;
   padding: 0;
-  background: #000;
   font-family: 'Rubik', sans-serif;
   color: white;
+  background: black;
 }
 
 .fadeUpCustom {
@@ -170,8 +170,10 @@ body {
 }
 
 .home {
-  animation: gradientMove 4s ease-in-out infinite;
+  background: linear-gradient(270deg, #0f0f0f, #1a1a1a, #222, #1a1a1a, #0f0f0f);
   background-size: 400% 400%;
+  animation: gradientMove 10s ease infinite;
+  min-height: 100vh;
 }
 
 @keyframes gradientMove {
