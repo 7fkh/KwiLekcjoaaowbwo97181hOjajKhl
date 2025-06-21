@@ -32,8 +32,8 @@ export default {
       <img :src="logo" alt="شعار خلي ستور" class="footer-logo" />
 
       <p class="desc">
-        هنا حيث المتجر الأفضل - بالمنتجات الأعلى جودة والأقل سعراً<br />
-        خلي ستور، وفّـرلك اللي تحبه بأفضل شكل
+        ماذا تريد نقدمه لك بأسرع وقت وبأفضل جوده <br />
+        مع خلي ستور حـلمـك يـتحـقق  ✨
       </p>
 
       <h3 class="section-title">بنود مهمه</h3>
@@ -46,14 +46,13 @@ export default {
 
       <h3 class="section-title">خدمة العملاء</h3>
       <div class="contact-btns">
-        <a href="tel:+966123456789" class="contact-button">جوال</a>
-        <a href="https://t.me/yourTelegram" target="_blank" class="contact-button">تيليجرام</a>
+        <a href="تتعدل" class="contact-button">الواتساب</a>
+        <a href="https://www.instagram.com/khlistore?igsh=eGdxcTVpYzVpNWlr&utm_source=qr" target="_blank" class="contact-button">انستقرام</a>
       </div>
 
       <div class="trusted">
         <hr />
-        <p>موثّق في منصة الأعمال</p>
-        <img :src="businessLogo" alt="منصة الأعمال" class="trusted-img" />
+        <p>طرق الدفع </p>
       </div>
 
       <div class="payment-icons">
