@@ -61,37 +61,40 @@ export default {
       </div>
     </div>
 
-    <!-- قسم التقييمات -->
-    <div class="feedbacks">
-      <h1 class="section-title">شهادة عملاء خلي ستور || KhLiStoRe</h1>
-      <Swiper
-        :modules="modules"
-        :slides-per-view="1"
-        :loop="true"
-        :autoplay="{ delay: 4000, disableOnInteraction: false }"
-        class="testimonial-swiper"
-      >
-        <SwiperSlide v-for="feedback in feedbackList" :key="feedback.id">
-          <div class="testimonial-card animated">
-            <img class="user-img" :src="feedback.avatar" alt="avatar" />
-            <p class="username">{{ feedback.username }}</p>
-            <div class="stars">
-              <span v-for="n in 5" :key="n" class="star">★</span>
-            </div>
-            <p class="feedback-text">{{ feedback.text }}</p>
-          </div>
-        </SwiperSlide>
-      </Swiper>
-    </div>
+```
+<!-- قسم التقييمات -->
+<div class="feedbacks">
+  <h1 class="section-title">شهادة عملاء خلي ستور || KhLiStoRe</h1>
+  <Swiper
+    :modules="modules"
+    :slides-per-view="1"
+    :loop="true"
+    :autoplay="{ delay: 4000, disableOnInteraction: false }"
+    class="testimonial-swiper"
+  >
+    <SwiperSlide v-for="feedback in feedbackList" :key="feedback.id">
+      <div class="testimonial-card animated">
+        <img class="user-img" :src="feedback.avatar" alt="avatar" />
+        <p class="username">{{ feedback.username }}</p>
+        <div class="stars">
+          <span v-for="n in 5" :key="n" class="star">★</span>
+        </div>
+        <p class="feedback-text">{{ feedback.text }}</p>
+      </div>
+    </SwiperSlide>
+  </Swiper>
+</div>
 
-    <Footer />
+<Footer />
+```
+
   </main>
 </template>
 
 <style scoped>
 /* عنوان التقييمات */
 .section-title {
-  color: #000000;
+  color: #ffffff;
   font-size: 40px;
   margin-bottom: 40px;
   text-align: center;
@@ -100,8 +103,8 @@ export default {
 
 /* تصميم الخلفيه والتقييم */
 .testimonial-card {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #000000;
+  color: #ffffff;
   border-radius: 15px;
   padding: 20px;
   width: 90%;
@@ -157,17 +160,68 @@ export default {
   }
 }
 
-/* خلفية الموقع */
+/* خلفية الموقع مع انميشن محسن */
 .home {
   width: 100%;
   height: 100vh;
-  background-color: #000000;
-  background-size: cover;
+  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
+  background-size: 400% 400%;
+  animation: gradientMove 4s ease-in-out infinite;
+  position: relative;
 }
 
+.home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.home > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* قسم التقييمات مع انميشن */
 .feedbacks {
   padding: 50px 0;
-  background-color: #000000;
+  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
+  background-size: 400% 400%;
+  animation: gradientMove 4s ease-in-out infinite;
+  position: relative;
+}
+
+.feedbacks::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+}
+
+.feedbacks > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* انميشن الخلفية المحسن */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* باقي تنسيقات الواجهة */
@@ -211,6 +265,12 @@ export default {
   background-color: #3498DB;
   cursor: pointer;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
 }
 
 @media screen and (max-width: 768px) {
