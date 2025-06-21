@@ -38,16 +38,28 @@ export default {
 			       text: "الافضل ابو خلي و موثوقققق مره انصحكم فيه،"
         },
         {
-          id: 5,
+          id: 4,
           username: "ابو زهره",
           avatar: "https://i.imgur.com/COjYjpR.png",
 			       text: "خلي ستور امبراطور الساحة .."
         },
         {
-          id: 4,
+          id: 5,
           username: "فهد عبدالله",
           avatar: "https://i.imgur.com/COjYjpR.png",
           text: "أي شيء تبغاه إن شاء الله موجود هناك وضمان مرة أسطوري وتعامل حلو"
+        },
+        {
+          id: 6,
+          username: "صالح المريسي",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: " ابو خلي ما يقصر فنان بكل شي تبي بوتات واقعية تبي شوب تبي اي شي بس كلمه وجهز فلوسك"
+        },
+        {
+          id: 7,
+          username: "سالم التميمي",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "متجر جميل وجيد اسعاره مقبوله وسريعين بالخدمه"
         }
       ]
     };
