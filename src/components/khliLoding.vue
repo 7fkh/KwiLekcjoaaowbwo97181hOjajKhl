@@ -34,7 +34,6 @@
     </div>
   </div>
   
-  <!-- شريط التقدم -->
   <div class="progress-container">
     <div class="progress-bar">
       <div class="progress-fill" :style="{ width: progress + '%' }"></div>
@@ -42,7 +41,6 @@
     <div class="progress-text">{{ Math.round(progress) }}%</div>
   </div>
 
-  <!-- نص التحميل -->
   <div class="loading-text">
     <p>{{ loadingText }}</p>
   </div>
@@ -54,7 +52,7 @@
 
 <script>
 export default {
-  name: 'KhliLoading', // اسم أفضل
+  name: 'KhliLoading',
   props: {
     isLoading: {
       type: Boolean,
@@ -66,7 +64,7 @@ export default {
     },
     duration: {
       type: Number,
-      default: 5000 // 5 ثواني
+      default: 5000
     }
   },
   data() {
@@ -85,7 +83,6 @@ export default {
     }
   },
   beforeUnmount() {
-    // تنظيف الـ interval عند إزالة المكون
     if (this.progressInterval) {
       clearInterval(this.progressInterval)
     }
@@ -149,7 +146,6 @@ export default {
   align-items: center;
 }
 
-/* الحلقات النابضة */
 .pulse-rings {
   position: absolute;
   width: 100%;
@@ -214,7 +210,6 @@ export default {
   }
 }
 
-/* الكرة المركزية */
 .center-orb {
   position: relative;
   width: 50px;
@@ -267,7 +262,6 @@ export default {
   }
 }
 
-/* البريق المتحرك */
 .sparkles {
   position: absolute;
   width: 100%;
@@ -301,7 +295,6 @@ export default {
   }
 }
 
-/* الجسيمات العائمة */
 .floating-particles {
   position: absolute;
   width: 120%;
@@ -345,7 +338,6 @@ export default {
   }
 }
 
-/* شريط التقدم */
 .progress-container {
   width: 200px;
   text-align: center;
@@ -420,7 +412,6 @@ export default {
   text-shadow: 0 0 10px rgba(88, 112, 246, 0.5);
 }
 
-/* تأثيرات إضافية للشاشات الصغيرة */
 @media (max-width: 768px) {
   .animation-container {
     width: 120px;
