@@ -17,6 +17,7 @@ export default {
   },
   data() {
     return {
+      isLoading: true, // ← تمت إضافته هنا
       modules: [Autoplay],
       feedbackList: [
         {
@@ -63,49 +64,69 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    onLoadingComplete() {
+      this.isLoading = false; // ← يتم إخفاء اللودينق هنا
+    }
   }
 }
 </script>
 
-<template>
-  <main>
-    <div class="home">
-      <NavBar />
-      <div class="text">
-        <h1>خلي ستور</h1>
-        <h2>متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونيه</h2>
-        <div class="btns">
-          <RouterLink class="btn" to="/products">المنتجات</RouterLink>
-          <RouterLink class="btn" to="/order">اطلب الان</RouterLink>
-        </div>
-      </div>
-    </div>
+‏<template>
+‏  <main>
+    <!-- مكون اللودينق -->
+‏    <KhliLoding 
+‏      :isLoading="isLoading" 
+‏      loadingText="مرحباً بك في خلي ستور..."
+‏      :duration="3000"
+‏      @loading-complete="onLoadingComplete"
+    />
 
-    <div class="feedbacks">
-      <h1 class="section-title">شهادة عملاء خلي ستور || KhLiStoRe</h1>
-      <Swiper
-        :modules="modules"
-        :slides-per-view="1"
-        :loop="true"
-        :autoplay="{ delay: 4000, disableOnInteraction: false }"
-        class="testimonial-swiper"
-      >
-        <SwiperSlide v-for="feedback in feedbackList" :key="feedback.id">
-          <div class="testimonial-card animated">
-            <img class="user-img" :src="feedback.avatar" alt="avatar" />
-            <p class="username">{{ feedback.username }}</p>
-            <div class="stars">
-              <span v-for="n in 5" :key="n" class="star">★</span>
-            </div>
-            <p class="feedback-text">{{ feedback.text }}</p>
-          </div>
-        </SwiperSlide>
-      </Swiper>
-    </div>
+```
+<!-- المحتوى الرئيسي - يظهر بعد انتهاء اللودينق -->
+‏<div v-show="!isLoading">
+‏  <div class="home">
+‏    <NavBar />
+‏    <div class="text">
+‏      <h1>خلي ستور</h1>
+‏      <h2>متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونيه</h2>
+‏      <div class="btns">
+‏        <RouterLink class="btn" to="/products">المنتجات</RouterLink>
+‏        <RouterLink class="btn" to="/order">اطلب الان</RouterLink>
+‏      </div>
+‏    </div>
+‏  </div>
 
-    <Footer />
-  </main>
-</template>
+‏  <div class="feedbacks">
+‏    <h1 class="section-title">شهادة عملاء خلي ستور || KhLiStoRe</h1>
+‏    <Swiper
+‏      :modules="modules"
+‏      :slides-per-view="1"
+‏      :loop="true"
+‏      :autoplay="{ delay: 4000, disableOnInteraction: false }"
+‏      class="testimonial-swiper"
+    >
+‏      <SwiperSlide v-for="feedback in feedbackList" :key="feedback.id">
+‏        <div class="testimonial-card animated">
+‏          <img class="user-img" :src="feedback.avatar" alt="avatar" />
+‏          <p class="username">{{ feedback.username }}</p>
+‏          <div class="stars">
+‏            <span v-for="n in 5" :key="n" class="star">★</span>
+‏          </div>
+‏          <p class="feedback-text">{{ feedback.text }}</p>
+‏        </div>
+‏      </SwiperSlide>
+‏    </Swiper>
+‏  </div>
+
+‏  <Footer />
+‏</div>
+```
+
+‏  </main>
+‏</template>
+
 
 <style scoped>
 .section-title {
