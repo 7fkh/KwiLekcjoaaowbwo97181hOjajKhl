@@ -41,6 +41,11 @@
     </div>
     <div class="progress-text">{{ Math.round(progress) }}%</div>
   </div>
+
+  <!-- نص التحميل -->
+  <div class="loading-text">
+    <p>{{ loadingText }}</p>
+  </div>
 </div>
 ```
 
@@ -49,7 +54,7 @@
 
 <script>
 export default {
-  name: 'StoreLoading',
+  name: 'KhliLoading', // اسم أفضل
   props: {
     isLoading: {
       type: Boolean,
@@ -66,7 +71,8 @@ export default {
   },
   data() {
     return {
-      progress: 0
+      progress: 0,
+      progressInterval: null
     }
   },
   watch: {
@@ -74,22 +80,39 @@ export default {
       if (newVal) {
         this.startProgress()
       } else {
-        this.progress = 0
+        this.resetProgress()
       }
+    }
+  },
+  beforeUnmount() {
+    // تنظيف الـ interval عند إزالة المكون
+    if (this.progressInterval) {
+      clearInterval(this.progressInterval)
     }
   },
   methods: {
     startProgress() {
       this.progress = 0
-      const interval = setInterval(() => {
+      if (this.progressInterval) {
+        clearInterval(this.progressInterval)
+      }
+      
+      this.progressInterval = setInterval(() => {
         this.progress += 2
         if (this.progress >= 100) {
-          clearInterval(interval)
+          clearInterval(this.progressInterval)
           setTimeout(() => {
             this.$emit('loading-complete')
           }, 200)
         }
       }, this.duration / 50)
+    },
+    resetProgress() {
+      this.progress = 0
+      if (this.progressInterval) {
+        clearInterval(this.progressInterval)
+        this.progressInterval = null
+      }
     }
   }
 }
@@ -102,19 +125,12 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* خلفية سوداء شفافة */
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  backdrop-filter: blur(3px); /* تأثير ضبابي للخلفية */
-}
-
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+  backdrop-filter: blur(3px);
 }
 
 .loading-container {
@@ -398,7 +414,7 @@ export default {
 }
 
 .loading-text p {
-  margin: 0 0 10px 0;
+  margin: 0;
   font-size: 16px;
   font-weight: 500;
   text-shadow: 0 0 10px rgba(88, 112, 246, 0.5);
