@@ -1,4 +1,4 @@
-‏<script setup>‏<script setup>
+‏<script setup>
 ‏import { RouterView } from 'vue-router'
 ‏import { ref } from 'vue'
 
