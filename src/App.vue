@@ -1,10 +1,11 @@
-‏<script setup>
-‏import { RouterLink, RouterView } from 'vue-router'
-‏</script>
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+</script>
 
-‏<template>
-‏  <RouterView />
-‏</template>
+<template>
+  <RouterView />
+</template>
 
-‏<style scoped>
-‏</style>
+<style scoped>
+
+</style>
