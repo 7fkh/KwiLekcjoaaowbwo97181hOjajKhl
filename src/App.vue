@@ -1,32 +1,19 @@
-‏<script setup>
-‏import { RouterLink, RouterView } from 'vue-router'
-‏import { ref, onMounted } from 'vue'
-‏import KhliLoding from '@/components/khliLoding.vue'
+‏<script setup>‏<script setup>
+‏import { RouterView } from 'vue-router'
+‏import { ref } from 'vue'
 
-// متغيرات التحميل
-‏const isPageLoading = ref(true)
-
-// دالة انتهاء التحميل
-‏const onLoadingComplete = () => {
-‏  isPageLoading.value = false
-‏  console.log('انتهى التحميل!')
-}
-
-
-‏onMounted(() => {
-
-})
+// بدلاً من استيراد KhliLoding، سنجربه بدون loading أولاً
+‏const isPageLoading = ref(false) // مؤقتاً لا نظهر loading
 ‏</script>
 
 ‏<template>
-‏  <KhliLoding 
+  <!-- معلق مؤقتاً -->
+‏  <!-- <KhliLoding 
 ‏    :isLoading="isPageLoading"
 ‏    :loadingText="'جاري تحميل المتجر...'"
 ‏    :duration="5000"
-‏    @loading-complete="onLoadingComplete"
-  />
+  /> -->
   
- 
 ‏  <RouterView />
 ‏</template>
 
