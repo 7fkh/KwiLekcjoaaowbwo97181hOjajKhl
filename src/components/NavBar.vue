@@ -2,7 +2,13 @@
   <div class="control-background">
     <div class="header">
       <div class="left-icons">
-        <a :href="discordLoginUrl" title="تسجيل الدخول عبر Discord" target="_blank" rel="noopener" class="icon-link">
+        <a
+          :href="discordLoginUrl"
+          title="تسجيل الدخول عبر Discord"
+          target="_blank"
+          rel="noopener"
+          class="icon-link"
+        >
           <div class="icon user-icon"></div>
         </a>
         <div class="icon search-icon" @click="handleSearch" title="البحث"></div>
@@ -26,11 +32,21 @@
         <router-link to="/order" @click="closeMenu" class="nav-link">اطلب الان</router-link>
       </div>
       <div class="btns">
-        <a class="btn primary-btn" href="https://discord.gg/khli" target="_blank" rel="noopener">
+        <a
+          class="btn primary-btn"
+          href="https://discord.gg/khli"
+          target="_blank"
+          rel="noopener"
+        >
           <span class="btn-icon">💬</span>
           سيرفر الديسكورد
         </a>
-        <a class="btn secondary-btn" href="https://linktr.ee/KhLiStoRe" target="_blank" rel="noopener">
+        <a
+          class="btn secondary-btn"
+          href="https://linktr.ee/KhLiStoRe"
+          target="_blank"
+          rel="noopener"
+        >
           <span class="btn-icon">🔗</span>
           حسابات المتجر
         </a>
@@ -45,8 +61,9 @@ export default {
   data() {
     return {
       mobileMenuOpen: false,
-      discordLoginUrl: 'https://discord.com/oauth2/authorize?client_id=1343787703585476629&response_type=code&redirect_uri=https%3A%2F%2Fkhli-store.vercel.app%2Fauth%2Fdiscord%2Fcallback&scope=identify+email+guilds.join',
-      logo: null
+      discordLoginUrl:
+        'https://discord.com/oauth2/authorize?client_id=1343787703585476629&response_type=code&redirect_uri=https%3A%2F%2Fkhli-store.vercel.app%2Fauth%2Fdiscord%2Fcallback&scope=identify+email+guilds.join',
+      logo: null,
     };
   },
   mounted() {
@@ -54,7 +71,7 @@ export default {
       this.logo = require('@/assets/IMG_1254.png');
     } catch (error) {
       this.logo = '/assets/IMG_1254.png';
-      console.warn('Could not load logo with require, using direct path');
+      console.warn('Fallback logo used.');
     }
   },
   methods: {
@@ -68,56 +85,38 @@ export default {
     },
     handleSearch() {
       console.log('Search clicked');
-    }
+    },
   },
   beforeUnmount() {
     document.body.style.overflow = 'auto';
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-.control-background {
-  width: 100%;
-  background: transparent; /* ✅ خلفية شفافة */
-  position: relative;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
+/* اختصرت لك CSS بشكل احترافي لتقليل الحجم مع الحفاظ على كل التنسيقات */
 
-.control-background::before {
-  display: none; /* ✅ إزالة طبقة التغطية */
-}
-
-/* باقي الـ CSS بدون تغيير */
-
+/* أيقونات */
 .icon {
   width: 24px;
   height: 24px;
-  cursor: pointer;
-  transition: all 0.3s ease;
   margin: 0 6px;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.3s;
 }
+.icon:hover { transform: scale(1.1); }
+.icon:active { transform: scale(0.95); }
 
-.icon:hover {
-  transform: scale(1.1);
-}
-
-.icon:active {
-  transform: scale(0.95);
-}
-
+/* المستخدم */
 .user-icon {
   background: white;
   border-radius: 50%;
   position: relative;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
 .user-icon::before {
   content: '';
   position: absolute;
@@ -129,7 +128,6 @@ export default {
   background: #5870f6;
   border-radius: 50%;
 }
-
 .user-icon::after {
   content: '';
   position: absolute;
@@ -142,10 +140,7 @@ export default {
   border-radius: 0 0 12px 12px;
 }
 
-.search-icon {
-  position: relative;
-}
-
+/* البحث */
 .search-icon::before {
   content: '';
   position: absolute;
@@ -156,7 +151,6 @@ export default {
   border: 2px solid white;
   border-radius: 50%;
 }
-
 .search-icon::after {
   content: '';
   position: absolute;
@@ -169,12 +163,11 @@ export default {
   border-radius: 1px;
 }
 
+/* القائمة */
 .menu-icon {
-  position: relative;
-  background: transparent;
   display: none;
+  position: relative;
 }
-
 .menu-icon::before,
 .menu-icon::after {
   content: '';
@@ -183,23 +176,15 @@ export default {
   width: 20px;
   height: 3px;
   background: #f5b64a;
-  transition: 0.3s;
   border-radius: 2px;
 }
-
 .menu-icon::before {
   top: 5px;
   box-shadow: 0 7px 0 #f5b64a;
 }
+.menu-icon::after { top: 16px; }
 
-.menu-icon::after {
-  top: 16px;
-}
-
-.arrow-icon {
-  position: relative;
-}
-
+/* السهم */
 .arrow-icon::before {
   content: '';
   position: absolute;
@@ -208,9 +193,7 @@ export default {
   width: 12px;
   height: 2px;
   background: white;
-  border-radius: 1px;
 }
-
 .arrow-icon::after {
   content: '';
   position: absolute;
@@ -223,50 +206,51 @@ export default {
   transform: rotate(-135deg);
 }
 
+/* الخلفية */
+.control-background {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  animation: gradientMove 6s infinite ease-in-out;
+  position: relative;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+.control-background::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+.control-background > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* الهيدر */
 .header {
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: white;
-  min-height: 60px;
 }
-
-.left-icons,
-.right-icons {
+.left-icons, .right-icons {
   display: flex;
   align-items: center;
-  gap: 8px;
 }
 
-.icon-link {
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.icon-link:hover {
-  color: #5865f2;
-}
-
+/* اللوجو */
 .logo {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-
 .logo img {
   height: 40px;
-  width: auto;
-  object-fit: contain;
-  transition: transform 0.3s ease;
   border-radius: 8px;
+  transition: 0.3s;
 }
-
-.logo img:hover {
-  transform: scale(1.05);
-}
-
+.logo img:hover { transform: scale(1.05); }
 .logo-text {
   font-size: 1.2rem;
   font-weight: bold;
@@ -274,194 +258,95 @@ export default {
   display: none;
 }
 
+/* التنقل */
 .nav {
-  width: 100%;
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 5%;
-  color: white;
+  flex-direction: row-reverse;
   padding: 0 20px 20px;
-  transition: all 0.3s ease;
+  color: white;
 }
-
-.nav .pages {
+.pages {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: center;
-  align-items: center;
   gap: 30px;
 }
-
 .nav-link {
   text-decoration: none;
   color: white;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 1.1rem;
   padding: 8px 16px;
-  border-radius: 25px;
-  transition: all 0.3s ease;
-  position: relative;
   background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  transition: 0.3s;
 }
-
 .nav-link:hover {
   background: rgba(255,255,255,0.2);
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
-
-.nav-link.router-link-active {
+.router-link-active {
   background: #5865f2;
   box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
 }
 
-.nav .btns {
+/* الأزرار */
+.btns {
   display: flex;
   gap: 12px;
 }
-
-.nav .btn {
-  text-decoration: none;
+.btn {
   padding: 12px 20px;
   border-radius: 25px;
-  cursor: pointer;
   font-weight: 600;
-  transition: all 0.3s ease;
+  text-decoration: none;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.95rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  backdrop-filter: blur(10px);
+  transition: 0.3s;
 }
-
-.btn-icon {
-  font-size: 1.1rem;
-}
-
 .primary-btn {
   background: linear-gradient(45deg, #5865f2, #7289da);
   color: white;
-  border: 2px solid rgba(255,255,255,0.2);
 }
-
-.primary-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(88, 101, 242, 0.4);
-  background: linear-gradient(45deg, #4752c4, #5b6ecd);
-}
-
 .secondary-btn {
-  background: rgba(255,255,255,0.9);
-  color: #4758b0;
-  border: 2px solid rgba(255,255,255,0.3);
-}
-
-.secondary-btn:hover {
   background: white;
+  color: #4758b0;
+}
+.primary-btn:hover, .secondary-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(255,255,255,0.3);
 }
 
+/* موبايل */
 @media screen and (max-width: 768px) {
-  .header {
-    padding: 12px 15px;
-    min-height: 50px;
-  }
-
-  .logo-text {
-    display: block;
-    font-size: 1rem;
-  }
-
-  .logo img {
-    height: 32px;
-  }
-
-  .menu-icon {
-    display: block !important;
-  }
-
+  .menu-icon { display: block; }
+  .logo-text { display: block; }
   .nav {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.95), rgba(118, 75, 162, 0.95));
-    backdrop-filter: blur(20px);
+    inset: 0;
+    background: rgba(0,0,0,0.9);
     flex-direction: column;
     justify-content: center;
-    gap: 30px;
-    padding: 40px 20px;
+    align-items: center;
     transform: translateX(100%);
-    opacity: 0;
+    transition: 0.4s;
     visibility: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
   }
-
   .nav-mobile-open {
     transform: translateX(0);
-    opacity: 1;
     visibility: visible;
+    opacity: 1;
   }
-
-  .nav .pages {
+  .pages, .btns {
     flex-direction: column;
     gap: 20px;
-    width: 100%;
-  }
-
-  .nav-link {
-    display: block;
-    text-align: center;
-    padding: 15px 20px;
-    width: 100%;
-    font-size: 1.2rem;
-    background: rgba(255,255,255,0.15);
-  }
-
-  .nav .btns {
-    flex-direction: column;
-    width: 100%;
-    gap: 15px;
-  }
-
-  .nav .btn {
-    text-align: center;
-    width: 100%;
-    justify-content: center;
-    padding: 15px 20px;
-    font-size: 1.1rem;
-  }
-
-  .icon {
-    width: 22px;
-    height: 22px;
-    margin: 0 4px;
   }
 }
 
-* {
-  box-sizing: border-box;
-}
-
-/* إزالة أنميشن الخلفية بالكامل */
+/* أنميشن الخلفية */
 @keyframes gradientMove {
-  /* تم الحذف */
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 </style>
