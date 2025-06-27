@@ -6,7 +6,7 @@
     </div>
 
     <div class="logo">
-      <img src="/your-logo-path.png" alt="logo" />
+      <img src="/assets/IMG_1254.png" alt="logo" />
     </div>
 
     <div class="right-icons">
