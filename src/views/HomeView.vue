@@ -108,60 +108,7 @@ export default {
 </template>
 
 <style scoped>
-.section-title {
-  color: #ffffff;
-  font-size: 40px;
-  margin-bottom: 40px;
-  text-align: center;
-  font-weight: bold;
-}
-
-.testimonial-card {
-  background-color: #000000;
-  color: #ffffff;
-  border-radius: 15px;
-  padding: 20px;
-  width: 90%;
-  max-width: 400px;
-  margin: 0 auto;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  animation: fadeInUp 1s ease;
-}
-
-.user-img {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  margin-top: -50px;
-  border: 5px solid #3e3e3e;
-  object-fit: cover;
-}
-
-.username {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 15px;
-}
-
-.stars {
-  margin: 10px 0;
-}
-
-.star {
-  color: gold;
-  font-size: 22px;
-  margin: 0 2px;
-}
-
-.feedback-text {
-  font-size: 18px;
-  color: #ffffff;
-}
-
+/* أنميشن الظهور */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -173,135 +120,112 @@ export default {
   }
 }
 
-.home {
-  width: 100%;
-  height: 100vh;
-  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
-  background-size: 400% 400%;
-  animation: gradientMove 4s ease-in-out infinite;
-  position: relative;
-}
-
-.home::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 1;
-}
-
-.home > * {
-  position: relative;
-  z-index: 2;
-}
-
-.feedbacks {
-  padding: 50px 0;
-  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
-  background-size: 400% 400%;
-  animation: gradientMove 4s ease-in-out infinite;
-  position: relative;
-}
-
-.feedbacks::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 1;
-}
-
-.feedbacks > * {
-  position: relative;
-  z-index: 2;
-}
-
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.text {
-  text-align: center;
-  margin-top: 150px;
-  width: 100%;
+.header {
+  background-color: #0d0d0d;
+  padding: 10px 20px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
-}
-
-.text h1 {
   color: white;
-  font-size: 55px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.425);
+  font-size: 20px;
+  border-bottom: 1px solid #222;
+  animation: fadeInUp 0.8s ease;
 }
 
-.text h2 {
-  color: rgb(255, 255, 255);
-  font-weight: lighter;
-  width: 40%;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
+.left-icons i,
+.right-icons i {
+  margin: 0 8px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.btns {
-  margin-top: 10px;
+.left-icons a {
+  color: white;
+  text-decoration: none;
+}
+
+.left-icons a:hover i {
+  color: #5865f2; /* لون ديسكورد */
+}
+
+.logo img {
+  height: 35px;
+  object-fit: contain;
+}
+
+.menu-icon {
+  color: #f5b64a;
+}
+
+.arrow-icon {
+  color: white;
+}
+
+.nav {
+  width: 100%;
+  height: 15vh;
   display: flex;
+  flex-direction: row-reverse;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 20%;
+  background: transparent;
+  color: white;
+  animation: fadeInUp 1s ease;
 }
 
-.btn {
+.nav .pages {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav .pages a {
   text-decoration: none;
-  color: #000000;
-  padding: 8px 30px;
-  border-radius: 25px;
-  background-color: #5870f6;
+  color: white;
   cursor: pointer;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
-  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+.nav .pages a:hover {
+  border-bottom: 1px solid white;
 }
 
+.nav .btns {
+  display: flex;
+  gap: 10px;
+}
+
+.nav .btn {
+  text-decoration: none;
+  color: #4758b0;
+  padding: 5px 15px;
+  border-radius: 8px;
+  background-color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.nav .btn:hover {
+  background-color: #3c6cff;
+  color: white;
+}
+
+/* موبايل */
 @media screen and (max-width: 768px) {
-  .text h2 {
-    width: 90%;
+  .nav {
+    flex-direction: column;
+    gap: 15px;
   }
 
-  .testimonial-card {
-    width: 95%;
-  }
-
-  .user-img {
-    width: 70px;
-    height: 70px;
-  }
-
-  .username {
+  .header {
+    flex-direction: column;
     font-size: 18px;
-  }
-
-  .feedback-text {
-    font-size: 16px;
+    gap: 10px;
   }
 }
 </style>
