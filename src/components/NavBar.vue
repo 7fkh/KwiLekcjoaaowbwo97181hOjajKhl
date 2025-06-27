@@ -1,4 +1,21 @@
 <template>
+  <div class="header">
+    <div class="left-icons">
+      <i class="fas fa-user"></i>
+      <i class="fas fa-search"></i>
+    </div>
+
+    <div class="logo">
+      <img src="/your-logo-path.png" alt="logo" />
+    </div>
+
+    <div class="right-icons">
+      <i class="fas fa-bars menu-icon"></i>
+      <i class="fas fa-arrow-right arrow-icon"></i>
+    </div>
+  </div>
+
+  <!-- بقية كود الـ nav اللي عندك -->
   <div class="nav">
     <div class="pages">
       <a href="/">الرئيسية</a>
@@ -13,6 +30,36 @@
 </template>
 
 <style scoped>
+.header {
+  background-color: #0d0d0d;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  border-bottom: 1px solid #222;
+}
+
+.left-icons i,
+.right-icons i {
+  margin: 0 8px;
+  cursor: pointer;
+}
+
+.logo img {
+  height: 35px;
+  object-fit: contain;
+}
+
+.menu-icon {
+  color: #f5b64a; /* لون الخطوط الثلاث */
+}
+
+.arrow-icon {
+  color: white;
+}
+
 .nav {
   width: 100%;
   height: 15vh;
@@ -21,7 +68,7 @@
   justify-content: center;
   align-items: center;
   gap: 20%;
-  background: transparent; /* خلفية شفافة */
+  background: transparent;
   color: white;
 }
 
@@ -66,11 +113,17 @@
   color: white;
 }
 
-/* ريسبونسف للجوال */
+/* موبايل */
 @media screen and (max-width: 768px) {
   .nav {
     flex-direction: column;
     gap: 15px;
+  }
+
+  .header {
+    flex-direction: column;
+    font-size: 18px;
+    gap: 10px;
   }
 }
 </style>
