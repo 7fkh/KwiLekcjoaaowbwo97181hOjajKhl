@@ -1,4 +1,9 @@
-<template>
+.left-icons,
+.right-icons {
+display: flex;
+align-items: center;
+}<template>
+
   <div class="control-background">
     <div class="header">
       <div class="left-icons">
@@ -46,9 +51,11 @@ export default {
     };
   },
   mounted() {
+    // تحميل الصورة
     try {
       this.logo = require('@/assets/IMG_1254.png');
     } catch (error) {
+      // في حالة فشل تحميل الصورة، استخدم مسار مباشر
       this.logo = '/assets/IMG_1254.png';
       console.warn('Could not load logo with require, using direct path');
     }
@@ -61,6 +68,7 @@ export default {
       this.mobileMenuOpen = false;
     },
     handleSearch() {
+      // إضافة منطق البحث هنا
       console.log('Search clicked');
     }
   }
@@ -68,6 +76,69 @@ export default {
 </script>
 
 <style scoped>
+/* أنميشن الظهور */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* خلفية متدرجة متحركة لمنطقة التحكم */
+.control-background {
+  width: 100%;
+  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
+  background-size: 400% 400%;
+  animation: gradientMove 4s ease-in-out infinite;
+  position: relative;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #222;
+  z-index: 1000;
+}
+
+.control-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1;
+}
+
+.control-background > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* أنميشن الخلفية */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.header {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  animation: fadeInUp 0.8s ease;
+}
+
 /* أيقونات CSS */
 .icon {
   width: 20px;
@@ -143,6 +214,7 @@ export default {
 .menu-icon {
   position: relative;
   background: transparent;
+  display: none;
 }
 
 .menu-icon::before,
@@ -192,73 +264,6 @@ export default {
   transform: rotate(-135deg);
 }
 
-/* باقي الستايلات */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.control-background {
-  width: 100%;
-  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
-  background-size: 400% 400%;
-  animation: gradientMove 4s ease-in-out infinite;
-  position: relative;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #222;
-  z-index: 1000;
-}
-
-.control-background::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.75);
-  z-index: 1;
-}
-
-.control-background > * {
-  position: relative;
-  z-index: 2;
-}
-
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.header {
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  font-size: 20px;
-  animation: fadeInUp 0.8s ease;
-}
-
-.left-icons,
-.right-icons {
-  display: flex;
-  align-items: center;
-}
-
 .left-icons a {
   color: white;
   text-decoration: none;
@@ -278,6 +283,15 @@ export default {
 
 .logo img:hover {
   transform: scale(1.05);
+}
+
+.menu-icon {
+  color: #f5b64a;
+  display: none;
+}
+
+.arrow-icon {
+  color: white;
 }
 
 .nav {
@@ -347,6 +361,10 @@ export default {
 
 /* موبايل */
 @media screen and (max-width: 768px) {
+  .menu-icon {
+    display: block !important;
+  }
+  
   .nav {
     position: absolute;
     top: 100%;
@@ -400,6 +418,7 @@ export default {
   }
 }
 
+/* تحسينات إضافية للأداء */
 * {
   box-sizing: border-box;
 }
