@@ -1,37 +1,33 @@
 <template>
-  <div class="header">
-    <div class="left-icons">
-      <!-- تسجيل دخول عبر ديسكورد -->
-      <a
-        :href="discordLoginUrl"
-        title="تسجيل الدخول عبر Discord"
-      >
-        <i class="fas fa-user"></i>
-      </a>
+  <div class="control-background">
+    <div class="header">
+      <div class="left-icons">
+        <a :href="discordLoginUrl" title="تسجيل الدخول عبر Discord">
+          <i class="fas fa-user"></i>
+        </a>
+        <i class="fas fa-search"></i>
+      </div>
 
-      <i class="fas fa-search"></i>
+      <div class="logo">
+        <img :src="logo" alt="logo" />
+      </div>
+
+      <div class="right-icons">
+        <i class="fas fa-bars menu-icon"></i>
+        <i class="fas fa-arrow-right arrow-icon"></i>
+      </div>
     </div>
 
-    <div class="logo">
-      <img :src="logo" alt="logo" />
-    </div>
-
-    <div class="right-icons">
-      <i class="fas fa-bars menu-icon"></i>
-      <i class="fas fa-arrow-right arrow-icon"></i>
-    </div>
-  </div>
-
-  <!-- القائمة -->
-  <div class="nav">
-    <div class="pages">
-      <a href="/">الرئيسية</a>
-      <a href="#products">المنتجات</a>
-      <a href="/order">اطلب الان</a>
-    </div>
-    <div class="btns">
-      <a class="btn" href="https://discord.gg/khli" target="_blank" rel="noopener">سيرفر الديسكورد</a>
-      <a class="btn" href="https://linktr.ee/KhLiStoRe" target="_blank" rel="noopener">حسابات المتجر</a>
+    <div class="nav">
+      <div class="pages">
+        <a href="/">الرئيسية</a>
+        <a href="#products">المنتجات</a>
+        <a href="/order">اطلب الان</a>
+      </div>
+      <div class="btns">
+        <a class="btn" href="https://discord.gg/khli" target="_blank" rel="noopener">سيرفر الديسكورد</a>
+        <a class="btn" href="https://linktr.ee/KhLiStoRe" target="_blank" rel="noopener">حسابات المتجر</a>
+      </div>
     </div>
   </div>
 </template>
@@ -49,15 +45,67 @@ export default {
 </script>
 
 <style scoped>
+/* أنميشن الظهور */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* خلفية متدرجة متحركة لمنطقة التحكم */
+.control-background {
+  width: 100%;
+  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
+  background-size: 400% 400%;
+  animation: gradientMove 4s ease-in-out infinite;
+  position: relative;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #222;
+  z-index: 0;
+}
+
+.control-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1;
+}
+
+.control-background > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* أنميشن الخلفية */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .header {
-  background-color: #0d0d0d;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: white;
   font-size: 20px;
-  border-bottom: 1px solid #222;
+  animation: fadeInUp 0.8s ease;
 }
 
 .left-icons i,
@@ -73,7 +121,7 @@ export default {
 }
 
 .left-icons a:hover i {
-  color: #5865f2; /* لون ديسكورد */
+  color: #5865f2;
 }
 
 .logo img {
@@ -91,14 +139,13 @@ export default {
 
 .nav {
   width: 100%;
-  height: 15vh;
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
   align-items: center;
   gap: 20%;
-  background: transparent;
   color: white;
+  animation: fadeInUp 1s ease;
 }
 
 .nav .pages {
