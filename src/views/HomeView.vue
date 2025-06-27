@@ -8,6 +8,9 @@ import 'swiper/css'
 import 'swiper/css/autoplay'
 import { Autoplay } from 'swiper/modules'
 
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
 export default {
   components: {
     NavBar,
@@ -63,25 +66,31 @@ export default {
         }
       ]
     }
+  },
+  mounted() {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    })
   }
 }
 </script>
 
 <template>
   <main>
-    <div class="home">
+    <div class="home" data-aos="fade-up">
       <NavBar />
-      <div class="text">
+      <div class="text" data-aos="fade-up" data-aos-delay="200">
         <h1>خلي ستور</h1>
         <h2>متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونيه</h2>
-        <div class="btns">
+        <div class="btns" data-aos="fade-up" data-aos-delay="400">
           <RouterLink class="btn" to="/products">المنتجات</RouterLink>
           <RouterLink class="btn" to="/order">اطلب الان</RouterLink>
         </div>
       </div>
     </div>
 
-    <div class="feedbacks">
+    <div class="feedbacks" data-aos="fade-up" data-aos-delay="600">
       <h1 class="section-title">شهادة عملاء خلي ستور || KhLiStoRe</h1>
       <Swiper
         :modules="modules"
@@ -91,7 +100,7 @@ export default {
         class="testimonial-swiper"
       >
         <SwiperSlide v-for="feedback in feedbackList" :key="feedback.id">
-          <div class="testimonial-card animated">
+          <div class="testimonial-card">
             <img class="user-img" :src="feedback.avatar" alt="avatar" />
             <p class="username">{{ feedback.username }}</p>
             <div class="stars">
@@ -108,85 +117,7 @@ export default {
 </template>
 
 <style scoped>
-/* أنميشن الظهور */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.header {
-  background-color: #0d0d0d;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  font-size: 20px;
-  border-bottom: 1px solid #222;
-  animation: fadeInUp 0.8s ease;
-}
-
-.nav {
-  width: 100%;
-  height: 15vh;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: center;
-  align-items: center;
-  gap: 20%;
-  background: transparent;
-  color: white;
-  animation: fadeInUp 1s ease;
-}
-
-.nav .pages {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-}
-
-.nav .pages a {
-  text-decoration: none;
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 1.1rem;
-}
-
-.nav .pages a:hover {
-  border-bottom: 1px solid white;
-}
-
-.nav .btns {
-  display: flex;
-  gap: 10px;
-}
-
-.nav .btn {
-  text-decoration: none;
-  color: #4758b0;
-  padding: 5px 15px;
-  border-radius: 8px;
-  background-color: white;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-}
-
-.nav .btn:hover {
-  background-color: #3c6cff;
-  color: white;
-}
-
-/* Swiper تخصيص */
+/* تخصيص Swiper */
 ::v-deep(.swiper) {
   width: 100%;
   padding: 20px 0;
@@ -212,7 +143,6 @@ export default {
   margin: auto;
   text-align: center;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  animation: fadeInUp 1s ease;
 }
 
 .user-img {
@@ -238,6 +168,13 @@ export default {
 .feedback-text {
   font-size: 0.95rem;
   line-height: 1.4;
+}
+
+/* نص الصفحة */
+.text h1,
+.text h2,
+.text .btns {
+  /* ستظهر الأنميشن عبر AOS */
 }
 
 /* موبايل */
