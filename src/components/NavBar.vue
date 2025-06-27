@@ -1,12 +1,19 @@
 <template>
   <div class="header">
     <div class="left-icons">
-      <i class="fas fa-user"></i>
+      <!-- تسجيل دخول عبر ديسكورد -->
+      <a
+        :href="discordLoginUrl"
+        title="تسجيل الدخول عبر Discord"
+      >
+        <i class="fas fa-user"></i>
+      </a>
+
       <i class="fas fa-search"></i>
     </div>
 
     <div class="logo">
-      <img src="/assets/IMG_1254.png" alt="logo" />
+      <img :src="logo" alt="logo" />
     </div>
 
     <div class="right-icons">
@@ -15,7 +22,7 @@
     </div>
   </div>
 
-  <!-- بقية كود الـ nav اللي عندك -->
+  <!-- القائمة -->
   <div class="nav">
     <div class="pages">
       <a href="/">الرئيسية</a>
@@ -28,6 +35,18 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      discordLoginUrl:
+        'https://discord.com/oauth2/authorize?client_id=1343787703585476629&response_type=code&redirect_uri=https%3A%2F%2Fkhli-store.vercel.app%2Fauth%2Fdiscord%2Fcallback&scope=identify+email+guilds.join',
+      logo: require('@/assets/IMG_1254.png')
+    };
+  }
+}
+</script>
 
 <style scoped>
 .header {
@@ -45,6 +64,16 @@
 .right-icons i {
   margin: 0 8px;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.left-icons a {
+  color: white;
+  text-decoration: none;
+}
+
+.left-icons a:hover i {
+  color: #5865f2; /* لون ديسكورد */
 }
 
 .logo img {
@@ -53,7 +82,7 @@
 }
 
 .menu-icon {
-  color: #f5b64a; /* لون الخطوط الثلاث */
+  color: #f5b64a;
 }
 
 .arrow-icon {
