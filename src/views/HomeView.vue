@@ -100,7 +100,7 @@ export default {
         class="testimonial-swiper"
       >
         <SwiperSlide v-for="feedback in feedbackList" :key="feedback.id">
-          <div class="testimonial-card">
+          <div class="testimonial-card" data-aos="zoom-in">
             <img class="user-img" :src="feedback.avatar" alt="avatar" />
             <p class="username">{{ feedback.username }}</p>
             <div class="stars">
@@ -116,21 +116,21 @@ export default {
   </main>
 </template>
 
-<style scoped>
+<style>
 /* تخصيص Swiper */
-::v-deep(.swiper) {
+.swiper {
   width: 100%;
   padding: 20px 0;
 }
 
-::v-deep(.swiper-slide) {
+.swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-::v-deep(.swiper-pagination-bullet-active) {
-  background-color: #5865f2;
+.swiper-pagination-bullet-active {
+  background-color: #5865f2 !important;
 }
 
 /* كارت التقييم */
@@ -171,23 +171,57 @@ export default {
 }
 
 /* نص الصفحة */
-.text h1,
-.text h2,
-.text .btns {
-  /* ستظهر الأنميشن عبر AOS */
+.text {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.text h1 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.text h2 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #ccc;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  text-decoration: none;
+  background: #5865f2;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #4752c4;
 }
 
 /* موبايل */
 @media screen and (max-width: 768px) {
-  .nav {
-    flex-direction: column;
-    gap: 15px;
+  .text h1 {
+    font-size: 1.8rem;
   }
 
-  .header {
-    flex-direction: column;
-    font-size: 18px;
-    gap: 10px;
+  .text h2 {
+    font-size: 1rem;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
   }
 }
 </style>
