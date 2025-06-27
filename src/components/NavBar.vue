@@ -3,9 +3,9 @@
     <div class="header">
       <div class="left-icons">
         <a :href="discordLoginUrl" title="تسجيل الدخول عبر Discord">
-          <i class="fas fa-user"></i>
+          <font-awesome-icon icon="user" />
         </a>
-        <i class="fas fa-search"></i>
+        <font-awesome-icon icon="search" />
       </div>
 
       <div class="logo">
@@ -13,8 +13,8 @@
       </div>
 
       <div class="right-icons">
-        <i class="fas fa-bars menu-icon"></i>
-        <i class="fas fa-arrow-right arrow-icon"></i>
+        <font-awesome-icon icon="bars" class="menu-icon" />
+        <font-awesome-icon icon="arrow-right" class="arrow-icon" />
       </div>
     </div>
 
