@@ -3,9 +3,9 @@
     <div class="header">
       <div class="left-icons">
         <a :href="discordLoginUrl" title="تسجيل الدخول عبر Discord" target="_blank" rel="noopener">
-          <font-awesome-icon icon="user" />
+          <div class="icon user-icon"></div>
         </a>
-        <font-awesome-icon icon="search" @click="handleSearch" />
+        <div class="icon search-icon" @click="handleSearch"></div>
       </div>
 
 ```
@@ -14,8 +14,8 @@
   </div>
 
   <div class="right-icons">
-    <font-awesome-icon icon="bars" class="menu-icon" @click="toggleMenu" />
-    <font-awesome-icon icon="arrow-right" class="arrow-icon" />
+    <div class="icon menu-icon" @click="toggleMenu"></div>
+    <div class="icon arrow-icon"></div>
   </div>
 </div>
 
@@ -46,8 +46,12 @@ export default {
     };
   },
   mounted() {
-    // استخدام import بدلاً من require لتجنب مشاكل الـ bundler
-    this.logo = require('@/assets/IMG_1254.png');
+    try {
+      this.logo = require('@/assets/IMG_1254.png');
+    } catch (error) {
+      this.logo = '/assets/IMG_1254.png';
+      console.warn('Could not load logo with require, using direct path');
+    }
   },
   methods: {
     toggleMenu() {
@@ -57,7 +61,6 @@ export default {
       this.mobileMenuOpen = false;
     },
     handleSearch() {
-      // إضافة منطق البحث هنا
       console.log('Search clicked');
     }
   }
@@ -65,7 +68,131 @@ export default {
 </script>
 
 <style scoped>
-/* أنميشن الظهور */
+/* أيقونات CSS */
+.icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 8px;
+}
+
+.icon:hover {
+  transform: scale(1.1);
+}
+
+/* أيقونة المستخدم */
+.user-icon {
+  background: white;
+  border-radius: 50%;
+  position: relative;
+}
+
+.user-icon::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #5870f6;
+  border-radius: 50%;
+}
+
+.user-icon::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 8px;
+  background: #5870f6;
+  border-radius: 0 0 12px 12px;
+}
+
+/* أيقونة البحث */
+.search-icon {
+  position: relative;
+}
+
+.search-icon::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid white;
+  border-radius: 50%;
+}
+
+.search-icon::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 6px;
+  height: 2px;
+  background: white;
+  transform: rotate(45deg);
+}
+
+/* أيقونة القائمة */
+.menu-icon {
+  position: relative;
+  background: transparent;
+}
+
+.menu-icon::before,
+.menu-icon::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  background: #f5b64a;
+  transition: 0.3s;
+}
+
+.menu-icon::before {
+  top: 6px;
+  box-shadow: 0 6px 0 #f5b64a;
+}
+
+.menu-icon::after {
+  top: 12px;
+}
+
+/* أيقونة السهم */
+.arrow-icon {
+  position: relative;
+}
+
+.arrow-icon::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 5px;
+  width: 10px;
+  height: 2px;
+  background: white;
+}
+
+.arrow-icon::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid white;
+  border-right: 2px solid white;
+  transform: rotate(-135deg);
+}
+
+/* باقي الستايلات */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -77,7 +204,6 @@ export default {
   }
 }
 
-/* خلفية متدرجة متحركة لمنطقة التحكم */
 .control-background {
   width: 100%;
   background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
@@ -105,7 +231,6 @@ export default {
   z-index: 2;
 }
 
-/* أنميشن الخلفية */
 @keyframes gradientMove {
   0% {
     background-position: 0% 50%;
@@ -128,16 +253,10 @@ export default {
   animation: fadeInUp 0.8s ease;
 }
 
-.left-icons i,
-.right-icons i {
-  margin: 0 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.left-icons i:hover,
-.right-icons i:hover {
-  transform: scale(1.1);
+.left-icons,
+.right-icons {
+  display: flex;
+  align-items: center;
 }
 
 .left-icons a {
@@ -159,15 +278,6 @@ export default {
 
 .logo img:hover {
   transform: scale(1.05);
-}
-
-.menu-icon {
-  color: #f5b64a;
-  display: none;
-}
-
-.arrow-icon {
-  color: white;
 }
 
 .nav {
@@ -237,10 +347,6 @@ export default {
 
 /* موبايل */
 @media screen and (max-width: 768px) {
-  .menu-icon {
-    display: inline-block !important;
-  }
-  
   .nav {
     position: absolute;
     top: 100%;
@@ -294,7 +400,6 @@ export default {
   }
 }
 
-/* تحسينات إضافية للأداء */
 * {
   box-sizing: border-box;
 }
