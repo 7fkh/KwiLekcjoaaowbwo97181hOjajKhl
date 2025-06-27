@@ -3,10 +3,10 @@ import { RouterLink } from 'vue-router'
 import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
 
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css';
-import 'swiper/css/autoplay';
-import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import 'swiper/css'
+import 'swiper/css/autoplay'
+import { Autoplay } from 'swiper/modules'
 
 export default {
   components: {
@@ -62,7 +62,7 @@ export default {
           text: "متجر جميل وجيد اسعاره مقبوله وسريعين بالخدمه"
         }
       ]
-    };
+    }
   }
 }
 </script>
@@ -132,35 +132,6 @@ export default {
   animation: fadeInUp 0.8s ease;
 }
 
-.left-icons i,
-.right-icons i {
-  margin: 0 8px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.left-icons a {
-  color: white;
-  text-decoration: none;
-}
-
-.left-icons a:hover i {
-  color: #5865f2; /* لون ديسكورد */
-}
-
-.logo img {
-  height: 35px;
-  object-fit: contain;
-}
-
-.menu-icon {
-  color: #f5b64a;
-}
-
-.arrow-icon {
-  color: white;
-}
-
 .nav {
   width: 100%;
   height: 15vh;
@@ -213,6 +184,60 @@ export default {
 .nav .btn:hover {
   background-color: #3c6cff;
   color: white;
+}
+
+/* Swiper تخصيص */
+::v-deep(.swiper) {
+  width: 100%;
+  padding: 20px 0;
+}
+
+::v-deep(.swiper-slide) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+::v-deep(.swiper-pagination-bullet-active) {
+  background-color: #5865f2;
+}
+
+/* كارت التقييم */
+.testimonial-card {
+  background: #1c1c1c;
+  color: white;
+  padding: 25px;
+  border-radius: 15px;
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  animation: fadeInUp 1s ease;
+}
+
+.user-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.stars {
+  color: gold;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.feedback-text {
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
 
 /* موبايل */
