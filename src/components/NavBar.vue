@@ -2,7 +2,7 @@
   <div class="nav">
     <div class="pages">
       <a href="/">الرئيسية</a>
-      <a href="#prices">المنتجات</a>
+      <a href="#products">المنتجات</a>
       <a href="/order">اطلب الان</a>
     </div>
     <div class="btns">
