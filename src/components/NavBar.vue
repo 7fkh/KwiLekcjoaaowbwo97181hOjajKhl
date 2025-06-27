@@ -8,53 +8,34 @@
         <div class="icon search-icon" @click="handleSearch" title="البحث"></div>
       </div>
 
-```
-  <div class="logo">
-    <img :src="logo" alt="KhLi Store Logo" />
-    <span class="logo-text">خلي ستور</span>
-  </div>
+      <div class="logo">
+        <img :src="logo" alt="KhLi Store Logo" />
+        <span class="logo-text">خلي ستور</span>
+      </div>
 
-  <div class="right-icons">
-    <div class="icon menu-icon" @click="toggleMenu" title="القائمة"></div>
-    <div class="icon arrow-icon" title="العودة"></div>
-  </div>
-</div>
+      <div class="right-icons">
+        <div class="icon menu-icon" @click="toggleMenu" title="القائمة"></div>
+        <div class="icon arrow-icon" title="العودة"></div>
+      </div>
+    </div>
 
-<div class="nav" :class="{ 'nav-mobile-open': mobileMenuOpen }">
-  <div class="pages">
-    <router-link to="/" @click="closeMenu" class="nav-link">الرئيسية</router-link>
-    <a href="#products" @click="closeMenu" class="nav-link">المنتجات</a>
-    <router-link to="/order" @click="closeMenu" class="nav-link">اطلب الان</router-link>
-  </div>
-  <div class="btns">
-    <a class="btn primary-btn" href="https://discord.gg/khli" target="_blank" rel="noopener">
-      <span class="btn-icon">💬</span>
-      سيرفر الديسكورد
-    </a>
-    <a class="btn secondary-btn" href="https://linktr.ee/KhLiStoRe" target="_blank" rel="noopener">
-      <span class="btn-icon">🔗</span>
-      حسابات المتجر
-    </a>
-  </div>
-</div>
-
-<!-- شريط معلومات إضافي للهاتف -->
-<div class="mobile-info-bar">
-  <div class="info-item">
-    <span class="info-icon">🛡️</span>
-    <span class="info-text">حماية شاملة</span>
-  </div>
-  <div class="info-item">
-    <span class="info-icon">⚡</span>
-    <span class="info-text">سرعة عالية</span>
-  </div>
-  <div class="info-item">
-    <span class="info-icon">💼</span>
-    <span class="info-text">خدمة محترفة</span>
-  </div>
-</div>
-```
-
+    <div class="nav" :class="{ 'nav-mobile-open': mobileMenuOpen }">
+      <div class="pages">
+        <router-link to="/" @click="closeMenu" class="nav-link">الرئيسية</router-link>
+        <a href="#products" @click="closeMenu" class="nav-link">المنتجات</a>
+        <router-link to="/order" @click="closeMenu" class="nav-link">اطلب الان</router-link>
+      </div>
+      <div class="btns">
+        <a class="btn primary-btn" href="https://discord.gg/khli" target="_blank" rel="noopener">
+          <span class="btn-icon">💬</span>
+          سيرفر الديسكورد
+        </a>
+        <a class="btn secondary-btn" href="https://linktr.ee/KhLiStoRe" target="_blank" rel="noopener">
+          <span class="btn-icon">🔗</span>
+          حسابات المتجر
+        </a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -79,7 +60,6 @@ export default {
   methods: {
     toggleMenu() {
       this.mobileMenuOpen = !this.mobileMenuOpen;
-      // منع التمرير عند فتح القائمة
       document.body.style.overflow = this.mobileMenuOpen ? 'hidden' : 'auto';
     },
     closeMenu() {
@@ -88,18 +68,30 @@ export default {
     },
     handleSearch() {
       console.log('Search clicked');
-      // يمكن إضافة منطق البحث هنا
     }
   },
   beforeUnmount() {
-    // تنظيف عند إلغاء التحميل
     document.body.style.overflow = 'auto';
   }
 }
 </script>
 
 <style scoped>
-/* أيقونات CSS محسنة */
+.control-background {
+  width: 100%;
+  background: transparent; /* ✅ خلفية شفافة */
+  position: relative;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.control-background::before {
+  display: none; /* ✅ إزالة طبقة التغطية */
+}
+
+/* باقي الـ CSS بدون تغيير */
+
 .icon {
   width: 24px;
   height: 24px;
@@ -119,7 +111,6 @@ export default {
   transform: scale(0.95);
 }
 
-/* أيقونة المستخدم محسنة */
 .user-icon {
   background: white;
   border-radius: 50%;
@@ -151,7 +142,6 @@ export default {
   border-radius: 0 0 12px 12px;
 }
 
-/* أيقونة البحث محسنة */
 .search-icon {
   position: relative;
 }
@@ -179,7 +169,6 @@ export default {
   border-radius: 1px;
 }
 
-/* أيقونة القائمة محسنة */
 .menu-icon {
   position: relative;
   background: transparent;
@@ -207,7 +196,6 @@ export default {
   top: 16px;
 }
 
-/* أيقونة السهم محسنة */
 .arrow-icon {
   position: relative;
 }
@@ -235,44 +223,6 @@ export default {
   transform: rotate(-135deg);
 }
 
-/* خلفية متدرجة محسنة */
-.control-background {
-  width: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  background-size: 400% 400%;
-  animation: gradientMove 6s ease-in-out infinite;
-  position: relative;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-.control-background::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 1;
-}
-
-.control-background > * {
-  position: relative;
-  z-index: 2;
-}
-
-@keyframes gradientMove {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-/* هيدر محسن */
 .header {
   padding: 15px 20px;
   display: flex;
@@ -299,7 +249,6 @@ export default {
   color: #5865f2;
 }
 
-/* شعار محسن */
 .logo {
   display: flex;
   align-items: center;
@@ -325,7 +274,6 @@ export default {
   display: none;
 }
 
-/* تنقل محسن */
 .nav {
   width: 100%;
   display: flex;
@@ -371,7 +319,6 @@ export default {
   box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
 }
 
-/* أزرار محسنة */
 .nav .btns {
   display: flex;
   gap: 12px;
@@ -420,68 +367,25 @@ export default {
   box-shadow: 0 8px 25px rgba(255,255,255,0.3);
 }
 
-/* شريط معلومات للهاتف */
-.mobile-info-bar {
-  display: none;
-  padding: 10px 20px;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(10px);
-}
-
-/* موبايل محسن */
 @media screen and (max-width: 768px) {
   .header {
     padding: 12px 15px;
     min-height: 50px;
   }
-  
+
   .logo-text {
     display: block;
     font-size: 1rem;
   }
-  
+
   .logo img {
     height: 32px;
   }
-  
+
   .menu-icon {
     display: block !important;
   }
-  
-  .mobile-info-bar {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  
-  .info-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-    padding: 8px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 12px;
-    transition: all 0.3s ease;
-  }
-  
-  .info-item:hover {
-    background: rgba(255,255,255,0.2);
-    transform: translateY(-2px);
-  }
-  
-  .info-icon {
-    font-size: 1.2rem;
-    margin-bottom: 4px;
-  }
-  
-  .info-text {
-    font-size: 0.8rem;
-    color: white;
-    font-weight: 600;
-    text-align: center;
-  }
-  
+
   .nav {
     position: fixed;
     top: 0;
@@ -499,7 +403,7 @@ export default {
     visibility: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   .nav-mobile-open {
     transform: translateX(0);
     opacity: 1;
@@ -511,7 +415,7 @@ export default {
     gap: 20px;
     width: 100%;
   }
-  
+
   .nav-link {
     display: block;
     text-align: center;
@@ -520,13 +424,13 @@ export default {
     font-size: 1.2rem;
     background: rgba(255,255,255,0.15);
   }
-  
+
   .nav .btns {
     flex-direction: column;
     width: 100%;
     gap: 15px;
   }
-  
+
   .nav .btn {
     text-align: center;
     width: 100%;
@@ -534,7 +438,7 @@ export default {
     padding: 15px 20px;
     font-size: 1.1rem;
   }
-  
+
   .icon {
     width: 22px;
     height: 22px;
@@ -542,21 +446,15 @@ export default {
   }
 }
 
-/* تحسينات الأداء */
 * {
   box-sizing: border-box;
 }
 
-.control-background {
-  will-change: background-position;
+/* إزالة أنميشن الخلفية بالكامل */
+@keyframes gradientMove {
+  /* تم الحذف */
 }
 
-.header,
-.nav {
-  will-change: transform, opacity;
-}
-
-/* تحسينات إمكانية الوصول */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -564,13 +462,6 @@ export default {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-}
-
-/* تحسين الألوان للوضع المظلم */
-@media (prefers-color-scheme: dark) {
-  .control-background {
-    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
   }
 }
 </style>
