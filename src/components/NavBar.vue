@@ -33,15 +33,25 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faUser, faSearch, faBars, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faUser, faSearch, faBars, faArrowRight);
+
+export default defineComponent({
+  components: {
+    FontAwesomeIcon,
+  },
   data() {
     return {
       discordLoginUrl:
         'https://discord.com/oauth2/authorize?client_id=1343787703585476629&response_type=code&redirect_uri=https%3A%2F%2Fkhli-store.vercel.app%2Fauth%2Fdiscord%2Fcallback&scope=identify+email+guilds.join',
-      logo: require('@/assets/IMG_1254.png')
+      logo: require('@/assets/IMG_1254.png'),
     };
-  }
-}
+  },
+});
 </script>
 
 <style scoped>
