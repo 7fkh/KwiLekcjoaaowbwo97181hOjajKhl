@@ -1,227 +1,307 @@
-<script>
-import { RouterLink } from 'vue-router'
-import NavBar from '@/components/NavBar.vue'
-import Footer from '@/components/Footer.vue'
+‏<script>
+‏import { RouterLink } from 'vue-router'
+‏import NavBar from '@/components/NavBar.vue'
+‏import Footer from '@/components/Footer.vue'
 
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import 'swiper/css'
-import 'swiper/css/autoplay'
-import { Autoplay } from 'swiper/modules'
+‏import { Swiper, SwiperSlide } from 'swiper/vue';
+‏import 'swiper/css';
+‏import 'swiper/css/autoplay';
+‏import { Autoplay } from 'swiper/modules';
 
-import AOS from 'aos'
-import 'aos/dist/aos.css'
-
-export default {
-  components: {
-    NavBar,
-    Footer,
-    Swiper,
-    SwiperSlide
+‏export default {
+‏  components: {
+‏    NavBar,
+‏    Footer,
+‏    Swiper,
+‏    SwiperSlide
   },
-  data() {
-    return {
-      modules: [Autoplay],
-      feedbackList: [
+‏  data() {
+‏    return {
+‏      modules: [Autoplay],
+‏      feedbackList: [
         {
-          id: 1,
-          username: "عوض الحربي",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "10/10 افضل متجر باذن الله مب اخر مره"
+‏          id: 1,
+‏          username: "عوض الحربي",
+‏          avatar: "https://i.imgur.com/COjYjpR.png",
+‏          text: "10/10 افضل متجر باذن الله مب اخر مره"
         },
         {
-          id: 2,
-          username: "سعد مرتضى",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "أنصحكم فيه, ماكان عندي قيمة الطلب كامل ونقص المبلغ الله يسعده"
+‏          id: 2,
+‏          username: "سعد مرتضى",
+‏          avatar: "https://i.imgur.com/COjYjpR.png",
+‏          text: "أنصحكم فيه, ماكان عندي قيمة الطلب كامل ونقص المبلغ الله يسعده"
         },
         {
-          id: 3,
-          username: "عبدالله الغامدي",
-          avatar: "https://i.imgur.com/QP1AlsJ.jpeg",
-          text: "الافضل ابو خلي و موثوقققق مره انصحكم فيه،"
+‏          id: 3,
+‏          username: "عبدالله الغامدي",
+‏          avatar: "https://i.imgur.com/QP1AlsJ.jpeg",
+‏          text: "الافضل ابو خلي و موثوقققق مره انصحكم فيه،"
         },
         {
-          id: 4,
-          username: "ابو زهره",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "خلي ستور امبراطور الساحة .."
+‏          id: 4,
+‏          username: "ابو زهره",
+‏          avatar: "https://i.imgur.com/COjYjpR.png",
+‏          text: "خلي ستور امبراطور الساحة .."
         },
         {
-          id: 5,
-          username: "فهد عبدالله",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "أي شيء تبغاه إن شاء الله موجود هناك وضمان مرة أسطوري وتعامل حلو"
+‏          id: 5,
+‏          username: "فهد عبدالله",
+‏          avatar: "https://i.imgur.com/COjYjpR.png",
+‏          text: "أي شيء تبغاه إن شاء الله موجود هناك وضمان مرة أسطوري وتعامل حلو"
         },
         {
-          id: 6,
-          username: "صالح المريسي",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: " ابو خلي ما يقصر فنان بكل شي تبي بوتات واقعية تبي شوب تبي اي شي بس كلمه وجهز فلوسك"
+‏          id: 6,
+‏          username: "صالح المريسي",
+‏          avatar: "https://i.imgur.com/COjYjpR.png",
+‏          text: " ابو خلي ما يقصر فنان بكل شي تبي بوتات واقعية تبي شوب تبي اي شي بس كلمه وجهز فلوسك"
         },
         {
-          id: 7,
-          username: "سالم التميمي",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "متجر جميل وجيد اسعاره مقبوله وسريعين بالخدمه"
+‏          id: 7,
+‏          username: "سالم التميمي",
+‏          avatar: "https://i.imgur.com/COjYjpR.png",
+‏          text: "متجر جميل وجيد اسعاره مقبوله وسريعين بالخدمه"
         }
       ]
-    }
-  },
-  mounted() {
-    AOS.init({
-      duration: 1000,
-      once: true,
-    })
+    };
   }
 }
-</script>
+‏</script>
 
-<template>
-  <main>
-    <div class="home" data-aos="fade-up">
-      <NavBar />
-      <div class="text" data-aos="fade-up" data-aos-delay="200">
-        <h1>خلي ستور</h1>
-        <h2>متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونيه</h2>
-        <div class="btns" data-aos="fade-up" data-aos-delay="400">
-          <RouterLink class="btn" to="/products">المنتجات</RouterLink>
-          <RouterLink class="btn" to="/order">اطلب الان</RouterLink>
-        </div>
-      </div>
-    </div>
+‏<template>
+‏  <main>
+‏    <div class="home">
+‏      <NavBar />
+‏      <div class="text">
+‏        <h1>خلي ستور</h1>
+‏        <h2>متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونيه</h2>
+‏        <div class="btns">
+‏          <RouterLink class="btn" to="/products">المنتجات</RouterLink>
+‏          <RouterLink class="btn" to="/order">اطلب الان</RouterLink>
+‏        </div>
+‏      </div>
+‏    </div>
 
-    <div class="feedbacks" data-aos="fade-up" data-aos-delay="600">
-      <h1 class="section-title">شهادة عملاء خلي ستور || KhLiStoRe</h1>
-      <Swiper
-        :modules="modules"
-        :slides-per-view="1"
-        :loop="true"
-        :autoplay="{ delay: 4000, disableOnInteraction: false }"
-        class="testimonial-swiper"
+‏    <div class="feedbacks">
+‏      <h1 class="section-title">شهادة عملاء خلي ستور || KhLiStoRe</h1>
+‏      <Swiper
+‏        :modules="modules"
+‏        :slides-per-view="1"
+‏        :loop="true"
+‏        :autoplay="{ delay: 4000, disableOnInteraction: false }"
+‏        class="testimonial-swiper"
       >
-        <SwiperSlide v-for="feedback in feedbackList" :key="feedback.id">
-          <div class="testimonial-card" data-aos="zoom-in">
-            <img class="user-img" :src="feedback.avatar" alt="avatar" />
-            <p class="username">{{ feedback.username }}</p>
-            <div class="stars">
-              <span v-for="n in 5" :key="n" class="star">★</span>
-            </div>
-            <p class="feedback-text">{{ feedback.text }}</p>
-          </div>
-        </SwiperSlide>
-      </Swiper>
-    </div>
+‏        <SwiperSlide v-for="feedback in feedbackList" :key="feedback.id">
+‏          <div class="testimonial-card animated">
+‏            <img class="user-img" :src="feedback.avatar" alt="avatar" />
+‏            <p class="username">{{ feedback.username }}</p>
+‏            <div class="stars">
+‏              <span v-for="n in 5" :key="n" class="star">★</span>
+‏            </div>
+‏            <p class="feedback-text">{{ feedback.text }}</p>
+‏          </div>
+‏        </SwiperSlide>
+‏      </Swiper>
+‏    </div>
 
-    <Footer />
-  </main>
-</template>
+‏    <Footer />
+‏  </main>
+‏</template>
 
-<style>
-/* تخصيص Swiper */
-.swiper {
-  width: 100%;
-  padding: 20px 0;
+‏<style scoped>
+‏.section-title {
+‏  color: #ffffff;
+‏  font-size: 40px;
+‏  margin-bottom: 40px;
+‏  text-align: center;
+‏  font-weight: bold;
 }
 
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+‏.testimonial-card {
+‏  background-color: #000000;
+‏  color: #ffffff;
+‏  border-radius: 15px;
+‏  padding: 20px;
+‏  width: 90%;
+‏  max-width: 400px;
+‏  margin: 0 auto;
+‏  text-align: center;
+‏  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+‏  display: flex;
+‏  flex-direction: column;
+‏  align-items: center;
+‏  animation: fadeInUp 1s ease;
 }
 
-.swiper-pagination-bullet-active {
-  background-color: #5865f2 !important;
+‏.user-img {
+‏  width: 90px;
+‏  height: 90px;
+‏  border-radius: 50%;
+‏  margin-top: -50px;
+‏  border: 5px solid #3e3e3e;
+‏  object-fit: cover;
 }
 
-/* كارت التقييم */
-.testimonial-card {
-  background: #1c1c1c;
-  color: white;
-  padding: 25px;
-  border-radius: 15px;
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+‏.username {
+‏  font-size: 20px;
+‏  font-weight: bold;
+‏  margin-top: 15px;
 }
 
-.user-img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 10px;
+‏.stars {
+‏  margin: 10px 0;
 }
 
-.username {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 5px;
+‏.star {
+‏  color: gold;
+‏  font-size: 22px;
+‏  margin: 0 2px;
 }
 
-.stars {
-  color: gold;
-  font-size: 1rem;
-  margin-bottom: 10px;
+‏.feedback-text {
+‏  font-size: 18px;
+‏  color: #ffffff;
 }
 
-.feedback-text {
-  font-size: 0.95rem;
-  line-height: 1.4;
-}
-
-/* نص الصفحة */
-.text {
-  padding: 40px 20px;
-  text-align: center;
-}
-
-.text h1 {
-  font-size: 2.2rem;
-  margin-bottom: 15px;
-  color: white;
-}
-
-.text h2 {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  color: #ccc;
-}
-
-.btns {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  text-decoration: none;
-  background: #5865f2;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 25px;
-  font-weight: bold;
-  transition: background 0.3s ease;
-}
-
-.btn:hover {
-  background: #4752c4;
-}
-
-/* موبايل */
-@media screen and (max-width: 768px) {
-  .text h1 {
-    font-size: 1.8rem;
+‏@keyframes fadeInUp {
+  0% {
+‏    opacity: 0;
+‏    transform: translateY(30px);
   }
-
-  .text h2 {
-    font-size: 1rem;
-  }
-
-  .btn {
-    width: 100%;
-    text-align: center;
+  100% {
+‏    opacity: 1;
+‏    transform: translateY(0);
   }
 }
-</style>
+
+‏.home {
+‏  width: 100%;
+‏  height: 100vh;
+‏  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
+‏  background-size: 400% 400%;
+‏  animation: gradientMove 4s ease-in-out infinite;
+‏  position: relative;
+}
+
+‏.home::before {
+‏  content: '';
+‏  position: absolute;
+‏  top: 0;
+‏  left: 0;
+‏  right: 0;
+‏  bottom: 0;
+‏  background: rgba(0, 0, 0, 0.7);
+‏  z-index: 1;
+}
+
+‏.home > * {
+‏  position: relative;
+‏  z-index: 2;
+}
+
+‏.feedbacks {
+‏  padding: 50px 0;
+‏  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
+‏  background-size: 400% 400%;
+‏  animation: gradientMove 4s ease-in-out infinite;
+‏  position: relative;
+}
+
+‏.feedbacks::before {
+‏  content: '';
+‏  position: absolute;
+‏  top: 0;
+‏  left: 0;
+‏  right: 0;
+‏  bottom: 0;
+‏  background: rgba(0, 0, 0, 0.8);
+‏  z-index: 1;
+}
+
+‏.feedbacks > * {
+‏  position: relative;
+‏  z-index: 2;
+}
+
+‏@keyframes gradientMove {
+  0% {
+‏    background-position: 0% 50%;
+  }
+  50% {
+‏    background-position: 100% 50%;
+  }
+  100% {
+‏    background-position: 0% 50%;
+  }
+}
+
+‏.text {
+‏  text-align: center;
+‏  margin-top: 150px;
+‏  width: 100%;
+‏  display: flex;
+‏  flex-direction: column;
+‏  justify-content: center;
+‏  align-items: center;
+‏  gap: 8px;
+}
+
+‏.text h1 {
+‏  color: white;
+‏  font-size: 55px;
+‏  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.425);
+}
+
+‏.text h2 {
+‏  color: rgb(255, 255, 255);
+‏  font-weight: lighter;
+‏  width: 40%;
+‏  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
+}
+
+‏.btns {
+‏  margin-top: 10px;
+‏  display: flex;
+‏  justify-content: center;
+‏  align-items: center;
+‏  gap: 20px;
+}
+
+‏.btn {
+‏  text-decoration: none;
+‏  color: #000000;
+‏  padding: 8px 30px;
+‏  border-radius: 25px;
+‏  background-color: #5870f6;
+‏  cursor: pointer;
+‏  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
+‏  transition: all 0.3s ease;
+}
+
+‏.btn:hover {
+‏  transform: translateY(-2px);
+‏  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+}
+
+‏@media screen and (max-width: 768px) {
+‏  .text h2 {
+‏    width: 90%;
+  }
+
+‏  .testimonial-card {
+‏    width: 95%;
+  }
+
+‏  .user-img {
+‏    width: 70px;
+‏    height: 70px;
+  }
+
+‏  .username {
+‏    font-size: 18px;
+  }
+
+‏  .feedback-text {
+‏    font-size: 16px;
+  }
+}
+‏</style>
