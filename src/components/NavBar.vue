@@ -252,184 +252,6 @@ export default {
   transform: scale(1.1);
 }
 
-/* ملف المستخدم */
-.user-profile {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(255, 255, 255, 0.15);
-  padding: 8px 16px;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  max-width: 250px;
-}
-
-.user-profile:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-1px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.user-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
-}
-
-.user-profile:hover .user-avatar {
-  border-color: rgba(255, 255, 255, 0.6);
-  transform: scale(1.05);
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 0;
-}
-
-.username {
-  color: white;
-  font-weight: 700;
-  font-size: 14px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 120px;
-}
-
-.user-status {
-  color: #4CAF50;
-  font-size: 12px;
-  font-weight: 500;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.dropdown-arrow {
-  color: white;
-  font-size: 14px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dropdown-arrow.rotated {
-  transform: rotate(180deg);
-}
-
-/* قائمة المستخدم المنسدلة */
-.user-dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 20px;
-  background: #2f3136;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  z-index: 1000;
-  min-width: 240px;
-  overflow: hidden;
-  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.user-dropdown-header {
-  padding: 20px;
-  background: linear-gradient(135deg, #36393f, #2f3136);
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.dropdown-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.dropdown-username {
-  color: white;
-  font-weight: 700;
-  font-size: 16px;
-}
-
-.dropdown-discriminator {
-  color: #b9bbbe;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.user-dropdown-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #40444b, transparent);
-  margin: 0;
-}
-
-.user-dropdown-item {
-  padding: 16px 20px;
-  color: #dcddde;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 14px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.user-dropdown-item:hover {
-  background: #40444b;
-  color: white;
-}
-
-.user-dropdown-item.logout {
-  color: #ed4245;
-}
-
-.user-dropdown-item.logout:hover {
-  background: rgba(237, 66, 69, 0.1);
-  color: #ff6b6b;
-}
-
-/* زر تسجيل الدخول */
-.login-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: linear-gradient(135deg, #5865F2, #4752C4);
-  color: white;
-  padding: 12px 20px;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 14px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.login-btn:hover {
-  background: linear-gradient(135deg, #4752C4, #3c4aaa);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(88, 101, 242, 0.4);
-}
-
-.login-btn:active {
-  transform: translateY(0);
-}
-
-.discord-icon svg {
-  width: 20px;
-  height: 20px;
-}
-
 /* التنقل */
 .nav {
   display: flex;
@@ -672,8 +494,7 @@ export default {
   border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* الطبقات التراكبية */
-.dropdown-overlay,
+/* الطبقة التراكبية للجوال */
 .mobile-overlay {
   position: fixed;
   top: 0;
@@ -702,10 +523,6 @@ export default {
     display: none;
   }
   
-  .user-info {
-    display: none;
-  }
-  
   .left-icons, .right-icons {
     gap: 10px;
   }
@@ -713,17 +530,6 @@ export default {
   .icon {
     width: 40px;
     height: 40px;
-  }
-
-  .user-profile {
-    padding: 6px 12px;
-    max-width: 60px;
-  }
-
-  .user-dropdown {
-    left: 10px;
-    right: 10px;
-    min-width: auto;
   }
 
   .logo img {
@@ -751,7 +557,6 @@ export default {
 /* تحسينات إضافية للأداء */
 .control-background.home,
 .nav,
-.user-dropdown,
 .btn,
 .icon,
 .nav-link {
@@ -772,8 +577,7 @@ export default {
 /* تحسينات الوصولية */
 .icon:focus,
 .btn:focus,
-.nav-link:focus,
-.user-profile:focus {
+.nav-link:focus {
   outline: 2px solid rgba(255, 255, 255, 0.8);
   outline-offset: 2px;
 }
@@ -781,8 +585,7 @@ export default {
 /* تحسين الظلال للأجهزة عالية الدقة */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .btn,
-  .icon,
-  .user-dropdown {
+  .icon {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   }
   
