@@ -105,30 +105,61 @@ export default {
       
       <div class="features-grid">
         <div class="feature-item">
-          <div class="feature-icon">💻</div>
+          <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
           <span>تطوير المواقع</span>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">🔧</div>
+          <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
           <span>الحلول التقنية</span>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">⚡</div>
+          <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"/>
+            </svg>
+          </div>
           <span>خدمة سريعة</span>
         </div>
         <div class="feature-item">
-          <div class="feature-icon">🎯</div>
+          <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
           <span>دقة عالية</span>
         </div>
       </div>
       
       <div class="contact-info">
         <div class="contact-item">
-          <div class="contact-icon">📱</div>
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
           <span>متاح 24/7</span>
         </div>
         <div class="contact-item">
-          <div class="contact-icon">✨</div>
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+              <path d="M5 3v4"/>
+              <path d="M19 17v4"/>
+              <path d="M3 5h4"/>
+              <path d="M17 19h4"/>
+            </svg>
+          </div>
           <span>جودة مضمونة</span>
         </div>
       </div>
@@ -225,11 +256,11 @@ export default {
 <style scoped>
 /* جذر المتغيرات - نظام الألوان الثابت */
 :root {
-  --primary-color: #2563eb;
-  --secondary-color: #1e40af;
-  --accent-color: #3b82f6;
-  --dark-blue: #1e3a8a;
-  --light-blue: #60a5fa;
+  --primary-color: #5870f6;
+  --secondary-color: #5c6074;
+  --accent-color: #5870f6;
+  --dark-blue: #5c6074;
+  --light-blue: #5870f6;
   --success-color: #10b981;
   --warning-color: #f59e0b;
   --text-primary: #ffffff;
@@ -410,6 +441,13 @@ export default {
 .feature-icon {
   font-size: 2.5rem;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover .feature-icon {
+  color: var(--light-blue);
+  transform: scale(1.1);
 }
 
 .feature-item span {
@@ -448,7 +486,15 @@ export default {
 }
 
 .contact-icon {
-  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #10b981;
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover .contact-icon {
+  transform: scale(1.1);
 }
 
 /* قسم الشهادات */
@@ -634,13 +680,17 @@ export default {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background: rgba(var(--success-color), 0.2);
+  background: rgba(16, 185, 129, 0.2);
   border: 1px solid rgba(16, 185, 129, 0.4);
   border-radius: 25px;
   color: #10b981;
   font-size: 0.95rem;
   font-weight: 500;
   backdrop-filter: blur(10px);
+}
+
+.verified-badge svg {
+  color: #10b981;
 }
 
 /* قسم الإحصائيات */
