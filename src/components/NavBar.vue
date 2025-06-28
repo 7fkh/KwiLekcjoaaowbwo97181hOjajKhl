@@ -20,16 +20,10 @@
             </div>
           </div>
           <div class="user-dropdown-divider"></div>
-          <div class="user-dropdown-item" @click="viewProfile">
-            <span class="dropdown-icon">👤</span> الملف الشخصي
-          </div>
-          <div class="user-dropdown-item" @click="userSettings">
-            <span class="dropdown-icon">⚙️</span> الإعدادات
-          </div>
+          <div class="user-dropdown-item" @click="viewProfile">👤 الملف الشخصي</div>
+          <div class="user-dropdown-item" @click="userSettings">⚙️ الإعدادات</div>
           <div class="user-dropdown-divider"></div>
-          <div class="user-dropdown-item logout" @click="logout">
-            <span class="dropdown-icon">🚪</span> تسجيل الخروج
-          </div>
+          <div class="user-dropdown-item logout" @click="logout">🚪 تسجيل الخروج</div>
         </div>
 
         <a
@@ -39,7 +33,9 @@
           class="login-btn"
         >
           <div class="discord-icon">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">...</svg>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <circle cx="12" cy="12" r="10" fill="#5865F2" />
+            </svg>
           </div>
           <span>تسجيل الدخول</span>
         </a>
@@ -90,6 +86,16 @@ export default {
   mounted() {
     this.logo = require('@/assets/IMG_1254.png');
     this.checkUserAuth();
+
+    // بعد العودة من تسجيل الدخول - التحقق من وجود رمز في عنوان الرابط
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    if (code) {
+      this.fetchDiscordUser(code);
+      // إزالة الكود من الرابط بعد المعالجة
+      const newUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+    }
   },
   methods: {
     toggleMenu() {
@@ -129,11 +135,22 @@ export default {
           this.user = JSON.parse(userData);
         } catch (e) {
           console.warn('خطأ في قراءة بيانات المستخدم', e);
-          this.user = null;
           localStorage.removeItem('discordUser');
         }
       }
-    }
+    },
+    async fetchDiscordUser(code) {
+      try {
+        const response = await fetch(`/api/auth/discord/user?code=${code}`);
+        if (!response.ok) throw new Error('فشل في جلب بيانات المستخدم');
+
+        const userData = await response.json();
+        localStorage.setItem('discordUser', JSON.stringify(userData));
+        this.user = userData;
+      } catch (err) {
+        console.error('خطأ أثناء جلب بيانات المستخدم:', err);
+      }
+    },
   },
   beforeUnmount() {
     document.body.style.overflow = 'auto';
@@ -142,7 +159,6 @@ export default {
 </script>
 
 <style scoped>
-/* تم دمج الأنميشن والخلفية */
 @keyframes fadeInUp {
   0% { opacity: 0; transform: translateY(30px); }
   100% { opacity: 1; transform: translateY(0); }
@@ -159,6 +175,15 @@ export default {
   background-size: 400% 400%;
   animation: gradientMove 4s ease-in-out infinite;
   position: relative;
+  height: 110px;
+  max-height: 140px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .control-background.home {
+    height: 130px;
+  }
 }
 
 .control-background.home::before {
@@ -173,6 +198,4 @@ export default {
   position: relative;
   z-index: 2;
 }
-
-/* ... بقية التنسيقات من الكود السابق تظل كما هي ... */
 </style>
