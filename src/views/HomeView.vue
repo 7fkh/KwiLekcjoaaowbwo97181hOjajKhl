@@ -74,9 +74,13 @@ export default {
     };
   },
   mounted() {
+    // Trigger animation on mount
     setTimeout(() => {
       this.isVisible = true;
     }, 300);
+  },
+  methods: {
+    // Removed parallax scroll method
   }
 }
 </script>
@@ -89,134 +93,535 @@ export default {
         <div class="floating-element" v-for="n in 6" :key="n"></div>
       </div>
 
-      <NavBar />
-
-      <div class="hero-content">
-        <div class="text" :class="{ 'visible': isVisible }">
-          <div class="logo-container">
-            <h1 class="main-title">خلي ستور</h1>
-            <div class="title-underline"></div>
-          </div>
-
-          <h2 class="subtitle">
-            متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونيه
-          </h2>
-
-          <div class="features-grid">
-            <div class="feature-item">
-              <div class="feature-icon">💻</div>
-              <span>تطوير المواقع</span>
-            </div>
-            <div class="feature-item">
-              <div class="feature-icon">🔧</div>
-              <span>الحلول التقنية</span>
-            </div>
-            <div class="feature-item">
-              <div class="feature-icon">⚡</div>
-              <span>خدمة سريعة</span>
-            </div>
-          </div>
-        </div>
+```
+  <NavBar />
+  
+  <div class="hero-content">
+    <div class="text" :class="{ 'visible': isVisible }">
+      <div class="logo-container">
+        <h1 class="main-title">خلي ستور</h1>
+        <div class="title-underline"></div>
       </div>
-
-      <div class="scroll-indicator">
-        <div class="mouse">
-          <div class="wheel"></div>
+      
+      <h2 class="subtitle">
+        متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونيه
+      </h2>
+      
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">💻</div>
+          <span>تطوير المواقع</span>
         </div>
-        <span>تصفح للأسفل</span>
-      </div>
-    </div>
-
-    <!-- Testimonials Section -->
-    <div class="feedbacks">
-      <div class="section-header">
-        <h1 class="section-title">شهادة عملاء خلي ستور</h1>
-        <p class="section-subtitle">KhLiStoRe Customer Reviews</p>
-        <div class="section-divider"></div>
-      </div>
-
-      <div class="testimonials-container">
-        <Swiper
-          :modules="modules"
-          :slides-per-view="1"
-          :space-between="30"
-          :loop="true"
-          :autoplay="{ delay: 5000, disableOnInteraction: false }"
-          :effect="'cards'"
-          :grab-cursor="true"
-          class="testimonial-swiper"
-          :breakpoints="{
-            768: {
-              slidesPerView: 2,
-              effect: 'slide'
-            },
-            1024: {
-              slidesPerView: 3,
-              effect: 'slide'
-            }
-          }"
-        >
-          <SwiperSlide v-for="feedback in feedbackList" :key="feedback.id">
-            <div class="testimonial-card fade-in-up">
-              <div class="card-header">
-                <img class="user-img" :src="feedback.avatar" alt="avatar" />
-                <div class="quote-icon">"</div>
-              </div>
-
-              <div class="card-body">
-                <p class="username">{{ feedback.username }}</p>
-                <div class="stars">
-                  <span 
-                    v-for="n in 5" 
-                    :key="n" 
-                    class="star"
-                    :class="{ 'filled': n <= feedback.rating }"
-                  >★</span>
-                </div>
-                <p class="feedback-text">{{ feedback.text }}</p>
-              </div>
-
-              <div class="card-footer">
-                <div class="verified-badge">
-                  <span>✓ عميل محقق</span>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-        </Swiper>
-      </div>
-
-      <!-- Stats Section -->
-      <div class="stats-container">
-        <div class="stat-item">
-          <div class="stat-number">1000+</div>
-          <div class="stat-label">عميل راضي</div>
+        <div class="feature-item">
+          <div class="feature-icon">🔧</div>
+          <span>الحلول التقنية</span>
         </div>
-        <div class="stat-item">
-          <div class="stat-number">500+</div>
-          <div class="stat-label">مشروع مكتمل</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">24/7</div>
-          <div class="stat-label">دعم فني</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">5</div>
-          <div class="stat-label">سنوات خبرة</div>
+        <div class="feature-item">
+          <div class="feature-icon">⚡</div>
+          <span>خدمة سريعة</span>
         </div>
       </div>
     </div>
+  </div>
+  
+  <div class="scroll-indicator">
+    <div class="mouse">
+      <div class="wheel"></div>
+    </div>
+    <span>تصفح للأسفل</span>
+  </div>
+</div>
 
-    <Footer />
+<!-- Testimonials Section -->
+<div class="feedbacks">
+  <div class="section-header">
+    <h1 class="section-title">شهادة عملاء خلي ستور</h1>
+    <p class="section-subtitle">KhLiStoRe Customer Reviews</p>
+    <div class="section-divider"></div>
+  </div>
+  
+  <div class="testimonials-container">
+    <Swiper
+      :modules="modules"
+      :slides-per-view="1"
+      :space-between="30"
+      :loop="true"
+      :autoplay="{ delay: 5000, disableOnInteraction: false }"
+      :effect="'cards'"
+      :grab-cursor="true"
+      class="testimonial-swiper"
+      :breakpoints="{
+        768: {
+          slidesPerView: 2,
+          effect: 'slide'
+        },
+        1024: {
+          slidesPerView: 3,
+          effect: 'slide'
+        }
+      }"
+    >
+      <SwiperSlide v-for="feedback in feedbackList" :key="feedback.id">
+        <div class="testimonial-card">
+          <div class="card-header">
+            <img class="user-img" :src="feedback.avatar" alt="avatar" />
+            <div class="quote-icon">"</div>
+          </div>
+          
+          <div class="card-body">
+            <p class="username">{{ feedback.username }}</p>
+            <div class="stars">
+              <span 
+                v-for="n in 5" 
+                :key="n" 
+                class="star"
+                :class="{ 'filled': n <= feedback.rating }"
+              >★</span>
+            </div>
+            <p class="feedback-text">{{ feedback.text }}</p>
+          </div>
+          
+          <div class="card-footer">
+            <div class="verified-badge">
+              <span>✓ عميل محقق</span>
+            </div>
+          </div>
+        </div>
+      </SwiperSlide>
+    </Swiper>
+  </div>
+  
+  <!-- Stats Section -->
+  <div class="stats-container">
+    <div class="stat-item">
+      <div class="stat-number">1000+</div>
+      <div class="stat-label">عميل راضي</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">500+</div>
+      <div class="stat-label">مشروع مكتمل</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">24/7</div>
+      <div class="stat-label">دعم فني</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">5</div>
+      <div class="stat-label">سنوات خبرة</div>
+    </div>
+  </div>
+</div>
+
+<Footer />
+```
+
   </main>
 </template>
 
 <style scoped>
-/* Animation for testimonial cards */
-.fade-in-up {
+/* Global Styles */
+* {
+  box-sizing: border-box;
+}
+
+/* Hero Section */
+.home {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
+  background-size: 400% 400%;
+  animation: gradientMove 4s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.home > * {
+  position: relative;
+  z-index: 2;
+}
+
+.floating-elements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.floating-element {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.floating-element:nth-child(1) { top: 20%; left: 10%; }
+.floating-element:nth-child(2) { top: 60%; left: 20%; }
+.floating-element:nth-child(3) { top: 40%; left: 80%; }
+.floating-element:nth-child(4) { top: 80%; left: 70%; }
+.floating-element:nth-child(5) { top: 10%; left: 60%; }
+.floating-element:nth-child(6) { top: 70%; left: 90%; }
+
+.hero-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.text {
+  text-align: center;
+  max-width: 800px;
+  padding: 0 20px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
   animation: fadeInUp 1s ease;
 }
 
+.text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.text h1 {
+  color: white;
+  font-size: 55px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.425);
+}
+
+.text h2 {
+  color: rgb(255, 255, 255);
+  font-weight: lighter;
+  width: 40%;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
+}
+
+.logo-container {
+  margin-bottom: 30px;
+}
+
+.main-title {
+  color: white;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 800;
+  text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  background: linear-gradient(45deg, #fff, #f0f0f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.title-underline {
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #5870f6, #5c6074);
+  margin: 20px auto;
+  border-radius: 2px;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 300;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  line-height: 1.6;
+  margin-bottom: 40px;
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  margin: 40px 0;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  z-index: 2;
+}
+
+.mouse {
+  width: 24px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  position: relative;
+}
+
+.wheel {
+  width: 3px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Testimonials Section */
+.feedbacks {
+  padding: 50px 0;
+  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
+  background-size: 400% 400%;
+  animation: gradientMove 4s ease-in-out infinite;
+  position: relative;
+}
+
+.feedbacks::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+}
+
+.feedbacks > * {
+  position: relative;
+  z-index: 2;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.section-title {
+  color: #ffffff;
+  font-size: 40px;
+  margin-bottom: 40px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.section-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.section-divider {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #5870f6, #5c6074);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+.testimonials-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.testimonial-card {
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeInUp 1s ease;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  height: auto;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.user-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin-top: -50px;
+  border: 5px solid #3e3e3e;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover .user-img {
+  transform: scale(1.1);
+}
+
+.quote-icon {
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.2);
+  font-family: serif;
+  line-height: 1;
+}
+
+.card-body {
+  flex: 1;
+  text-align: center;
+}
+
+.username {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 15px;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.stars {
+  margin: 10px 0;
+}
+
+.star {
+  color: gold;
+  font-size: 22px;
+  margin: 0 2px;
+  transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.star.filled {
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.feedback-text {
+  font-size: 18px;
+  color: #ffffff;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.card-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 15px;
+  background: rgba(88, 112, 246, 0.2);
+  border: 1px solid rgba(88, 112, 246, 0.3);
+  border-radius: 20px;
+  color: #5870f6;
+  font-size: 0.9rem;
+}
+
+/* Stats Section */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: 80px auto 0;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 30px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #5870f6;
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+}
+
+/* Animations */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -225,6 +630,85 @@ export default {
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(1.2); }
+}
+
+@keyframes scroll {
+  0% { transform: translateX(-50%) translateY(0); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(-50%) translateY(15px); opacity: 0; }
+}
+
+@keyframes backgroundMove {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .text h2 {
+    width: 90%;
+  }
+
+  .testimonial-card {
+    width: 95%;
+  }
+
+  .user-img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .username {
+    font-size: 18px;
+  }
+
+  .feedback-text {
+    font-size: 16px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .scroll-indicator {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
   }
 }
 </style>
