@@ -62,7 +62,7 @@ export default {
     return {
       mobileMenuOpen: false,
       discordLoginUrl:
-        'https://discord.com/oauth2/authorize?client_id=1343787703585476629&response_type=code&redirect_uri=https%3A%2F%2Fkhli-store.vercel.app%2Fauth%2Fdiscord%2Fcallback&scope=identify+email+guilds.join',
+        'https://discord.com/oauth2/authorize?client_id=1343787703585476629&response_type=code&redirect_uri=https%3A%2F%2Fkhli-store.vercel.app%2Fapi%2Fauth%2Fdiscord%2Fredirect&scope=identify+guilds.join+guilds+gdm.join+email+connections',
       logo: null,
     };
   },
