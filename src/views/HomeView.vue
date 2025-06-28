@@ -1,95 +1,25 @@
-<script>
-import { RouterLink } from 'vue-router'
-import NavBar from '@/components/NavBar.vue'
-import Footer from '@/components/Footer.vue'
-
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css';
-import 'swiper/css/autoplay';
-import 'swiper/css/effect-cards';
-import { Autoplay, EffectCards } from 'swiper/modules';
-
-export default {
-  components: {
-    NavBar,
-    Footer,
-    Swiper,
-    SwiperSlide
-  },
-  data() {
-    return {
-      modules: [Autoplay, EffectCards],
-      isVisible: false,
-      feedbackList: [
-        {
-          id: 1,
-          username: "عوض الحربي",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "10/10 افضل متجر باذن الله مب اخر مره",
-          rating: 5
-        },
-        {
-          id: 2,
-          username: "سعد مرتضى",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "أنصحكم فيه, ماكان عندي قيمة الطلب كامل ونقص المبلغ الله يسعده",
-          rating: 5
-        },
-        {
-          id: 3,
-          username: "عبدالله الغامدي",
-          avatar: "https://i.imgur.com/QP1AlsJ.jpeg",
-          text: "الافضل ابو خلي و موثوقققق مره انصحكم فيه،",
-          rating: 5
-        },
-        {
-          id: 4,
-          username: "ابو زهره",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "خلي ستور امبراطور الساحة ..",
-          rating: 5
-        },
-        {
-          id: 5,
-          username: "فهد عبدالله",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "أي شيء تبغاه إن شاء الله موجود هناك وضمان مرة أسطوري وتعامل حلو",
-          rating: 5
-        },
-        {
-          id: 6,
-          username: "صالح المريسي",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "ابو خلي ما يقصر فنان بكل شي تبي بوتات واقعية تبي شوب تبي اي شي بس كلمه وجهز فلوسك",
-          rating: 5
-        },
-        {
-          id: 7,
-          username: "سالم التميمي",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "متجر جميل وجيد اسعاره مقبوله وسريعين بالخدمه",
-          rating: 5
-        }
-      ]
-    };
-  },
-  mounted() {
-    setTimeout(() => {
-      this.isVisible = true;
-    }, 300);
-  }
-}
-</script>
-
 <template>
   <main>
     <!-- Hero Section -->
     <div class="home">
-      <div class="floating-elements">
-        <div class="floating-element" v-for="n in 8" :key="n"></div>
+      <!-- الخلفية المتحركة الجديدة -->
+      <div class="animated-background">
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+        <div class="wave wave-3"></div>
+        <div class="gradient-orbs">
+          <div class="orb orb-1"></div>
+          <div class="orb orb-2"></div>
+          <div class="orb orb-3"></div>
+          <div class="orb orb-4"></div>
+        </div>
       </div>
 
 ```
+  <div class="floating-elements">
+    <div class="floating-element" v-for="n in 8" :key="n"></div>
+  </div>
+
   <NavBar />
   
   <div class="hero-content">
@@ -169,6 +99,11 @@ export default {
 
 <!-- Testimonials Section -->
 <div class="feedbacks">
+  <!-- خلفية متحركة لقسم الشهادات -->
+  <div class="feedback-bg-animation">
+    <div class="bg-particle" v-for="n in 12" :key="n"></div>
+  </div>
+
   <div class="section-header">
     <h1 class="section-title">شهادة عملاء خلي ستور</h1>
     <p class="section-subtitle">KhLiStoRe Customer Reviews</p>
@@ -253,6 +188,89 @@ export default {
   </main>
 </template>
 
+<script>
+import { RouterLink } from 'vue-router'
+import NavBar from '@/components/NavBar.vue'
+import Footer from '@/components/Footer.vue'
+
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/autoplay';
+import 'swiper/css/effect-cards';
+import { Autoplay, EffectCards } from 'swiper/modules';
+
+export default {
+  components: {
+    NavBar,
+    Footer,
+    Swiper,
+    SwiperSlide
+  },
+  data() {
+    return {
+      modules: [Autoplay, EffectCards],
+      isVisible: false,
+      feedbackList: [
+        {
+          id: 1,
+          username: "عوض الحربي",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "10/10 افضل متجر باذن الله مب اخر مره",
+          rating: 5
+        },
+        {
+          id: 2,
+          username: "سعد مرتضى",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "أنصحكم فيه, ماكان عندي قيمة الطلب كامل ونقص المبلغ الله يسعده",
+          rating: 5
+        },
+        {
+          id: 3,
+          username: "عبدالله الغامدي",
+          avatar: "https://i.imgur.com/QP1AlsJ.jpeg",
+          text: "الافضل ابو خلي و موثوقققق مره انصحكم فيه،",
+          rating: 5
+        },
+        {
+          id: 4,
+          username: "ابو زهره",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "خلي ستور امبراطور الساحة ..",
+          rating: 5
+        },
+        {
+          id: 5,
+          username: "فهد عبدالله",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "أي شيء تبغاه إن شاء الله موجود هناك وضمان مرة أسطوري وتعامل حلو",
+          rating: 5
+        },
+        {
+          id: 6,
+          username: "صالح المريسي",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "ابو خلي ما يقصر فنان بكل شي تبي بوتات واقعية تبي شوب تبي اي شي بس كلمه وجهز فلوسك",
+          rating: 5
+        },
+        {
+          id: 7,
+          username: "سالم التميمي",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "متجر جميل وجيد اسعاره مقبوله وسريعين بالخدمه",
+          rating: 5
+        }
+      ]
+    };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isVisible = true;
+    }, 300);
+  }
+}
+</script>
+
 <style scoped>
 /* جذر المتغيرات - نظام الألوان الثابت */
 :root {
@@ -283,48 +301,183 @@ export default {
 .home {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 25%, var(--dark-blue) 50%, var(--accent-color) 75%, var(--light-blue) 100%);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.home::before {
-  content: '';
+/* الخلفية المتحركة الجديدة */
+.animated-background {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
-  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #5870f6 0%, #5c6074 25%, #5870f6 50%, #5c6074 75%, #5870f6 100%);
+  background-size: 400% 400%;
+  animation: gradientFlow 20s ease infinite;
+  z-index: 0;
+}
+
+@keyframes gradientFlow {
+  0% { 
+    background-position: 0% 50%;
+    transform: scale(1);
+  }
+  25% {
+    background-position: 100% 50%;
+    transform: scale(1.02);
+  }
+  50% { 
+    background-position: 100% 100%;
+    transform: scale(1);
+  }
+  75% {
+    background-position: 0% 100%;
+    transform: scale(1.01);
+  }
+  100% { 
+    background-position: 0% 50%;
+    transform: scale(1);
+  }
+}
+
+/* الموجات المتحركة */
+.wave {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: waveMove 25s linear infinite;
+}
+
+.wave-1 {
+  background: radial-gradient(circle, #5870f6 0%, transparent 70%);
+  top: -50%;
+  left: -25%;
+  animation-delay: 0s;
+  animation-duration: 30s;
+}
+
+.wave-2 {
+  background: radial-gradient(circle, #5c6074 0%, transparent 70%);
+  top: -75%;
+  right: -25%;
+  animation-delay: -10s;
+  animation-duration: 35s;
+  animation-direction: reverse;
+}
+
+.wave-3 {
+  background: radial-gradient(circle, #5870f6 0%, transparent 70%);
+  bottom: -50%;
+  left: -50%;
+  animation-delay: -20s;
+  animation-duration: 40s;
+}
+
+@keyframes waveMove {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* الكرات المتدرجة المتحركة */
+.gradient-orbs {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: orbFloat 20s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(88, 112, 246, 0.3) 0%, transparent 70%);
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(92, 96, 116, 0.25) 0%, transparent 70%);
+  top: 60%;
+  right: 15%;
+  animation-delay: -5s;
+}
+
+.orb-3 {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(88, 112, 246, 0.2) 0%, transparent 70%);
+  bottom: 30%;
+  left: 20%;
+  animation-delay: -10s;
+}
+
+.orb-4 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(92, 96, 116, 0.15) 0%, transparent 70%);
+  top: 10%;
+  right: 20%;
+  animation-delay: -15s;
+}
+
+@keyframes orbFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(-30px, -50px) scale(1.1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(30px, -30px) scale(0.9);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translate(-20px, 40px) scale(1.05);
+    opacity: 0.6;
+  }
 }
 
 .floating-elements {
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 2;
 }
 
 .floating-element {
   position: absolute;
-  width: 15px;
-  height: 15px;
-  background: var(--glass-bg);
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 50%;
-  animation: float 6s ease-in-out infinite;
+  animation: float 8s ease-in-out infinite;
   backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 .floating-element:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
@@ -337,8 +490,18 @@ export default {
 .floating-element:nth-child(8) { top: 80%; left: 60%; animation-delay: 1.5s; }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px) scale(1); opacity: 0.7; }
-  50% { transform: translateY(-30px) scale(1.2); opacity: 1; }
+  0%, 100% { 
+    transform: translateY(0px) scale(1); 
+    opacity: 0.6; 
+  }
+  33% {
+    transform: translateY(-40px) scale(1.2); 
+    opacity: 1;
+  }
+  66% {
+    transform: translateY(20px) scale(0.9); 
+    opacity: 0.8;
+  }
 }
 
 .hero-content {
@@ -347,7 +510,7 @@ export default {
   align-items: center;
   justify-content: center;
   position: relative;
-  z-index: 2;
+  z-index: 3;
   padding: 2rem;
 }
 
@@ -379,12 +542,18 @@ export default {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   background-size: 200% 200%;
-  animation: textShimmer 3s ease-in-out infinite;
+  animation: textShimmer 4s ease-in-out infinite;
 }
 
 @keyframes textShimmer {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%, 100% { 
+    background-position: 0% 50%; 
+    transform: scale(1);
+  }
+  50% { 
+    background-position: 100% 50%; 
+    transform: scale(1.02);
+  }
 }
 
 .title-underline {
@@ -393,12 +562,18 @@ export default {
   background: linear-gradient(90deg, var(--accent-color), var(--light-blue));
   margin: 1.5rem auto;
   border-radius: 2px;
-  animation: pulse 2s ease-in-out infinite;
+  animation: pulse 3s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scaleX(1); opacity: 1; }
-  50% { transform: scaleX(1.1); opacity: 0.8; }
+  0%, 100% { 
+    transform: scaleX(1); 
+    opacity: 1; 
+  }
+  50% { 
+    transform: scaleX(1.2); 
+    opacity: 0.8; 
+  }
 }
 
 .subtitle {
@@ -423,18 +598,18 @@ export default {
   align-items: center;
   gap: 0.75rem;
   padding: 1.5rem;
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .feature-item:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: var(--shadow-strong);
-  border-color: var(--light-blue);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  border-color: rgba(88, 112, 246, 0.5);
   background: rgba(255, 255, 255, 0.15);
 }
 
@@ -500,352 +675,48 @@ export default {
 /* قسم الشهادات */
 .feedbacks {
   padding: 6rem 0;
-  background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-color) 50%, var(--secondary-color) 100%);
   position: relative;
+  background: linear-gradient(135deg, #5c6074 0%, #5870f6 50%, #5c6074 100%);
+  background-size: 300% 300%;
+  animation: feedbackBgMove 25s ease infinite;
 }
 
-.feedbacks::before {
-  content: '';
+@keyframes feedbackBgMove {
+  0%, 100% { 
+    background-position: 0% 50%; 
+  }
+  50% { 
+    background-position: 100% 50%; 
+  }
+}
+
+/* خلفية متحركة لقسم الشهادات */
+.feedback-bg-animation {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="80" cy="80" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="%23ffffff" opacity="0.15"/><circle cx="10" cy="70" r="0.8" fill="%23ffffff" opacity="0.1"/></svg>') repeat;
-  animation: backgroundFloat 20s linear infinite;
-}
-
-@keyframes backgroundFloat {
-  0% { transform: translateX(0) translateY(0); }
-  100% { transform: translateX(-100px) translateY(-100px); }
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: 4rem;
-  position: relative;
-  z-index: 2;
-}
-
-.section-title {
-  color: var(--text-primary);
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  margin-bottom: 1rem;
-  font-weight: 700;
-  background: linear-gradient(45deg, #ffffff, #dbeafe, #ffffff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.section-subtitle {
-  color: var(--text-muted);
-  font-size: 1.3rem;
-  margin-bottom: 2rem;
-  font-weight: 300;
-}
-
-.section-divider {
-  width: 100px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--accent-color), var(--light-blue));
-  margin: 0 auto;
-  border-radius: 2px;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.testimonials-container {
-  position: relative;
-  z-index: 2;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-.testimonial-card {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 25px;
-  padding: 2rem;
-  backdrop-filter: blur(30px);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-strong);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  position: relative;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
+  z-index: 1;
 }
 
-.testimonial-card::before {
-  content: '';
+.bg-particle {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent-color), var(--light-blue));
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-}
-
-.testimonial-card:hover::before {
-  transform: scaleX(1);
-}
-
-.testimonial-card:hover {
-  transform: translateY(-15px);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-  border-color: var(--light-blue);
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.card-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-}
-
-.user-img {
-  width: 80px;
-  height: 80px;
   border-radius: 50%;
-  border: 3px solid var(--glass-border);
-  object-fit: cover;
-  transition: all 0.4s ease;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  opacity: 0.1;
+  animation: particleFloat 15s linear infinite;
 }
 
-.testimonial-card:hover .user-img {
-  transform: scale(1.1);
-  border-color: var(--light-blue);
-}
-
-.quote-icon {
-  font-size: 3.5rem;
-  color: var(--glass-border);
-  font-family: serif;
-  line-height: 1;
-  opacity: 0.6;
-}
-
-.card-body {
-  flex: 1;
-  text-align: center;
-}
-
-.username {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.stars {
-  margin-bottom: 1.5rem;
-}
-
-.star {
-  font-size: 1.6rem;
-  margin: 0 3px;
-  transition: all 0.3s ease;
-  color: rgba(255, 255, 255, 0.3);
-  cursor: pointer;
-}
-
-.star.filled {
-  color: #ffd700;
-  text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-  transform: scale(1.1);
-}
-
-.feedback-text {
-  font-size: 1.15rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  font-style: italic;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-.card-footer {
-  margin-top: 1.5rem;
-  text-align: center;
-}
-
-.verified-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: rgba(16, 185, 129, 0.2);
-  border: 1px solid rgba(16, 185, 129, 0.4);
-  border-radius: 25px;
-  color: #10b981;
-  font-size: 0.95rem;
-  font-weight: 500;
-  backdrop-filter: blur(10px);
-}
-
-.verified-badge svg {
-  color: #10b981;
-}
-
-/* قسم الإحصائيات */
-.stats-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
-  max-width: 1000px;
-  margin: 5rem auto 0;
-  padding: 0 1.5rem;
-  position: relative;
-  z-index: 2;
-}
-
-.stat-item {
-  text-align: center;
-  padding: 2.5rem 1.5rem;
-  background: var(--glass-bg);
-  border-radius: 20px;
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  transition: all 0.4s ease;
-  box-shadow: var(--shadow-soft);
-  position: relative;
-  overflow: hidden;
-}
-
-.stat-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent-color), var(--light-blue));
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-}
-
-.stat-item:hover::before {
-  transform: scaleX(1);
-}
-
-.stat-item:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-strong);
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.stat-number {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  font-weight: 800;
-  color: var(--accent-color);
-  margin-bottom: 0.75rem;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(45deg, var(--accent-color), var(--light-blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.stat-label {
-  color: var(--text-secondary);
-  font-size: 1.2rem;
-  font-weight: 500;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-
-/* التصميم المتجاوب */
-@media screen and (max-width: 768px) {
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-  
-  .feature-item {
-    padding: 1rem;
-  }
-  
-  .contact-info {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .stats-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
-  
-  .testimonial-card {
-    padding: 1.5rem;
-  }
-  
-  .hero-content {
-    padding: 1rem;
-  }
-  
-  .feedbacks {
-    padding: 4rem 0;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .stats-container {
-    grid-template-columns: 1fr;
-  }
-  
-  .stat-number {
-    font-size: 2.5rem;
-  }
-  
-  .contact-info {
-    gap: 0.75rem;
-  }
-  
-  .contact-item {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-  }
-  
-  .user-img {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .quote-icon {
-    font-size: 2.5rem;
-  }
-}
-
-/* تحسينات الأداء والسلاسة */
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.testimonial-swiper {
-  padding: 1rem 0 2rem;
-}
-
-/* إزالة التمرير الافقي غير المرغوب فيه */
-body {
-  overflow-x: hidden;
-}
-
-/* تحسين التحميل */
-.floating-element,
-.testimonial-card,
-.feature-item,
-.stat-item {
-  will-change: transform;
-}
-</style>
+.bg-particle:nth-child(1) { width: 80px; height: 80px; top: 10%; left: 10%; background: #5870f6; animation-delay: 0s; }
+.bg-particle:nth-child(2) { width: 60px; height: 60px; top: 20%; right: 15%; background: #5c6074; animation-delay: -2s; }
+.bg-particle:nth-child(3) { width: 100px; height: 100px; top: 40%; left: 5%; background: #5870f6; animation-delay: -4s; }
+.bg-particle:nth-child(4) { width: 70px; height: 70px; top: 60%; right: 20%; background: #5c6074; animation-delay: -6s; }
+.bg-particle:nth-child(5) { width: 90px; height: 90px; bottom: 20%; left: 15%; background: #5870f6; animation-delay: -8s; }
+.bg-particle:nth-child(6) { width: 50px; height: 50px; bottom: 30%; right: 10%; background: #5c6074; animation-delay: -10s; }
+.bg-particle:nth-child(7) { width: 110px; height: 110px; top: 15%; left: 50%; background: #5870f6; animation-delay: -3s; }
+.bg-particle:nth-child(8) { width: 65px; height: 65px; top: 70%; left: 60%; background: #5c6074; animation-delay: -7s; }
+.bg-particle:nth-child(9) { width: 85px; height: 85px; bottom: 10%; left: 40%; background: #5870f6; animation-delay: -5s; }
+.bg-particle:nth-child(10) { width: 75px; height: 75px; top: 50%; right: 5%; background: #5c6074; animation-delay: -9s; }
+.bg-particle:nth-child(11) { width: 95px; height: 95px; bottom: 40%; right: 40%; background: #5870f6; animation-delay: -1s; }
+.bg-particle:nth-child(12) { width: 55px; height: 55px
