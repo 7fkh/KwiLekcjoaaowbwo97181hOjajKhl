@@ -1,3 +1,86 @@
+<script>
+import { RouterLink } from 'vue-router'
+import NavBar from '@/components/NavBar.vue'
+import Footer from '@/components/Footer.vue'
+
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/autoplay';
+import 'swiper/css/effect-cards';
+import { Autoplay, EffectCards } from 'swiper/modules';
+
+export default {
+  components: {
+    NavBar,
+    Footer,
+    Swiper,
+    SwiperSlide
+  },
+  data() {
+    return {
+      modules: [Autoplay, EffectCards],
+      isVisible: false,
+      feedbackList: [
+        {
+          id: 1,
+          username: "عوض الحربي",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "10/10 افضل متجر باذن الله مب اخر مره",
+          rating: 5
+        },
+        {
+          id: 2,
+          username: "سعد مرتضى",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "أنصحكم فيه, ماكان عندي قيمة الطلب كامل ونقص المبلغ الله يسعده",
+          rating: 5
+        },
+        {
+          id: 3,
+          username: "عبدالله الغامدي",
+          avatar: "https://i.imgur.com/QP1AlsJ.jpeg",
+          text: "الافضل ابو خلي و موثوقققق مره انصحكم فيه،",
+          rating: 5
+        },
+        {
+          id: 4,
+          username: "ابو زهره",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "خلي ستور امبراطور الساحة ..",
+          rating: 5
+        },
+        {
+          id: 5,
+          username: "فهد عبدالله",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "أي شيء تبغاه إن شاء الله موجود هناك وضمان مرة أسطوري وتعامل حلو",
+          rating: 5
+        },
+        {
+          id: 6,
+          username: "صالح المريسي",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "ابو خلي ما يقصر فنان بكل شي تبي بوتات واقعية تبي شوب تبي اي شي بس كلمه وجهز فلوسك",
+          rating: 5
+        },
+        {
+          id: 7,
+          username: "سالم التميمي",
+          avatar: "https://i.imgur.com/COjYjpR.png",
+          text: "متجر جميل وجيد اسعاره مقبوله وسريعين بالخدمه",
+          rating: 5
+        }
+      ]
+    };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isVisible = true;
+    }, 300);
+  }
+}
+</script>
+
 <template>
   <main>
     <!-- Hero Section -->
@@ -128,90 +211,8 @@
   </main>
 </template>
 
-<script>
-import { RouterLink } from 'vue-router'
-import NavBar from '@/components/NavBar.vue'
-import Footer from '@/components/Footer.vue'
-
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css';
-import 'swiper/css/autoplay';
-import 'swiper/css/effect-cards';
-import { Autoplay, EffectCards } from 'swiper/modules';
-
-export default {
-  components: {
-    NavBar,
-    Footer,
-    Swiper,
-    SwiperSlide
-  },
-  data() {
-    return {
-      modules: [Autoplay, EffectCards],
-      isVisible: false,
-      feedbackList: [
-        {
-          id: 1,
-          username: "عوض الحربي",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "10/10 افضل متجر باذن الله مب اخر مره",
-          rating: 5
-        },
-        {
-          id: 2,
-          username: "سعد مرتضى",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "أنصحكم فيه, ماكان عندي قيمة الطلب كامل ونقص المبلغ الله يسعده",
-          rating: 5
-        },
-        {
-          id: 3,
-          username: "عبدالله الغامدي",
-          avatar: "https://i.imgur.com/QP1AlsJ.jpeg",
-          text: "الافضل ابو خلي و موثوقققق مره انصحكم فيه،",
-          rating: 5
-        },
-        {
-          id: 4,
-          username: "ابو زهره",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "خلي ستور امبراطور الساحة ..",
-          rating: 5
-        },
-        {
-          id: 5,
-          username: "فهد عبدالله",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "أي شيء تبغاه إن شاء الله موجود هناك وضمان مرة أسطوري وتعامل حلو",
-          rating: 5
-        },
-        {
-          id: 6,
-          username: "صالح المريسي",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "ابو خلي ما يقصر فنان بكل شي تبي بوتات واقعية تبي شوب تبي اي شي بس كلمه وجهز فلوسك",
-          rating: 5
-        },
-        {
-          id: 7,
-          username: "سالم التميمي",
-          avatar: "https://i.imgur.com/COjYjpR.png",
-          text: "متجر جميل وجيد اسعاره مقبوله وسريعين بالخدمه",
-          rating: 5
-        }
-      ]
-    };
-  },
-  mounted() {
-    setTimeout(() => {
-      this.isVisible = true;
-    }, 300);
-  }
-}
-</script>
-
 <style scoped>
+/* Animation for testimonial cards */
 .fade-in-up {
   animation: fadeInUp 1s ease;
 }
