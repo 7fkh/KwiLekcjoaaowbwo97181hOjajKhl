@@ -78,22 +78,9 @@ export default {
     setTimeout(() => {
       this.isVisible = true;
     }, 300);
-
-    // Add scroll effect for parallax
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  beforeUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
-    handleScroll() {
-      const scrolled = window.pageYOffset;
-      const parallax = document.querySelector('.home');
-      if (parallax) {
-        const speed = scrolled * 0.5;
-        parallax.style.transform = `translateY(${speed}px)`;
-      }
-    }
+    // Removed parallax scroll method
   }
 }
 </script>
@@ -252,9 +239,7 @@ export default {
 .home {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(135deg, #5870f6, #5c6074, #5870f6, #5c6074);
-  background-size: 400% 400%;
-  animation: gradientShift 8s ease-in-out infinite;
+  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
   position: relative;
   overflow: hidden;
   display: flex;
@@ -285,15 +270,14 @@ export default {
   height: 20px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
-  animation: float 6s ease-in-out infinite;
 }
 
-.floating-element:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-.floating-element:nth-child(2) { top: 60%; left: 20%; animation-delay: 1s; }
-.floating-element:nth-child(3) { top: 40%; left: 80%; animation-delay: 2s; }
-.floating-element:nth-child(4) { top: 80%; left: 70%; animation-delay: 3s; }
-.floating-element:nth-child(5) { top: 10%; left: 60%; animation-delay: 4s; }
-.floating-element:nth-child(6) { top: 70%; left: 90%; animation-delay: 5s; }
+.floating-element:nth-child(1) { top: 20%; left: 10%; }
+.floating-element:nth-child(2) { top: 60%; left: 20%; }
+.floating-element:nth-child(3) { top: 40%; left: 80%; }
+.floating-element:nth-child(4) { top: 80%; left: 70%; }
+.floating-element:nth-child(5) { top: 10%; left: 60%; }
+.floating-element:nth-child(6) { top: 70%; left: 90%; }
 
 .hero-content {
   flex: 1;
@@ -337,10 +321,9 @@ export default {
 .title-underline {
   width: 100px;
   height: 4px;
-  background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+  background: linear-gradient(90deg, #5870f6, #5c6074);
   margin: 20px auto;
   border-radius: 2px;
-  animation: pulse 2s ease-in-out infinite;
 }
 
 .subtitle {
@@ -422,14 +405,14 @@ export default {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, #5870f6, #5c6074);
   color: white;
-  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 8px 30px rgba(88, 112, 246, 0.3);
 }
 
 .btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 15px 40px rgba(88, 112, 246, 0.4);
 }
 
 .btn-secondary {
@@ -475,13 +458,12 @@ export default {
   top: 8px;
   left: 50%;
   transform: translateX(-50%);
-  animation: scroll 2s infinite;
 }
 
 /* Testimonials Section */
 .feedbacks {
   padding: 100px 0;
-  background: linear-gradient(135deg, #2c3e50, #34495e);
+  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
   position: relative;
 }
 
@@ -493,7 +475,6 @@ export default {
   right: 0;
   bottom: 0;
   background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="%23ffffff" opacity="0.2"/></svg>');
-  animation: backgroundMove 20s linear infinite;
 }
 
 .section-header {
@@ -523,7 +504,7 @@ export default {
 .section-divider {
   width: 80px;
   height: 3px;
-  background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+  background: linear-gradient(90deg, #5870f6, #5c6074);
   margin: 0 auto;
   border-radius: 2px;
 }
@@ -627,10 +608,10 @@ export default {
   align-items: center;
   gap: 5px;
   padding: 5px 15px;
-  background: rgba(76, 175, 80, 0.2);
-  border: 1px solid rgba(76, 175, 80, 0.3);
+  background: rgba(88, 112, 246, 0.2);
+  border: 1px solid rgba(88, 112, 246, 0.3);
   border-radius: 20px;
-  color: #4caf50;
+  color: #5870f6;
   font-size: 0.9rem;
 }
 
@@ -663,7 +644,7 @@ export default {
 .stat-number {
   font-size: 3rem;
   font-weight: 800;
-  color: #4ecdc4;
+  color: #5870f6;
   margin-bottom: 10px;
 }
 
@@ -673,9 +654,16 @@ export default {
 }
 
 /* Animations */
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes float {
