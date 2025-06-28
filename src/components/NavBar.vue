@@ -2,7 +2,6 @@
   <div class="control-background home">
     <div class="header">
       <div class="left-icons">
-        <!-- عرض معلومات المستخدم -->
         <div v-if="user" class="user-profile" @click="toggleUserMenu">
           <img :src="user.avatar" :alt="user.username" class="user-avatar" loading="lazy" />
           <div class="user-info">
@@ -12,7 +11,6 @@
           <div class="dropdown-arrow" :class="{ rotated: userMenuOpen }">▼</div>
         </div>
 
-        <!-- قائمة المستخدم المنسدلة -->
         <div v-if="user && userMenuOpen" class="user-dropdown">
           <div class="user-dropdown-header">
             <img :src="user.avatar" class="dropdown-avatar" />
@@ -28,13 +26,7 @@
           <div class="user-dropdown-item logout" @click="logout">🚪 تسجيل الخروج</div>
         </div>
 
-        <!-- زر تسجيل الدخول -->
-        <a
-          v-else
-          :href="discordLoginUrl"
-          title="تسجيل الدخول عبر Discord"
-          class="login-btn"
-        >
+        <a v-else :href="discordLoginUrl" class="login-btn" title="تسجيل الدخول عبر Discord">
           <div class="discord-icon">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
               <circle cx="12" cy="12" r="10" fill="#5865F2" />
@@ -117,9 +109,11 @@ export default {
       console.log('Search clicked');
     },
     viewProfile() {
+      console.log('عرض الملف الشخصي');
       this.closeUserMenu();
     },
     userSettings() {
+      console.log('الإعدادات');
       this.closeUserMenu();
     },
     logout() {
@@ -142,6 +136,7 @@ export default {
       try {
         const response = await fetch(`/api/auth/discord/user?code=${code}`);
         if (!response.ok) throw new Error('فشل في جلب بيانات المستخدم');
+
         const userData = await response.json();
         localStorage.setItem('discordUser', JSON.stringify(userData));
         this.user = userData;
@@ -157,6 +152,11 @@ export default {
 </script>
 
 <style scoped>
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -168,31 +168,55 @@ export default {
   background-size: 400% 400%;
   animation: gradientMove 4s ease-in-out infinite;
   position: relative;
-  padding: 0 20px;
-  height: auto;
-  min-height: 120px;
-  overflow: visible;
-  border-bottom: 2px solid rgba(255,255,255,0.1);
+  height: 110px;
+  max-height: 140px;
+  overflow: hidden;
 }
-
 @media (max-width: 768px) {
   .control-background.home {
-    min-height: 110px;
-    padding: 0 15px;
+    height: 130px;
   }
 }
-
 .control-background.home::before {
   content: '';
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
   z-index: 1;
-  border-bottom: 2px solid rgba(255,255,255,0.1);
 }
-
 .control-background.home > * {
   position: relative;
   z-index: 2;
+}
+
+.btns {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn {
+  text-decoration: none;
+  color: #ffffff;
+  padding: 8px 24px;
+  border-radius: 25px;
+  background-color: #5870f6;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.377);
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+}
+.primary-btn {
+  background-color: #5870f6;
+}
+.secondary-btn {
+  background-color: #444;
 }
 </style>
