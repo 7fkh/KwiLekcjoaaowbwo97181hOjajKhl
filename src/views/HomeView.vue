@@ -252,9 +252,9 @@ export default {
 .home {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
+  background: linear-gradient(135deg, #5870f6, #5c6074, #5870f6, #5c6074);
   background-size: 400% 400%;
-  animation: gradientMove 4s ease-in-out infinite;
+  animation: gradientShift 8s ease-in-out infinite;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -337,7 +337,7 @@ export default {
 .title-underline {
   width: 100px;
   height: 4px;
-  background: linear-gradient(90deg, #5870f6, #5c6074);
+  background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
   margin: 20px auto;
   border-radius: 2px;
   animation: pulse 2s ease-in-out infinite;
@@ -422,14 +422,14 @@ export default {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #5870f6, #5c6074);
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
-  box-shadow: 0 8px 30px rgba(88, 112, 246, 0.3);
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
 }
 
 .btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(88, 112, 246, 0.4);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
 }
 
 .btn-secondary {
@@ -481,9 +481,7 @@ export default {
 /* Testimonials Section */
 .feedbacks {
   padding: 100px 0;
-  background: linear-gradient(45deg, #5870f6, #5c6074, #5870f6, #5c6074);
-  background-size: 400% 400%;
-  animation: gradientMove 4s ease-in-out infinite;
+  background: linear-gradient(135deg, #2c3e50, #34495e);
   position: relative;
 }
 
@@ -525,7 +523,7 @@ export default {
 .section-divider {
   width: 80px;
   height: 3px;
-  background: linear-gradient(90deg, #5870f6, #5c6074);
+  background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
   margin: 0 auto;
   border-radius: 2px;
 }
@@ -629,10 +627,10 @@ export default {
   align-items: center;
   gap: 5px;
   padding: 5px 15px;
-  background: rgba(88, 112, 246, 0.2);
-  border: 1px solid rgba(88, 112, 246, 0.3);
+  background: rgba(76, 175, 80, 0.2);
+  border: 1px solid rgba(76, 175, 80, 0.3);
   border-radius: 20px;
-  color: #5870f6;
+  color: #4caf50;
   font-size: 0.9rem;
 }
 
@@ -665,9 +663,8 @@ export default {
 .stat-number {
   font-size: 3rem;
   font-weight: 800;
-  color: #5870f6;
+  color: #4ecdc4;
   margin-bottom: 10px;
-  text-shadow: 0 0 20px rgba(88, 112, 246, 0.3);
 }
 
 .stat-label {
@@ -676,16 +673,9 @@ export default {
 }
 
 /* Animations */
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 @keyframes float {
