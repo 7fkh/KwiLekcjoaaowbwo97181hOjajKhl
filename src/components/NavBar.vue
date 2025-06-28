@@ -2,66 +2,14 @@
   <div class="control-background home">
     <div class="header">
       <div class="left-icons">
-        <div v-if="user" class="user-profile" @click="toggleUserMenu">
-          <img :src="user.avatar" :alt="user.username" class="user-avatar" loading="lazy" />
-          <div class="user-info">
-            <span class="username">{{ user.username }}</span>
-            <span class="user-status">متصل</span>
-          </div>
-          <div class="dropdown-arrow" :class="{ rotated: userMenuOpen }">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-              <path d="M7 10l5 5 5-5z"/>
-            </svg>
-          </div>
+        <div class="icon search-icon" @click="handleSearch" title="البحث">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          </svg>
         </div>
+      </div>
 
 ```
-    <div v-if="user && userMenuOpen" class="user-dropdown">
-      <div class="user-dropdown-header">
-        <img :src="user.avatar" class="dropdown-avatar" />
-        <div class="dropdown-user-info">
-          <div class="dropdown-username">{{ user.username }}</div>
-          <div class="dropdown-discriminator">#{{ user.discriminator }}</div>
-        </div>
-      </div>
-      <div class="user-dropdown-divider"></div>
-      <div class="user-dropdown-item" @click="viewProfile">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-        </svg>
-        الملف الشخصي
-      </div>
-      <div class="user-dropdown-item" @click="userSettings">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-          <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.82,11.69,4.82,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
-        </svg>
-        الإعدادات
-      </div>
-      <div class="user-dropdown-divider"></div>
-      <div class="user-dropdown-item logout" @click="logout">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-          <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
-        </svg>
-        تسجيل الخروج
-      </div>
-    </div>
-
-    <a v-else :href="discordLoginUrl" class="login-btn" title="تسجيل الدخول عبر Discord">
-      <div class="discord-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-          <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0189 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1568 2.4189Z" fill="#5865F2"/>
-        </svg>
-      </div>
-      <span>تسجيل الدخول</span>
-    </a>
-
-    <div class="icon search-icon" @click="handleSearch" title="البحث">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-      </svg>
-    </div>
-  </div>
-
   <div class="logo">
     <img :src="logo" alt="KhLi Store Logo" loading="lazy" />
     <span class="logo-text">خلي ستور</span>
@@ -125,7 +73,6 @@
   </div>
 </div>
 
-<div v-if="userMenuOpen" class="dropdown-overlay" @click="closeUserMenu"></div>
 <div v-if="mobileMenuOpen" class="mobile-overlay" @click="closeMenu"></div>
 ```
 
@@ -138,31 +85,14 @@ export default {
   data() {
     return {
       mobileMenuOpen: false,
-      userMenuOpen: false,
-      user: null,
-      discordLoginUrl:
-        'https://discord.com/oauth2/authorize?client_id=1343787703585476629&response_type=code&redirect_uri=https%3A%2F%2Fkhli-store.vercel.app%2Fapi%2Fauth%2Fdiscord%2Fredirect&scope=identify',
       logo: null,
     };
   },
   mounted() {
     this.logo = require('@/assets/IMG_1254.png');
-    this.checkUserAuth();
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-    if (code) {
-      this.fetchDiscordUser(code);
-      const newUrl = window.location.origin + window.location.pathname;
-      window.history.replaceState({}, document.title, newUrl);
-    }
-
-    // إضافة مستمع للنقر خارج القوائم
-    document.addEventListener('click', this.handleOutsideClick);
   },
   beforeUnmount() {
     document.body.style.overflow = 'auto';
-    document.removeEventListener('click', this.handleOutsideClick);
   },
   methods: {
     toggleMenu() {
@@ -173,69 +103,11 @@ export default {
       this.mobileMenuOpen = false;
       document.body.style.overflow = 'auto';
     },
-    toggleUserMenu() {
-      this.userMenuOpen = !this.userMenuOpen;
-    },
-    closeUserMenu() {
-      this.userMenuOpen = false;
-    },
-    handleOutsideClick(event) {
-      // إغلاق قائمة المستخدم عند النقر خارجها
-      if (!event.target.closest('.user-profile') && !event.target.closest('.user-dropdown')) {
-        this.closeUserMenu();
-      }
-    },
-    handleSearch() {
-      console.log('البحث');
-      // يمكن إضافة منطق البحث هنا
-    },
     goBack() {
       if (window.history.length > 1) {
         this.$router.go(-1);
       } else {
         this.$router.push('/');
-      }
-    },
-    viewProfile() {
-      console.log('عرض الملف الشخصي');
-      this.closeUserMenu();
-    },
-    userSettings() {
-      console.log('الإعدادات');
-      this.closeUserMenu();
-    },
-    logout() {
-      if (typeof Storage !== 'undefined') {
-        localStorage.removeItem('discordUser');
-      }
-      this.user = null;
-      this.closeUserMenu();
-    },
-    checkUserAuth() {
-      if (typeof Storage !== 'undefined') {
-        const userData = localStorage.getItem('discordUser');
-        if (userData) {
-          try {
-            this.user = JSON.parse(userData);
-          } catch (e) {
-            console.warn('خطأ في قراءة بيانات المستخدم', e);
-            localStorage.removeItem('discordUser');
-          }
-        }
-      }
-    },
-    async fetchDiscordUser(code) {
-      try {
-        const response = await fetch(`/api/auth/discord/user?code=${code}`);
-        if (!response.ok) throw new Error('فشل في جلب بيانات المستخدم');
-
-        const userData = await response.json();
-        if (typeof Storage !== 'undefined') {
-          localStorage.setItem('discordUser', JSON.stringify(userData));
-        }
-        this.user = userData;
-      } catch (err) {
-        console.error('خطأ أثناء جلب بيانات المستخدم:', err);
       }
     },
   },
