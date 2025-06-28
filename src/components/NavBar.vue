@@ -2,6 +2,7 @@
   <div class="control-background home">
     <div class="header">
       <div class="left-icons">
+        <!-- عرض معلومات المستخدم -->
         <div v-if="user" class="user-profile" @click="toggleUserMenu">
           <img :src="user.avatar" :alt="user.username" class="user-avatar" loading="lazy" />
           <div class="user-info">
@@ -11,6 +12,7 @@
           <div class="dropdown-arrow" :class="{ rotated: userMenuOpen }">▼</div>
         </div>
 
+        <!-- قائمة المستخدم المنسدلة -->
         <div v-if="user && userMenuOpen" class="user-dropdown">
           <div class="user-dropdown-header">
             <img :src="user.avatar" class="dropdown-avatar" />
@@ -26,6 +28,7 @@
           <div class="user-dropdown-item logout" @click="logout">🚪 تسجيل الخروج</div>
         </div>
 
+        <!-- زر تسجيل الدخول -->
         <a
           v-else
           :href="discordLoginUrl"
@@ -87,12 +90,10 @@ export default {
     this.logo = require('@/assets/IMG_1254.png');
     this.checkUserAuth();
 
-    // بعد العودة من تسجيل الدخول - التحقق من وجود رمز في عنوان الرابط
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
     if (code) {
       this.fetchDiscordUser(code);
-      // إزالة الكود من الرابط بعد المعالجة
       const newUrl = window.location.origin + window.location.pathname;
       window.history.replaceState({}, document.title, newUrl);
     }
@@ -116,11 +117,9 @@ export default {
       console.log('Search clicked');
     },
     viewProfile() {
-      console.log('عرض الملف الشخصي');
       this.closeUserMenu();
     },
     userSettings() {
-      console.log('الإعدادات');
       this.closeUserMenu();
     },
     logout() {
@@ -143,7 +142,6 @@ export default {
       try {
         const response = await fetch(`/api/auth/discord/user?code=${code}`);
         if (!response.ok) throw new Error('فشل في جلب بيانات المستخدم');
-
         const userData = await response.json();
         localStorage.setItem('discordUser', JSON.stringify(userData));
         this.user = userData;
@@ -159,11 +157,6 @@ export default {
 </script>
 
 <style scoped>
-@keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -175,14 +168,17 @@ export default {
   background-size: 400% 400%;
   animation: gradientMove 4s ease-in-out infinite;
   position: relative;
-  height: 110px;
-  max-height: 140px;
-  overflow: hidden;
+  padding: 0 20px;
+  height: auto;
+  min-height: 120px;
+  overflow: visible;
+  border-bottom: 2px solid rgba(255,255,255,0.1);
 }
 
 @media (max-width: 768px) {
   .control-background.home {
-    height: 130px;
+    min-height: 110px;
+    padding: 0 15px;
   }
 }
 
@@ -192,6 +188,7 @@ export default {
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
   z-index: 1;
+  border-bottom: 2px solid rgba(255,255,255,0.1);
 }
 
 .control-background.home > * {
