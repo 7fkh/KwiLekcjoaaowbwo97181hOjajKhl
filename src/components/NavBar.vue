@@ -144,7 +144,7 @@ export default {
   background-size: 400% 400%;
   animation: gradientMove 8s ease infinite;
   position: relative;
-  min-height: 120px;
+  min-height: 90px;
   overflow: visible;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
