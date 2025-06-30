@@ -117,7 +117,7 @@ export default {
 <style scoped>
 /* الأنيميشن الأساسية */
 @keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(30px); }
+  0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
@@ -134,28 +134,31 @@ export default {
 
 @keyframes pulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  50% { transform: scale(1.03); }
   100% { transform: scale(1); }
 }
 
-/* الخلفية الرئيسية */
+/* الخلفية الرئيسية - حجم محدود */
 .control-background.home {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   background-size: 400% 400%;
   animation: gradientMove 8s ease infinite;
   position: relative;
-  min-height: 120px;
+  min-height: 80px; /* تقليل الحد الأدنى للارتفاع */
+  max-height: 120px; /* حد أقصى للارتفاع */
   overflow: visible;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 20px 20px; /* زوايا مدورة في الأسفل فقط */
 }
 
 .control-background.home::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(1px);
   z-index: 1;
+  border-radius: 0 0 20px 20px;
 }
 
 .control-background.home > * {
@@ -163,65 +166,69 @@ export default {
   z-index: 2;
 }
 
-/* الهيدر */
+/* الهيدر - حجم مضغوط */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 15px 20px; /* تقليل الحشو */
   position: relative;
+  min-height: 60px; /* ارتفاع ثابت للهيدر */
 }
 
 .left-icons, .right-icons {
   display: flex;
   align-items: center;
-  gap: 15px;
-  flex: 1;
+  gap: 12px;
+  flex: 0 0 auto; /* منع التمدد */
+  min-width: 60px; /* عرض أدنى */
 }
 
 .right-icons {
   justify-content: flex-end;
 }
 
-/* الشعار */
+/* الشعار - حجم مضغوط */
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex: 1;
   justify-content: center;
+  max-width: 200px; /* حد أقصى للعرض */
+  margin: 0 auto;
 }
 
 .logo img {
-  width: 45px;
-  height: 45px;
+  width: 38px; /* حجم أصغر */
+  height: 38px;
   border-radius: 50%;
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
 }
 
 .logo img:hover {
-  transform: scale(1.1) rotate(5deg);
+  transform: scale(1.05) rotate(3deg);
   border-color: rgba(255, 255, 255, 0.8);
 }
 
 .logo-text {
-  font-size: 22px;
-  font-weight: 800;
+  font-size: 18px; /* حجم خط أصغر */
+  font-weight: 700;
   color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
 .logo-text:hover {
   transform: translateY(-1px);
-  text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.4);
+  text-shadow: 1px 2px 6px rgba(0, 0, 0, 0.4);
 }
 
-/* الأيقونات */
+/* الأيقونات - حجم مضغوط */
 .icon {
-  width: 44px;
-  height: 44px;
+  width: 38px; /* حجم أصغر */
+  height: 38px;
   background: rgba(255, 255, 255, 0.15);
   border-radius: 50%;
   cursor: pointer;
@@ -235,41 +242,43 @@ export default {
 
 .icon:hover {
   background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .icon:active {
-  transform: translateY(0) scale(0.95);
+  transform: translateY(0) scale(0.98);
 }
 
 .icon svg {
   color: white;
   transition: all 0.3s ease;
+  width: 18px; /* حجم أيقونة أصغر */
+  height: 18px;
 }
 
 .icon:hover svg {
   transform: scale(1.1);
 }
 
-/* التنقل */
+/* التنقل - تحسينات للجوال */
 .nav {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
-  padding: 0 20px 20px;
+  gap: 15px; /* تقليل الفجوة */
+  padding: 0 15px 15px; /* تقليل الحشو */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-close {
   display: none;
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
+  top: 15px;
+  right: 15px;
+  width: 36px;
+  height: 36px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   cursor: pointer;
@@ -286,10 +295,47 @@ export default {
 
 .nav-close svg {
   color: white;
+  width: 20px;
+  height: 20px;
 }
 
-/* التنقل على الجوال */
+/* التنقل على الجوال - تحسينات */
 @media (max-width: 768px) {
+  .control-background.home {
+    min-height: 70px; /* أصغر على الجوال */
+    max-height: 100px;
+    border-radius: 0 0 15px 15px;
+  }
+
+  .header {
+    padding: 12px 15px;
+    min-height: 50px;
+  }
+
+  .logo img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .logo-text {
+    font-size: 16px;
+  }
+
+  .icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .left-icons, .right-icons {
+    gap: 8px;
+    min-width: 50px;
+  }
+
   .nav {
     position: fixed;
     top: 0;
@@ -303,7 +349,7 @@ export default {
     transform: translateX(-100%);
     opacity: 0;
     visibility: hidden;
-    padding: 60px 20px 20px;
+    padding: 80px 20px 40px;
   }
 
   .nav.nav-mobile-open {
@@ -317,10 +363,10 @@ export default {
   }
 }
 
-/* الصفحات */
+/* الصفحات - تحسينات للمساحة */
 .pages {
   display: flex;
-  gap: 30px;
+  gap: 20px; /* تقليل الفجوة */
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
@@ -329,23 +375,23 @@ export default {
 @media (max-width: 768px) {
   .pages {
     flex-direction: column;
-    gap: 40px;
-    margin-bottom: 50px;
+    gap: 30px;
+    margin-bottom: 40px;
   }
 }
 
 .nav-link {
   color: white;
   text-decoration: none;
-  font-weight: 700;
-  font-size: 16px;
-  padding: 12px 24px;
-  border-radius: 25px;
+  font-weight: 600;
+  font-size: 14px; /* حجم خط أصغر */
+  padding: 8px 16px; /* حشو أصغر */
+  border-radius: 20px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -354,8 +400,8 @@ export default {
 
 .nav-link:hover {
   background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .nav-link:active {
@@ -364,11 +410,13 @@ export default {
 
 .nav-link.router-link-active {
   background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .nav-link svg {
   transition: all 0.3s ease;
+  width: 16px;
+  height: 16px;
 }
 
 .nav-link:hover svg {
@@ -377,47 +425,52 @@ export default {
 
 @media (max-width: 768px) {
   .nav-link {
-    font-size: 20px;
-    padding: 16px 32px;
-    min-width: 200px;
+    font-size: 18px;
+    padding: 14px 28px;
+    min-width: 180px;
     justify-content: center;
+  }
+
+  .nav-link svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
-/* حاوية الأزرار */
+/* حاوية الأزرار - تحسينات للمساحة */
 .btns {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 15px; /* تقليل الفجوة */
   flex-wrap: wrap;
-  margin-top: 10px;
+  margin-top: 5px; /* تقليل الهامش العلوي */
 }
 
 @media (max-width: 768px) {
   .btns {
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
     width: 100%;
-    max-width: 320px;
+    max-width: 300px;
   }
 }
 
-/* الأزرار */
+/* الأزرار - حجم مضغوط */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 8px;
   text-decoration: none;
   color: #ffffff;
-  padding: 14px 28px;
-  border-radius: 30px;
+  padding: 10px 20px; /* حشو أصغر */
+  border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-weight: 700;
-  font-size: 14px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  font-size: 13px; /* حجم خط أصغر */
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
   border: none;
   outline: none;
   position: relative;
@@ -444,17 +497,19 @@ export default {
 }
 
 .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
 }
 
 .btn:active {
   transform: translateY(-1px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
 }
 
 .btn svg {
   transition: all 0.3s ease;
+  width: 16px;
+  height: 16px;
 }
 
 .btn:hover svg {
@@ -464,9 +519,14 @@ export default {
 @media (max-width: 768px) {
   .btn {
     width: 100%;
-    padding: 18px 36px;
-    font-size: 16px;
-    border-radius: 35px;
+    padding: 15px 30px;
+    font-size: 15px;
+    border-radius: 30px;
+  }
+
+  .btn svg {
+    width: 18px;
+    height: 18px;
   }
 }
 
@@ -478,7 +538,7 @@ export default {
 
 .primary-btn:hover {
   background: linear-gradient(135deg, #4c63d2, #3b4ba8);
-  box-shadow: 0 12px 40px rgba(88, 112, 246, 0.4);
+  box-shadow: 0 8px 30px rgba(88, 112, 246, 0.4);
   border-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -490,7 +550,7 @@ export default {
 
 .secondary-btn:hover {
   background: linear-gradient(135deg, #5a6268, #3d4448);
-  box-shadow: 0 12px 40px rgba(108, 117, 125, 0.4);
+  box-shadow: 0 8px 30px rgba(108, 117, 125, 0.4);
   border-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -513,44 +573,68 @@ export default {
   }
 }
 
-/* التعديلات التجاوبية */
+/* التعديلات التجاوبية للشاشات الصغيرة جداً */
 @media (max-width: 480px) {
+  .control-background.home {
+    min-height: 65px;
+    max-height: 90px;
+    border-radius: 0 0 12px 12px;
+  }
+
   .header {
-    padding: 15px;
+    padding: 10px 12px;
+    min-height: 45px;
   }
   
   .logo-text {
-    display: none;
+    display: none; /* إخفاء النص على الشاشات الصغيرة جداً */
   }
   
   .left-icons, .right-icons {
-    gap: 10px;
+    gap: 6px;
+    min-width: 40px;
   }
 
   .icon {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .icon svg {
+    width: 14px;
+    height: 14px;
   }
 
   .logo img {
-    width: 40px;
-    height: 40px;
+    width: 28px;
+    height: 28px;
   }
 }
 
 @media (max-width: 360px) {
+  .control-background.home {
+    min-height: 60px;
+    max-height: 80px;
+  }
+
   .header {
-    padding: 12px;
+    padding: 8px 10px;
+    min-height: 40px;
   }
 
   .icon {
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .icon svg {
+    width: 12px;
+    height: 12px;
   }
 
   .logo img {
-    width: 36px;
-    height: 36px;
+    width: 26px;
+    height: 26px;
   }
 }
 
@@ -586,12 +670,12 @@ export default {
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .btn,
   .icon {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   }
   
   .btn:hover,
   .icon:hover {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   }
 }
 
@@ -604,5 +688,22 @@ export default {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ضمان عدم تغطية المحتوى */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.main-content {
+  margin-top: 0; /* إزالة أي هامش قد يسبب مشاكل */
+  padding-top: 20px; /* مساحة صغيرة بعد الهيدر */
+}
+
+/* تحديد حجم الكونتينر الرئيسي */
+.app-container {
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 </style>
