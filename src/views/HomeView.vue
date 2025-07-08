@@ -74,13 +74,11 @@ export default {
     };
   },
   mounted() {
-    // Trigger animation on mount
     setTimeout(() => {
       this.isVisible = true;
     }, 300);
   },
   methods: {
-    // Removed parallax scroll method
   }
 }
 </script>
@@ -115,7 +113,7 @@ export default {
       </div>
       
       <h2 class="subtitle">
-        متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير الحلول التقنية والمواقع الالكترونيه
+        متجر رقمي متخصص في تقديم خدمات البرمجة وتطوير البرامج التقنية والمواقع الالكترونيه
       </h2>
       
       <div class="features-grid">
@@ -140,7 +138,7 @@ export default {
               <path d="M30 60 L70 60 M30 70 L60 70" stroke="currentColor" stroke-width="2"/>
             </svg>
           </div>
-          <span>الحلول التقنية</span>
+          <span>تطوير البرامج التقنية</span>
         </div>
         <div class="feature-item">
           <div class="feature-icon">
@@ -153,7 +151,7 @@ export default {
               <path d="M15 70 L85 70" stroke="currentColor" stroke-width="2"/>
             </svg>
           </div>
-          <span>خدمة سريعة</span>
+          <span>الخدمات السريعة</span>
         </div>
         <div class="feature-item">
           <div class="feature-icon">
@@ -172,7 +170,7 @@ export default {
         <button class="cta-primary">
           <span>ابدأ مشروعك</span>
           <svg viewBox="0 0 24 24" class="button-icon">
-            <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"/>
+            <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" fill="/products"/>
           </svg>
         </button>
         <button class="cta-secondary">
