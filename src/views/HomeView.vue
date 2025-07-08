@@ -162,7 +162,7 @@ export default {
               <path d="M25 15 L35 25 M75 15 L65 25 M85 40 L75 50 M85 60 L75 50 M75 75 L65 75 M25 75 L35 75 M15 60 L25 50 M15 40 L25 50" stroke="currentColor" stroke-width="2"/>
             </svg>
           </div>
-          <span>دعم مستمر</span>
+          <span>دعم مستمرر</span>
         </div>
       </div>
 
