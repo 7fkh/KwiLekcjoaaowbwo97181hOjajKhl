@@ -102,7 +102,7 @@ export default{
                     <input id="workinput" placeholder="Username" type="text">
                 </div>
                 <div class="inp">
-                    <label>مثال للطلب اذا لم يوجد اكتب نقطة</label>
+                    <label>مثال للطلب اذا لم يوجد اكتب </label>
                     <input id="langinput" placeholder="Example" type="text">
                 </div>
                 <div class="inp">
