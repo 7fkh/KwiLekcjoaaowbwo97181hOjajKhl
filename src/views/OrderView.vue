@@ -14,7 +14,7 @@ export default{
     },
     methods:{
         sendApply(){
-            const webhookUrl = 'https://discord.com/api/webhooks/1261648235139694685/CfcBGfsb3GiBBDQ7KnV-yAuCJQBTFnqgtt_QX_rkk--ozIkgTAzpoOtVP3tYRcLpQH2M'
+            const webhookUrl = 'https://discord.com/api/webhooks/1393737456083537930/vapXAbpBwnPurETCHBYkSiibTgeAwrP9GyAwkw8nqE4K4RjeQWUOc2BvI3U-fxTyl-l1'
             const user = document.getElementById("userinput").value
             const country = document.getElementById("countryinput").value
             const birthday = document.getElementById("birthinput").value
@@ -44,7 +44,7 @@ export default{
             } else{
 
 
-                fetch('https://discord.com/api/webhooks/1261648235139694685/CfcBGfsb3GiBBDQ7KnV-yAuCJQBTFnqgtt_QX_rkk--ozIkgTAzpoOtVP3tYRcLpQH2M', {
+                fetch('https://discord.com/api/webhooks/1393737456083537930/vapXAbpBwnPurETCHBYkSiibTgeAwrP9GyAwkw8nqE4K4RjeQWUOc2BvI3U-fxTyl-l1', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
