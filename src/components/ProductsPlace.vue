@@ -19,7 +19,8 @@ export default {
           category: "فايف ام",
           image: "https://i.imgur.com/kAg2dIa.jpeg",
           rating: 4.8,
-          reviews: 24
+          reviews: 24,
+          icon: "🎮"
         },
         {
           id: 2,
@@ -30,7 +31,8 @@ export default {
           category: "ديسكورد",
           image: "https://i.imgur.com/kAg2dIa.jpeg",
           rating: 4.9,
-          reviews: 18
+          reviews: 18,
+          icon: "🤖"
         },
         {
           id: 3,
@@ -41,7 +43,8 @@ export default {
           category: "مواقع",
           image: "https://i.imgur.com/kAg2dIa.jpeg",
           rating: 4.7,
-          reviews: 32
+          reviews: 32,
+          icon: "🌐"
         },
         {
           id: 4,
@@ -52,7 +55,8 @@ export default {
           category: "طلب خاص",
           image: "https://i.imgur.com/kAg2dIa.jpeg",
           rating: 5.0,
-          reviews: 15
+          reviews: 15,
+          icon: "⚡"
         },
         {
           id: 5,
@@ -63,7 +67,8 @@ export default {
           category: "مواقع",
           image: "https://i.imgur.com/kAg2dIa.jpeg",
           rating: 4.6,
-          reviews: 28
+          reviews: 28,
+          icon: "📊"
         },
         {
           id: 6,
@@ -74,7 +79,8 @@ export default {
           category: "فايف ام",
           image: "https://i.imgur.com/kAg2dIa.jpeg",
           rating: 4.5,
-          reviews: 41
+          reviews: 41,
+          icon: "🚗"
         }
       ],
       categories: [
@@ -215,7 +221,7 @@ export default {
           <input 
             v-model="searchQuery" 
             type="text" 
-            placeholder="ابحث عن منتج..."
+            placeholder="🔍 ابحث عن منتج..."
             class="search-input"
           >
           <span class="search-icon">🔍</span>
@@ -239,7 +245,7 @@ export default {
       <div v-if="cartOpen" class="cart-popup">
         <div class="cart-header">
           <h3>🛒 سلة المشتريات</h3>
-          <button class="close-btn" @click="closeCart">✖️</button>
+          <button class="close-btn" @click="closeCart">❌</button>
         </div>
         
         <div class="cart-content">
@@ -251,14 +257,15 @@ export default {
           
           <div v-else class="cart-items">
             <div v-for="item in cart" :key="item.id" class="cart-item">
+              <div class="cart-item-icon">{{ item.icon }}</div>
               <img :src="item.image" :alt="item.title" class="cart-item-image">
               <div class="cart-item-details">
                 <h4>{{ item.title }}</h4>
-                <p class="cart-item-price">{{ item.price }} ريال</p>
+                <p class="cart-item-price">💰 {{ item.price }} ريال</p>
                 <div class="quantity-controls">
-                  <button @click="updateQuantity(item.id, item.quantity - 1)" class="qty-btn">-</button>
+                  <button @click="updateQuantity(item.id, item.quantity - 1)" class="qty-btn">➖</button>
                   <span class="quantity">{{ item.quantity }}</span>
-                  <button @click="updateQuantity(item.id, item.quantity + 1)" class="qty-btn">+</button>
+                  <button @click="updateQuantity(item.id, item.quantity + 1)" class="qty-btn">➕</button>
                 </div>
               </div>
               <button @click="removeFromCart(item.id)" class="remove-btn">🗑️</button>
@@ -266,11 +273,11 @@ export default {
             
             <div class="cart-footer">
               <div class="cart-total">
-                <strong>الإجمالي: {{ cartTotal }} ريال</strong>
+                <strong>💰 الإجمالي: {{ cartTotal }} ريال</strong>
               </div>
               <div class="cart-actions">
-                <button @click="clearCart" class="clear-btn">إفراغ السلة</button>
-                <button class="checkout-btn">إتمام الطلب</button>
+                <button @click="clearCart" class="clear-btn">🗑️ إفراغ السلة</button>
+                <button class="checkout-btn">🚀 إتمام الطلب</button>
               </div>
             </div>
           </div>
@@ -283,7 +290,7 @@ export default {
       <div v-if="sidebarOpen" class="sidebar">
         <div class="sidebar-header">
           <h3>📂 الأقسام</h3>
-          <button class="close-btn" @click="closeSidebar">✖️</button>
+          <button class="close-btn" @click="closeSidebar">❌</button>
         </div>
         
         <nav class="sidebar-nav">
@@ -296,6 +303,7 @@ export default {
             >
               <span class="category-icon">{{ category.icon }}</span>
               <span class="category-name">{{ category.name }}</span>
+              <span class="category-arrow">👈</span>
             </li>
           </ul>
         </nav>
@@ -325,12 +333,12 @@ export default {
       <section class="products-section">
         <div class="section-header">
           <h2>🛍️ المنتجات</h2>
-          <span class="products-count">{{ filteredProducts.length }} منتج</span>
+          <span class="products-count">📊 {{ filteredProducts.length }} منتج</span>
         </div>
         
         <div v-if="filteredProducts.length === 0" class="no-products">
           <div class="no-products-icon">🔍</div>
-          <h3>لا توجد منتجات</h3>
+          <h3>❌ لا توجد منتجات</h3>
           <p>لا توجد منتجات في هذا القسم حاليًا</p>
         </div>
 
@@ -341,9 +349,10 @@ export default {
             class="product-card"
           >
             <div class="product-image-container">
+              <div class="product-icon">{{ product.icon }}</div>
               <img :src="product.image" :alt="product.title" class="product-image">
               <div class="product-badge" v-if="product.originalPrice > product.price">
-                خصم {{ Math.round((1 - product.price / product.originalPrice) * 100) }}%
+                🏷️ خصم {{ Math.round((1 - product.price / product.originalPrice) * 100) }}%
               </div>
             </div>
             
@@ -353,25 +362,54 @@ export default {
               
               <div class="product-rating">
                 <span class="stars">{{ renderStars(product.rating) }}</span>
-                <span class="rating-text">{{ product.rating }} ({{ product.reviews }} تقييم)</span>
+                <span class="rating-text">{{ product.rating }} (👥 {{ product.reviews }} تقييم)</span>
               </div>
               
               <div class="product-price">
-                <span class="current-price">{{ product.price }} ريال</span>
+                <span class="current-price">💰 {{ product.price }} ريال</span>
                 <span v-if="product.originalPrice > product.price" class="original-price">
-                  {{ product.originalPrice }} ريال
+                  💸 {{ product.originalPrice }} ريال
                 </span>
               </div>
               
               <button @click="addToCart(product)" class="add-to-cart-btn">
                 <span class="btn-icon">🛒</span>
                 <span class="btn-text">أضف للسلة</span>
+                <span class="btn-arrow">👈</span>
               </button>
             </div>
           </div>
         </div>
       </section>
     </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>📞 اتصل بنا</h4>
+          <p>📧 info@programmingstore.com</p>
+          <p>📱 +966 50 123 4567</p>
+        </div>
+        <div class="footer-section">
+          <h4>🌐 تابعنا</h4>
+          <div class="social-links">
+            <a href="#" class="social-link">📘 فيسبوك</a>
+            <a href="#" class="social-link">📸 إنستغرام</a>
+            <a href="#" class="social-link">🐦 تويتر</a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4>ℹ️ معلومات</h4>
+          <a href="#" class="footer-link">📋 الشروط والأحكام</a>
+          <a href="#" class="footer-link">🔒 سياسة الخصوصية</a>
+          <a href="#" class="footer-link">❓ الأسئلة الشائعة</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 متجر البرمجة. جميع الحقوق محفوظة 🔐</p>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -555,6 +593,7 @@ body {
 .sidebar-nav li {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 1rem 1.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -575,6 +614,12 @@ body {
 .category-name {
   font-size: 1.1rem;
   font-weight: 500;
+  flex: 1;
+}
+
+.category-arrow {
+  font-size: 1rem;
+  opacity: 0.7;
 }
 
 /* Cart Popup Styles */
@@ -624,6 +669,11 @@ body {
   gap: 1rem;
 }
 
+.cart-item-icon {
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
 .cart-item-image {
   width: 60px;
   height: 60px;
@@ -661,6 +711,7 @@ body {
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 0.8rem;
 }
 
 .qty-btn:hover {
@@ -681,6 +732,7 @@ body {
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 1rem;
 }
 
 .remove-btn:hover {
@@ -712,6 +764,10 @@ body {
   cursor: pointer;
   font-weight: 600;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .clear-btn {
