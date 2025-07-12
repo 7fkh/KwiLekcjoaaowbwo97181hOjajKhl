@@ -1,486 +1,378 @@
-import React, { useState } from 'react';
-import { 
-  ShoppingCart, 
-  Search, 
-  Menu, 
-  X, 
-  Plus, 
-  Minus, 
-  Trash2, 
-  Store, 
-  MessageCircle, 
-  Gamepad2, 
-  Globe, 
-  Star, 
-  CheckCircle,
-  Package,
-  Filter
-} from 'lucide-react';
-
-export default function ArabicStore() {
-  const [selectedCategory, setSelectedCategory] = useState('الكل');
-  const [cart, setCart] = useState([]);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [showNotification, setShowNotification] = useState(false);
-  const [lastAddedProduct, setLastAddedProduct] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const products = [
-    {
-      id: 1,
-      title: "برمجة سيرفر فايف ام",
-      description: "برمجة سيرفر فايف ام من الصفر مع جميع المميزات المطلوبة",
-      price: 25,
-      originalPrice: 35,
-      category: "فايف ام",
-      image: "https://i.imgur.com/kAg2dIa.jpeg",
-      rating: 4.8,
-      reviews: 24
+<script>
+export default {
+  data() {
+    return {
+      selectedCategory: 'الكل',
+      cart: [],
+      sidebarOpen: false,
+      cartOpen: false,
+      showNotification: false,
+      lastAddedProduct: null,
+      searchQuery: '',
+      products: [
+        {
+          id: 1,
+          title: "برمجة سيرفر فايف ام",
+          description: "برمجة سيرفر فايف ام من الصفر مع جميع المميزات المطلوبة",
+          price: 25,
+          originalPrice: 35,
+          category: "فايف ام",
+          image: "https://i.imgur.com/kAg2dIa.jpeg",
+          rating: 4.8,
+          reviews: 24
+        },
+        {
+          id: 2,
+          title: "بوت ديسكورد متقدم",
+          description: "بوت ديسكورد مع مميزات متقدمة ولوحة تحكم",
+          price: 50,
+          originalPrice: 70,
+          category: "ديسكورد",
+          image: "https://i.imgur.com/kAg2dIa.jpeg",
+          rating: 4.9,
+          reviews: 18
+        },
+        {
+          id: 3,
+          title: "موقع إلكتروني مخصص",
+          description: "تصميم وبرمجة موقع إلكتروني احترافي بتقنيات حديثة",
+          price: 30,
+          originalPrice: 45,
+          category: "مواقع",
+          image: "https://i.imgur.com/kAg2dIa.jpeg",
+          rating: 4.7,
+          reviews: 32
+        },
+        {
+          id: 4,
+          title: "طلب مخصص",
+          description: "خدمة برمجة مخصصة حسب احتياجاتك الخاصة",
+          price: 100,
+          originalPrice: 120,
+          category: "طلب خاص",
+          image: "https://i.imgur.com/kAg2dIa.jpeg",
+          rating: 5.0,
+          reviews: 15
+        },
+        {
+          id: 5,
+          title: "نظام إدارة المحتوى",
+          description: "نظام إدارة محتوى متكامل مع لوحة تحكم متقدمة",
+          price: 80,
+          originalPrice: 100,
+          category: "مواقع",
+          image: "https://i.imgur.com/kAg2dIa.jpeg",
+          rating: 4.6,
+          reviews: 28
+        },
+        {
+          id: 6,
+          title: "خدمات FiveM إضافية",
+          description: "إضافات وتحسينات لسيرفر FiveM الخاص بك",
+          price: 15,
+          originalPrice: 25,
+          category: "فايف ام",
+          image: "https://i.imgur.com/kAg2dIa.jpeg",
+          rating: 4.5,
+          reviews: 41
+        }
+      ],
+      categories: [
+        { id: 'الكل', name: 'الكل', icon: '🏪' },
+        { id: 'ديسكورد', name: 'ديسكورد', icon: '💬' },
+        { id: 'فايف ام', name: 'فايف ام', icon: '🎮' },
+        { id: 'مواقع', name: 'مواقع', icon: '🌐' },
+        { id: 'طلب خاص', name: 'طلب خاص', icon: '⭐' }
+      ]
+    };
+  },
+  computed: {
+    filteredProducts() {
+      let filtered = this.selectedCategory === 'الكل' 
+        ? this.products 
+        : this.products.filter(p => p.category === this.selectedCategory);
+      
+      if (this.searchQuery) {
+        filtered = filtered.filter(p => 
+          p.title.includes(this.searchQuery) || 
+          p.description.includes(this.searchQuery)
+        );
+      }
+      
+      return filtered;
     },
-    {
-      id: 2,
-      title: "بوت ديسكورد متقدم",
-      description: "بوت ديسكورد مع مميزات متقدمة ولوحة تحكم",
-      price: 50,
-      originalPrice: 70,
-      category: "ديسكورد",
-      image: "https://i.imgur.com/kAg2dIa.jpeg",
-      rating: 4.9,
-      reviews: 18
+    cartTotal() {
+      return this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
     },
-    {
-      id: 3,
-      title: "موقع إلكتروني مخصص",
-      description: "تصميم وبرمجة موقع إلكتروني احترافي بتقنيات حديثة",
-      price: 30,
-      originalPrice: 45,
-      category: "مواقع",
-      image: "https://i.imgur.com/kAg2dIa.jpeg",
-      rating: 4.7,
-      reviews: 32
+    cartItemsCount() {
+      return this.cart.reduce((count, item) => count + item.quantity, 0);
+    }
+  },
+  methods: {
+    filterProducts(category) {
+      this.selectedCategory = category;
+      this.sidebarOpen = false;
     },
-    {
-      id: 4,
-      title: "طلب مخصص",
-      description: "خدمة برمجة مخصصة حسب احتياجاتك الخاصة",
-      price: 100,
-      originalPrice: 120,
-      category: "طلب خاص",
-      image: "https://i.imgur.com/kAg2dIa.jpeg",
-      rating: 5.0,
-      reviews: 15
+    addToCart(product) {
+      const existingItem = this.cart.find(item => item.id === product.id);
+      
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        this.cart.push({
+          ...product,
+          quantity: 1
+        });
+      }
+      
+      this.lastAddedProduct = product;
+      this.showNotification = true;
+      setTimeout(() => {
+        this.showNotification = false;
+      }, 3000);
     },
-    {
-      id: 5,
-      title: "نظام إدارة المحتوى",
-      description: "نظام إدارة محتوى متكامل مع لوحة تحكم متقدمة",
-      price: 80,
-      originalPrice: 100,
-      category: "مواقع",
-      image: "https://i.imgur.com/kAg2dIa.jpeg",
-      rating: 4.6,
-      reviews: 28
+    removeFromCart(productId) {
+      this.cart = this.cart.filter(item => item.id !== productId);
     },
-    {
-      id: 6,
-      title: "خدمات FiveM إضافية",
-      description: "إضافات وتحسينات لسيرفر FiveM الخاص بك",
-      price: 15,
-      originalPrice: 25,
-      category: "فايف ام",
-      image: "https://i.imgur.com/kAg2dIa.jpeg",
-      rating: 4.5,
-      reviews: 41
+    updateQuantity(productId, newQuantity) {
+      if (newQuantity <= 0) {
+        this.removeFromCart(productId);
+        return;
+      }
+      
+      const item = this.cart.find(item => item.id === productId);
+      if (item) {
+        item.quantity = newQuantity;
+      }
+    },
+    toggleSidebar() {
+      this.sidebarOpen = !this.sidebarOpen;
+      if (this.sidebarOpen && this.cartOpen) {
+        this.cartOpen = false;
+      }
+    },
+    toggleCart() {
+      this.cartOpen = !this.cartOpen;
+      if (this.cartOpen && this.sidebarOpen) {
+        this.sidebarOpen = false;
+      }
+    },
+    closeSidebar() {
+      this.sidebarOpen = false;
+    },
+    closeCart() {
+      this.cartOpen = false;
+    },
+    clearCart() {
+      this.cart = [];
+      this.cartOpen = false;
+    },
+    renderStars(rating) {
+      const fullStars = Math.floor(rating);
+      const hasHalfStar = rating % 1 !== 0;
+      let stars = '';
+      
+      for (let i = 0; i < fullStars; i++) {
+        stars += '⭐';
+      }
+      if (hasHalfStar) {
+        stars += '⭐';
+      }
+      
+      return stars;
     }
-  ];
+  }
+};
+</script>
 
-  const categories = [
-    { id: 'الكل', name: 'الكل', icon: Store },
-    { id: 'ديسكورد', name: 'ديسكورد', icon: MessageCircle },
-    { id: 'فايف ام', name: 'فايف ام', icon: Gamepad2 },
-    { id: 'مواقع', name: 'مواقع', icon: Globe },
-    { id: 'طلب خاص', name: 'طلب خاص', icon: Star }
-  ];
-
-  const filteredProducts = () => {
-    let filtered = selectedCategory === 'الكل' 
-      ? products 
-      : products.filter(p => p.category === selectedCategory);
-    
-    if (searchQuery) {
-      filtered = filtered.filter(p => 
-        p.title.includes(searchQuery) || 
-        p.description.includes(searchQuery)
-      );
-    }
-    
-    return filtered;
-  };
-
-  const cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-  const cartItemsCount = cart.reduce((count, item) => count + item.quantity, 0);
-
-  const filterProducts = (category) => {
-    setSelectedCategory(category);
-    setSidebarOpen(false);
-  };
-
-  const addToCart = (product) => {
-    const existingItem = cart.find(item => item.id === product.id);
-    
-    if (existingItem) {
-      setCart(cart.map(item => 
-        item.id === product.id 
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      ));
-    } else {
-      setCart([...cart, { ...product, quantity: 1 }]);
-    }
-    
-    setLastAddedProduct(product);
-    setShowNotification(true);
-    setTimeout(() => {
-      setShowNotification(false);
-    }, 3000);
-  };
-
-  const removeFromCart = (productId) => {
-    setCart(cart.filter(item => item.id !== productId));
-  };
-
-  const updateQuantity = (productId, newQuantity) => {
-    if (newQuantity <= 0) {
-      removeFromCart(productId);
-      return;
-    }
-    
-    setCart(cart.map(item => 
-      item.id === productId 
-        ? { ...item, quantity: newQuantity }
-        : item
-    ));
-  };
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-    if (!sidebarOpen && cartOpen) {
-      setCartOpen(false);
-    }
-  };
-
-  const toggleCart = () => {
-    setCartOpen(!cartOpen);
-    if (!cartOpen && sidebarOpen) {
-      setSidebarOpen(false);
-    }
-  };
-
-  const clearCart = () => {
-    setCart([]);
-    setCartOpen(false);
-  };
-
-  const renderStars = (rating) => {
-    const stars = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
-    
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(<Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />);
-    }
-    if (hasHalfStar) {
-      stars.push(<Star key="half" className="w-4 h-4 fill-yellow-400 text-yellow-400 opacity-50" />);
-    }
-    
-    return stars;
-  };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 text-white" dir="rtl">
-      {/* إشعار الإضافة للسلة */}
-      {showNotification && (
-        <div className="fixed top-4 right-4 bg-black/90 backdrop-blur-xl border border-green-500/30 rounded-2xl p-4 z-50 shadow-xl shadow-green-500/20 animate-in slide-in-from-right duration-300">
-          <div className="flex items-center gap-3">
-            <CheckCircle className="w-6 h-6 text-green-400" />
-            <span className="text-white font-semibold">تمت إضافة {lastAddedProduct?.title} إلى السلة!</span>
-          </div>
+<template>
+  <div class="store-container" dir="rtl">
+    <!-- إشعار الإضافة للسلة -->
+    <transition name="notification">
+      <div v-if="showNotification" class="notification-card">
+        <div class="notification-content">
+          <span class="notification-icon">✅</span>
+          <span class="notification-text">تمت إضافة {{ lastAddedProduct.title }} إلى السلة!</span>
         </div>
-      )}
+      </div>
+    </transition>
 
-      {/* Overlay */}
-      {(sidebarOpen || cartOpen) && (
-        <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
-          onClick={() => {
-            setSidebarOpen(false);
-            setCartOpen(false);
-          }}
-        />
-      )}
+    <!-- Overlay للسايدبار والسلة -->
+    <div 
+      v-if="sidebarOpen || cartOpen" 
+      class="overlay" 
+      @click="sidebarOpen = false; cartOpen = false"
+    ></div>
 
-      {/* رأس الصفحة */}
-      <header className="sticky top-0 z-30 bg-black/90 backdrop-blur-xl border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <Store className="w-8 h-8 text-purple-400" />
-              <h1 className="text-2xl font-bold text-purple-400">متجر البرمجة</h1>
-            </div>
-            
-            <div className="flex-1 max-w-md relative">
-              <input 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                type="text" 
-                placeholder="ابحث عن منتج..."
-                className="w-full py-3 px-4 pr-12 bg-white/10 border-2 border-white/10 rounded-full text-white placeholder-white/70 focus:outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-400/10 transition-all"
-              />
-              <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/70" />
-            </div>
-            
-            <div className="flex items-center gap-3">
-              <button 
-                onClick={toggleCart}
-                className={`relative p-3 bg-white/10 rounded-2xl transition-all hover:bg-purple-400/30 hover:-translate-y-1 ${cartOpen ? 'bg-purple-400/30' : ''}`}
-              >
-                <ShoppingCart className="w-6 h-6" />
-                {cartItemsCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold animate-pulse">
-                    {cartItemsCount}
-                  </span>
-                )}
-              </button>
-              
-              <button 
-                onClick={toggleSidebar}
-                className={`p-3 bg-white/10 rounded-2xl transition-all hover:bg-purple-400/30 hover:-translate-y-1 ${sidebarOpen ? 'bg-purple-400/30' : ''}`}
-              >
-                <Menu className="w-6 h-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* الشريط الجانبي */}
-      <div className={`fixed top-0 right-0 h-full w-80 bg-black/95 backdrop-blur-xl border-l border-white/10 z-50 transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="flex items-center justify-between p-6 border-b border-white/10">
-          <div className="flex items-center gap-3">
-            <Filter className="w-6 h-6 text-purple-400" />
-            <h3 className="text-xl font-bold">الأقسام</h3>
-          </div>
-          <button 
-            onClick={() => setSidebarOpen(false)}
-            className="p-2 hover:bg-white/10 rounded-xl transition-colors"
-          >
-            <X className="w-6 h-6" />
-          </button>
+    <!-- رأس الصفحة -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <h1>🛍️ متجر البرمجة</h1>
         </div>
         
-        <nav className="p-4">
-          <ul className="space-y-2">
-            {categories.map((category) => {
-              const IconComponent = category.icon;
-              return (
-                <li 
-                  key={category.id}
-                  onClick={() => filterProducts(category.id)}
-                  className={`flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all hover:bg-purple-400/20 ${selectedCategory === category.id ? 'bg-purple-400/20 border-r-4 border-purple-400' : ''}`}
-                >
-                  <IconComponent className="w-6 h-6 text-purple-400" />
-                  <span className="text-lg font-medium">{category.name}</span>
-                </li>
-              );
-            })}
+        <div class="search-bar">
+          <input 
+            v-model="searchQuery" 
+            type="text" 
+            placeholder="ابحث عن منتج..."
+            class="search-input"
+          >
+          <span class="search-icon">🔍</span>
+        </div>
+        
+        <div class="header-actions">
+          <button class="cart-btn" @click="toggleCart" :class="{ active: cartOpen }">
+            <span class="cart-icon">🛒</span>
+            <span class="cart-count" v-if="cartItemsCount > 0">{{ cartItemsCount }}</span>
+          </button>
+          
+          <button class="menu-btn" @click="toggleSidebar" :class="{ active: sidebarOpen }">
+            <span class="menu-icon">☰</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- نافذة السلة -->
+    <transition name="slide-left">
+      <div v-if="cartOpen" class="cart-popup">
+        <div class="cart-header">
+          <h3>🛒 سلة المشتريات</h3>
+          <button class="close-btn" @click="closeCart">✖️</button>
+        </div>
+        
+        <div class="cart-content">
+          <div v-if="cart.length === 0" class="empty-cart">
+            <div class="empty-cart-icon">🛒</div>
+            <p>السلة فارغة</p>
+            <small>أضف منتجات لتظهر هنا</small>
+          </div>
+          
+          <div v-else class="cart-items">
+            <div v-for="item in cart" :key="item.id" class="cart-item">
+              <img :src="item.image" :alt="item.title" class="cart-item-image">
+              <div class="cart-item-details">
+                <h4>{{ item.title }}</h4>
+                <p class="cart-item-price">{{ item.price }} ريال</p>
+                <div class="quantity-controls">
+                  <button @click="updateQuantity(item.id, item.quantity - 1)" class="qty-btn">-</button>
+                  <span class="quantity">{{ item.quantity }}</span>
+                  <button @click="updateQuantity(item.id, item.quantity + 1)" class="qty-btn">+</button>
+                </div>
+              </div>
+              <button @click="removeFromCart(item.id)" class="remove-btn">🗑️</button>
+            </div>
+            
+            <div class="cart-footer">
+              <div class="cart-total">
+                <strong>الإجمالي: {{ cartTotal }} ريال</strong>
+              </div>
+              <div class="cart-actions">
+                <button @click="clearCart" class="clear-btn">إفراغ السلة</button>
+                <button class="checkout-btn">إتمام الطلب</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+
+    <!-- الشريط الجانبي -->
+    <transition name="slide-right">
+      <div v-if="sidebarOpen" class="sidebar">
+        <div class="sidebar-header">
+          <h3>📂 الأقسام</h3>
+          <button class="close-btn" @click="closeSidebar">✖️</button>
+        </div>
+        
+        <nav class="sidebar-nav">
+          <ul>
+            <li 
+              v-for="category in categories" 
+              :key="category.id"
+              @click="filterProducts(category.id)"
+              :class="{ active: selectedCategory === category.id }"
+            >
+              <span class="category-icon">{{ category.icon }}</span>
+              <span class="category-name">{{ category.name }}</span>
+            </li>
           </ul>
         </nav>
       </div>
+    </transition>
 
-      {/* نافذة السلة */}
-      <div className={`fixed top-0 left-0 h-full w-80 bg-black/95 backdrop-blur-xl border-r border-white/10 z-50 transition-transform duration-300 ${cartOpen ? 'translate-x-0' : '-translate-x-full'} flex flex-col`}>
-        <div className="flex items-center justify-between p-6 border-b border-white/10">
-          <div className="flex items-center gap-3">
-            <ShoppingCart className="w-6 h-6 text-purple-400" />
-            <h3 className="text-xl font-bold">سلة المشتريات</h3>
-          </div>
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+      <!-- فلاتر التصنيفات -->
+      <section class="categories-section">
+        <h2>🏷️ التصنيفات</h2>
+        <div class="categories-filter">
           <button 
-            onClick={() => setCartOpen(false)}
-            className="p-2 hover:bg-white/10 rounded-xl transition-colors"
+            v-for="category in categories" 
+            :key="category.id"
+            @click="filterProducts(category.id)"
+            :class="{ active: selectedCategory === category.id }"
+            class="category-btn"
           >
-            <X className="w-6 h-6" />
+            <span class="category-icon">{{ category.icon }}</span>
+            <span class="category-name">{{ category.name }}</span>
           </button>
         </div>
+      </section>
+
+      <!-- عرض المنتجات -->
+      <section class="products-section">
+        <div class="section-header">
+          <h2>🛍️ المنتجات</h2>
+          <span class="products-count">{{ filteredProducts.length }} منتج</span>
+        </div>
         
-        <div className="flex-1 overflow-y-auto">
-          {cart.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-center p-8">
-              <ShoppingCart className="w-16 h-16 text-white/30 mb-4" />
-              <p className="text-xl mb-2">السلة فارغة</p>
-              <p className="text-white/70">أضف منتجات لتظهر هنا</p>
-            </div>
-          ) : (
-            <div className="p-4 space-y-4">
-              {cart.map((item) => (
-                <div key={item.id} className="flex items-center gap-3 p-3 bg-white/5 rounded-xl">
-                  <img 
-                    src={item.image} 
-                    alt={item.title}
-                    className="w-16 h-16 rounded-xl object-cover"
-                  />
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-sm mb-1">{item.title}</h4>
-                    <p className="text-purple-400 font-bold">{item.price} ريال</p>
-                    <div className="flex items-center gap-2 mt-2">
-                      <button 
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="w-8 h-8 bg-purple-400/20 rounded-full flex items-center justify-center hover:bg-purple-400/40 transition-colors"
-                      >
-                        <Minus className="w-4 h-4" />
-                      </button>
-                      <span className="w-8 text-center font-bold">{item.quantity}</span>
-                      <button 
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="w-8 h-8 bg-purple-400/20 rounded-full flex items-center justify-center hover:bg-purple-400/40 transition-colors"
-                      >
-                        <Plus className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                  <button 
-                    onClick={() => removeFromCart(item.id)}
-                    className="p-2 text-red-400 hover:bg-red-400/10 rounded-xl transition-colors"
-                  >
-                    <Trash2 className="w-5 h-5" />
-                  </button>
-                </div>
-              ))}
-              
-              <div className="border-t border-white/10 pt-4">
-                <div className="text-center mb-4">
-                  <p className="text-2xl font-bold text-purple-400">الإجمالي: {cartTotal} ريال</p>
-                </div>
-                <div className="flex gap-3">
-                  <button 
-                    onClick={clearCart}
-                    className="flex-1 py-3 bg-red-500/20 text-red-400 rounded-xl font-semibold hover:bg-red-500/30 transition-colors"
-                  >
-                    إفراغ السلة
-                  </button>
-                  <button className="flex-1 py-3 bg-purple-500 text-white rounded-xl font-semibold hover:bg-purple-600 transition-colors">
-                    إتمام الطلب
-                  </button>
-                </div>
+        <div v-if="filteredProducts.length === 0" class="no-products">
+          <div class="no-products-icon">🔍</div>
+          <h3>لا توجد منتجات</h3>
+          <p>لا توجد منتجات في هذا القسم حاليًا</p>
+        </div>
+
+        <div v-else class="products-grid">
+          <div 
+            v-for="product in filteredProducts" 
+            :key="product.id" 
+            class="product-card"
+          >
+            <div class="product-image-container">
+              <img :src="product.image" :alt="product.title" class="product-image">
+              <div class="product-badge" v-if="product.originalPrice > product.price">
+                خصم {{ Math.round((1 - product.price / product.originalPrice) * 100) }}%
               </div>
             </div>
-          )}
+            
+            <div class="product-info">
+              <h3 class="product-title">{{ product.title }}</h3>
+              <p class="product-description">{{ product.description }}</p>
+              
+              <div class="product-rating">
+                <span class="stars">{{ renderStars(product.rating) }}</span>
+                <span class="rating-text">{{ product.rating }} ({{ product.reviews }} تقييم)</span>
+              </div>
+              
+              <div class="product-price">
+                <span class="current-price">{{ product.price }} ريال</span>
+                <span v-if="product.originalPrice > product.price" class="original-price">
+                  {{ product.originalPrice }} ريال
+                </span>
+              </div>
+              
+              <button @click="addToCart(product)" class="add-to-cart-btn">
+                <span class="btn-icon">🛒</span>
+                <span class="btn-text">أضف للسلة</span>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-
-      {/* المحتوى الرئيسي */}
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        {/* فلاتر التصنيفات */}
-        <section className="mb-12">
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <Filter className="w-8 h-8 text-purple-400" />
-            <h2 className="text-3xl font-bold text-center">التصنيفات</h2>
-          </div>
-          <div className="flex justify-center gap-4 flex-wrap">
-            {categories.map((category) => {
-              const IconComponent = category.icon;
-              return (
-                <button 
-                  key={category.id}
-                  onClick={() => filterProducts(category.id)}
-                  className={`flex items-center gap-3 px-6 py-3 bg-white/10 rounded-full transition-all hover:bg-purple-400/30 hover:-translate-y-1 ${selectedCategory === category.id ? 'bg-purple-400/30 border-2 border-purple-400' : 'border-2 border-transparent'}`}
-                >
-                  <IconComponent className="w-5 h-5" />
-                  <span className="font-medium">{category.name}</span>
-                </button>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* عرض المنتجات */}
-        <section>
-          <div className="flex justify-between items-center mb-8">
-            <div className="flex items-center gap-3">
-              <Package className="w-8 h-8 text-purple-400" />
-              <h2 className="text-3xl font-bold">المنتجات</h2>
-            </div>
-            <div className="bg-purple-400/20 px-4 py-2 rounded-full">
-              <span className="text-purple-400 font-semibold">{filteredProducts().length} منتج</span>
-            </div>
-          </div>
-          
-          {filteredProducts().length === 0 ? (
-            <div className="text-center py-20">
-              <Search className="w-20 h-20 text-white/30 mx-auto mb-6" />
-              <h3 className="text-2xl font-bold mb-4">لا توجد منتجات</h3>
-              <p className="text-white/70">لا توجد منتجات في هذا القسم حاليًا</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProducts().map((product) => (
-                <div 
-                  key={product.id} 
-                  className="bg-white/10 rounded-3xl overflow-hidden backdrop-blur-sm border border-white/10 transition-all hover:-translate-y-3 hover:shadow-2xl hover:shadow-purple-500/20 hover:border-purple-400/30 group"
-                >
-                  <div className="relative overflow-hidden">
-                    <img 
-                      src={product.image} 
-                      alt={product.title}
-                      className="w-full h-48 object-cover transition-transform group-hover:scale-110"
-                    />
-                    {product.originalPrice > product.price && (
-                      <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                        خصم {Math.round((1 - product.price / product.originalPrice) * 100)}%
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">{product.title}</h3>
-                    <p className="text-white/80 mb-4 line-clamp-2">{product.description}</p>
-                    
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="flex items-center gap-1">
-                        {renderStars(product.rating)}
-                      </div>
-                      <span className="text-sm text-white/70">
-                        {product.rating} ({product.reviews} تقييم)
-                      </span>
-                    </div>
-                    
-                    <div className="flex items-center gap-3 mb-6">
-                      <span className="text-2xl font-bold text-purple-400">{product.price} ريال</span>
-                      {product.originalPrice > product.price && (
-                        <span className="text-lg text-white/50 line-through">
-                          {product.originalPrice} ريال
-                        </span>
-                      )}
-                    </div>
-                    
-                    <button 
-                      onClick={() => addToCart(product)}
-                      className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-purple-500 to-blue-500 py-3 rounded-2xl font-semibold transition-all hover:from-purple-600 hover:to-blue-600 hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/30 relative overflow-hidden group"
-                    >
-                      <ShoppingCart className="w-5 h-5" />
-                      <span>أضف للسلة</span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
-      </main>
-    </div>
-  );
-}
+      </section>
+    </main>
+  </div>
 </template>
 
 <style>
