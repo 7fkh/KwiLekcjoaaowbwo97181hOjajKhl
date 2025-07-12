@@ -382,34 +382,6 @@ export default {
         </div>
       </section>
     </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h4>📞 اتصل بنا</h4>
-          <p>📧 info@programmingstore.com</p>
-          <p>📱 +966 50 123 4567</p>
-        </div>
-        <div class="footer-section">
-          <h4>🌐 تابعنا</h4>
-          <div class="social-links">
-            <a href="#" class="social-link">📘 فيسبوك</a>
-            <a href="#" class="social-link">📸 إنستغرام</a>
-            <a href="#" class="social-link">🐦 تويتر</a>
-          </div>
-        </div>
-        <div class="footer-section">
-          <h4>ℹ️ معلومات</h4>
-          <a href="#" class="footer-link">📋 الشروط والأحكام</a>
-          <a href="#" class="footer-link">🔒 سياسة الخصوصية</a>
-          <a href="#" class="footer-link">❓ الأسئلة الشائعة</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2024 متجر البرمجة. جميع الحقوق محفوظة 🔐</p>
-      </div>
-    </footer>
   </div>
 </template>
 
