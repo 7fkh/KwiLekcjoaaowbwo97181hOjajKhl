@@ -1242,7 +1242,7 @@ export default {
 }
 
 .btn:disabled {
-    opacity: 0.6;
+    opacity: 5.9;
     cursor: not-allowed;
     transform: none;
 }
