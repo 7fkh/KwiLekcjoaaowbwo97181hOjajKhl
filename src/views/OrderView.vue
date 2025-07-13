@@ -242,8 +242,11 @@ export default {
                     color: parseInt(urgencyColor.replace('#', ''), 16),
                     fields: [
                         {
-                            name: '👤 معلومات العميل',
-                            value: `**الاسم:** ${this.formData.fullName}\n**ديسكورد:** ${this.formData.discordId}\n**التواصل:** ${this.formData.contactInfo}${this.formData.email ? `\n**الإيميل:** ${this.formData.email}` : ''}`,
+                            name: ' معلومات العميل',
+                            value: `**الاسم:** ${this.formData.fullName}
+\n**ديسكورد:** ${this.formData.discordId}\n
+**التواصل:** ${this.formData.contactInfo}${this.formData.email ? `\n
+**الإيميل:** ${this.formData.email}` : ''}`,
                             inline: false
                         },
                         {
@@ -252,12 +255,12 @@ export default {
                             inline: false
                         },
                         {
-                            name: '⏰ التوقيت والتسليم',
+                            name: '⏰موعد التسليم ',
                             value: `**وقت التسليم:** ${this.deliveryTimes.find(t => t.value === this.formData.deliveryTime)?.label || this.formData.deliveryTime}\n**الإلحاح:** ${this.formData.urgency}`,
                             inline: true
                         },
                         {
-                            name: '💰 الميزانية والدفع',
+                            name: '💰 ميزانية العميل ',
                             value: `**الميزانية:** ${this.budgetRanges.find(b => b.value === this.formData.budget)?.label || this.formData.budget}\n**طريقة الدفع:** ${this.paymentMethods.find(p => p.value === this.formData.paymentMethod)?.label || this.formData.paymentMethod}\n**التكلفة المتوقعة:** ${estimatedCost} ريال`,
                             inline: true
                         }
@@ -292,15 +295,10 @@ export default {
 
             // إرسال رسالة منفصلة للإشعارات السريعة
             const quickNotification = {
-                content: `⚡ **إشعار سريع** \n📋 طلب جديد: **${this.formData.orderType}** | 🔥 **${this.formData.urgency}** | 💰 **${this.formData.budget}**\n🏷️ رقم الطلب: \`${this.orderNumber}\``,
+                content: `⚡ **إشعار سريع** \n📋 طلب جديد: **${this.formData.orderType}** | 💰 **${this.formData.budget}**\n🏷️ رقم الطلب: \`${this.orderNumber}\``,
                 embeds: [{
                     color: parseInt(urgencyColor.replace('#', ''), 16),
                     fields: [
-                        {
-                            name: '⚡ إجراءات سريعة',
-                            value: '✅ **قبول الطلب**\n❌ **رفض الطلب**\n💬 **طلب توضيحات**\n📞 **التواصل مع العميل**',
-                            inline: true
-                        },
                         {
                             name: '📊 معلومات سريعة',
                             value: `**العميل:** ${this.formData.fullName}\n**الميزانية:** ${this.formData.budget}\n**التسليم:** ${this.deliveryTimes.find(t => t.value === this.formData.deliveryTime)?.label}`,
