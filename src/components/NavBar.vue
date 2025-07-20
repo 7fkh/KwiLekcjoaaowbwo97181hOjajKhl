@@ -140,7 +140,7 @@ export default {
 
 /* الخلفية الرئيسية - حجم محدود */
 .control-background.home {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e  50%, #1a1a2e 75%, #0a0a0a 100%);
   background-size: 400% 400%;
   animation: gradientMove 8s ease infinite;
   position: relative;
