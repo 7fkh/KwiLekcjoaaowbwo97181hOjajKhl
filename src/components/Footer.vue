@@ -202,7 +202,6 @@ export default {
       <a href="/" aria-label="العودة للصفحة الرئيسية">
         <img 
           src="https://imgur.com/a/UduHwH7" 
-          alt="شعار خلي ستور" 
           class="footer-logo"
           loading="lazy"
         />
