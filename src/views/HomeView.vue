@@ -31,42 +31,42 @@ export default {
         {
           id: 2,
           username: "سعد مرتضى",
-          avatar: "https://i.imgur.com/COjYjpR.png",
+          avatar: "https://imgur.com/a/Sx0ZZLU",
           text: "أنصحكم فيه, ماكان عندي قيمة الطلب كامل ونقص المبلغ الله يسعده",
           rating: 5
         },
         {
           id: 3,
           username: "عبدالله الغامدي",
-          avatar: "https://i.imgur.com/QP1AlsJ.jpeg",
+          avatar: "https://imgur.com/a/Sx0ZZLU",
           text: "الافضل ابو خلي و موثوقققق مره انصحكم فيه،",
           rating: 5
         },
         {
           id: 4,
           username: "ابو زهره",
-          avatar: "https://i.imgur.com/COjYjpR.png",
+          avatar: "https://imgur.com/a/Sx0ZZLU",
           text: "خلي ستور امبراطور الساحة ..",
           rating: 5
         },
         {
           id: 5,
           username: "فهد عبدالله",
-          avatar: "https://i.imgur.com/COjYjpR.png",
+          avatar: "https://imgur.com/a/Sx0ZZLU",
           text: "أي شيء تبغاه إن شاء الله موجود هناك وضمان مرة أسطوري وتعامل حلو",
           rating: 5
         },
         {
           id: 6,
           username: "صالح المريسي",
-          avatar: "https://i.imgur.com/COjYjpR.png",
+          avatar: "https://imgur.com/a/Sx0ZZLU",
           text: "ابو خلي ما يقصر فنان بكل شي تبي بوتات واقعية تبي شوب تبي اي شي بس كلمه وجهز فلوسك",
           rating: 5
         },
         {
           id: 7,
           username: "سالم التميمي",
-          avatar: "https://i.imgur.com/COjYjpR.png",
+          avatar: "https://imgur.com/a/Sx0ZZLU",
           text: "متجر جميل وجيد اسعاره مقبوله وسريعين بالخدمه",
           rating: 5
         }
