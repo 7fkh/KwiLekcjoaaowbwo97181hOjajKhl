@@ -1,5 +1,5 @@
 <script>
-import { ref, computed, onMounted } from 'vue'
+import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import logo from '@/assets/IMG_1254.png'
 import businessLogo from '@/assets/IMG_1485.jpeg'
 import gpay from '@/assets/IMG_1484.jpeg'
@@ -11,252 +11,262 @@ import mastercard from '@/assets/IMG_1481.jpeg'
 import mada from '@/assets/IMG_1481.jpeg'
 
 export default {
-  name: 'AppFooter',
+  name: 'EnhancedFooter',
   setup() {
-    const currentYear = ref(new Date().getFullYear())
     const isVisible = ref(false)
-
-    const paymentMethods = ref([
-      { 
-        src: gpay, 
-        alt: 'Google Pay',
-        name: 'جوجل باي',
-        available: true
-      },
-      { 
-        src: applepay, 
-        alt: 'Apple Pay',
-        name: 'آبل باي',
-        available: true
-      },
-      { 
-        src: stcpay, 
-        alt: 'STC Pay',
-        name: 'إس تي سي باي',
-        available: true
-      },
-      { 
-        src: paypal, 
-        alt: 'PayPal',
-        name: 'باي بال',
-        available: true
-      },
-      { 
-        src: visa, 
-        alt: 'Visa',
-        name: 'فيزا',
-        available: true
-      },
-      { 
-        src: mastercard, 
-        alt: 'MasterCard',
-        name: 'ماستركارد',
-        available: true
-      },
-      { 
-        src: mada, 
-        alt: 'Mada',
-        name: 'مدى',
-        available: true
-      }
-    ])
-
-    const companyInfo = ref({
-      name: 'خلي ستور',
-      tagline: 'حـلمـك يـتحـقق معنا',
-      description: 'متجرك الموثوق للحصول على ما تريد بأسرع وقت وأفضل جودة',
-      established: '2020'
+    const currentTime = ref(new Date())
+    const animatedStats = reactive({
+      orders: 0,
+      customers: 0,
+      rating: 0
     })
 
-    const contactMethods = ref([
+    // Mock stats - replace with real data
+    const targetStats = {
+      orders: 15420,
+      customers: 8650,
+      rating: 4.9
+    }
+
+    const paymentMethods = [
+      { src: gpay, alt: 'Google Pay', name: 'gpay', color: '#4285F4' },
+      { src: applepay, alt: 'Apple Pay', name: 'applepay', color: '#000000' },
+      { src: stcpay, alt: 'STC Pay', name: 'stcpay', color: '#662D91' },
+      { src: paypal, alt: 'PayPal', name: 'paypal', color: '#0070BA' },
+      { src: visa, alt: 'Visa', name: 'visa', color: '#1A1F71' },
+      { src: mastercard, alt: 'MasterCard', name: 'mastercard', color: '#EB001B' },
+      { src: mada, alt: 'Mada', name: 'mada', color: '#00A651' }
+    ]
+
+    const socialLinks = [
       {
         name: 'انستقرام',
         url: 'https://www.instagram.com/khlistore?igsh=eGdxcTVpYzVpNWlr&utm_source=qr',
         icon: '📱',
-        color: 'instagram',
-        description: 'تابعنا للحصول على آخر العروض'
+        color: '#E4405F',
+        external: true
       },
       {
-        name: 'ديسكورد',
-        url: 'https://discord.gg/your-server',
+        name: 'الدعم الفني',
+        url: '#support',
         icon: '💬',
-        color: 'discord',
-        description: 'انضم لمجتمعنا والحصول على الدعم'
+        color: '#25D366',
+        external: false
       },
       {
         name: 'البريد الإلكتروني',
-        url: 'mailto:info@khlistore.com',
-        icon: '✉️',
-        color: 'email',
-        description: 'راسلنا لأي استفسار'
+        url: 'mailto:support@khlistore.com',
+        icon: '📧',
+        color: '#EA4335',
+        external: true
       }
-    ])
+    ]
 
-    const importantTerms = ref([
+    const importantTerms = [
       {
-        title: 'العلامة التجارية',
-        content: 'خلي ستور يُحذركم من المقلدين - لدينا علامة تجارية واحدة وهي "خلي ستور" فقط. لسنا مسؤولين عن أي متجر آخر يحمل اسماً مشابهاً.',
-        icon: '⚠️'
+        icon: '⚠️',
+        title: 'تحذير من المقلدين',
+        content: 'خلي ستور يُحذركم من المقلدين - لدينا علامة تجارية واحدة وهي خلي ستور فقط. لسنا مسؤولين عن أي متجر آخر'
       },
       {
+        icon: '🔄',
         title: 'سياسة التعويض',
-        content: 'نقوم بالتعويض في حالتين فقط: تأخير الطلب أكثر من 4 أيام عمل، أو وصول طلب مختلف عن المطلوب.',
-        icon: '🔄'
+        content: 'لا نعوض إلا في حالتين: تأخير طلبك أكثر من ٤ أيام أو في حال وصلك طلب آخر غير طلبك'
       },
       {
-        title: 'الاسترجاع والاستبدال',
-        content: 'سياسة الاسترجاع والاستبدال الكاملة متاحة في خادم الديسكورد الخاص بنا مع جميع التفاصيل والشروط.',
-        icon: '📋'
-      },
-      {
-        title: 'ضمان الجودة',
-        content: 'نضمن جودة جميع منتجاتنا ونوفر خدمة عملاء متميزة لضمان رضاكم التام.',
-        icon: '✅'
+        icon: '📋',
+        title: 'سياسة الاسترجاع',
+        content: 'سياسة الاسترجاع والطلب كاملة متوفرة في الديسكورد الخاص بنا'
       }
-    ])
+    ]
 
-    const quickLinks = ref([
-      { name: 'الرئيسية', url: '/' },
-      { name: 'المنتجات', url: '/products' },
-      { name: 'من نحن', url: '/about' },
-      { name: 'اتصل بنا', url: '/contact' },
-      { name: 'الشروط والأحكام', url: '/terms' },
-      { name: 'سياسة الخصوصية', url: '/privacy' }
-    ])
+    const quickLinks = [
+      { name: 'الرئيسية', url: '/', icon: '🏠' },
+      { name: 'المنتجات', url: '/products', icon: '🛍️' },
+      { name: 'من نحن', url: '/about', icon: '👥' },
+      { name: 'اتصل بنا', url: '/contact', icon: '📞' },
+      { name: 'الأسئلة الشائعة', url: '/faq', icon: '❓' }
+    ]
 
-    const stats = ref([
-      { number: '10,000+', label: 'عميل راضٍ', icon: '😊' },
-      { number: '50,000+', label: 'طلب مكتمل', icon: '📦' },
-      { number: '99%', label: 'نسبة الرضا', icon: '⭐' },
-      { number: '24/7', label: 'دعم العملاء', icon: '🛟' }
-    ])
+    // Intersection Observer for animations
+    let observer
+    const footerRef = ref(null)
 
-    const availablePaymentMethods = computed(() => 
-      paymentMethods.value.filter(method => method.available)
-    )
+    const animateNumbers = () => {
+      const duration = 2000
+      const steps = 60
+      const stepTime = duration / steps
+
+      Object.keys(targetStats).forEach(key => {
+        const target = targetStats[key]
+        const step = target / steps
+        let current = 0
+
+        const timer = setInterval(() => {
+          current += step
+          if (current >= target) {
+            animatedStats[key] = target
+            clearInterval(timer)
+          } else {
+            animatedStats[key] = Math.floor(current)
+          }
+        }, stepTime)
+      })
+    }
+
+    const updateTime = () => {
+      currentTime.value = new Date()
+    }
+
+    const handleSocialClick = (link) => {
+      if (link.external) {
+        window.open(link.url, '_blank', 'noopener,noreferrer')
+      } else {
+        // Handle internal links or custom actions
+        console.log(`Navigate to ${link.url}`)
+      }
+    }
 
     const scrollToTop = () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
     }
 
     onMounted(() => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
+      // Intersection Observer for entrance animation
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && !isVisible.value) {
             isVisible.value = true
+            animateNumbers()
           }
-        })
-      })
+        },
+        { threshold: 0.1 }
+      )
 
-      const footerElement = document.querySelector('.footer')
-      if (footerElement) {
-        observer.observe(footerElement)
+      if (footerRef.value) {
+        observer.observe(footerRef.value)
       }
 
-      return () => observer.disconnect()
+      // Update time every minute
+      const timeInterval = setInterval(updateTime, 60000)
+
+      onUnmounted(() => {
+        if (observer) observer.disconnect()
+        clearInterval(timeInterval)
+      })
     })
+
+    const formatTime = (date) => {
+      return date.toLocaleTimeString('ar-SA', {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Asia/Riyadh'
+      })
+    }
 
     return {
       logo,
       businessLogo,
-      currentYear,
-      isVisible,
-      paymentMethods: availablePaymentMethods,
-      companyInfo,
-      contactMethods,
+      paymentMethods,
+      socialLinks,
       importantTerms,
       quickLinks,
-      stats,
-      scrollToTop
+      isVisible,
+      currentTime,
+      animatedStats,
+      footerRef,
+      handleSocialClick,
+      scrollToTop,
+      formatTime
     }
   }
 }
 </script>
 
 <template>
-  <footer class="footer" :class="{ 'animate-in': isVisible }" role="contentinfo">
-    <div class="footer-container">
-      
-      <!-- Header Section with Logo and Stats -->
-      <section class="footer-header">
-        <div class="brand-section">
-          <div class="logo-container">
-            <img 
-              :src="logo" 
-              :alt="`شعار ${companyInfo.name}`"
-              class="footer-logo"
-              loading="lazy"
-            />
-            <div class="brand-info">
-              <h2 class="brand-name">{{ companyInfo.name }}</h2>
-              <p class="brand-tagline">{{ companyInfo.tagline }}</p>
-              <p class="brand-description">{{ companyInfo.description }}</p>
-            </div>
-          </div>
-        </div>
+  <footer ref="footerRef" class="footer" :class="{ 'visible': isVisible }">
+    <!-- Animated Background -->
+    <div class="background-animation">
+      <div class="floating-shapes">
+        <div v-for="i in 6" :key="i" class="shape" :style="{ '--delay': i * 0.5 + 's' }"></div>
+      </div>
+    </div>
 
-        <div class="stats-grid">
-          <div 
-            v-for="(stat, index) in stats" 
-            :key="index"
-            class="stat-card"
-            :style="{ animationDelay: `${index * 0.1}s` }"
-          >
-            <span class="stat-icon">{{ stat.icon }}</span>
-            <div class="stat-content">
-              <span class="stat-number">{{ stat.number }}</span>
-              <span class="stat-label">{{ stat.label }}</span>
-            </div>
+    <div class="footer-content">
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <div class="logo-container">
+          <img 
+            :src="logo" 
+            alt="شعار خلي ستور" 
+            class="footer-logo"
+            loading="lazy"
+          />
+          <div class="logo-glow"></div>
+        </div>
+        
+        <h2 class="brand-title">خلي ستور</h2>
+        <p class="brand-tagline">
+          <span class="highlight">ماذا تريد نقدمه لك</span>
+          <br />
+          بأسرع وقت وبأفضل جودة
+          <br />
+          <span class="sparkle">مع خلي ستور حـلمـك يـتحـقق ✨</span>
+        </p>
+
+        <!-- Live Stats -->
+        <div class="stats-container">
+          <div class="stat-item">
+            <span class="stat-number">{{ animatedStats.orders.toLocaleString() }}+</span>
+            <span class="stat-label">طلب مكتمل</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{{ animatedStats.customers.toLocaleString() }}+</span>
+            <span class="stat-label">عميل سعيد</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{{ animatedStats.rating }}/5</span>
+            <span class="stat-label">تقييم العملاء ⭐</span>
           </div>
         </div>
-      </section>
+      </div>
 
       <!-- Main Content Grid -->
-      <div class="footer-grid">
-        
-        <!-- Quick Links Column -->
-        <section class="footer-column">
-          <h3 class="column-title">روابط سريعة</h3>
-          <ul class="links-list">
-            <li v-for="link in quickLinks" :key="link.name">
-              <a :href="link.url" class="quick-link">
-                <span class="link-arrow">←</span>
-                {{ link.name }}
-              </a>
-            </li>
-          </ul>
-        </section>
-
-        <!-- Contact Methods Column -->
-        <section class="footer-column">
-          <h3 class="column-title">تواصل معنا</h3>
-          <div class="contact-methods">
+      <div class="content-grid">
+        <!-- Quick Links -->
+        <div class="section quick-links-section">
+          <h3 class="section-title">
+            <span class="title-icon">🔗</span>
+            روابط سريعة
+          </h3>
+          <div class="quick-links">
             <a 
-              v-for="method in contactMethods" 
-              :key="method.name"
-              :href="method.url"
-              :class="['contact-method', `contact-${method.color}`]"
-              target="_blank"
-              rel="noopener noreferrer"
-              :aria-label="method.description"
+              v-for="link in quickLinks"
+              :key="link.name"
+              :href="link.url"
+              class="quick-link"
             >
-              <span class="contact-icon">{{ method.icon }}</span>
-              <div class="contact-info">
-                <span class="contact-name">{{ method.name }}</span>
-                <span class="contact-description">{{ method.description }}</span>
-              </div>
+              <span class="link-icon">{{ link.icon }}</span>
+              {{ link.name }}
             </a>
           </div>
-        </section>
+        </div>
 
-        <!-- Important Terms Column -->
-        <section class="footer-column terms-column">
-          <h3 class="column-title">بنود مهمة</h3>
-          <div class="terms-container">
+        <!-- Important Terms -->
+        <div class="section terms-section">
+          <h3 class="section-title">
+            <span class="title-icon">📋</span>
+            بنود مهمة
+          </h3>
+          <div class="terms-grid">
             <div 
               v-for="(term, index) in importantTerms" 
               :key="index"
               class="term-card"
+              :style="{ '--delay': (index * 0.1) + 's' }"
             >
               <div class="term-header">
                 <span class="term-icon">{{ term.icon }}</span>
@@ -265,146 +275,629 @@ export default {
               <p class="term-content">{{ term.content }}</p>
             </div>
           </div>
-        </section>
+        </div>
 
-      </div>
-
-      <!-- Payment Methods Section -->
-      <section class="payment-section">
-        <div class="payment-header">
-          <h3 class="payment-title">
-            <span class="payment-icon">💳</span>
-            طرق الدفع المتاحة
+        <!-- Customer Service -->
+        <div class="section contact-section">
+          <h3 class="section-title">
+            <span class="title-icon">💬</span>
+            خدمة العملاء
           </h3>
-          <p class="payment-subtitle">ادفع بالطريقة التي تناسبك</p>
-        </div>
-        
-        <div class="payment-grid">
-          <div 
-            v-for="(method, index) in paymentMethods" 
-            :key="method.alt"
-            class="payment-method"
-            :style="{ animationDelay: `${index * 0.1}s` }"
-            :title="method.name"
-          >
-            <img 
-              :src="method.src" 
-              :alt="method.alt"
-              class="payment-icon"
-              loading="lazy"
-            />
-            <span class="payment-name">{{ method.name }}</span>
-            <div class="payment-status">متاح</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Security & Trust Section -->
-      <section class="trust-section">
-        <div class="trust-badges">
-          <div class="trust-badge">
-            <span class="trust-icon">🔒</span>
-            <span class="trust-text">دفع آمن</span>
-          </div>
-          <div class="trust-badge">
-            <span class="trust-icon">🚚</span>
-            <span class="trust-text">توصيل سريع</span>
-          </div>
-          <div class="trust-badge">
-            <span class="trust-icon">🛡️</span>
-            <span class="trust-text">ضمان الجودة</span>
-          </div>
-          <div class="trust-badge">
-            <span class="trust-icon">⭐</span>
-            <span class="trust-text">خدمة متميزة</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Footer Bottom -->
-      <div class="footer-bottom">
-        <div class="footer-bottom-content">
-          <div class="copyright">
-            <p>
-              © {{ currentYear }} {{ companyInfo.name }}. جميع الحقوق محفوظة.
-              <span class="established">تأسس عام {{ companyInfo.established }}</span>
-            </p>
+          <div class="contact-grid">
+            <button
+              v-for="link in socialLinks"
+              :key="link.name"
+              @click="handleSocialClick(link)"
+              class="contact-card"
+              :style="{ '--accent-color': link.color }"
+            >
+              <span class="contact-icon">{{ link.icon }}</span>
+              <span class="contact-name">{{ link.name }}</span>
+            </button>
           </div>
           
-          <button 
-            @click="scrollToTop"
-            class="scroll-top-btn"
-            aria-label="العودة إلى الأعلى"
-            title="العودة إلى الأعلى"
-          >
-            <span class="scroll-arrow">↑</span>
-          </button>
+          <!-- Operating Hours -->
+          <div class="operating-hours">
+            <div class="time-display">
+              <span class="time-label">الوقت الحالي في الرياض:</span>
+              <span class="current-time">{{ formatTime(currentTime) }}</span>
+            </div>
+            <div class="hours-info">
+              <span class="hours-text">نحن متاحون ٢٤/٧ لخدمتكم</span>
+            </div>
+          </div>
         </div>
       </div>
 
+      <!-- Payment Methods -->
+      <div class="payment-section">
+        <h3 class="section-title payment-title">
+          <span class="title-icon">💳</span>
+          طرق الدفع المتاحة
+        </h3>
+        <div class="payment-carousel">
+          <div class="payment-track">
+            <div 
+              v-for="(method, index) in [...paymentMethods, ...paymentMethods]"
+              :key="`${method.name}-${index}`"
+              class="payment-card"
+              :style="{ '--brand-color': method.color }"
+            >
+              <img 
+                :src="method.src" 
+                :alt="method.alt"
+                class="payment-icon"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Section -->
+      <div class="bottom-section">
+        <div class="security-badges">
+          <div class="badge">
+            <span class="badge-icon">🔒</span>
+            <span>دفع آمن 100%</span>
+          </div>
+          <div class="badge">
+            <span class="badge-icon">🚚</span>
+            <span>توصيل سريع</span>
+          </div>
+          <div class="badge">
+            <span class="badge-icon">✅</span>
+            <span>ضمان الجودة</span>
+          </div>
+        </div>
+
+        <div class="copyright-section">
+          <p class="copyright">
+            &copy; {{ new Date().getFullYear() }} خلي ستور. جميع الحقوق محفوظة
+          </p>
+          <p class="legal-note">
+            هذا الموقع محمي بموجب قوانين الملكية الفكرية في المملكة العربية السعودية
+          </p>
+        </div>
+
+        <!-- Back to Top Button -->
+        <button @click="scrollToTop" class="scroll-top-btn" aria-label="العودة للأعلى">
+          <span class="scroll-icon">↑</span>
+        </button>
+      </div>
     </div>
   </footer>
 </template>
 
 <style scoped>
-/* Root Variables */
-:root {
-  --primary-gold: #e3b04b;
-  --dark-gold: #d4a143;
-  --light-gold: #f4d03f;
-  --dark-bg: #0a0a0a;
-  --darker-bg: #050505;
-  --card-bg: rgba(255, 255, 255, 0.05);
-  --border-color: rgba(227, 176, 75, 0.2);
-  --text-primary: #ffffff;
-  --text-secondary: #e0e0e0;
-  --text-muted: #aaa;
-  --instagram: linear-gradient(45deg, #e1306c, #fd1d1d, #fcb045);
-  --discord: linear-gradient(45deg, #5865f2, #7289da);
-  --email: linear-gradient(45deg, #34495e, #2c3e50);
-  --shadow-light: 0 4px 15px rgba(227, 176, 75, 0.1);
-  --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.3);
-  --shadow-heavy: 0 12px 40px rgba(0, 0, 0, 0.4);
-  --border-radius: 16px;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Main Footer */
 .footer {
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(227, 176, 75, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(227, 176, 75, 0.05) 0%, transparent 50%),
-    linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
-  color: var(--text-primary);
-  font-family: "Cairo", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   position: relative;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e  50%, #1a1a2e 75%, #0a0a0a 100%);
+  color: white;
+  padding: 80px 20px 40px;
+  text-align: center;
+  font-family: "Cairo", sans-serif;
   overflow: hidden;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease-out;
 }
 
-.footer::before {
-  content: '';
+.footer.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animated Background */
+.background-animation {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-.footer-container {
+.floating-shapes {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.shape {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(45deg, #e3b04b, #f4d03f);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+  animation-delay: var(--delay);
+  opacity: 0.1;
+}
+
+.shape:nth-child(1) { top: 10%; left: 10%; }
+.shape:nth-child(2) { top: 20%; right: 20%; animation-duration: 8s; }
+.shape:nth-child(3) { top: 60%; left: 5%; animation-duration: 7s; }
+.shape:nth-child(4) { bottom: 30%; right: 10%; }
+.shape:nth-child(5) { bottom: 10%; left: 30%; animation-duration: 9s; }
+.shape:nth-child(6) { top: 40%; right: 5%; animation-duration: 5s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-20px) rotate(90deg); }
+  50% { transform: translateY(-40px) rotate(180deg); }
+  75% { transform: translateY(-20px) rotate(270deg); }
+}
+
+/* Main Container */
+.footer-content {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 80px 20px 40px;
   position: relative;
   z-index: 2;
 }
 
-/* Animation Classes */
-.animate-in {
-  animation: fadeInUp 0.8s ease-out;
+/* Hero Section */
+.hero-section {
+  margin-bottom: 60px;
+  animation: slideInUp 1s ease-out 0.2s both;
 }
 
-@keyframes fadeInUp {
+.logo-container {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 25px;
+}
+
+.footer-logo {
+  width: 120px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(227, 176, 75, 0.3);
+  transition: all 0.5s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-logo:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 15px 50px rgba(227, 176, 75, 0.5);
+}
+
+.logo-glow {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: linear-gradient(45deg, #e3b04b, #f4d03f, #e3b04b);
+  border-radius: 25px;
+  animation: glow 2s ease-in-out infinite alternate;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 20px rgba(227, 176, 75, 0.5); }
+  to { box-shadow: 0 0 30px rgba(227, 176, 75, 0.8), 0 0 40px rgba(227, 176, 75, 0.6); }
+}
+
+.brand-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #e3b04b, #f4d03f, #fff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 20px 0;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.brand-tagline {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 40px;
+  color: #e0e0e0;
+}
+
+.highlight {
+  color: #e3b04b;
+  font-weight: 600;
+}
+
+.sparkle {
+  background: linear-gradient(45deg, #e3b04b, #fff, #e3b04b);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+/* Stats Container */
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(227, 176, 75, 0.2);
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+  background: rgba(227, 176, 75, 0.1);
+  box-shadow: 0 10px 30px rgba(227, 176, 75, 0.2);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #e3b04b;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* Content Grid */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.section {
+  animation: slideInUp 1s ease-out both;
+}
+
+.section:nth-child(2) { animation-delay: 0.1s; }
+.section:nth-child(3) { animation-delay: 0.2s; }
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #e3b04b;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.title-icon {
+  font-size: 1.2rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #e3b04b, transparent);
+}
+
+/* Quick Links */
+.quick-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quick-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  color: #e0e0e0;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.quick-link:hover {
+  background: rgba(227, 176, 75, 0.1);
+  border-left-color: #e3b04b;
+  transform: translateX(5px);
+  color: white;
+}
+
+.link-icon {
+  font-size: 1rem;
+}
+
+/* Terms Section */
+.terms-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.term-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(227, 176, 75, 0.2);
+  transition: all 0.3s ease;
+  animation: slideInLeft 0.8s ease-out both;
+  animation-delay: var(--delay);
+}
+
+.term-card:hover {
+  background: rgba(227, 176, 75, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.term-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.term-icon {
+  font-size: 1.2rem;
+}
+
+.term-title {
+  color: #e3b04b;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.term-content {
+  color: #ddd;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Contact Section */
+.contact-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 25px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.contact-card:hover::before {
+  left: 100%;
+}
+
+.contact-card:hover {
+  border-color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.contact-icon {
+  font-size: 1.2rem;
+}
+
+/* Operating Hours */
+.operating-hours {
+  background: rgba(227, 176, 75, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(227, 176, 75, 0.3);
+}
+
+.time-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.time-label {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.current-time {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e3b04b;
+  font-family: 'Courier New', monospace;
+}
+
+.hours-info {
+  text-align: center;
+}
+
+.hours-text {
+  color: #e0e0e0;
+  font-size: 0.95rem;
+}
+
+/* Payment Section */
+.payment-section {
+  margin-bottom: 50px;
+  animation: slideInUp 1s ease-out 0.4s both;
+}
+
+.payment-title {
+  margin-bottom: 30px;
+}
+
+.payment-carousel {
+  overflow: hidden;
+  mask: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  -webkit-mask: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+
+.payment-track {
+  display: flex;
+  gap: 20px;
+  animation: scroll 20s linear infinite;
+  width: fit-content;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.payment-card {
+  flex-shrink: 0;
+  width: 80px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.payment-card:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+  border-color: var(--brand-color);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.payment-icon {
+  width: 40px;
+  height: auto;
+  filter: brightness(1.2);
+}
+
+/* Bottom Section */
+.bottom-section {
+  animation: slideInUp 1s ease-out 0.5s both;
+}
+
+.security-badges {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 25px;
+  color: #22c55e;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.badge-icon {
+  font-size: 1rem;
+}
+
+.copyright-section {
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+}
+
+.copyright {
+  color: #bbb;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.legal-note {
+  color: #888;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Scroll to Top Button */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #e3b04b, #f4d03f);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(227, 176, 75, 0.4);
+  z-index: 1000;
+}
+
+.scroll-top-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(227, 176, 75, 0.6);
+}
+
+.scroll-icon {
+  display: block;
+  font-weight: bold;
+}
+
+/* Animations */
+@keyframes slideInUp {
   from {
     opacity: 0;
     transform: translateY(30px);
@@ -415,127 +908,10 @@ export default {
   }
 }
 
-/* Header Section */
-.footer-header {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 60px;
-  align-items: center;
-  margin-bottom: 80px;
-  padding-bottom: 60px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.brand-section {
-  display: flex;
-  align-items: center;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-
-.footer-logo {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  border-radius: 24px;
-  box-shadow: var(--shadow-medium);
-  transition: var(--transition);
-  border: 2px solid var(--border-color);
-}
-
-.footer-logo:hover {
-  transform: rotate(5deg) scale(1.05);
-  box-shadow: var(--shadow-heavy);
-  border-color: var(--primary-gold);
-}
-
-.brand-info {
-  max-width: 400px;
-}
-
-.brand-name {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--primary-gold);
-  margin: 0 0 10px 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.brand-tagline {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--light-gold);
-  margin: 0 0 15px 0;
-  opacity: 0.9;
-}
-
-.brand-description {
-  font-size: 16px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin: 0;
-  opacity: 0.8;
-}
-
-/* Stats Grid */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  min-width: 280px;
-}
-
-.stat-card {
-  background: var(--card-bg);
-  padding: 20px;
-  border-radius: var(--border-radius);
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--border-color);
-  transition: var(--transition);
-  animation: slideInRight 0.6s ease-out;
-  animation-fill-mode: both;
-}
-
-.stat-card:hover {
-  background: rgba(227, 176, 75, 0.1);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-light);
-}
-
-.stat-icon {
-  font-size: 24px;
-  opacity: 0.8;
-}
-
-.stat-content {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.stat-number {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--primary-gold);
-}
-
-.stat-label {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-@keyframes slideInRight {
+@keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateX(-30px);
   }
   to {
     opacity: 1;
@@ -543,635 +919,235 @@ export default {
   }
 }
 
-/* Footer Grid */
-.footer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 60px;
-  margin-bottom: 80px;
-}
-
-.footer-column {
-  animation: fadeInUp 0.6s ease-out;
-  animation-fill-mode: both;
-}
-
-.footer-column:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.footer-column:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-.column-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--primary-gold);
-  margin: 0 0 30px 0;
-  position: relative;
-  padding-bottom: 15px;
-}
-
-.column-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary-gold), var(--light-gold));
-  border-radius: 2px;
-}
-
-/* Quick Links */
-.links-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.quick-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  padding: 12px 16px;
-  border-radius: 12px;
-  transition: var(--transition);
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid transparent;
-}
-
-.quick-link:hover {
-  color: var(--primary-gold);
-  background: rgba(227, 176, 75, 0.1);
-  transform: translateX(8px);
-  border-color: var(--border-color);
-}
-
-.link-arrow {
-  transition: var(--transition);
-  opacity: 0.6;
-}
-
-.quick-link:hover .link-arrow {
-  transform: translateX(4px);
-  opacity: 1;
-  color: var(--primary-gold);
-}
-
-/* Contact Methods */
-.contact-methods {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.contact-method {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 20px;
-  background: var(--card-bg);
-  border-radius: var(--border-radius);
-  text-decoration: none;
-  color: var(--text-primary);
-  transition: var(--transition);
-  border: 1px solid var(--border-color);
-  backdrop-filter: blur(10px);
-}
-
-.contact-method:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-light);
-}
-
-.contact-instagram:hover {
-  background: var(--instagram);
-}
-
-.contact-discord:hover {
-  background: var(--discord);
-}
-
-.contact-email:hover {
-  background: var(--email);
-}
-
-.contact-icon {
-  font-size: 24px;
-  min-width: 40px;
-  text-align: center;
-}
-
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.contact-name {
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.contact-description {
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-/* Terms Column */
-.terms-column {
-  grid-column: span 2;
-}
-
-.terms-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
-}
-
-.term-card {
-  background: var(--card-bg);
-  padding: 25px;
-  border-radius: var(--border-radius);
-  border-right: 4px solid var(--primary-gold);
-  backdrop-filter: blur(10px);
-  transition: var(--transition);
-  border: 1px solid var(--border-color);
-  border-right-width: 4px;
-}
-
-.term-card:hover {
-  background: rgba(227, 176, 75, 0.08);
-  transform: translateX(-5px);
-  box-shadow: var(--shadow-light);
-}
-
-.term-header {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 15px;
-}
-
-.term-icon {
-  font-size: 20px;
-}
-
-.term-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--primary-gold);
-  margin: 0;
-}
-
-.term-content {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  margin: 0;
-}
-
-/* Payment Section */
-.payment-section {
-  margin-bottom: 60px;
-}
-
-.payment-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.payment-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--primary-gold);
-  margin: 0 0 10px 0;
-}
-
-.payment-icon {
-  font-size: 28px;
-}
-
-.payment-subtitle {
-  font-size: 16px;
-  color: var(--text-secondary);
-  margin: 0;
-  opacity: 0.8;
-}
-
-.payment-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 25px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.payment-method {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding: 25px 15px;
-  background: var(--card-bg);
-  border-radius: var(--border-radius);
-  transition: var(--transition);
-  border: 1px solid var(--border-color);
-  backdrop-filter: blur(10px);
-  animation: bounceIn 0.6s ease-out;
-  animation-fill-mode: both;
-}
-
-.payment-method:hover {
-  transform: translateY(-8px) scale(1.05);
-  box-shadow: var(--shadow-medium);
-  background: rgba(227, 176, 75, 0.1);
-  border-color: var(--primary-gold);
-}
-
-.payment-method .payment-icon {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-  border-radius: 8px;
-  transition: var(--transition);
-}
-
-.payment-name {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-align: center;
-}
-
-.payment-status {
-  font-size: 10px;
-  color: #4ade80;
-  background: rgba(74, 222, 128, 0.2);
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-weight: 500;
-}
-
-@keyframes bounceIn {
-  from {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Trust Section */
-.trust-section {
-  margin-bottom: 60px;
-}
-
-.trust-badges {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.trust-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 20px;
-  background: var(--card-bg);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
-  backdrop-filter: blur(10px);
-  transition: var(--transition);
-}
-
-.trust-badge:hover {
-  background: rgba(227, 176, 75, 0.1);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-light);
-}
-
-.trust-icon {
-  font-size: 20px;
-}
-
-.trust-text {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
-/* Footer Bottom */
-.footer-bottom {
-  border-top: 1px solid var(--border-color);
-  padding-top: 40px;
-}
-
-.footer-bottom-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.copyright p {
-  color: var(--text-muted);
-  font-size: 14px;
-  margin: 0;
-  line-height: 1.5;
-}
-
-.established {
-  opacity: 0.6;
-  font-size: 12px;
-  display: block;
-  margin-top: 4px;
-}
-
-.scroll-top-btn {
-  background: var(--primary-gold);
-  color: var(--dark-bg);
-  border: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: var(--shadow-light);
-  font-weight: 700;
-}
-
-.scroll-top-btn:hover {
-  background: var(--light-gold);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-medium);
-}
-
-.scroll-arrow {
-  font-size: 20px;
-  font-weight: bold;
-}
-
 /* Responsive Design */
-@media (max-width: 1200px) {
-  .footer-header {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 40px;
+@media (max-width: 1024px) {
+  .content-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
   }
   
-  .stats-grid {
-    justify-self: center;
+  .stats-container {
+    gap: 25px;
+  }
+  
+  .stat-item {
+    min-width: 120px;
+    padding: 15px;
+  }
+  
+  .brand-title {
+    font-size: 2.2rem;
   }
 }
 
 @media (max-width: 768px) {
-  .footer-container {
+  .footer {
     padding: 60px 15px 30px;
   }
   
-  .footer-header {
-    margin-bottom: 60px;
-    padding-bottom: 40px;
-  }
-  
-  .logo-container {
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
+  .hero-section {
+    margin-bottom: 40px;
   }
   
   .footer-logo {
-    width: 100px;
-    height: 100px;
+    width: 90px;
   }
   
-  .brand-name {
-    font-size: 28px;
+  .brand-title {
+    font-size: 2rem;
   }
   
-  .footer-grid {
+  .brand-tagline {
+    font-size: 1.1rem;
+  }
+  
+  .content-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
-    margin-bottom: 60px;
+    gap: 25px;
   }
   
-  .terms-column {
-    grid-column: span 1;
-  }
-  
-  .terms-container {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  
-  .stats-grid {
-    grid-template-columns: 1fr 1fr;
+  .stats-container {
     gap: 15px;
   }
   
-  .payment-grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 20px;
+  .stat-item {
+    min-width: 100px;
+    padding: 12px;
   }
   
-  .trust-badges {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
+  .stat-number {
+    font-size: 1.6rem;
   }
   
-  .footer-bottom-content {
+  .section-title {
+    font-size: 1.2rem;
+  }
+  
+  .contact-grid {
     flex-direction: column;
-    text-align: center;
-    gap: 20px;
+    align-items: center;
+  }
+  
+  .contact-card {
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+  }
+  
+  .security-badges {
+    gap: 15px;
+  }
+  
+  .badge {
+    padding: 10px 15px;
+    font-size: 0.85rem;
+  }
+  
+  .scroll-top-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .footer-container {
-    padding: 40px 10px 20px;
+  .footer {
+    padding: 40px 10px 25px;
   }
   
   .footer-logo {
-    width: 80px;
-    height: 80px;
+    width: 70px;
   }
   
-  .brand-name {
-    font-size: 24px;
+  .brand-title {
+    font-size: 1.8rem;
   }
   
   .brand-tagline {
-    font-size: 16px;
+    font-size: 1rem;
   }
   
-  .brand-description {
-    font-size: 14px;
-  }
-  
-  .column-title {
-    font-size: 20px;
-  }
-  
-  .stats-grid {
-    grid-template-columns: 1fr;
+  .stats-container {
+    flex-direction: column;
+    align-items: center;
     gap: 12px;
   }
   
-  .stat-card {
-    padding: 15px;
-  }
-  
-  .payment-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-  }
-  
-  .payment-method {
-    padding: 20px 10px;
-  }
-  
-  .payment-method .payment-icon {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .trust-badges {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  
-  .contact-method {
-    padding: 15px;
+  .stat-item {
+    width: 100%;
+    max-width: 200px;
   }
   
   .term-card {
-    padding: 20px;
+    padding: 15px;
+  }
+  
+  .contact-card {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .operating-hours {
+    padding: 15px;
+  }
+  
+  .current-time {
+    font-size: 1.3rem;
+  }
+  
+  .payment-card {
+    width: 70px;
+    height: 45px;
+  }
+  
+  .payment-icon {
+    width: 35px;
+  }
+  
+  .security-badges {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .badge {
+    width: 100%;
+    max-width: 200px;
+    justify-content: center;
   }
 }
 
-/* Dark Theme Enhancements */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --card-bg: rgba(255, 255, 255, 0.08);
-    --border-color: rgba(227, 176, 75, 0.3);
-    --shadow-light: 0 4px 15px rgba(227, 176, 75, 0.15);
-  }
-}
-
-/* Reduced Motion Support */
+/* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
-  .footer-logo,
-  .stat-card,
-  .contact-method,
-  .payment-method,
-  .trust-badge,
-  .scroll-top-btn,
-  .quick-link,
-  .term-card {
-    transition: none;
-    animation: none;
-  }
-  
-  .animate-in {
-    animation: none;
-  }
-  
-  .footer-column {
-    animation: none;
-  }
-}
-
-/* High Contrast Mode Support */
-@media (prefers-contrast: high) {
-  :root {
-    --primary-gold: #ffdd44;
-    --border-color: rgba(255, 255, 255, 0.3);
-    --card-bg: rgba(255, 255, 255, 0.1);
-  }
-  
-  .footer {
-    background: #000000;
-  }
-  
-  .footer-logo,
-  .payment-method,
-  .trust-badge,
-  .stat-card,
+  .footer,
+  .section,
   .term-card,
-  .contact-method {
-    border: 2px solid var(--primary-gold);
+  .contact-card,
+  .payment-card,
+  .footer-logo,
+  .scroll-top-btn {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .shape {
+    animation: none !important;
+  }
+  
+  .payment-track {
+    animation: none !important;
+  }
+  
+  .logo-glow {
+    animation: none !important;
   }
 }
 
-/* Print Styles */
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .footer {
+    background: #000;
+    border-top: 2px solid #fff;
+  }
+  
+  .section-title,
+  .highlight,
+  .sparkle {
+    color: #ffff00;
+  }
+  
+  .term-card,
+  .contact-card,
+  .stat-item {
+    border: 2px solid #fff;
+    background: #111;
+  }
+  
+  .payment-card {
+    border: 1px solid #fff;
+    background: #222;
+  }
+}
+
+/* Print styles */
 @media print {
   .footer {
-    background: white !important;
-    color: black !important;
+    background: none !important;
+    color: #000 !important;
     box-shadow: none !important;
   }
   
-  .scroll-top-btn,
-  .contact-methods {
+  .background-animation,
+  .scroll-top-btn {
     display: none !important;
   }
   
-  .footer-logo {
-    filter: grayscale(100%);
-  }
-  
-  .payment-grid {
-    display: none !important;
-  }
-}
-
-/* Focus Styles for Accessibility */
-.quick-link:focus,
-.contact-method:focus,
-.scroll-top-btn:focus {
-  outline: 3px solid var(--primary-gold);
-  outline-offset: 2px;
-}
-
-/* Loading States */
-.footer-logo[src=""],
-.payment-method img[src=""] {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-}
-
-@keyframes loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
+  .contact-card,
+  .payment-card {
+    border: 1px solid #000 !important;
+    background: none !important;
   }
 }
 </style>
