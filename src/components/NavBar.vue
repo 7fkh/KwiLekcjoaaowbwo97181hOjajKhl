@@ -11,7 +11,7 @@
 
 ```
   <div class="logo">
-    <img :src="logo" alt="KhLi Store Logo" loading="lazy" />
+    <img :src="logo" url="https://imgur.com/a/UduHwH7" loading="lazy" />
     <span class="logo-text">خلي ستور</span>
   </div>
 
