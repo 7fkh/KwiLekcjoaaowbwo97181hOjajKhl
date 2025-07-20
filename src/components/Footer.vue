@@ -195,18 +195,23 @@ export default {
       </div>
     </div>
 
-    <div class="footer-content">
-      <!-- Hero Section -->
-      <div class="hero-section">
-        <div class="logo-container">
-          <img 
-            :src="logo" 
-            alt="شعار خلي ستور" 
-            class="footer-logo"
-            loading="lazy"
-          />
-          <div class="logo-glow"></div>
-        </div>
+   <div class="footer-content">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="logo-container">
+      <a href="https://imgur.com/a/UduHwH7" aria-label="العودة للصفحة الرئيسية">
+        <img 
+          :src="logo" 
+          alt="شعار خلي ستور" 
+          class="footer-logo"
+          loading="lazy"
+        />
+        <div class="logo-glow"></div>
+      </a>
+    </div>
+  </div>
+</div>
+
         
         <h2 class="brand-title">خلي ستور</h2>
         <p class="brand-tagline">
