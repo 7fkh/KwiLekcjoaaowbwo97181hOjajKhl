@@ -195,30 +195,24 @@ export default {
       </div>
     </div>
 
-   <div class="footer-content">
-  <!-- Hero Section -->
-  <div class="hero-section">
-    <div class="logo-container">
-      <a href="https://imgur.com/a/UduHwH7" aria-label="العودة للصفحة الرئيسية">
-        <img 
-          :src="logo" 
-          alt="شعار خلي ستور" 
-          class="footer-logo"
-          loading="lazy"
-        />
-        <div class="logo-glow"></div>
-      </a>
-    </div>
-  </div>
-</div>
-
-        
+    <div class="footer-content">
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <div class="logo-container">
+          <a href="/" aria-label="العودة للصفحة الرئيسية">
+            <img 
+              :src="logo" 
+              alt="شعار خلي ستور" 
+              class="footer-logo"
+              loading="lazy"
+            />
+            <div class="logo-glow"></div>
+          </a>
+        </div>
         <h2 class="brand-title">خلي ستور</h2>
         <p class="brand-tagline">
-          <span class="highlight">ماذا تريد نقدمه لك</span>
-          <br />
-          بأسرع وقت وبأفضل جودة
-          <br />
+          <span class="highlight">ماذا تريد نقدمه لك</span><br />
+          بأسرع وقت وبأفضل جودة<br />
           <span class="sparkle">مع خلي ستور حـلمـك يـتحـقق ✨</span>
         </p>
 
@@ -241,7 +235,7 @@ export default {
 
       <!-- Main Content Grid -->
       <div class="content-grid">
-        <!-- Quick Links -->
+        <!-- روابط سريعة -->
         <div class="section quick-links-section">
           <h3 class="section-title">
             <span class="title-icon">🔗</span>
@@ -260,7 +254,7 @@ export default {
           </div>
         </div>
 
-        <!-- Important Terms -->
+        <!-- بنود مهمة -->
         <div class="section terms-section">
           <h3 class="section-title">
             <span class="title-icon">📋</span>
@@ -282,7 +276,7 @@ export default {
           </div>
         </div>
 
-        <!-- Customer Service -->
+        <!-- خدمة العملاء -->
         <div class="section contact-section">
           <h3 class="section-title">
             <span class="title-icon">💬</span>
@@ -301,7 +295,7 @@ export default {
             </button>
           </div>
           
-          <!-- Operating Hours -->
+          <!-- أوقات العمل -->
           <div class="operating-hours">
             <div class="time-display">
               <span class="time-label">الوقت الحالي في الرياض:</span>
@@ -314,7 +308,7 @@ export default {
         </div>
       </div>
 
-      <!-- Payment Methods -->
+      <!-- طرق الدفع -->
       <div class="payment-section">
         <h3 class="section-title payment-title">
           <span class="title-icon">💳</span>
@@ -339,21 +333,12 @@ export default {
         </div>
       </div>
 
-      <!-- Bottom Section -->
+      <!-- أسفل الفوتر -->
       <div class="bottom-section">
         <div class="security-badges">
-          <div class="badge">
-            <span class="badge-icon">🔒</span>
-            <span>دفع آمن 100%</span>
-          </div>
-          <div class="badge">
-            <span class="badge-icon">🚚</span>
-            <span>توصيل سريع</span>
-          </div>
-          <div class="badge">
-            <span class="badge-icon">✅</span>
-            <span>ضمان الجودة</span>
-          </div>
+          <div class="badge"><span class="badge-icon">🔒</span>دفع آمن 100%</div>
+          <div class="badge"><span class="badge-icon">🚚</span>توصيل سريع</div>
+          <div class="badge"><span class="badge-icon">✅</span>ضمان الجودة</div>
         </div>
 
         <div class="copyright-section">
@@ -365,7 +350,7 @@ export default {
           </p>
         </div>
 
-        <!-- Back to Top Button -->
+        <!-- زر العودة للأعلى -->
         <button @click="scrollToTop" class="scroll-top-btn" aria-label="العودة للأعلى">
           <span class="scroll-icon">↑</span>
         </button>
