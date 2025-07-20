@@ -199,7 +199,7 @@ export default {
       <!-- Hero Section -->
       <div class="hero-section">
         <div class="logo-container">
-          <a href="/" aria-label="العودة للصفحة الرئيسية">
+          <a href="https://imgur.com/a/UduHwH7" aria-label="العودة للصفحة الرئيسية">
             <img 
               :src="logo" 
               alt="شعار خلي ستور" 
