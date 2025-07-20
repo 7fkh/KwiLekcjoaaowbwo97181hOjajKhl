@@ -329,7 +329,7 @@ export default {
 .home {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e40af 0%, #150e61 50%, #000000 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e  50%, #1a1a2e 75%, #0a0a0a 100%);
   background-size: 400% 400%;
   animation: gradientMove 6s ease-in-out infinite;
   position: relative;
