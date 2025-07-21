@@ -249,244 +249,264 @@ export default {
             <div class="shape shape-4"></div>
             <div class="shape shape-5"></div>
         </div>
-        
-        <div class="apply">
-            <div class="cont">
-                <RouterLink to="/" class="logo-container">
-                    <img src="https://i.imgur.com/cgrAYPN.png" alt="Logo" class="logo">
-                </RouterLink>
-                
-                <!-- Order Number -->
-                <div class="order-number fade-in">
-                    <span>🎫 رقم الطلب: {{ orderNumber }}</span>
-                </div>
-                
-                <form @submit.prevent="sendApply" class="form">
-                    <div class="form-grid">
-                        <!-- معلومات العميل -->
-                        <div class="section fade-in">
-                            <h3 class="section-title">👤 معلومات العميل</h3>
-                            
-                            <div class="inp">
-                                <label for="discordId">
-                                    <span class="label-icon">💬</span>
-                                    ايدي الديسكورد الخاص بك *
-                                </label>
-                                <input 
-                                    id="discordId"
-                                    v-model="formData.discordId"
-                                    placeholder="مثال: user#1234"
-                                    type="text"
-                                    :class="{ 'error': errors.discordId }"
-                                >
-                                <span v-if="errors.discordId" class="error-message">{{ errors.discordId }}</span>
-                            </div>
-                            
-                            <div class="inp">
-                                <label for="fullName">
-                                    <span class="label-icon">👨‍💼</span>
-                                    الاسم الكامل *
-                                </label>
-                                <input 
-                                    id="fullName"
-                                    v-model="formData.fullName"
-                                    placeholder="أدخل اسمك الكامل"
-                                    type="text"
-                                    :class="{ 'error': errors.fullName }"
-                                >
-                                <span v-if="errors.fullName" class="error-message">{{ errors.fullName }}</span>
-                            </div>
-                            
-                            <div class="inp">
-                                <label for="contactInfo">
-                                    <span class="label-icon">📞</span>
-                                    معلومات التواصل *
-                                </label>
-                                <input 
-                                    id="contactInfo"
-                                    v-model="formData.contactInfo"
-                                    placeholder="رقم الهاتف أو وسيلة التواصل المفضلة"
-                                    type="text"
-                                    :class="{ 'error': errors.contactInfo }"
-                                >
-                                <span v-if="errors.contactInfo" class="error-message">{{ errors.contactInfo }}</span>
-                            </div>
-                        </div>
+
+```
+    <div class="apply">
+        <div class="cont">
+            <RouterLink to="/" class="logo-container">
+                <img src="https://i.imgur.com/cgrAYPN.png" alt="Logo" class="logo">
+            </RouterLink>
+            
+            <!-- Order Number -->
+            <div class="order-number fade-in">
+                <i class="icon-ticket"></i>
+                <span>رقم الطلب: {{ orderNumber }}</span>
+            </div>
+            
+            <form @submit.prevent="sendApply" class="form">
+                <div class="form-grid">
+                    <!-- معلومات العميل -->
+                    <div class="section fade-in">
+                        <h3 class="section-title">
+                            <i class="icon-user"></i>
+                            معلومات العميل
+                        </h3>
                         
-                        <!-- تفاصيل الطلب -->
-                        <div class="section fade-in">
-                            <h3 class="section-title">📋 تفاصيل الطلب</h3>
-                            
-                            <div class="inp">
-                                <label>
-                                    <span class="label-icon">⚡</span>
-                                    نوع الطلب *
-                                </label>
-                                <div class="options-grid">
-                                    <div 
-                                        v-for="type in orderTypes" 
-                                        :key="type.value"
-                                        class="option-card"
-                                        :class="{ 'active': formData.orderType === type.value }"
-                                        @click="formData.orderType = type.value"
-                                    >
-                                        <span class="option-icon">{{ type.icon }}</span>
-                                        <span class="option-label">{{ type.label }}</span>
-                                    </div>
-                                </div>
-                                <span v-if="errors.orderType" class="error-message">{{ errors.orderType }}</span>
-                            </div>
-                            
-                            <div class="inp">
-                                <label for="orderDetails">
-                                    <span class="label-icon">📝</span>
-                                    وصف الطلب بالتفصيل *
-                                </label>
-                                <textarea 
-                                    id="orderDetails"
-                                    v-model="formData.orderDetails"
-                                    placeholder="اشرح بالتفصيل ما تريده، المتطلبات، والمواصفات..."
-                                    :class="{ 'error': errors.orderDetails }"
-                                    rows="4"
-                                ></textarea>
-                                <span v-if="errors.orderDetails" class="error-message">{{ errors.orderDetails }}</span>
-                            </div>
-                        </div>
-                        
-                        <!-- التسليم والدفع -->
-                        <div class="section fade-in">
-                            <h3 class="section-title">⏰ التسليم والدفع</h3>
-                            
-                            <div class="inp">
-                                <label>
-                                    <span class="label-icon">📅</span>
-                                    وقت التسليم المطلوب *
-                                </label>
-                                <div class="options-grid delivery-grid">
-                                    <div 
-                                        v-for="time in deliveryTimes" 
-                                        :key="time.value"
-                                        class="option-card"
-                                        :class="{ 'active': formData.deliveryTime === time.value }"
-                                        @click="formData.deliveryTime = time.value"
-                                    >
-                                        <span class="option-icon">{{ time.icon }}</span>
-                                        <span class="option-label">{{ time.label }}</span>
-                                    </div>
-                                </div>
-                                <span v-if="errors.deliveryTime" class="error-message">{{ errors.deliveryTime }}</span>
-                            </div>
-                            
-                            <div class="inp">
-                                <label>
-                                    <span class="label-icon">💳</span>
-                                    طريقة الدفع المفضلة *
-                                </label>
-                                <div class="payment-grid">
-                                    <div 
-                                        v-for="method in paymentMethods" 
-                                        :key="method.value"
-                                        class="payment-card"
-                                        :class="{ 'active': formData.paymentMethod === method.value, 'popular': method.popular }"
-                                        @click="formData.paymentMethod = method.value"
-                                    >
-                                        <span class="payment-icon">{{ method.icon }}</span>
-                                        <span class="payment-label">{{ method.label }}</span>
-                                        <span v-if="method.popular" class="popular-badge">شائع</span>
-                                    </div>
-                                </div>
-                                <span v-if="errors.paymentMethod" class="error-message">{{ errors.paymentMethod }}</span>
-                            </div>
-                        </div>
-                        
-                        <!-- إضافات اختيارية -->
-                        <div class="section fade-in">
-                            <h3 class="section-title">✨ إضافات اختيارية</h3>
-                            
-                            <div class="inp">
-                                <label for="example">
-                                    <span class="label-icon">🎨</span>
-                                    مثال أو مرجع للطلب
-                                </label>
-                                <input 
-                                    id="example"
-                                    v-model="formData.example"
-                                    placeholder="رابط أو وصف لمثال مشابه (اختياري)"
-                                    type="text"
-                                >
-                            </div>
-                            
-                            <div class="inp">
-                                <label for="additionalNotes">
-                                    <span class="label-icon">📌</span>
-                                    ملاحظات إضافية
-                                </label>
-                                <textarea 
-                                    id="additionalNotes"
-                                    v-model="formData.additionalNotes"
-                                    placeholder="أي ملاحظات أو تفاصيل إضافية..."
-                                    rows="2"
-                                ></textarea>
-                            </div>
-                        </div>
-                        
-                        <!-- الشروط والإرسال -->
-                        <div class="section fade-in">
-                            <div class="inp">
-                                <label class="checkbox-label">
-                                    <input 
-                                        type="checkbox" 
-                                        v-model="formData.agreeToTerms"
-                                        :class="{ 'error': errors.agreeToTerms }"
-                                    >
-                                    <span class="checkmark"></span>
-                                    <span class="checkbox-text">
-                                        ✅ أوافق على الشروط والأحكام وسياسة الخصوصية *
-                                    </span>
-                                </label>
-                                <span v-if="errors.agreeToTerms" class="error-message">{{ errors.agreeToTerms }}</span>
-                            </div>
-                            
-                            <button 
-                                type="submit" 
-                                class="submit-btn"
-                                :class="{ 'loading': isSubmitting, 'disabled': !canSubmit }"
-                                :disabled="isSubmitting || !canSubmit"
+                        <div class="inp">
+                            <label for="discordId">
+                                <i class="icon-discord"></i>
+                                ايدي الديسكورد الخاص بك *
+                            </label>
+                            <input 
+                                id="discordId"
+                                v-model="formData.discordId"
+                                placeholder="مثال: user#1234"
+                                type="text"
+                                :class="{ 'error': errors.discordId }"
                             >
-                                <div v-if="!isSubmitting" class="btn-content">
-                                    <span class="btn-icon">🚀</span>
-                                    <span class="btn-text">إرسال الطلب الآن</span>
-                                </div>
-                                <div v-else class="loading-content">
-                                    <div class="spinner"></div>
-                                    <span>جاري الإرسال...</span>
-                                </div>
-                            </button>
+                            <span v-if="errors.discordId" class="error-message">{{ errors.discordId }}</span>
+                        </div>
+                        
+                        <div class="inp">
+                            <label for="fullName">
+                                <i class="icon-profile"></i>
+                                الاسم الكامل *
+                            </label>
+                            <input 
+                                id="fullName"
+                                v-model="formData.fullName"
+                                placeholder="أدخل اسمك الكامل"
+                                type="text"
+                                :class="{ 'error': errors.fullName }"
+                            >
+                            <span v-if="errors.fullName" class="error-message">{{ errors.fullName }}</span>
+                        </div>
+                        
+                        <div class="inp">
+                            <label for="contactInfo">
+                                <i class="icon-phone"></i>
+                                معلومات التواصل *
+                            </label>
+                            <input 
+                                id="contactInfo"
+                                v-model="formData.contactInfo"
+                                placeholder="رقم الهاتف أو وسيلة التواصل المفضلة"
+                                type="text"
+                                :class="{ 'error': errors.contactInfo }"
+                            >
+                            <span v-if="errors.contactInfo" class="error-message">{{ errors.contactInfo }}</span>
                         </div>
                     </div>
-                </form>
+                    
+                    <!-- تفاصيل الطلب -->
+                    <div class="section fade-in">
+                        <h3 class="section-title">
+                            <i class="icon-clipboard"></i>
+                            تفاصيل الطلب
+                        </h3>
+                        
+                        <div class="inp">
+                            <label>
+                                <i class="icon-lightning"></i>
+                                نوع الطلب *
+                            </label>
+                            <div class="options-grid">
+                                <div 
+                                    v-for="type in orderTypes" 
+                                    :key="type.value"
+                                    class="option-card"
+                                    :class="{ 'active': formData.orderType === type.value }"
+                                    @click="formData.orderType = type.value"
+                                >
+                                    <i :class="type.icon"></i>
+                                    <span class="option-label">{{ type.label }}</span>
+                                </div>
+                            </div>
+                            <span v-if="errors.orderType" class="error-message">{{ errors.orderType }}</span>
+                        </div>
+                        
+                        <div class="inp">
+                            <label for="orderDetails">
+                                <i class="icon-edit"></i>
+                                وصف الطلب بالتفصيل *
+                            </label>
+                            <textarea 
+                                id="orderDetails"
+                                v-model="formData.orderDetails"
+                                placeholder="اشرح بالتفصيل ما تريده، المتطلبات، والمواصفات..."
+                                :class="{ 'error': errors.orderDetails }"
+                                rows="4"
+                            ></textarea>
+                            <span v-if="errors.orderDetails" class="error-message">{{ errors.orderDetails }}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- التسليم والدفع -->
+                    <div class="section fade-in">
+                        <h3 class="section-title">
+                            <i class="icon-clock"></i>
+                            التسليم والدفع
+                        </h3>
+                        
+                        <div class="inp">
+                            <label>
+                                <i class="icon-calendar"></i>
+                                وقت التسليم المطلوب *
+                            </label>
+                            <div class="options-grid delivery-grid">
+                                <div 
+                                    v-for="time in deliveryTimes" 
+                                    :key="time.value"
+                                    class="option-card"
+                                    :class="{ 'active': formData.deliveryTime === time.value }"
+                                    @click="formData.deliveryTime = time.value"
+                                >
+                                    <i :class="time.icon"></i>
+                                    <span class="option-label">{{ time.label }}</span>
+                                </div>
+                            </div>
+                            <span v-if="errors.deliveryTime" class="error-message">{{ errors.deliveryTime }}</span>
+                        </div>
+                        
+                        <div class="inp">
+                            <label>
+                                <i class="icon-credit-card"></i>
+                                طريقة الدفع المفضلة *
+                            </label>
+                            <div class="payment-grid">
+                                <div 
+                                    v-for="method in paymentMethods" 
+                                    :key="method.value"
+                                    class="payment-card"
+                                    :class="{ 'active': formData.paymentMethod === method.value, 'popular': method.popular }"
+                                    @click="formData.paymentMethod = method.value"
+                                >
+                                    <i :class="method.icon"></i>
+                                    <span class="payment-label">{{ method.label }}</span>
+                                    <span v-if="method.popular" class="popular-badge">شائع</span>
+                                </div>
+                            </div>
+                            <span v-if="errors.paymentMethod" class="error-message">{{ errors.paymentMethod }}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- إضافات اختيارية -->
+                    <div class="section fade-in">
+                        <h3 class="section-title">
+                            <i class="icon-star"></i>
+                            إضافات اختيارية
+                        </h3>
+                        
+                        <div class="inp">
+                            <label for="example">
+                                <i class="icon-image"></i>
+                                مثال أو مرجع للطلب
+                            </label>
+                            <input 
+                                id="example"
+                                v-model="formData.example"
+                                placeholder="رابط أو وصف لمثال مشابه (اختياري)"
+                                type="text"
+                            >
+                        </div>
+                        
+                        <div class="inp">
+                            <label for="additionalNotes">
+                                <i class="icon-note"></i>
+                                ملاحظات إضافية
+                            </label>
+                            <textarea 
+                                id="additionalNotes"
+                                v-model="formData.additionalNotes"
+                                placeholder="أي ملاحظات أو تفاصيل إضافية..."
+                                rows="2"
+                            ></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- الشروط والإرسال -->
+                    <div class="section fade-in">
+                        <div class="inp">
+                            <label class="checkbox-label">
+                                <input 
+                                    type="checkbox" 
+                                    v-model="formData.agreeToTerms"
+                                    :class="{ 'error': errors.agreeToTerms }"
+                                >
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">
+                                    <i class="icon-check"></i>
+                                    أوافق على الشروط والأحكام وسياسة الخصوصية *
+                                </span>
+                            </label>
+                            <span v-if="errors.agreeToTerms" class="error-message">{{ errors.agreeToTerms }}</span>
+                        </div>
+                        
+                        <button 
+                            type="submit" 
+                            class="submit-btn"
+                            :class="{ 'loading': isSubmitting, 'disabled': !canSubmit }"
+                            :disabled="isSubmitting || !canSubmit"
+                        >
+                            <div v-if="!isSubmitting" class="btn-content">
+                                <i class="icon-rocket"></i>
+                                <span class="btn-text">إرسال الطلب الآن</span>
+                            </div>
+                            <div v-else class="loading-content">
+                                <div class="spinner"></div>
+                                <span>جاري الإرسال...</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Success Animation -->
+    <transition name="success">
+        <div v-if="showSuccess" class="success-overlay">
+            <div class="success-card">
+                <div class="success-icon">
+                    <div class="checkmark-circle">
+                        <div class="checkmark"></div>
+                    </div>
+                </div>
+                <h2>
+                    <i class="icon-celebration"></i>
+                    تم إرسال الطلب بنجاح!
+                </h2>
+                <p><strong>رقم الطلب:</strong> {{ orderNumber }}</p>
+                <p>سيتم التواصل معك في أقرب وقت ممكن</p>
+                <div class="success-actions">
+                    <button @click="showSuccess = false" class="success-btn">حسناً</button>
+                </div>
             </div>
         </div>
-        
-        <!-- Success Animation -->
-        <transition name="success">
-            <div v-if="showSuccess" class="success-overlay">
-                <div class="success-card">
-                    <div class="success-icon">
-                        <div class="checkmark-circle">
-                            <div class="checkmark"></div>
-                        </div>
-                    </div>
-                    <h2>🎉 تم إرسال الطلب بنجاح!</h2>
-                    <p><strong>رقم الطلب:</strong> {{ orderNumber }}</p>
-                    <p>سيتم التواصل معك في أقرب وقت ممكن</p>
-                    <div class="success-actions">
-                        <button @click="showSuccess = false" class="success-btn">حسناً</button>
-                    </div>
-                </div>
-            </div>
-        </transition>
-    </div>
+    </transition>
+</div>
+```
+
 </template>
 
 <style scoped>
