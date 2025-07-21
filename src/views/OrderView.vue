@@ -762,202 +762,201 @@ export default {
     flex-direction: column;
     align-items: center;
     padding: 15px 10px;
-    background: rgba(255, 255, 255, 0.1); 
-border: 2px solid rgba(255, 255, 255, 0.2);
-border-radius: 12px;
-cursor: pointer;
-transition: all 0.3s ease;
-text-align: center;
-position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
 }
 
-.payment-card\:hover {
-background: rgba(255, 255, 255, 0.2);
-transform: translateY(-2px);
+.payment-card:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 .payment-card.active {
-background: rgba(0, 123, 255, 0.2);
-border-color: #007bff;
-color: #007bff;
+    background: rgba(0, 123, 255, 0.2);
+    border-color: #007bff;
+    color: #007bff;
 }
 
 .payment-icon {
-font-size: 24px;
-margin-bottom: 8px;
+    font-size: 24px;
+    margin-bottom: 8px;
 }
 
 .payment-label {
-font-size: 12px;
-font-weight: 600;
-color: white;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
 }
 
 .popular-badge {
-position: absolute;
-top: -8px;
-right: -8px;
-background-color: #ffc107;
-color: #000;
-padding: 4px 8px;
-border-radius: 10px;
-font-size: 10px;
-font-weight: bold;
-box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ffc107;
+    color: #000;
+    padding: 4px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: bold;
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
 }
 
-/\* Checkbox \*/
+/* Checkbox */
 .checkbox-label {
-display: flex;
-align-items: center;
-gap: 10px;
-color: white;
-font-size: 14px;
-font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.checkbox-label input\[type="checkbox"] {
-accent-color: #007bff;
-width: 18px;
-height: 18px;
+.checkbox-label input[type="checkbox"] {
+    accent-color: #007bff;
+    width: 18px;
+    height: 18px;
 }
 
-/\* Submit Button \*/
+/* Submit Button */
 .submit-btn {
-width: 100%;
-padding: 14px;
-background: #007bff;
-color: white;
-border: none;
-border-radius: 10px;
-font-size: 16px;
-font-weight: bold;
-transition: background 0.3s ease;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
+    width: 100%;
+    padding: 14px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .submit-btn.disabled {
-background: #6c757d;
-cursor: not-allowed;
+    background: #6c757d;
+    cursor: not-allowed;
 }
 
 .submit-btn.loading {
-pointer-events: none;
-background: #6c757d;
+    pointer-events: none;
+    background: #6c757d;
 }
 
 .btn-content,
 .loading-content {
-display: flex;
-align-items: center;
-gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .spinner {
-width: 18px;
-height: 18px;
-border: 2px solid #fff;
-border-top: 2px solid transparent;
-border-radius: 50%;
-animation: spin 1s linear infinite;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
 }
 
-/\* Success Overlay \*/
+/* Success Overlay */
 .success-overlay {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(10, 10, 10, 0.85);
-backdrop-filter: blur(5px);
-z-index: 999;
-display: flex;
-justify-content: center;
-align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .success-card {
-background: white;
-padding: 40px 30px;
-border-radius: 15px;
-text-align: center;
-max-width: 400px;
-width: 100%;
-animation: fadeInUp 0.8s ease-out forwards;
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .success-icon {
-margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .checkmark-circle {
-width: 60px;
-height: 60px;
-border-radius: 50%;
-background: #28a745;
-display: flex;
-justify-content: center;
-align-items: center;
-margin: 0 auto;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #28a745;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .checkmark {
-width: 20px;
-height: 10px;
-border-left: 4px solid white;
-border-bottom: 4px solid white;
-transform: rotate(-45deg);
+    width: 20px;
+    height: 10px;
+    border-left: 4px solid white;
+    border-bottom: 4px solid white;
+    transform: rotate(-45deg);
 }
 
 .success-card h2 {
-color: #28a745;
-margin-bottom: 10px;
+    color: #28a745;
+    margin-bottom: 10px;
 }
 
 .success-card p {
-color: #333;
-font-size: 14px;
-margin: 5px 0;
+    color: #333;
+    font-size: 14px;
+    margin: 5px 0;
 }
 
 .success-btn {
-margin-top: 20px;
-padding: 10px 20px;
-background: #007bff;
-color: white;
-border: none;
-border-radius: 8px;
-font-weight: bold;
-cursor: pointer;
-transition: background 0.3s ease;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-.success-btn\:hover {
-background: #0056b3;
+.success-btn:hover {
+    background: #0056b3;
 }
 
-/\* Responsive \*/
+/* Responsive */
 @media (max-width: 768px) {
-.form-grid {
-grid-template-columns: 1fr;
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-title {
+        font-size: 18px;
+    }
+    
+    .cont {
+        padding: 20px 15px;
+    }
+    
+    .payment-grid,
+    .options-grid {
+        grid-template-columns: 1fr;
+    }
 }
-
-```
-.section-title {
-    font-size: 18px;
-}
-
-.cont {
-    padding: 20px 15px;
-}
-
-.payment-grid,
-.options-grid {
-    grid-template-columns: 1fr;
-}
-} 
 </style>
