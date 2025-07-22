@@ -17,7 +17,7 @@ const router = createRouter({
 {
       path: '/policy',
       name: 'policy',
-      component: () => import('../views/OrderView.vue')
+      component: () => import('../components/policy.vue')
     },
 {
       path: '/laws',
