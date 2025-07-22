@@ -84,7 +84,7 @@ export default {
       { name: 'الرئيسية', url: '/', icon: '🏠' },
       { name: 'المنتجات', url: '/products', icon: '🛍️' },
       { name: 'من نحن', url: '/about', icon: '👥' },
-      { name: 'اتصل بنا', url: '/contact', icon: '📞' },
+      { name: 'السياسات', url: '/policy', icon: '📞' },
       { name: 'الأسئلة الشائعة', url: '/faq', icon: '❓' }
     ]
 
