@@ -39,12 +39,34 @@ export default {
           <div class="logo-container">
             <div class="logo-wrapper">
               <div class="logo-icon">
-                <svg viewBox="0 0 100 100" class="store-icon">
-                  <rect x="20" y="30" width="60" height="50" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <rect x="15" y="25" width="70" height="5" fill="currentColor"/>
-                  <circle cx="35" cy="70" r="5" fill="currentColor"/>
-                  <circle cx="65" cy="70" r="5" fill="currentColor"/>
-                  <path d="M30 45 L70 45 M30 55 L60 55" stroke="currentColor" stroke-width="2"/>
+                <!-- أيقونة الاستضافة SVG -->
+                <svg class="hosting-icon" viewBox="0 0 98.861 98.861" xmlns="http://www.w3.org/2000/svg">
+                  <g>
+                    <path d="M73.847,30.236H25.016c-1.562,0-2.836,1.263-2.836,2.828v9.628c0,1.565,1.274,2.828,2.836,2.828h48.831
+                        c1.559,0,2.832-1.263,2.832-2.828v-9.628C76.679,31.499,75.404,30.236,73.847,30.236z M27.287,36.942
+                        c-0.965,0-1.747-0.78-1.747-1.746c0-0.963,0.782-1.745,1.747-1.745c0.967,0,1.746,0.782,1.746,1.745
+                        C29.033,36.163,28.254,36.942,27.287,36.942z M69.231,41.976H56.895v-4.097h12.337V41.976z"/>
+                    <path d="M73.847,47.075H25.016c-1.562,0-2.836,1.265-2.836,2.83v9.627c0,1.563,1.274,2.829,2.836,2.829h48.831
+                        c1.559,0,2.832-1.266,2.832-2.829v-9.627C76.679,48.34,75.404,47.075,73.847,47.075z M27.287,53.783
+                        c-0.965,0-1.747-0.777-1.747-1.746c0-0.962,0.782-1.748,1.747-1.748c0.967,0,1.746,0.785,1.746,1.748
+                        C29.033,53.005,28.254,53.783,27.287,53.783z M69.231,58.816H56.895v-4.098h12.337V58.816z"/>
+                    <path d="M73.847,63.915H25.016c-1.562,0-2.836,1.265-2.836,2.829v9.627c0,1.564,1.274,2.83,2.836,2.83h48.831
+                        c1.559,0,2.832-1.266,2.832-2.83v-9.627C76.679,65.18,75.404,63.915,73.847,63.915z M27.287,70.621
+                        c-0.965,0-1.747-0.775-1.747-1.746c0-0.964,0.782-1.744,1.747-1.744c0.967,0,1.746,0.779,1.746,1.744
+                        C29.033,69.846,28.254,70.621,27.287,70.621z M69.231,75.654H56.895v-4.098h12.337V75.654z"/>
+                    <polygon points="57.864,88.409 52.66,88.409 52.66,80.838 46.204,80.838 46.204,88.409 40.994,88.409 40.994,90.404 
+                        22.778,90.404 22.778,96.863 40.994,96.863 40.994,98.861 57.864,98.861 57.864,96.863 76.079,96.863 76.079,90.404 
+                        57.864,90.404"/>
+                    <path d="M78.253,14.706c-0.699-0.059-1.341-0.416-1.757-0.979C72.581,8.44,66.304,5.179,59.624,5.179
+                        c-0.418,0-0.837,0.013-1.256,0.038c-0.58,0.035-1.15-0.138-1.613-0.488C52.688,1.662,47.76,0,42.602,0
+                        C33.36,0,25.157,5.354,21.323,13.461c-0.352,0.743-1.054,1.259-1.868,1.373C9.269,16.267,1.405,25.039,1.405,35.613
+                        c0,10.081,7.147,18.519,16.641,20.526v-6.234c0-0.777,0.144-1.518,0.383-2.215c-5.077-1.669-8.757-6.448-8.757-12.076
+                        c0-7.011,5.704-12.715,12.716-12.715c0.354,0,0.702,0.028,1.049,0.056c2.021,0.157,3.849-1.154,4.342-3.114
+                        c1.709-6.814,7.806-11.573,14.822-11.573c4.01,0,7.805,1.548,10.685,4.36c0.984,0.96,2.383,1.369,3.729,1.088
+                        c0.859-0.179,1.736-0.27,2.609-0.27c4.909,0,9.293,2.76,11.44,7.202c0.755,1.562,2.405,2.492,4.132,2.314
+                        c0.43-0.043,0.859-0.064,1.275-0.064c7.012,0,12.717,5.704,12.717,12.715c0,5.629-3.682,10.407-8.758,12.076
+                        c0.238,0.698,0.382,1.438,0.382,2.215v6.233c9.493-2.006,16.644-10.443,16.644-20.525C97.455,24.643,88.991,15.612,78.253,14.706z"/>
+                  </g>
                 </svg>
               </div>
               <h1 class="main-title">خلي ستور</h1>
@@ -131,7 +153,7 @@ export default {
       </div>
     </div>
 
-    <!-- Customer Testimonials Section -->
+    
     <CustomerTestimonials />
 
     <Footer />
@@ -139,12 +161,12 @@ export default {
 </template>
 
 <style scoped>
-/* Global Styles */
+
 * {
   box-sizing: border-box;
 }
 
-/* Hero Section */
+
 .home {
   width: 100%;
   min-height: 100vh;
@@ -241,13 +263,22 @@ export default {
 .logo-icon {
   width: 80px;
   height: 80px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  animation: logoFloat 3s ease-in-out infinite;
+  padding: 15px;
 }
 
-.store-icon {
+.hosting-icon {
   width: 100%;
   height: 100%;
   color: white;
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
 }
 
 .main-title {
@@ -260,6 +291,7 @@ export default {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: titleGlow 2s ease-in-out infinite alternate;
 }
 
 .title-underline {
@@ -269,6 +301,7 @@ export default {
   margin: 20px auto;
   border-radius: 2px;
   box-shadow: 0 0 10px rgba(30, 64, 175, 0.5);
+  animation: underlineGlow 2s ease-in-out infinite;
 }
 
 .subtitle {
@@ -408,6 +441,33 @@ export default {
 }
 
 /* Animations */
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes titleGlow {
+  0% {
+    text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 255, 255, 0.4);
+  }
+}
+
+@keyframes underlineGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(30, 64, 175, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(30, 64, 175, 0.8);
+  }
+}
+
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-20px); }
@@ -448,6 +508,16 @@ export default {
     width: 100%;
     max-width: 300px;
     justify-content: center;
+  }
+
+  .logo-wrapper {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .logo-icon {
+    width: 60px;
+    height: 60px;
   }
 }
 </style>
