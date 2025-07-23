@@ -181,14 +181,6 @@ export default {
           </div>
         </div>
       </div>
-      
-      <div class="scroll-indicator">
-        <div class="mouse">
-          <div class="wheel"></div>
-        </div>
-        <span>تصفح للأسفل</span>
-      </div>
-    </div>
 
     <!-- Testimonials Section -->
     <div class="feedbacks">
