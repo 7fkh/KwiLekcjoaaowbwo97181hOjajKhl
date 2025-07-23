@@ -18,35 +18,35 @@ export default {
         {
           id: 1,
           username: "عوض الحربي",
-          avatar: "https://i.imgur.com/COjYjpR.png",
+          avatar: "https://imgur.com/a/3M4AbqY",
           text: "10/10 افضل متجر باذن الله مب اخر مره",
           rating: 5
         },
         {
           id: 2,
           username: "سعد مرتضى",
-          avatar: "https://imgur.com/a/Sx0ZZLU",
+          avatar: "https://imgur.com/a/3M4AbqY",
           text: "أنصحكم فيه, ماكان عندي قيمة الطلب كامل ونقص المبلغ الله يسعده",
           rating: 5
         },
         {
           id: 3,
           username: "عبدالله الغامدي",
-          avatar: "https://imgur.com/a/Sx0ZZLU",
+          avatar: "https://imgur.com/a/3M4AbqY",
           text: "الافضل ابو خلي و موثوقققق مره انصحكم فيه،",
           rating: 5
         },
         {
           id: 4,
           username: "ابو زهره",
-          avatar: "https://imgur.com/a/Sx0ZZLU",
+          avatar: "https://imgur.com/a/3M4AbqY",
           text: "خلي ستور امبراطور الساحة ..",
           rating: 5
         },
         {
           id: 5,
           username: "فهد عبدالله",
-          avatar: "https://imgur.com/a/Sx0ZZLU",
+          avatar: "https://imgur.com/a/3M4AbqY",
           text: "أي شيء تبغاه إن شاء الله موجود هناك وضمان مرة أسطوري وتعامل حلو",
           rating: 5
         },
