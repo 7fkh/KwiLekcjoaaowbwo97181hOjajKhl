@@ -67,7 +67,9 @@ export default {
       ],
       stats: [
         {
-          number: "1000+",
+          number: 1000,
+          displayNumber: 0,
+          suffix: "+",
           label: "عميل راضي",
           svg: `<circle cx="50" cy="35" r="15" fill="none" stroke="currentColor" stroke-width="3"/>
                 <path d="M50 50 Q35 50 35 65 Q35 80 50 80 Q65 80 65 65 Q65 50 50 50" fill="currentColor"/>
@@ -75,14 +77,18 @@ export default {
                 <circle cx="70" cy="25" r="8" fill="none" stroke="currentColor" stroke-width="2"/>`
         },
         {
-          number: "500+",
+          number: 500,
+          displayNumber: 0,
+          suffix: "+",
           label: "مشروع مكتمل",
           svg: `<rect x="20" y="30" width="60" height="50" rx="5" fill="none" stroke="currentColor" stroke-width="3"/>
                 <path d="M30 40 L70 40 M30 50 L60 50 M30 60 L65 60" stroke="currentColor" stroke-width="2"/>
                 <path d="M70 20 L80 30 L70 40" stroke="currentColor" stroke-width="3" fill="currentColor"/>`
         },
         {
-          number: "24/7",
+          number: 24,
+          displayNumber: 0,
+          suffix: "/7",
           label: "دعم فني",
           svg: `<circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="3"/>
                 <path d="M35 35 L65 65 M65 35 L35 65" stroke="currentColor" stroke-width="4"/>
@@ -90,7 +96,9 @@ export default {
                 <text x="50" y="85" text-anchor="middle" font-size="8" fill="currentColor">ساعة</text>`
         },
         {
-          number: "5",
+          number: 5,
+          displayNumber: 0,
+          suffix: "",
           label: "سنوات خبرة",
           svg: `<path d="M50 20 L60 40 L80 40 L65 55 L70 75 L50 65 L30 75 L35 55 L20 40 L40 40 Z" fill="currentColor"/>
                 <circle cx="50" cy="50" r="8" fill="white"/>
@@ -108,6 +116,12 @@ export default {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-in');
+            
+            // Start counter animation for stats
+            if (entry.target.classList.contains('stat-item')) {
+              const index = parseInt(entry.target.dataset.index);
+              this.animateCounter(index);
+            }
           }
         });
       }, { threshold: 0.1 });
@@ -115,6 +129,23 @@ export default {
       document.querySelectorAll('.testimonial-card, .stat-item').forEach(el => {
         observer.observe(el);
       });
+    },
+    
+    animateCounter(index) {
+      const stat = this.stats[index];
+      const targetNumber = stat.number;
+      const duration = 2000; // 2 seconds
+      const increment = targetNumber / (duration / 16); // 60fps
+      let currentNumber = 0;
+      
+      const timer = setInterval(() => {
+        currentNumber += increment;
+        if (currentNumber >= targetNumber) {
+          currentNumber = targetNumber;
+          clearInterval(timer);
+        }
+        this.stats[index].displayNumber = Math.floor(currentNumber);
+      }, 16);
     }
   }
 }
@@ -201,11 +232,17 @@ export default {
     
     <!-- Stats Section -->
     <div class="stats-container">
-      <div class="stat-item" v-for="(stat, index) in stats" :key="index" :style="{ 'animation-delay': (index * 0.2) + 's' }">
+      <div 
+        class="stat-item" 
+        v-for="(stat, index) in stats" 
+        :key="index" 
+        :data-index="index"
+        :style="{ 'animation-delay': (index * 0.2) + 's' }"
+      >
         <div class="stat-icon">
           <svg viewBox="0 0 100 100" class="stat-svg" v-html="stat.svg"></svg>
         </div>
-        <div class="stat-number" :data-target="stat.number">{{ stat.number }}</div>
+        <div class="stat-number">{{ stat.displayNumber }}{{ stat.suffix }}</div>
         <div class="stat-label">{{ stat.label }}</div>
       </div>
     </div>
@@ -290,7 +327,7 @@ export default {
   text-align: center;
   font-weight: bold;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(135deg, #ffffff 0%, #16213e 50%, #ffffff 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #ffffff 50%, #ffffff 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -304,7 +341,7 @@ export default {
 }
 
 .section-subtitle {
-  color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
   font-size: 1.2rem;
   margin-bottom: 2rem;
   animation: fadeIn 1s ease-out 0.3s both;
@@ -485,7 +522,7 @@ export default {
   font-weight: bold;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #fff;
+  color: #ffffff;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
@@ -533,7 +570,7 @@ export default {
 
 .feedback-text {
   font-size: 1rem;
-  color: #eee;
+  color: #ffffff;
   line-height: 1.6;
   margin-bottom: 1rem;
   font-style: italic;
@@ -570,7 +607,7 @@ export default {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: #ffffff;
   font-size: 0.9rem;
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -611,7 +648,7 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  color: white;
+  color: #ffffff;
   background: linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(26, 26, 46, 0.6) 50%, rgba(22, 33, 62, 0.8) 100%);
   padding: 2rem;
   border-radius: 25px;
@@ -665,7 +702,7 @@ export default {
 .stat-svg {
   width: 100%;
   height: 100%;
-  color: white;
+  color: #ffffff;
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
   animation: iconGlow 3s ease-in-out infinite;
 }
@@ -684,24 +721,28 @@ export default {
 .stat-number {
   font-size: 1.8rem;
   font-weight: bold;
-  background: linear-gradient(135deg, #ffffff 0%, #16213e 50%, #ffffff 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: numberShine 4s ease-in-out infinite;
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  animation: numberPulse 2s ease-in-out infinite;
 }
 
-@keyframes numberShine {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+@keyframes numberPulse {
+  0%, 100% { 
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    transform: scale(1);
+  }
+  50% { 
+    text-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+    transform: scale(1.05);
+  }
 }
 
 .stat-label {
   font-size: 1rem;
-  opacity: 0.8;
+  color: #ffffff;
   text-align: center;
   font-weight: 500;
+  opacity: 0.9;
 }
 
 /* Media Queries */
