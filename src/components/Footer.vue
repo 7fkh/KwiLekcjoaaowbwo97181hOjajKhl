@@ -24,27 +24,27 @@ export default {
     const paymentMethods = [
       { 
         name: 'Google Pay', 
-        url: 'https://pay.google.com',
+        url: 'https://i.imgur.com/google-pay-logo.png',
         icon: '🔵',
-        color: '#4285F4' 
+        color: '#16213e' 
       },
       { 
         name: 'Apple Pay', 
-        url: 'https://www.apple.com/apple-pay/',
+        url: 'https://i.imgur.com/apple-pay-logo.png',
         icon: '🍎',
-        color: '#000000' 
+        color: '#16213e' 
       },
       { 
         name: 'STC Pay', 
-        url: 'https://www.stcpay.com.sa',
+        url: 'https://i.imgur.com/stc-pay-logo.png',
         icon: '📱',
-        color: '#662D91' 
+        color: '#16213e' 
       },
       { 
         name: 'Visa', 
-        url: 'https://www.visa.com',
+        url: 'https://i.imgur.com/visa-logo.png',
         icon: '💳',
-        color: '#1A1F71' 
+        color: '#16213e' 
       }
     ]
 
@@ -53,7 +53,7 @@ export default {
         name: 'الدعم الفني',
         url: '#support',
         icon: '💬',
-        color: '#25D366',
+        color: '#16213e',
         external: false
       }
     ]
@@ -123,6 +123,7 @@ export default {
     }
 
     const handlePaymentClick = (method) => {
+      // Open payment method image instead of payment website
       window.open(method.url, '_blank', 'noopener,noreferrer')
     }
 
@@ -393,11 +394,11 @@ export default {
   position: absolute;
   width: 20px;
   height: 20px;
-  background: linear-gradient(45deg, #ffffff, #f0f0f0);
+  background: linear-gradient(45deg, #16213e, #1a1a2e);
   border-radius: 50%;
   animation: float 6s ease-in-out infinite;
   animation-delay: var(--delay);
-  opacity: 0.1;
+  opacity: 0.3;
 }
 
 .shape:nth-child(1) { top: 10%; left: 10%; }
@@ -438,7 +439,7 @@ export default {
   width: 120px;
   height: auto;
   border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 40px rgba(22, 33, 62, 0.6);
   transition: all 0.5s ease;
   position: relative;
   z-index: 2;
@@ -446,7 +447,7 @@ export default {
 
 .footer-logo:hover {
   transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 15px 50px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 15px 50px rgba(22, 33, 62, 0.8);
 }
 
 .logo-glow {
@@ -455,22 +456,22 @@ export default {
   left: -10px;
   right: -10px;
   bottom: -10px;
-  background: linear-gradient(45deg, #ffffff, #f0f0f0, #ffffff);
+  background: linear-gradient(45deg, #16213e, #1a1a2e, #16213e);
   border-radius: 25px;
   animation: glow 2s ease-in-out infinite alternate;
-  opacity: 0.3;
+  opacity: 0.5;
   z-index: 1;
 }
 
 @keyframes glow {
-  from { box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
-  to { box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6); }
+  from { box-shadow: 0 0 20px rgba(22, 33, 62, 0.5); }
+  to { box-shadow: 0 0 30px rgba(22, 33, 62, 0.8), 0 0 40px rgba(22, 33, 62, 0.6); }
 }
 
 .brand-title {
   font-size: 2.5rem;
   font-weight: 700;
-  background: linear-gradient(45deg, #ffffff, #f0f0f0, #fff);
+  background: linear-gradient(45deg, #ffffff, #16213e, #fff);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -491,7 +492,7 @@ export default {
 }
 
 .sparkle {
-  background: linear-gradient(45deg, #ffffff, #f0f0f0, #ffffff);
+  background: linear-gradient(45deg, #ffffff, #16213e, #ffffff);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -512,18 +513,18 @@ export default {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(22, 33, 62, 0.2);
   border-radius: 15px;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(22, 33, 62, 0.4);
   transition: all 0.3s ease;
   min-width: 140px;
 }
 
 .stat-item:hover {
   transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+  background: rgba(22, 33, 62, 0.3);
+  box-shadow: 0 10px 30px rgba(22, 33, 62, 0.4);
 }
 
 .stat-number {
@@ -577,7 +578,7 @@ export default {
   transform: translateX(-50%);
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+  background: linear-gradient(90deg, transparent, #16213e, transparent);
 }
 
 /* Quick Links */
@@ -592,7 +593,7 @@ export default {
   align-items: center;
   gap: 12px;
   padding: 12px 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(22, 33, 62, 0.2);
   border-radius: 10px;
   color: #e0e0e0;
   text-decoration: none;
@@ -601,8 +602,8 @@ export default {
 }
 
 .quick-link:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-left-color: #ffffff;
+  background: rgba(22, 33, 62, 0.3);
+  border-left-color: #16213e;
   transform: translateX(5px);
   color: white;
 }
@@ -619,19 +620,19 @@ export default {
 }
 
 .term-card {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(22, 33, 62, 0.2);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(22, 33, 62, 0.4);
   transition: all 0.3s ease;
   animation: slideInLeft 0.8s ease-out both;
   animation-delay: var(--delay);
 }
 
 .term-card:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(22, 33, 62, 0.3);
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 25px rgba(22, 33, 62, 0.3);
 }
 
 .term-header {
@@ -673,8 +674,8 @@ export default {
   align-items: center;
   gap: 10px;
   padding: 15px 25px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(22, 33, 62, 0.2);
+  border: 2px solid rgba(22, 33, 62, 0.4);
   border-radius: 25px;
   color: white;
   font-size: 1rem;
@@ -693,7 +694,7 @@ export default {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(22, 33, 62, 0.3), transparent);
   transition: left 0.5s ease;
 }
 
@@ -703,9 +704,9 @@ export default {
 
 .contact-card:hover {
   border-color: var(--accent-color);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(22, 33, 62, 0.3);
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 25px rgba(22, 33, 62, 0.3);
 }
 
 .contact-icon {
@@ -714,10 +715,10 @@ export default {
 
 /* Operating Hours */
 .operating-hours {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(22, 33, 62, 0.3);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(22, 33, 62, 0.5);
 }
 
 .time-display {
@@ -773,8 +774,8 @@ export default {
   align-items: center;
   gap: 10px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(22, 33, 62, 0.2);
+  border: 2px solid rgba(22, 33, 62, 0.4);
   border-radius: 15px;
   color: white;
   font-size: 1rem;
@@ -793,7 +794,7 @@ export default {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(22, 33, 62, 0.3), transparent);
   transition: left 0.5s ease;
 }
 
@@ -802,10 +803,10 @@ export default {
 }
 
 .payment-card:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(22, 33, 62, 0.3);
   border-color: var(--brand-color);
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(22, 33, 62, 0.4);
 }
 
 .payment-icon {
@@ -848,7 +849,7 @@ export default {
 
 .copyright-section {
   padding-top: 30px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(22, 33, 62, 0.4);
   margin-bottom: 20px;
 }
 
@@ -872,20 +873,20 @@ export default {
   right: 30px;
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #ffffff, #f0f0f0);
+  background: linear-gradient(135deg, #16213e, #1a1a2e);
   border: none;
   border-radius: 50%;
-  color: #333;
+  color: #fff;
   font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 15px rgba(22, 33, 62, 0.6);
   z-index: 1000;
 }
 
 .scroll-top-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 6px 20px rgba(22, 33, 62, 0.8);
 }
 
 .scroll-icon {
@@ -931,5 +932,101 @@ export default {
     min-width: 120px;
     padding: 15px;
   }
+
+  .payment-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+  }
 }
-</style>
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 60px 15px 30px;
+  }
+
+  .brand-title {
+    font-size: 2rem;
+  }
+
+  .brand-tagline {
+    font-size: 1.1rem;
+  }
+
+  .stats-container {
+    gap: 20px;
+  }
+
+  .stat-item {
+    min-width: 100px;
+    padding: 12px;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .security-badges {
+    gap: 15px;
+  }
+
+  .badge {
+    padding: 8px 15px;
+    font-size: 0.8rem;
+  }
+
+  .scroll-top-btn {
+    width: 45px;
+    height: 45px;
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-logo {
+    width: 100px;
+  }
+
+  .brand-title {
+    font-size: 1.8rem;
+  }
+
+  .brand-tagline {
+    font-size: 1rem;
+  }
+
+  .stats-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .stat-item {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .payment-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .payment-card {
+    padding: 15px 10px;
+    font-size: 0.9rem;
+  }
+
+  .payment-icon {
+    font-size: 1.5rem;
+  }
+
+  .security-badges {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
