@@ -931,4 +931,5 @@ export default {
     min-width: 120px;
     padding: 15px;
   }
+}
 </style>
