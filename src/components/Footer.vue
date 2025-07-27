@@ -2,13 +2,6 @@
 import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import logo from '@/assets/IMG_1254.png'
 import businessLogo from '@/assets/IMG_1485.jpeg'
-import gpay from '@/assets/IMG_1484.jpeg'
-import applepay from '@/assets/IMG_1484.jpeg'
-import stcpay from '@/assets/IMG_1483.jpeg'
-import paypal from '@/assets/IMG_1482.jpeg'
-import visa from '@/assets/IMG_1482.jpeg'
-import mastercard from '@/assets/IMG_1481.jpeg'
-import mada from '@/assets/IMG_1481.jpeg'
 
 export default {
   name: 'EnhancedFooter',
@@ -29,36 +22,39 @@ export default {
     }
 
     const paymentMethods = [
-      { src: gpay, alt: 'Google Pay', name: 'gpay', color: '#4285F4' },
-      { src: applepay, alt: 'Apple Pay', name: 'applepay', color: '#000000' },
-      { src: stcpay, alt: 'STC Pay', name: 'stcpay', color: '#662D91' },
-      { src: paypal, alt: 'PayPal', name: 'paypal', color: '#0070BA' },
-      { src: visa, alt: 'Visa', name: 'visa', color: '#1A1F71' },
-      { src: mastercard, alt: 'MasterCard', name: 'mastercard', color: '#EB001B' },
-      { src: mada, alt: 'Mada', name: 'mada', color: '#00A651' }
+      { 
+        name: 'Google Pay', 
+        url: 'https://pay.google.com',
+        icon: '🔵',
+        color: '#4285F4' 
+      },
+      { 
+        name: 'Apple Pay', 
+        url: 'https://www.apple.com/apple-pay/',
+        icon: '🍎',
+        color: '#000000' 
+      },
+      { 
+        name: 'STC Pay', 
+        url: 'https://www.stcpay.com.sa',
+        icon: '📱',
+        color: '#662D91' 
+      },
+      { 
+        name: 'Visa', 
+        url: 'https://www.visa.com',
+        icon: '💳',
+        color: '#1A1F71' 
+      }
     ]
 
     const socialLinks = [
-      {
-        name: 'انستقرام',
-        url: 'https://www.instagram.com/khlistore?igsh=eGdxcTVpYzVpNWlr&utm_source=qr',
-        icon: '📱',
-        color: '#E4405F',
-        external: true
-      },
       {
         name: 'الدعم الفني',
         url: '#support',
         icon: '💬',
         color: '#25D366',
         external: false
-      },
-      {
-        name: 'البريد الإلكتروني',
-        url: 'mailto:support@khlistore.com',
-        icon: '📧',
-        color: '#EA4335',
-        external: true
       }
     ]
 
@@ -83,7 +79,6 @@ export default {
     const quickLinks = [
       { name: 'الرئيسية', url: '/', icon: '🏠' },
       { name: 'المنتجات', url: '/products', icon: '🛍️' },
-      { name: 'من نحن', url: '/about', icon: '👥' },
       { name: 'السياسات', url: '/policy', icon: '📞' },
       { name: 'الأسئلة الشائعة', url: '/faq', icon: '❓' }
     ]
@@ -125,6 +120,10 @@ export default {
         // Handle internal links or custom actions
         console.log(`Navigate to ${link.url}`)
       }
+    }
+
+    const handlePaymentClick = (method) => {
+      window.open(method.url, '_blank', 'noopener,noreferrer')
     }
 
     const scrollToTop = () => {
@@ -179,6 +178,7 @@ export default {
       animatedStats,
       footerRef,
       handleSocialClick,
+      handlePaymentClick,
       scrollToTop,
       formatTime
     }
@@ -196,18 +196,18 @@ export default {
     </div>
 
     <div class="footer-content">
-  <!-- Hero Section -->
-  <div class="hero-section">
-    <div class="logo-container">
-      <a href="/" aria-label="العودة للصفحة الرئيسية">
-        <img 
-          src="https://imgur.com/a/UduHwH7" 
-          class="footer-logo"
-          loading="lazy"
-        />
-        <div class="logo-glow"></div>
-      </a>
-    </div>
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <div class="logo-container">
+          <a href="/" aria-label="العودة للصفحة الرئيسية">
+            <img 
+              src="https://imgur.com/a/UduHwH7" 
+              class="footer-logo"
+              loading="lazy"
+            />
+            <div class="logo-glow"></div>
+          </a>
+        </div>
         <h2 class="brand-title">خلي ستور</h2>
         <p class="brand-tagline">
           <span class="highlight">ماذا تريد نقدمه لك</span><br />
@@ -313,22 +313,17 @@ export default {
           <span class="title-icon">💳</span>
           طرق الدفع المتاحة
         </h3>
-        <div class="payment-carousel">
-          <div class="payment-track">
-            <div 
-              v-for="(method, index) in [...paymentMethods, ...paymentMethods]"
-              :key="`${method.name}-${index}`"
-              class="payment-card"
-              :style="{ '--brand-color': method.color }"
-            >
-              <img 
-                :src="method.src" 
-                :alt="method.alt"
-                class="payment-icon"
-                loading="lazy"
-              />
-            </div>
-          </div>
+        <div class="payment-grid">
+          <button 
+            v-for="method in paymentMethods"
+            :key="method.name"
+            @click="handlePaymentClick(method)"
+            class="payment-card"
+            :style="{ '--brand-color': method.color }"
+          >
+            <span class="payment-icon">{{ method.icon }}</span>
+            <span class="payment-name">{{ method.name }}</span>
+          </button>
         </div>
       </div>
 
@@ -398,7 +393,7 @@ export default {
   position: absolute;
   width: 20px;
   height: 20px;
-  background: linear-gradient(45deg, #e3b04b, #f4d03f);
+  background: linear-gradient(45deg, #ffffff, #f0f0f0);
   border-radius: 50%;
   animation: float 6s ease-in-out infinite;
   animation-delay: var(--delay);
@@ -443,7 +438,7 @@ export default {
   width: 120px;
   height: auto;
   border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(227, 176, 75, 0.3);
+  box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
   transition: all 0.5s ease;
   position: relative;
   z-index: 2;
@@ -451,7 +446,7 @@ export default {
 
 .footer-logo:hover {
   transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 15px 50px rgba(227, 176, 75, 0.5);
+  box-shadow: 0 15px 50px rgba(255, 255, 255, 0.5);
 }
 
 .logo-glow {
@@ -460,7 +455,7 @@ export default {
   left: -10px;
   right: -10px;
   bottom: -10px;
-  background: linear-gradient(45deg, #e3b04b, #f4d03f, #e3b04b);
+  background: linear-gradient(45deg, #ffffff, #f0f0f0, #ffffff);
   border-radius: 25px;
   animation: glow 2s ease-in-out infinite alternate;
   opacity: 0.3;
@@ -468,14 +463,14 @@ export default {
 }
 
 @keyframes glow {
-  from { box-shadow: 0 0 20px rgba(227, 176, 75, 0.5); }
-  to { box-shadow: 0 0 30px rgba(227, 176, 75, 0.8), 0 0 40px rgba(227, 176, 75, 0.6); }
+  from { box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+  to { box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6); }
 }
 
 .brand-title {
   font-size: 2.5rem;
   font-weight: 700;
-  background: linear-gradient(45deg, #e3b04b, #f4d03f, #fff);
+  background: linear-gradient(45deg, #ffffff, #f0f0f0, #fff);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -491,12 +486,12 @@ export default {
 }
 
 .highlight {
-  color: #e3b04b;
+  color: #ffffff;
   font-weight: 600;
 }
 
 .sparkle {
-  background: linear-gradient(45deg, #e3b04b, #fff, #e3b04b);
+  background: linear-gradient(45deg, #ffffff, #f0f0f0, #ffffff);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -520,21 +515,21 @@ export default {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(227, 176, 75, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
   min-width: 140px;
 }
 
 .stat-item:hover {
   transform: translateY(-5px);
-  background: rgba(227, 176, 75, 0.1);
-  box-shadow: 0 10px 30px rgba(227, 176, 75, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
 }
 
 .stat-number {
   font-size: 2rem;
   font-weight: 700;
-  color: #e3b04b;
+  color: #ffffff;
   margin-bottom: 5px;
 }
 
@@ -563,7 +558,7 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  color: #e3b04b;
+  color: #ffffff;
   font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 25px;
@@ -582,7 +577,7 @@ export default {
   transform: translateX(-50%);
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #e3b04b, transparent);
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
 }
 
 /* Quick Links */
@@ -606,8 +601,8 @@ export default {
 }
 
 .quick-link:hover {
-  background: rgba(227, 176, 75, 0.1);
-  border-left-color: #e3b04b;
+  background: rgba(255, 255, 255, 0.1);
+  border-left-color: #ffffff;
   transform: translateX(5px);
   color: white;
 }
@@ -627,14 +622,14 @@ export default {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid rgba(227, 176, 75, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
   animation: slideInLeft 0.8s ease-out both;
   animation-delay: var(--delay);
 }
 
 .term-card:hover {
-  background: rgba(227, 176, 75, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
@@ -651,7 +646,7 @@ export default {
 }
 
 .term-title {
-  color: #e3b04b;
+  color: #ffffff;
   font-size: 1rem;
   font-weight: 600;
   margin: 0;
@@ -719,10 +714,10 @@ export default {
 
 /* Operating Hours */
 .operating-hours {
-  background: rgba(227, 176, 75, 0.1);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid rgba(227, 176, 75, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .time-display {
@@ -741,7 +736,7 @@ export default {
 .current-time {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #e3b04b;
+  color: #ffffff;
   font-family: 'Courier New', monospace;
 }
 
@@ -764,48 +759,61 @@ export default {
   margin-bottom: 30px;
 }
 
-.payment-carousel {
-  overflow: hidden;
-  mask: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
-  -webkit-mask: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
-}
-
-.payment-track {
-  display: flex;
+.payment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
-  animation: scroll 20s linear infinite;
-  width: fit-content;
-}
-
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .payment-card {
-  flex-shrink: 0;
-  width: 80px;
-  height: 50px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
   transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.payment-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.payment-card:hover::before {
+  left: 100%;
 }
 
 .payment-card:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.1);
   border-color: var(--brand-color);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .payment-icon {
-  width: 40px;
-  height: auto;
-  filter: brightness(1.2);
+  font-size: 2rem;
+}
+
+.payment-name {
+  font-weight: 600;
 }
 
 /* Bottom Section */
@@ -864,20 +872,20 @@ export default {
   right: 30px;
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #e3b04b, #f4d03f);
+  background: linear-gradient(135deg, #ffffff, #f0f0f0);
   border: none;
   border-radius: 50%;
-  color: white;
+  color: #333;
   font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(227, 176, 75, 0.4);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
   z-index: 1000;
 }
 
 .scroll-top-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(227, 176, 75, 0.6);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.6);
 }
 
 .scroll-icon {
@@ -923,220 +931,4 @@ export default {
     min-width: 120px;
     padding: 15px;
   }
-  
-  .brand-title {
-    font-size: 2.2rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .footer {
-    padding: 60px 15px 30px;
-  }
-  
-  .hero-section {
-    margin-bottom: 40px;
-  }
-  
-  .footer-logo {
-    width: 90px;
-  }
-  
-  .brand-title {
-    font-size: 2rem;
-  }
-  
-  .brand-tagline {
-    font-size: 1.1rem;
-  }
-  
-  .content-grid {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-  
-  .stats-container {
-    gap: 15px;
-  }
-  
-  .stat-item {
-    min-width: 100px;
-    padding: 12px;
-  }
-  
-  .stat-number {
-    font-size: 1.6rem;
-  }
-  
-  .section-title {
-    font-size: 1.2rem;
-  }
-  
-  .contact-grid {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .contact-card {
-    width: 100%;
-    max-width: 250px;
-    justify-content: center;
-  }
-  
-  .security-badges {
-    gap: 15px;
-  }
-  
-  .badge {
-    padding: 10px 15px;
-    font-size: 0.85rem;
-  }
-  
-  .scroll-top-btn {
-    bottom: 20px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
-    font-size: 1.1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer {
-    padding: 40px 10px 25px;
-  }
-  
-  .footer-logo {
-    width: 70px;
-  }
-  
-  .brand-title {
-    font-size: 1.8rem;
-  }
-  
-  .brand-tagline {
-    font-size: 1rem;
-  }
-  
-  .stats-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  .stat-item {
-    width: 100%;
-    max-width: 200px;
-  }
-  
-  .term-card {
-    padding: 15px;
-  }
-  
-  .contact-card {
-    padding: 12px 20px;
-    font-size: 0.9rem;
-  }
-  
-  .operating-hours {
-    padding: 15px;
-  }
-  
-  .current-time {
-    font-size: 1.3rem;
-  }
-  
-  .payment-card {
-    width: 70px;
-    height: 45px;
-  }
-  
-  .payment-icon {
-    width: 35px;
-  }
-  
-  .security-badges {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .badge {
-    width: 100%;
-    max-width: 200px;
-    justify-content: center;
-  }
-}
-
-/* Accessibility improvements */
-@media (prefers-reduced-motion: reduce) {
-  .footer,
-  .section,
-  .term-card,
-  .contact-card,
-  .payment-card,
-  .footer-logo,
-  .scroll-top-btn {
-    animation: none !important;
-    transition: none !important;
-  }
-  
-  .shape {
-    animation: none !important;
-  }
-  
-  .payment-track {
-    animation: none !important;
-  }
-  
-  .logo-glow {
-    animation: none !important;
-  }
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .footer {
-    background: #000;
-    border-top: 2px solid #fff;
-  }
-  
-  .section-title,
-  .highlight,
-  .sparkle {
-    color: #ffff00;
-  }
-  
-  .term-card,
-  .contact-card,
-  .stat-item {
-    border: 2px solid #fff;
-    background: #111;
-  }
-  
-  .payment-card {
-    border: 1px solid #fff;
-    background: #222;
-  }
-}
-
-/* Print styles */
-@media print {
-  .footer {
-    background: none !important;
-    color: #000 !important;
-    box-shadow: none !important;
-  }
-  
-  .background-animation,
-  .scroll-top-btn {
-    display: none !important;
-  }
-  
-  .contact-card,
-  .payment-card {
-    border: 1px solid #000 !important;
-    background: none !important;
-  }
-}
 </style>
