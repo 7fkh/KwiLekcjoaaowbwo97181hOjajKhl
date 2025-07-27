@@ -25,26 +25,26 @@ export default {
       { 
         name: 'Google Pay', 
         url: 'https://i.imgur.com/google-pay-logo.png',
-        icon: '🔵',
-        color: '#16213e' 
+        image: 'https://i.imgur.com/google-pay-logo.png',
+        color: '#27418f' 
       },
       { 
         name: 'Apple Pay', 
         url: 'https://i.imgur.com/apple-pay-logo.png',
-        icon: '🍎',
-        color: '#16213e' 
+        image: 'https://i.imgur.com/apple-pay-logo.png',
+        color: '#27418f' 
       },
       { 
         name: 'STC Pay', 
         url: 'https://i.imgur.com/stc-pay-logo.png',
-        icon: '📱',
-        color: '#16213e' 
+        image: 'https://i.imgur.com/stc-pay-logo.png',
+        color: '#27418f' 
       },
       { 
         name: 'Visa', 
         url: 'https://i.imgur.com/visa-logo.png',
-        icon: '💳',
-        color: '#16213e' 
+        image: 'https://i.imgur.com/visa-logo.png',
+        color: '#27418f' 
       }
     ]
 
@@ -53,7 +53,7 @@ export default {
         name: 'الدعم الفني',
         url: '#support',
         icon: '💬',
-        color: '#16213e',
+        color: '#27418f',
         external: false
       }
     ]
@@ -322,7 +322,12 @@ export default {
             class="payment-card"
             :style="{ '--brand-color': method.color }"
           >
-            <span class="payment-icon">{{ method.icon }}</span>
+            <img 
+              :src="method.image" 
+              :alt="method.name"
+              class="payment-image"
+              loading="lazy"
+            />
             <span class="payment-name">{{ method.name }}</span>
           </button>
         </div>
@@ -357,7 +362,7 @@ export default {
 <style scoped>
 .footer {
   position: relative;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e  50%, #1a1a2e 75%, #0a0a0a 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #27418f  50%, #1a1a2e 75%, #0a0a0a 100%);
   color: white;
   padding: 80px 20px 40px;
   text-align: center;
@@ -394,7 +399,7 @@ export default {
   position: absolute;
   width: 20px;
   height: 20px;
-  background: linear-gradient(45deg, #16213e, #1a1a2e);
+  background: linear-gradient(45deg, #27418f, #1a1a2e);
   border-radius: 50%;
   animation: float 6s ease-in-out infinite;
   animation-delay: var(--delay);
@@ -439,7 +444,7 @@ export default {
   width: 120px;
   height: auto;
   border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(22, 33, 62, 0.6);
+  box-shadow: 0 10px 40px rgba(39, 65, 143, 0.6);
   transition: all 0.5s ease;
   position: relative;
   z-index: 2;
@@ -447,7 +452,7 @@ export default {
 
 .footer-logo:hover {
   transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 15px 50px rgba(22, 33, 62, 0.8);
+  box-shadow: 0 15px 50px rgba(39, 65, 143, 0.8);
 }
 
 .logo-glow {
@@ -456,7 +461,7 @@ export default {
   left: -10px;
   right: -10px;
   bottom: -10px;
-  background: linear-gradient(45deg, #16213e, #1a1a2e, #16213e);
+  background: linear-gradient(45deg, #27418f, #1a1a2e, #27418f);
   border-radius: 25px;
   animation: glow 2s ease-in-out infinite alternate;
   opacity: 0.5;
@@ -464,14 +469,14 @@ export default {
 }
 
 @keyframes glow {
-  from { box-shadow: 0 0 20px rgba(22, 33, 62, 0.5); }
-  to { box-shadow: 0 0 30px rgba(22, 33, 62, 0.8), 0 0 40px rgba(22, 33, 62, 0.6); }
+  from { box-shadow: 0 0 20px rgba(39, 65, 143, 0.5); }
+  to { box-shadow: 0 0 30px rgba(39, 65, 143, 0.8), 0 0 40px rgba(39, 65, 143, 0.6); }
 }
 
 .brand-title {
   font-size: 2.5rem;
   font-weight: 700;
-  background: linear-gradient(45deg, #ffffff, #16213e, #fff);
+  background: linear-gradient(45deg, #ffffff, #27418f, #fff);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -492,7 +497,7 @@ export default {
 }
 
 .sparkle {
-  background: linear-gradient(45deg, #ffffff, #16213e, #ffffff);
+  background: linear-gradient(45deg, #ffffff, #27418f, #ffffff);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -513,18 +518,18 @@ export default {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background: rgba(22, 33, 62, 0.2);
+  background: rgba(39, 65, 143, 0.2);
   border-radius: 15px;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(22, 33, 62, 0.4);
+  border: 1px solid rgba(39, 65, 143, 0.4);
   transition: all 0.3s ease;
   min-width: 140px;
 }
 
 .stat-item:hover {
   transform: translateY(-5px);
-  background: rgba(22, 33, 62, 0.3);
-  box-shadow: 0 10px 30px rgba(22, 33, 62, 0.4);
+  background: rgba(39, 65, 143, 0.3);
+  box-shadow: 0 10px 30px rgba(39, 65, 143, 0.4);
 }
 
 .stat-number {
@@ -578,7 +583,7 @@ export default {
   transform: translateX(-50%);
   width: 60px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #16213e, transparent);
+  background: linear-gradient(90deg, transparent, #27418f, transparent);
 }
 
 /* Quick Links */
@@ -593,7 +598,7 @@ export default {
   align-items: center;
   gap: 12px;
   padding: 12px 20px;
-  background: rgba(22, 33, 62, 0.2);
+  background: rgba(39, 65, 143, 0.2);
   border-radius: 10px;
   color: #e0e0e0;
   text-decoration: none;
@@ -602,8 +607,8 @@ export default {
 }
 
 .quick-link:hover {
-  background: rgba(22, 33, 62, 0.3);
-  border-left-color: #16213e;
+  background: rgba(39, 65, 143, 0.3);
+  border-left-color: #27418f;
   transform: translateX(5px);
   color: white;
 }
@@ -620,19 +625,19 @@ export default {
 }
 
 .term-card {
-  background: rgba(22, 33, 62, 0.2);
+  background: rgba(39, 65, 143, 0.2);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid rgba(22, 33, 62, 0.4);
+  border: 1px solid rgba(39, 65, 143, 0.4);
   transition: all 0.3s ease;
   animation: slideInLeft 0.8s ease-out both;
   animation-delay: var(--delay);
 }
 
 .term-card:hover {
-  background: rgba(22, 33, 62, 0.3);
+  background: rgba(39, 65, 143, 0.3);
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(22, 33, 62, 0.3);
+  box-shadow: 0 8px 25px rgba(39, 65, 143, 0.3);
 }
 
 .term-header {
@@ -674,8 +679,8 @@ export default {
   align-items: center;
   gap: 10px;
   padding: 15px 25px;
-  background: rgba(22, 33, 62, 0.2);
-  border: 2px solid rgba(22, 33, 62, 0.4);
+  background: rgba(39, 65, 143, 0.2);
+  border: 2px solid rgba(39, 65, 143, 0.4);
   border-radius: 25px;
   color: white;
   font-size: 1rem;
@@ -694,7 +699,7 @@ export default {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(22, 33, 62, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(39, 65, 143, 0.3), transparent);
   transition: left 0.5s ease;
 }
 
@@ -704,9 +709,9 @@ export default {
 
 .contact-card:hover {
   border-color: var(--accent-color);
-  background: rgba(22, 33, 62, 0.3);
+  background: rgba(39, 65, 143, 0.3);
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(22, 33, 62, 0.3);
+  box-shadow: 0 8px 25px rgba(39, 65, 143, 0.3);
 }
 
 .contact-icon {
@@ -715,10 +720,10 @@ export default {
 
 /* Operating Hours */
 .operating-hours {
-  background: rgba(22, 33, 62, 0.3);
+  background: rgba(39, 65, 143, 0.3);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid rgba(22, 33, 62, 0.5);
+  border: 1px solid rgba(39, 65, 143, 0.5);
 }
 
 .time-display {
@@ -774,8 +779,8 @@ export default {
   align-items: center;
   gap: 10px;
   padding: 20px;
-  background: rgba(22, 33, 62, 0.2);
-  border: 2px solid rgba(22, 33, 62, 0.4);
+  background: rgba(39, 65, 143, 0.2);
+  border: 2px solid rgba(39, 65, 143, 0.4);
   border-radius: 15px;
   color: white;
   font-size: 1rem;
@@ -794,7 +799,7 @@ export default {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(22, 33, 62, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(39, 65, 143, 0.3), transparent);
   transition: left 0.5s ease;
 }
 
@@ -803,14 +808,22 @@ export default {
 }
 
 .payment-card:hover {
-  background: rgba(22, 33, 62, 0.3);
+  background: rgba(39, 65, 143, 0.3);
   border-color: var(--brand-color);
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(22, 33, 62, 0.4);
+  box-shadow: 0 10px 30px rgba(39, 65, 143, 0.4);
 }
 
-.payment-icon {
-  font-size: 2rem;
+.payment-image {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.payment-card:hover .payment-image {
+  transform: scale(1.1);
 }
 
 .payment-name {
@@ -849,7 +862,7 @@ export default {
 
 .copyright-section {
   padding-top: 30px;
-  border-top: 1px solid rgba(22, 33, 62, 0.4);
+  border-top: 1px solid rgba(39, 65, 143, 0.4);
   margin-bottom: 20px;
 }
 
@@ -873,20 +886,20 @@ export default {
   right: 30px;
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #16213e, #1a1a2e);
+  background: linear-gradient(135deg, #27418f, #1a1a2e);
   border: none;
   border-radius: 50%;
   color: #fff;
   font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(22, 33, 62, 0.6);
+  box-shadow: 0 4px 15px rgba(39, 65, 143, 0.6);
   z-index: 1000;
 }
 
 .scroll-top-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(22, 33, 62, 0.8);
+  box-shadow: 0 6px 20px rgba(39, 65, 143, 0.8);
 }
 
 .scroll-icon {
