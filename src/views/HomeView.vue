@@ -13,18 +13,13 @@ export default {
   },
   data() {
     return {
-      isVisible: false,
-      particlesVisible: false
+      isVisible: false
     };
   },
   mounted() {
     setTimeout(() => {
       this.isVisible = true;
     }, 300);
-    
-    setTimeout(() => {
-      this.particlesVisible = true;
-    }, 1000);
   }
 }
 </script>
@@ -33,15 +28,9 @@ export default {
   <main>
     <!-- Hero Section -->
     <div class="home">
-      <!-- Enhanced Floating Elements -->
       <div class="floating-elements">
-        <div class="floating-element" v-for="n in 12" :key="n" :class="{ 'visible': particlesVisible }"></div>
+        <div class="floating-element" v-for="n in 8" :key="n"></div>
       </div>
-
-      <!-- Gradient Orbs -->
-      <div class="gradient-orb orb-1"></div>
-      <div class="gradient-orb orb-2"></div>
-      <div class="gradient-orb orb-3"></div>
 
       <NavBar />
       
@@ -49,6 +38,37 @@ export default {
         <div class="text" :class="{ 'visible': isVisible }">
           <div class="logo-container">
             <div class="logo-wrapper">
+              <div class="logo-icon">
+                <!-- أيقونة الاستضافة SVG -->
+                <svg class="hosting-icon" viewBox="0 0 98.861 98.861" xmlns="http://www.w3.org/2000/svg">
+                  <g>
+                    <path d="M73.847,30.236H25.016c-1.562,0-2.836,1.263-2.836,2.828v9.628c0,1.565,1.274,2.828,2.836,2.828h48.831
+                        c1.559,0,2.832-1.263,2.832-2.828v-9.628C76.679,31.499,75.404,30.236,73.847,30.236z M27.287,36.942
+                        c-0.965,0-1.747-0.78-1.747-1.746c0-0.963,0.782-1.745,1.747-1.745c0.967,0,1.746,0.782,1.746,1.745
+                        C29.033,36.163,28.254,36.942,27.287,36.942z M69.231,41.976H56.895v-4.097h12.337V41.976z"/>
+                    <path d="M73.847,47.075H25.016c-1.562,0-2.836,1.265-2.836,2.83v9.627c0,1.563,1.274,2.829,2.836,2.829h48.831
+                        c1.559,0,2.832-1.266,2.832-2.829v-9.627C76.679,48.34,75.404,47.075,73.847,47.075z M27.287,53.783
+                        c-0.965,0-1.747-0.777-1.747-1.746c0-0.962,0.782-1.748,1.747-1.748c0.967,0,1.746,0.785,1.746,1.748
+                        C29.033,53.005,28.254,53.783,27.287,53.783z M69.231,58.816H56.895v-4.098h12.337V58.816z"/>
+                    <path d="M73.847,63.915H25.016c-1.562,0-2.836,1.265-2.836,2.829v9.627c0,1.564,1.274,2.83,2.836,2.83h48.831
+                        c1.559,0,2.832-1.266,2.832-2.83v-9.627C76.679,65.18,75.404,63.915,73.847,63.915z M27.287,70.621
+                        c-0.965,0-1.747-0.775-1.747-1.746c0-0.964,0.782-1.744,1.747-1.744c0.967,0,1.746,0.779,1.746,1.744
+                        C29.033,69.846,28.254,70.621,27.287,70.621z M69.231,75.654H56.895v-4.098h12.337V75.654z"/>
+                    <polygon points="57.864,88.409 52.66,88.409 52.66,80.838 46.204,80.838 46.204,88.409 40.994,88.409 40.994,90.404 
+                        22.778,90.404 22.778,96.863 40.994,96.863 40.994,98.861 57.864,98.861 57.864,96.863 76.079,96.863 76.079,90.404 
+                        57.864,90.404"/>
+                    <path d="M78.253,14.706c-0.699-0.059-1.341-0.416-1.757-0.979C72.581,8.44,66.304,5.179,59.624,5.179
+                        c-0.418,0-0.837,0.013-1.256,0.038c-0.58,0.035-1.15-0.138-1.613-0.488C52.688,1.662,47.76,0,42.602,0
+                        C33.36,0,25.157,5.354,21.323,13.461c-0.352,0.743-1.054,1.259-1.868,1.373C9.269,16.267,1.405,25.039,1.405,35.613
+                        c0,10.081,7.147,18.519,16.641,20.526v-6.234c0-0.777,0.144-1.518,0.383-2.215c-5.077-1.669-8.757-6.448-8.757-12.076
+                        c0-7.011,5.704-12.715,12.716-12.715c0.354,0,0.702,0.028,1.049,0.056c2.021,0.157,3.849-1.154,4.342-3.114
+                        c1.709-6.814,7.806-11.573,14.822-11.573c4.01,0,7.805,1.548,10.685,4.36c0.984,0.96,2.383,1.369,3.729,1.088
+                        c0.859-0.179,1.736-0.27,2.609-0.27c4.909,0,9.293,2.76,11.44,7.202c0.755,1.562,2.405,2.492,4.132,2.314
+                        c0.43-0.043,0.859-0.064,1.275-0.064c7.012,0,12.717,5.704,12.717,12.715c0,5.629-3.682,10.407-8.758,12.076
+                        c0.238,0.698,0.382,1.438,0.382,2.215v6.233c9.493-2.006,16.644-10.443,16.644-20.525C97.455,24.643,88.991,15.612,78.253,14.706z"/>
+                  </g>
+                </svg>
+              </div>
               <h1 class="main-title">خلي ستور</h1>
             </div>
             <div class="title-underline"></div>
@@ -59,7 +79,7 @@ export default {
           </h2>
           
           <div class="features-grid">
-            <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="feature-item">
               <div class="feature-icon">
                 <svg viewBox="0 0 100 100" class="icon">
                   <rect x="10" y="20" width="80" height="50" rx="5" fill="none" stroke="currentColor" stroke-width="3"/>
@@ -67,28 +87,22 @@ export default {
                   <rect x="10" y="65" width="80" height="10" rx="5" fill="currentColor"/>
                   <circle cx="20" cy="80" r="3" fill="currentColor"/>
                   <circle cx="30" cy="80" r="3" fill="currentColor"/>
-                  <circle cx="40" cy="80" r="3" fill="currentColor"/>
                 </svg>
               </div>
-              <span class="feature-title">تطوير المواقع</span>
-              <p class="feature-description">مواقع حديثة وسريعة مع تصميم متجاوب</p>
+              <span>تطوير المواقع</span>
             </div>
-            
-            <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="feature-item">
               <div class="feature-icon">
                 <svg viewBox="0 0 100 100" class="icon">
-                  <rect x="25" y="15" width="50" height="70" rx="8" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <rect x="30" y="25" width="40" height="25" fill="currentColor" opacity="0.3"/>
-                  <line x1="35" y1="60" x2="65" y2="60" stroke="currentColor" stroke-width="2"/>
-                  <line x1="35" y1="70" x2="55" y2="70" stroke="currentColor" stroke-width="2"/>
-                  <circle cx="50" cy="75" r="3" fill="currentColor"/>
+                  <circle cx="50" cy="30" r="15" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <path d="M35 30 L50 45 L65 30" stroke="currentColor" stroke-width="3" fill="none"/>
+                  <rect x="20" y="50" width="60" height="30" rx="5" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <path d="M30 60 L70 60 M30 70 L60 70" stroke="currentColor" stroke-width="2"/>
                 </svg>
               </div>
-              <span class="feature-title">تطبيقات الجوال</span>
-              <p class="feature-description">تطبيقات ذكية لنظامي iOS و Android</p>
+              <span>تطوير البرامج التقنية</span>
             </div>
-            
-            <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+            <div class="feature-item">
               <div class="feature-icon">
                 <svg viewBox="0 0 100 100" class="icon">
                   <path d="M20 50 L35 35 L50 50 L80 20" stroke="currentColor" stroke-width="4" fill="none"/>
@@ -97,32 +111,26 @@ export default {
                   <circle cx="50" cy="50" r="4" fill="currentColor"/>
                   <circle cx="80" cy="20" r="4" fill="currentColor"/>
                   <path d="M15 70 L85 70" stroke="currentColor" stroke-width="2"/>
-                  <path d="M15 75 L85 75" stroke="currentColor" stroke-width="1" opacity="0.5"/>
                 </svg>
               </div>
-              <span class="feature-title">الخدمات السريعة</span>
-              <p class="feature-description">تسليم سريع وجودة عالية في الأداء</p>
+              <span>الخدمات السريعة</span>
             </div>
-          </div>
-
-          <div class="stats-container">
-            <div class="stat-item">
-              <span class="stat-number">100+</span>
-              <span class="stat-label">مشروع مكتمل</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">50+</span>
-              <span class="stat-label">عميل راضي</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">24/7</span>
-              <span class="stat-label">دعم فني</span>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg viewBox="0 0 100 100" class="icon">
+                  <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" stroke-width="3"/>
+                  <path d="M50 30 L50 50 L65 65" stroke="currentColor" stroke-width="3"/>
+                  <circle cx="50" cy="50" r="3" fill="currentColor"/>
+                  <path d="M25 15 L35 25 M75 15 L65 25 M85 40 L75 50 M85 60 L75 50 M75 75 L65 75 M25 75 L35 75 M15 60 L25 50 M15 40 L25 50" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </div>
+              <span>دعم مستمرر</span>
             </div>
           </div>
 
           <div class="cta-buttons">
             <RouterLink to="/products" class="cta-primary">
-              <span>ابدأ مشروعك الآن</span>
+              <span>ابدأ مشروعك</span>
               <svg viewBox="0 0 24 24" class="button-icon">
                 <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"/>
               </svg>
@@ -131,6 +139,8 @@ export default {
         </div>
       </div>
     </div>
+
+    <!-- Customer Testimonials Section -->
     <CustomerTestimonials />
 
     <Footer />
@@ -147,9 +157,9 @@ export default {
 .home {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #1a1a2e 75%, #0a0a0a 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e  50%, #1a1a2e 75%, #0a0a0a 100%);
   background-size: 400% 400%;
-  animation: gradientMove 8s ease-in-out infinite;
+  animation: gradientMove 6s ease-in-out infinite;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -163,10 +173,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(30, 64, 175, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(147, 51, 234, 0.2) 0%, transparent 50%);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 1;
 }
 
@@ -175,7 +182,6 @@ export default {
   z-index: 2;
 }
 
-/* Enhanced Floating Elements */
 .floating-elements {
   position: absolute;
   width: 100%;
@@ -185,72 +191,21 @@ export default {
 
 .floating-element {
   position: absolute;
-  width: 8px;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.6);
+  width: 15px;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
-  opacity: 0;
-  transform: translateY(100px);
-  transition: all 1s ease;
-  animation: float 8s ease-in-out infinite;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  animation: float 6s ease-in-out infinite;
 }
 
-.floating-element.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Enhanced positioning */
-.floating-element:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
-.floating-element:nth-child(2) { top: 60%; left: 15%; animation-delay: 1s; }
-.floating-element:nth-child(3) { top: 30%; left: 85%; animation-delay: 2s; }
-.floating-element:nth-child(4) { top: 80%; left: 75%; animation-delay: 3s; }
-.floating-element:nth-child(5) { top: 10%; left: 65%; animation-delay: 4s; }
+.floating-element:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+.floating-element:nth-child(2) { top: 60%; left: 20%; animation-delay: 1s; }
+.floating-element:nth-child(3) { top: 40%; left: 80%; animation-delay: 2s; }
+.floating-element:nth-child(4) { top: 80%; left: 70%; animation-delay: 3s; }
+.floating-element:nth-child(5) { top: 10%; left: 60%; animation-delay: 4s; }
 .floating-element:nth-child(6) { top: 70%; left: 90%; animation-delay: 5s; }
-.floating-element:nth-child(7) { top: 35%; left: 5%; animation-delay: 2.5s; }
-.floating-element:nth-child(8) { top: 45%; left: 95%; animation-delay: 1.5s; }
-.floating-element:nth-child(9) { top: 25%; left: 40%; animation-delay: 3.5s; }
-.floating-element:nth-child(10) { top: 65%; left: 55%; animation-delay: 4.5s; }
-.floating-element:nth-child(11) { top: 85%; left: 25%; animation-delay: 5.5s; }
-.floating-element:nth-child(12) { top: 5%; left: 35%; animation-delay: 6s; }
-
-/* Gradient Orbs */
-.gradient-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(40px);
-  opacity: 0.4;
-  animation: orbFloat 10s ease-in-out infinite;
-}
-
-.orb-1 {
-  width: 300px;
-  height: 300px;
-  background: linear-gradient(45deg, #3b82f6, #1e40af);
-  top: -150px;
-  right: -150px;
-  animation-delay: 0s;
-}
-
-.orb-2 {
-  width: 200px;
-  height: 200px;
-  background: linear-gradient(45deg, #8b5cf6, #a855f7);
-  bottom: -100px;
-  left: -100px;
-  animation-delay: 2s;
-}
-
-.orb-3 {
-  width: 250px;
-  height: 250px;
-  background: linear-gradient(45deg, #06b6d4, #0891b2);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation-delay: 4s;
-}
+.floating-element:nth-child(7) { top: 30%; left: 5%; animation-delay: 2.5s; }
+.floating-element:nth-child(8) { top: 50%; left: 95%; animation-delay: 1.5s; }
 
 .hero-content {
   flex: 1;
@@ -264,16 +219,16 @@ export default {
 
 .text {
   text-align: center;
-  max-width: 1000px;
+  max-width: 900px;
   opacity: 0;
   transform: translateY(50px);
-  transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 
 .text.visible {
@@ -289,154 +244,107 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  gap: 1rem;
 }
 
-.main-title {
-  color: white;
-  font-size: clamp(3.5rem, 10vw, 6rem);
-  font-weight: 900;
-  text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5);
-  margin: 0;
-  background: linear-gradient(45deg, #ffffff, #e2e8f0, #cbd5e1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: titleGlow 3s ease-in-out infinite alternate;
-  letter-spacing: -2px;
-}
-
-.title-underline {
-  width: 150px;
-  height: 6px;
-  background: linear-gradient(90deg, #1e40af, #3b82f6, #06b6d4);
-  margin: 20px auto;
-  border-radius: 3px;
-  box-shadow: 0 0 15px rgba(30, 64, 175, 0.6);
-  animation: underlineGlow 3s ease-in-out infinite;
-}
-
-.subtitle {
-  color: rgba(255, 255, 255, 0.92);
-  font-weight: 400;
-  font-size: clamp(1.2rem, 3.5vw, 1.8rem);
-  line-height: 1.7;
-  margin-bottom: 2rem;
-  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
-  max-width: 750px;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  margin: 3rem 0;
-  width: 100%;
-  max-width: 900px;
-}
-
-.feature-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.2rem;
-  padding: 2.5rem 2rem;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 24px;
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  color: white;
-  position: relative;
-  overflow: hidden;
-}
-
-.feature-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #3b82f6, #06b6d4, #8b5cf6);
-  transform: scaleX(0);
-  transition: transform 0.4s ease;
-}
-
-.feature-item:hover::before {
-  transform: scaleX(1);
-}
-
-.feature-item:hover {
-  transform: translateY(-15px) scale(1.02);
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-.feature-icon {
-  width: 60px;
-  height: 60px;
-  padding: 12px;
+.logo-icon {
+  width: 80px;
+  height: 80px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  animation: logoFloat 3s ease-in-out infinite;
+  padding: 15px;
 }
 
-.feature-icon .icon {
+.hosting-icon {
   width: 100%;
   height: 100%;
   color: white;
   filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
 }
 
-.feature-title {
-  font-size: 1.3rem;
-  font-weight: 700;
+.main-title {
+  color: white;
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 800;
+  text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5);
   margin: 0;
+  background: linear-gradient(45deg, #fff, #f0f0f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titleGlow 2s ease-in-out infinite alternate;
 }
 
-.feature-description {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.8);
-  text-align: center;
-  line-height: 1.5;
-  margin: 0;
+.title-underline {
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, #1e40af, #3b82f6);
+  margin: 20px auto;
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(30, 64, 175, 0.5);
+  animation: underlineGlow 2s ease-in-out infinite;
 }
 
-/* Stats Section */
-.stats-container {
-  display: flex;
-  justify-content: center;
-  gap: 4rem;
+.subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 300;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+  max-width: 700px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
   margin: 2rem 0;
-  flex-wrap: wrap;
+  width: 100%;
+  max-width: 800px;
 }
 
-.stat-item {
+.feature-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
+  padding: 2rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  color: white;
 }
 
-.stat-number {
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: #3b82f6;
-  text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+.feature-item:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-.stat-label {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
+.feature-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.feature-icon .icon {
+  width: 100%;
+  height: 100%;
+  color: white;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
 }
 
 .cta-buttons {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   margin-top: 2rem;
   flex-wrap: wrap;
   justify-content: center;
@@ -446,61 +354,43 @@ export default {
 .cta-secondary {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  padding: 1.2rem 2.5rem;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
   border-radius: 50px;
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: 600;
   border: none;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   text-decoration: none;
-  position: relative;
-  overflow: hidden;
 }
 
 .cta-primary {
   background: linear-gradient(45deg, #1e40af, #3b82f6);
   color: white;
-  box-shadow: 0 15px 35px rgba(30, 64, 175, 0.4);
-}
-
-.cta-primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.cta-primary:hover::before {
-  left: 100%;
+  box-shadow: 0 10px 30px rgba(30, 64, 175, 0.4);
 }
 
 .cta-primary:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 45px rgba(30, 64, 175, 0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(30, 64, 175, 0.6);
 }
 
 .cta-secondary {
   background: rgba(255, 255, 255, 0.1);
   color: white;
   border: 2px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(10px);
 }
 
 .cta-secondary:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .button-icon {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
 .scroll-indicator {
@@ -537,46 +427,38 @@ export default {
   animation: scroll 2s infinite;
 }
 
-/* Enhanced Animations */
+/* Animations */
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 @keyframes titleGlow {
   0% {
     text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
   }
   100% {
-    text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5), 0 0 35px rgba(255, 255, 255, 0.4);
+    text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 255, 255, 0.4);
   }
 }
 
 @keyframes underlineGlow {
   0%, 100% {
-    box-shadow: 0 0 15px rgba(30, 64, 175, 0.6);
-    transform: scaleX(1);
+    box-shadow: 0 0 10px rgba(30, 64, 175, 0.5);
   }
   50% {
-    box-shadow: 0 0 25px rgba(30, 64, 175, 0.9);
-    transform: scaleX(1.1);
+    box-shadow: 0 0 20px rgba(30, 64, 175, 0.8);
   }
 }
 
 @keyframes float {
-  0%, 100% { 
-    transform: translateY(0px) rotateZ(0deg); 
-  }
-  33% { 
-    transform: translateY(-25px) rotateZ(120deg); 
-  }
-  66% { 
-    transform: translateY(-15px) rotateZ(240deg); 
-  }
-}
-
-@keyframes orbFloat {
-  0%, 100% { 
-    transform: translate(0, 0) scale(1); 
-  }
-  50% { 
-    transform: translate(20px, -20px) scale(1.1); 
-  }
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
 }
 
 @keyframes scroll {
@@ -586,8 +468,8 @@ export default {
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-15px); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
 @keyframes gradientMove {
@@ -596,15 +478,11 @@ export default {
   100% { background-position: 0% 50%; }
 }
 
-/* Enhanced Media Queries */
+/* Media Queries */
 @media (max-width: 768px) {
   .features-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .stats-container {
-    gap: 2rem;
+    gap: 1rem;
   }
   
   .cta-buttons {
@@ -615,38 +493,18 @@ export default {
   .cta-primary,
   .cta-secondary {
     width: 100%;
-    max-width: 320px;
+    max-width: 300px;
     justify-content: center;
   }
 
-  .main-title {
-    font-size: clamp(2.5rem, 8vw, 4rem);
+  .logo-wrapper {
+    flex-direction: column;
+    gap: 1rem;
   }
   
-  .subtitle {
-    font-size: clamp(1rem, 4vw, 1.4rem);
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-content {
-    padding: 1rem 0.5rem;
-  }
-  
-  .text {
-    gap: 2rem;
-  }
-  
-  .feature-item {
-    padding: 2rem 1.5rem;
-  }
-  
-  .stats-container {
-    gap: 1.5rem;
-  }
-  
-  .stat-number {
-    font-size: 2rem;
+  .logo-icon {
+    width: 60px;
+    height: 60px;
   }
 }
 </style>
