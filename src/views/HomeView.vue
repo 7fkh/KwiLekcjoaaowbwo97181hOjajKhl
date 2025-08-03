@@ -1,4 +1,39 @@
-<script>
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-15px); }
+}.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  z-index: 2;
+  animation: bounce 2s infinite;
+}
+
+.mouse {
+  width: 24px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  position: relative;
+}
+
+.wheel {
+  width: 3px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scroll 2s infinite;
+}<script>
 import { RouterLink } from 'vue-router'
 import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
@@ -127,22 +162,9 @@ export default {
                 <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"/>
               </svg>
             </RouterLink>
-            <RouterLink to="/about" class="cta-secondary">
-              <speech-bubble-icon class="button-icon" />
-              <span>تعرف علينا أكثر</span>
-            </RouterLink>
           </div>
         </div>
       </div>
-
-      <!-- Scroll Indicator -->
-      <div class="scroll-indicator">
-        <div class="mouse">
-          <div class="wheel"></div>
-        </div>
-        <span>اسحب للأسفل</span>
-      </div>
-    </div>
 
     <!-- Customer Testimonials Section -->
     <CustomerTestimonials />
@@ -161,7 +183,7 @@ export default {
 .home {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #1a1a2e 75%, #0f0f23 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #1a1a2e 75%, #0a0a0a 100%);
   background-size: 400% 400%;
   animation: gradientMove 8s ease-in-out infinite;
   position: relative;
