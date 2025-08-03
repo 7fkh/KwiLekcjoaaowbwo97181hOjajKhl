@@ -130,8 +130,7 @@ export default {
           </div>
         </div>
       </div>
-
-    <!-- Customer Testimonials Section -->
+    </div>
     <CustomerTestimonials />
 
     <Footer />
