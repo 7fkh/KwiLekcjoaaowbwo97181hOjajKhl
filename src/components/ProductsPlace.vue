@@ -351,13 +351,11 @@ export default {
                 <button @click="clearCart" class="clear-btn">
                   <i class="fas fa-trash"></i>
                   إفراغ السلة
-                <RouterLink
-  :to="{ name: 'OrderPage', state: { cart: cart } }"
-  class="checkout-btn"
->
-  <i class="fas fa-credit-card"></i>
-  إتمام الطلب
-</RouterLink>
+                </button>
+                <button class="checkout-btn">
+                  <i class="fas fa-credit-card"></i>
+                  إتمام الطلب
+                </button>
               </div>
             </div>
           </div>
@@ -536,6 +534,7 @@ export default {
     </footer>
   </div>
 </template>
+
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
