@@ -15,7 +15,7 @@
       </div>
 
       <div class="logo">
-        <img :src="logo" url="https://imgur.com/a/UduHwH7" loading="lazy" />
+        <img :src="logo" alt="خلي ستور" loading="lazy" />
         <span class="logo-text">خلي ستور</span>
       </div>
 
@@ -353,81 +353,6 @@ export default {
   }
 
   .logo img {
-    width: 26px;
-    height: 26px;
-  }
-}
-
-/* تحسينات إضافية للأداء */
-.control-background.home,
-.nav,
-.btn,
-.icon,
-.nav-link {
-  will-change: transform;
-}
-
-/* تأثيرات تفاعلية محسنة */
-@media (hover: hover) {
-  .icon:hover {
-    animation: pulse 0.6s ease-in-out;
-  }
-  
-  .btn:hover {
-    animation: pulse 0.4s ease-in-out;
-  }
-}
-
-/* تحسينات الوصولية */
-.icon:focus,
-.btn:focus,
-.nav-link:focus {
-  outline: 2px solid rgba(255, 255, 255, 0.8);
-  outline-offset: 2px;
-}
-
-/* تحسين الظلال للأجهزة عالية الدقة */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .btn,
-  .icon {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-  }
-  
-  .btn:hover,
-  .icon:hover {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-  }
-}
-
-/* تحسين الأداء للرسوم المتحركة */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ضمان عدم تغطية المحتوى */
-body {
-  margin: 0;
-  padding: 0;
-}
-
-.main-content {
-  margin-top: 0;
-  padding-top: 20px;
-}
-
-/* تحديد حجم الكونتينر الرئيسي */
-.app-container {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-</style>
     width: 32px;
     height: 32px;
   }
@@ -761,8 +686,8 @@ body {
   }
 
   .logo img {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
   }
 }
 
@@ -825,13 +750,111 @@ body {
 }
 
 .main-content {
-  margin-top: 0; /* إزالة أي هامش قد يسبب مشاكل */
-  padding-top: 20px; /* مساحة صغيرة بعد الهيدر */
+  margin-top: 0;
+  padding-top: 20px;
 }
 
 /* تحديد حجم الكونتينر الرئيسي */
 .app-container {
   max-width: 100vw;
   overflow-x: hidden;
+}
+
+/* تحسينات إضافية للتجاوب */
+@media (max-width: 320px) {
+  .control-background.home {
+    min-height: 55px;
+    max-height: 75px;
+  }
+
+  .header {
+    padding: 6px 8px;
+    min-height: 35px;
+  }
+
+  .icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .icon svg {
+    width: 10px;
+    height: 10px;
+  }
+
+  .logo img {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* تحسينات للشاشات الكبيرة */
+@media (min-width: 1200px) {
+  .control-background.home {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 0 0 25px 25px;
+  }
+
+  .header {
+    padding: 20px 30px;
+  }
+
+  .logo img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .logo-text {
+    font-size: 20px;
+  }
+
+  .icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .icon svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* إضافة تأثيرات الإضاءة */
+.btn:hover,
+.nav-link:hover {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* تحسين النص العربي */
+.logo-text,
+.nav-link,
+.btn {
+  font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl;
+  text-align: center;
+}
+
+/* تأثير الانتقال السلس للقائمة */
+.nav {
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* إضافة تأثير النبض للعناصر النشطة */
+.router-link-active {
+  animation: pulse 2s infinite;
+}
+
+/* تحسين الشفافية والطبقات */
+.control-background.home {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.nav,
+.icon,
+.btn {
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
 }
 </style>
