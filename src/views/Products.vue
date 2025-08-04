@@ -1,13 +1,11 @@
 <script>
 import NavBar from '../components/NavBar.vue'
 import ProductsPlace from '../components/ProductsPlace.vue'
-import Footer from '../components/Footer.vue'
 
 export default{
   components:{
     NavBar,
-    ProductsPlace,
-    Footer,
+    ProductsPlace
   },
   mounted(){
     this.$router.push({ path: '/products', query: { id: localStorage.getItem('id') }})
@@ -20,7 +18,6 @@ export default{
   <div class="more">
     <ProductsPlace />
   </div>
-  <Footer />
 </template>
 
 <style scoped>
