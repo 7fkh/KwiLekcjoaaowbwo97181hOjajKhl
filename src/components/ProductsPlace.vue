@@ -351,10 +351,13 @@ export default {
                 <button @click="clearCart" class="clear-btn">
                   <i class="fas fa-trash"></i>
                   إفراغ السلة
-                <button @click="goToCheckout" class="checkout-btn">
-                  <i class="fas fa-credit-card"></i>
-                  إتمام الطلب
-                </button>
+                <RouterLink
+  :to="{ name: 'OrderPage', state: { cart: cart } }"
+  class="checkout-btn"
+>
+  <i class="fas fa-credit-card"></i>
+  إتمام الطلب
+</RouterLink>
               </div>
             </div>
           </div>
