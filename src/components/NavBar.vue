@@ -9,7 +9,7 @@
         </div>
       </div>
 
-```
+
   <div class="logo">
     <img :src="logo" url="https://imgur.com/a/UduHwH7" loading="lazy" />
     <span class="logo-text">خلي ستور</span>
@@ -74,7 +74,7 @@
 </div>
 
 <div v-if="mobileMenuOpen" class="mobile-overlay" @click="closeMenu"></div>
-```
+
 
   </div>
 </template>
