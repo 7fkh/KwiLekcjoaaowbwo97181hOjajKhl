@@ -531,7 +531,6 @@ export default {
       <div class="footer-bottom">
         <p>&copy; 2024 متجر البرمجة. جميع الحقوق محفوظة.</p>
       </div>
-    </footer>
   </div>
 </template>
 
