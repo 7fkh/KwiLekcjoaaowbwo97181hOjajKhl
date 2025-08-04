@@ -18,7 +18,7 @@ export default {
         {
           id: 1,
           username: "عوض الحربي",
-          avatar: "https://imgur.com/a/3M4AbqY",
+          avatar: "https://postimg.cc/vDTTfM45",
           text: "10/10 افضل متجر باذن الله مب اخر مره",
           rating: 5
         },
