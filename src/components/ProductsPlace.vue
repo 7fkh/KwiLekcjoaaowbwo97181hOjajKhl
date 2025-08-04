@@ -351,8 +351,7 @@ export default {
                 <button @click="clearCart" class="clear-btn">
                   <i class="fas fa-trash"></i>
                   إفراغ السلة
-                </button>
-                <button class="checkout-btn">
+                <button @click="goToCheckout" class="checkout-btn">
                   <i class="fas fa-credit-card"></i>
                   إتمام الطلب
                 </button>
