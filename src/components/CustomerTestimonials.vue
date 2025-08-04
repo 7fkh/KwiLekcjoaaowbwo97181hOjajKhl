@@ -25,7 +25,7 @@ export default {
         {
           id: 2,
           username: "سعد مرتضى",
-          avatar: "https://imgur.com/a/3M4AbqY",
+          avatar: "https://i.postimg.cc/v8LnRZM2/IMG-1708.jpg",
           text: "أنصحكم فيه, ماكان عندي قيمة الطلب كامل ونقص المبلغ الله يسعده",
           rating: 5
         },
