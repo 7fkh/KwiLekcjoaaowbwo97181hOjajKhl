@@ -1,6 +1,6 @@
 <script>
 import { RouterLink } from 'vue-router'
-import { Analytics } from "@vercel/analytics/next"
+import { inject } from "@vercel/analytics"
 import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
 import CustomerTestimonials from '@/components/CustomerTestimonials.vue'
