@@ -89,7 +89,7 @@ export default {
     };
   },
   mounted() {
-    this.logo = require('@/assets/IMG_1254.png');
+    this.logo = require('/assets/IMG_1254.png');
   },
   beforeUnmount() {
     document.body.style.overflow = 'auto';
