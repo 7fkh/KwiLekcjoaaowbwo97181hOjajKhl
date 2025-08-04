@@ -11,7 +11,7 @@
 
 
   <div class="logo">
-    <img :src="logo" url="https://postimg.cc/vDTTfM45" loading="lazy" />
+    <img :src="logo" url="https://i.postimg.cc/v8LnRZM2/IMG-1708.jpg" loading="lazy" />
     <span class="logo-text">خلي ستور</span>
   </div>
 
