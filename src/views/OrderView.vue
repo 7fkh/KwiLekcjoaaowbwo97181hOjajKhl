@@ -15,9 +15,11 @@ export default {
                 contactInfo: '',
                 
                 // تفاصيل الطلب
-                orderType: '',
+                productName: '',
+                quantity: 1,
+                productImage: '',
+                price: '',
                 orderDetails: '',
-                deliveryTime: '',
                 paymentMethod: '',
                 
                 // إضافات اختيارية
@@ -26,31 +28,11 @@ export default {
                 agreeToTerms: false
             },
             errors: {},
-            orderTypes: [
-                { value: 'تصميم', label: 'تصميم جرافيكي', icon: '🎨' },
-                { value: 'برمجة', label: 'برمجة وتطوير', icon: '💻' },
-                { value: 'كتابة', label: 'كتابة المحتوى', icon: '✍️' },
-                { value: 'تسويق', label: 'تسويق رقمي', icon: '📈' },
-                { value: 'ترجمة', label: 'ترجمة', icon: '🌐' },
-                { value: 'صوت', label: 'تعليق صوتي', icon: '🎤' },
-                { value: 'فيديو', label: 'مونتاج فيديو', icon: '🎬' },
-                { value: 'اخرى', label: 'خدمة أخرى', icon: '⚡' }
-            ],
-            deliveryTimes: [
-                { value: '24h', label: '24 ساعة', icon: '⚡' },
-                { value: '3days', label: '3 أيام', icon: '🚀' },
-                { value: '1week', label: 'أسبوع', icon: '📅' },
-                { value: '2weeks', label: 'أسبوعين', icon: '📆' },
-                { value: '1month', label: 'شهر', icon: '🗓️' },
-                { value: 'custom', label: 'وقت مخصص', icon: '⏰' }
-            ],
             paymentMethods: [
-                { value: 'bank', label: 'تحويل بنكي', icon: '🏦', popular: true },
-                { value: 'stc_pay', label: 'STC Pay', icon: '📱', popular: true },
-                { value: 'paypal', label: 'PayPal', icon: '💳', popular: false },
-                { value: 'visa', label: 'بطاقة ائتمان', icon: '💳', popular: false },
-                { value: 'apple_pay', label: 'Apple Pay', icon: '📱', popular: false },
-                { value: 'cash', label: 'دفع نقدي', icon: '💰', popular: false }
+                { value: 'bank', label: 'تحويل بنكي', popular: true },
+                { value: 'stc_pay', label: 'STC Pay', popular: true },
+                { value: 'paypal', label: 'PayPal', popular: false },
+                { value: 'visa', label: 'بطاقة ائتمان', popular: false },
             ],
             orderNumber: null
         }
@@ -63,33 +45,33 @@ export default {
             return this.formData.discordId.trim() &&
                    this.formData.fullName.trim() &&
                    this.formData.contactInfo.trim() &&
-                   this.formData.orderType &&
+                   this.formData.productName.trim() &&
+                   this.formData.quantity > 0 &&
+                   this.formData.price.trim() &&
                    this.formData.orderDetails.trim() &&
-                   this.formData.deliveryTime &&
                    this.formData.paymentMethod &&
                    this.formData.agreeToTerms;
         }
     },
-mounted() {
-    this.generateOrderNumber();
-    this.animateInputs();
-    
-    // ✅ استيراد بيانات السلة تلقائيًا من ProductsPlace.vue
-    const cartQuery = this.$route.query.cart;
-    if (cartQuery) {
-        try {
-            const cartItems = JSON.parse(cartQuery);
-            if (Array.isArray(cartItems)) {
-                const details = cartItems.map(item => {
-                    return `• ${item.title} - الكمية: ${item.quantity} - السعر: ${item.price} ريال`;
-                }).join('\n');
-                this.formData.orderDetails = `الطلب من السلة:\n${details}`;
+    mounted() {
+        this.generateOrderNumber();
+        this.animateInputs();
+        
+        const cartQuery = this.$route.query.cart;
+        if (cartQuery) {
+            try {
+                const cartItems = JSON.parse(cartQuery);
+                if (Array.isArray(cartItems)) {
+                    const details = cartItems.map(item => {
+                        return `• ${item.title} - الكمية: ${item.quantity} - السعر: ${item.price} ريال`;
+                    }).join('\n');
+                    this.formData.orderDetails = `الطلب من السلة:\n${details}`;
+                }
+            } catch (err) {
+                console.error('فشل في تحليل بيانات السلة:', err);
             }
-        } catch (err) {
-            console.error('فشل في تحليل بيانات السلة:', err);
         }
-    }
-},
+    },
     methods: {
         generateOrderNumber() {
             this.orderNumber = 'ORD-' + Date.now().toString(36).toUpperCase();
@@ -114,16 +96,19 @@ mounted() {
                 this.errors.fullName = 'الاسم الكامل مطلوب';
             }
             if (!this.formData.contactInfo.trim()) {
-                this.errors.contactInfo = 'معلومات التواصل مطلوبة';
+                this.errors.contactInfo = 'رقم التواصل مطلوب';
             }
-            if (!this.formData.orderType) {
-                this.errors.orderType = 'نوع الطلب مطلوب';
+            if (!this.formData.productName.trim()) {
+                this.errors.productName = 'اسم المنتج مطلوب';
+            }
+            if (!this.formData.quantity || this.formData.quantity <= 0) {
+                this.errors.quantity = 'الكمية يجب أن تكون أكبر من 0';
+            }
+            if (!this.formData.price.trim()) {
+                this.errors.price = 'السعر مطلوب';
             }
             if (!this.formData.orderDetails.trim()) {
                 this.errors.orderDetails = 'تفاصيل الطلب مطلوبة';
-            }
-            if (!this.formData.deliveryTime) {
-                this.errors.deliveryTime = 'وقت التسليم مطلوب';
             }
             if (!this.formData.paymentMethod) {
                 this.errors.paymentMethod = 'طريقة الدفع مطلوبة';
@@ -145,16 +130,14 @@ mounted() {
 
             const webhookUrl = 'https://discord.com/api/webhooks/1393737456083537930/vapXAbpBwnPurETCHBYkSiibTgeAwrP9GyAwkw8nqE4K4RjeQWUOc2BvI3U-fxTyl-l1';
             
-            const orderTypeData = this.orderTypes.find(t => t.value === this.formData.orderType);
-            const deliveryTimeData = this.deliveryTimes.find(t => t.value === this.formData.deliveryTime);
             const paymentMethodData = this.paymentMethods.find(p => p.value === this.formData.paymentMethod);
             
             const applyMessage = {
-                content: `🚀 **طلب جديد وارد!** \n<@&1234567890> تم استلام طلب جديد`,
+                content: `تم استلام طلب`,
                 embeds: [{
-                    title: `📋 طلب رقم: ${this.orderNumber}`,
-                    description: `**${orderTypeData?.icon} نوع الطلب:** ${orderTypeData?.label}`,
-                    color: parseInt('007bff', 16),
+                    title: `🛒 رقم الطلب ${this.orderNumber}`,
+                    description: `**📦 المنتج:** ${this.formData.productName}\n**🔢 الكمية:** ${this.formData.quantity}\n**💰 السعر:** ${this.formData.price} ريال`,
+                    color: parseInt('c13029', 16),
                     fields: [
                         {
                             name: '👤 معلومات العميل',
@@ -167,12 +150,7 @@ mounted() {
                             inline: false
                         },
                         {
-                            name: `${deliveryTimeData?.icon} التسليم`,
-                            value: deliveryTimeData?.label || this.formData.deliveryTime,
-                            inline: true
-                        },
-                        {
-                            name: `${paymentMethodData?.icon} طريقة الدفع`,
+                            name: `💳 طريقة الدفع`,
                             value: paymentMethodData?.label || this.formData.paymentMethod,
                             inline: true
                         }
@@ -183,27 +161,10 @@ mounted() {
                     },
                     timestamp: new Date().toISOString(),
                     thumbnail: {
-                        url: 'https://i.imgur.com/cgrAYPN.png'
+                        url: this.formData.productImage || 'https://i.imgur.com/cgrAYPN.png'
                     }
                 }]
             };
-
-            // إضافة الحقول الاختيارية
-            if (this.formData.example && this.formData.example.trim()) {
-                applyMessage.embeds[0].fields.push({
-                    name: '🎨 مثال مرجعي',
-                    value: this.formData.example,
-                    inline: false
-                });
-            }
-
-            if (this.formData.additionalNotes && this.formData.additionalNotes.trim()) {
-                applyMessage.embeds[0].fields.push({
-                    name: '📌 ملاحظات إضافية',
-                    value: this.formData.additionalNotes,
-                    inline: false
-                });
-            }
 
             try {
                 const response = await fetch(webhookUrl, {
@@ -237,9 +198,11 @@ mounted() {
                 discordId: '',
                 fullName: '',
                 contactInfo: '',
-                orderType: '',
+                productName: '',
+                quantity: 1,
+                productImage: '',
+                price: '',
                 orderDetails: '',
-                deliveryTime: '',
                 paymentMethod: '',
                 example: '',
                 additionalNotes: '',
@@ -251,6 +214,16 @@ mounted() {
 
         showAlert(message, type) {
             alert(message);
+        },
+
+        getPaymentIcon(paymentType) {
+            const icons = {
+                'bank': '<i class="fas fa-university"></i>',
+                'stc_pay': '<i class="fas fa-mobile-alt"></i>',
+                'paypal': '<i class="fab fa-paypal"></i>',
+                'visa': '<i class="fas fa-credit-card"></i>'
+            };
+            return icons[paymentType] || '<i class="fas fa-credit-card"></i>';
         }
     }
 }
@@ -258,6 +231,9 @@ mounted() {
 
 <template>
     <div class="main">
+        <!-- Font Awesome CDN -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        
         <div class="floating-shapes">
             <div class="shape shape-1"></div>
             <div class="shape shape-2"></div>
@@ -266,263 +242,281 @@ mounted() {
             <div class="shape shape-5"></div>
         </div>
 
-```
-    <div class="apply">
-        <div class="cont">
-            <RouterLink to="/" class="logo-container">
-                <img src="https://i.imgur.com/cgrAYPN.png" alt="Logo" class="logo">
-            </RouterLink>
-            
-            <!-- Order Number -->
-            <div class="order-number fade-in">
-                <i class="icon-ticket"></i>
-                <span>رقم الطلب: {{ orderNumber }}</span>
-            </div>
-            
-            <form @submit.prevent="sendApply" class="form">
-                <div class="form-grid">
-                    <!-- معلومات العميل -->
-                    <div class="section fade-in">
-                        <h3 class="section-title">
-                            <i class="icon-user"></i>
-                            معلومات العميل
-                        </h3>
-                        
-                        <div class="inp">
-                            <label for="discordId">
-                                <i class="icon-discord"></i>
-                                ايدي الديسكورد الخاص بك *
-                            </label>
-                            <input 
-                                id="discordId"
-                                v-model="formData.discordId"
-                                placeholder="مثال: user#1234"
-                                type="text"
-                                :class="{ 'error': errors.discordId }"
-                            >
-                            <span v-if="errors.discordId" class="error-message">{{ errors.discordId }}</span>
-                        </div>
-                        
-                        <div class="inp">
-                            <label for="fullName">
-                                <i class="icon-profile"></i>
-                                الاسم الكامل *
-                            </label>
-                            <input 
-                                id="fullName"
-                                v-model="formData.fullName"
-                                placeholder="أدخل اسمك الكامل"
-                                type="text"
-                                :class="{ 'error': errors.fullName }"
-                            >
-                            <span v-if="errors.fullName" class="error-message">{{ errors.fullName }}</span>
-                        </div>
-                        
-                        <div class="inp">
-                            <label for="contactInfo">
-                                <i class="icon-phone"></i>
-                                معلومات التواصل *
-                            </label>
-                            <input 
-                                id="contactInfo"
-                                v-model="formData.contactInfo"
-                                placeholder="رقم الهاتف أو وسيلة التواصل المفضلة"
-                                type="text"
-                                :class="{ 'error': errors.contactInfo }"
-                            >
-                            <span v-if="errors.contactInfo" class="error-message">{{ errors.contactInfo }}</span>
-                        </div>
-                    </div>
-                    
-                    <!-- تفاصيل الطلب -->
-                    <div class="section fade-in">
-                        <h3 class="section-title">
-                            <i class="icon-clipboard"></i>
-                            تفاصيل الطلب
-                        </h3>
-                        
-                        <div class="inp">
-                            <label>
-                                <i class="icon-lightning"></i>
-                                نوع الطلب *
-                            </label>
-                            <div class="options-grid">
-                                <div 
-                                    v-for="type in orderTypes" 
-                                    :key="type.value"
-                                    class="option-card"
-                                    :class="{ 'active': formData.orderType === type.value }"
-                                    @click="formData.orderType = type.value"
-                                >
-                                    <i :class="type.icon"></i>
-                                    <span class="option-label">{{ type.label }}</span>
-                                </div>
-                            </div>
-                            <span v-if="errors.orderType" class="error-message">{{ errors.orderType }}</span>
-                        </div>
-                        
-                        <div class="inp">
-                            <label for="orderDetails">
-                                <i class="icon-edit"></i>
-                                وصف الطلب بالتفصيل *
-                            </label>
-                            <textarea 
-                                id="orderDetails"
-                                v-model="formData.orderDetails"
-                                placeholder="اشرح بالتفصيل ما تريده، المتطلبات، والمواصفات..."
-                                :class="{ 'error': errors.orderDetails }"
-                                rows="4"
-                            ></textarea>
-                            <span v-if="errors.orderDetails" class="error-message">{{ errors.orderDetails }}</span>
-                        </div>
-                    </div>
-                    
-                    <!-- التسليم والدفع -->
-                    <div class="section fade-in">
-                        <h3 class="section-title">
-                            <i class="icon-clock"></i>
-                            التسليم والدفع
-                        </h3>
-                        
-                        <div class="inp">
-                            <label>
-                                <i class="icon-calendar"></i>
-                                وقت التسليم المطلوب *
-                            </label>
-                            <div class="options-grid delivery-grid">
-                                <div 
-                                    v-for="time in deliveryTimes" 
-                                    :key="time.value"
-                                    class="option-card"
-                                    :class="{ 'active': formData.deliveryTime === time.value }"
-                                    @click="formData.deliveryTime = time.value"
-                                >
-                                    <i :class="time.icon"></i>
-                                    <span class="option-label">{{ time.label }}</span>
-                                </div>
-                            </div>
-                            <span v-if="errors.deliveryTime" class="error-message">{{ errors.deliveryTime }}</span>
-                        </div>
-                        
-                        <div class="inp">
-                            <label>
-                                <i class="icon-credit-card"></i>
-                                طريقة الدفع المفضلة *
-                            </label>
-                            <div class="payment-grid">
-                                <div 
-                                    v-for="method in paymentMethods" 
-                                    :key="method.value"
-                                    class="payment-card"
-                                    :class="{ 'active': formData.paymentMethod === method.value, 'popular': method.popular }"
-                                    @click="formData.paymentMethod = method.value"
-                                >
-                                    <i :class="method.icon"></i>
-                                    <span class="payment-label">{{ method.label }}</span>
-                                    <span v-if="method.popular" class="popular-badge">شائع</span>
-                                </div>
-                            </div>
-                            <span v-if="errors.paymentMethod" class="error-message">{{ errors.paymentMethod }}</span>
-                        </div>
-                    </div>
-                    
-                    <!-- إضافات اختيارية -->
-                    <div class="section fade-in">
-                        <h3 class="section-title">
-                            <i class="icon-star"></i>
-                            إضافات اختيارية
-                        </h3>
-                        
-                        <div class="inp">
-                            <label for="example">
-                                <i class="icon-image"></i>
-                                مثال أو مرجع للطلب
-                            </label>
-                            <input 
-                                id="example"
-                                v-model="formData.example"
-                                placeholder="رابط أو وصف لمثال مشابه (اختياري)"
-                                type="text"
-                            >
-                        </div>
-                        
-                        <div class="inp">
-                            <label for="additionalNotes">
-                                <i class="icon-note"></i>
-                                ملاحظات إضافية
-                            </label>
-                            <textarea 
-                                id="additionalNotes"
-                                v-model="formData.additionalNotes"
-                                placeholder="أي ملاحظات أو تفاصيل إضافية..."
-                                rows="2"
-                            ></textarea>
-                        </div>
-                    </div>
-                    
-                    <!-- الشروط والإرسال -->
-                    <div class="section fade-in">
-                        <div class="inp">
-                            <label class="checkbox-label">
+        <div class="apply">
+            <div class="cont">
+                <RouterLink to="/" class="logo-container">
+                    <img src="https://i.imgur.com/cgrAYPN.png" alt="Logo" class="logo">
+                </RouterLink>
+                
+                <!-- Order Number -->
+                <div class="order-number fade-in">
+                    <i class="fas fa-ticket-alt"></i>
+                    <span> رقم الطلب: {{ orderNumber }}</span>
+                </div>
+                
+                <form @submit.prevent="sendApply" class="form">
+                    <div class="form-grid">
+                        <!-- معلومات العميل -->
+                        <div class="section fade-in">
+                            <h3 class="section-title">
+                                <i class="fas fa-user"></i>
+                                معلومات العميل
+                            </h3>
+                            
+                            <div class="inp">
+                                <label for="discordId">
+                                    <i class="fab fa-discord"></i>
+                                    ايدي الديسكورد الخاص بك *
+                                </label>
                                 <input 
-                                    type="checkbox" 
-                                    v-model="formData.agreeToTerms"
-                                    :class="{ 'error': errors.agreeToTerms }"
+                                    id="discordId"
+                                    v-model="formData.discordId"
+                                    placeholder="مثال: user#1234"
+                                    type="text"
+                                    :class="{ 'error': errors.discordId }"
                                 >
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">
-                                    <i class="icon-check"></i>
-                                    أوافق على الشروط والأحكام وسياسة الخصوصية *
-                                </span>
-                            </label>
-                            <span v-if="errors.agreeToTerms" class="error-message">{{ errors.agreeToTerms }}</span>
+                                <span v-if="errors.discordId" class="error-message">{{ errors.discordId }}</span>
+                            </div>
+                            
+                            <div class="inp">
+                                <label for="fullName">
+                                    <i class="fas fa-user-tie"></i>
+                                    الاسم الكامل *
+                                </label>
+                                <input 
+                                    id="fullName"
+                                    v-model="formData.fullName"
+                                    placeholder="أدخل اسمك الكامل"
+                                    type="text"
+                                    :class="{ 'error': errors.fullName }"
+                                >
+                                <span v-if="errors.fullName" class="error-message">{{ errors.fullName }}</span>
+                            </div>
+                            
+                            <div class="inp">
+                                <label for="contactInfo">
+                                    <i class="fas fa-phone"></i>
+                                    معلومات التواصل *
+                                </label>
+                                <input 
+                                    id="contactInfo"
+                                    v-model="formData.contactInfo"
+                                    placeholder="رقم الهاتف أو وسيلة التواصل المفضلة"
+                                    type="text"
+                                    :class="{ 'error': errors.contactInfo }"
+                                >
+                                <span v-if="errors.contactInfo" class="error-message">{{ errors.contactInfo }}</span>
+                            </div>
                         </div>
                         
-                        <button 
-                            type="submit" 
-                            class="submit-btn"
-                            :class="{ 'loading': isSubmitting, 'disabled': !canSubmit }"
-                            :disabled="isSubmitting || !canSubmit"
-                        >
-                            <div v-if="!isSubmitting" class="btn-content">
-                                <i class="icon-rocket"></i>
-                                <span class="btn-text">إرسال الطلب الآن</span>
+                        <!-- تفاصيل الطلب -->
+                        <div class="section fade-in">
+                            <h3 class="section-title">
+                                <i class="fas fa-clipboard-list"></i>
+                                تفاصيل الطلب
+                            </h3>
+                            
+                            <div class="product-grid">
+                                <div class="inp">
+                                    <label for="productName">
+                                        <i class="fas fa-box"></i>
+                                        اسم المنتج *
+                                    </label>
+                                    <input 
+                                        id="productName"
+                                        v-model="formData.productName"
+                                        placeholder="أدخل اسم المنتج"
+                                        type="text"
+                                        :class="{ 'error': errors.productName }"
+                                    >
+                                    <span v-if="errors.productName" class="error-message">{{ errors.productName }}</span>
+                                </div>
+                                
+                                <div class="inp">
+                                    <label for="quantity">
+                                        <i class="fas fa-sort-numeric-up"></i>
+                                        الكمية *
+                                    </label>
+                                    <input 
+                                        id="quantity"
+                                        v-model.number="formData.quantity"
+                                        placeholder="1"
+                                        type="number"
+                                        min="1"
+                                        :class="{ 'error': errors.quantity }"
+                                    >
+                                    <span v-if="errors.quantity" class="error-message">{{ errors.quantity }}</span>
+                                </div>
                             </div>
-                            <div v-else class="loading-content">
-                                <div class="spinner"></div>
-                                <span>جاري الإرسال...</span>
+                            
+                            <div class="inp">
+                                <label for="productImage">
+                                    <i class="fas fa-image"></i>
+                                    رابط صورة المنتج (اختياري)
+                                </label>
+                                <input 
+                                    id="productImage"
+                                    v-model="formData.productImage"
+                                    placeholder="https://example.com/image.jpg"
+                                    type="url"
+                                >
                             </div>
-                        </button>
+                            
+                            <div class="inp">
+                                <label for="price">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    السعر (بالريال السعودي) *
+                                </label>
+                                <input 
+                                    id="price"
+                                    v-model="formData.price"
+                                    placeholder="100"
+                                    type="text"
+                                    :class="{ 'error': errors.price }"
+                                >
+                                <span v-if="errors.price" class="error-message">{{ errors.price }}</span>
+                            </div>
+                            
+                            <div class="inp">
+                                <label for="orderDetails">
+                                    <i class="fas fa-edit"></i>
+                                    وصف الطلب بالتفصيل *
+                                </label>
+                                <textarea 
+                                    id="orderDetails"
+                                    v-model="formData.orderDetails"
+                                    placeholder="اشرح بالتفصيل ما تريده، المتطلبات، والمواصفات..."
+                                    :class="{ 'error': errors.orderDetails }"
+                                    rows="4"
+                                ></textarea>
+                                <span v-if="errors.orderDetails" class="error-message">{{ errors.orderDetails }}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- طريقة الدفع -->
+                        <div class="section fade-in">
+                            <h3 class="section-title">
+                                <i class="fas fa-credit-card"></i>
+                                طريقة الدفع
+                            </h3>
+                            
+                            <div class="inp">
+                                <label>
+                                    <i class="fas fa-money-check-alt"></i>
+                                    طريقة الدفع المفضلة *
+                                </label>
+                                <div class="payment-grid">
+                                    <div 
+                                        v-for="method in paymentMethods" 
+                                        :key="method.value"
+                                        class="payment-card"
+                                        :class="{ 'active': formData.paymentMethod === method.value, 'popular': method.popular }"
+                                        @click="formData.paymentMethod = method.value"
+                                    >
+                                        <i class="payment-icon" v-html="getPaymentIcon(method.value)"></i>
+                                        <span class="payment-label">{{ method.label }}</span>
+                                        <span v-if="method.popular" class="popular-badge">شائع</span>
+                                    </div>
+                                </div>
+                                <span v-if="errors.paymentMethod" class="error-message">{{ errors.paymentMethod }}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- إضافات اختيارية -->
+                        <div class="section fade-in">
+                            <h3 class="section-title">
+                                <i class="fas fa-star"></i>
+                                إضافات اختيارية
+                            </h3>
+                            
+                            <div class="inp">
+                                <label for="example">
+                                    <i class="fas fa-link"></i>
+                                    مثال أو مرجع للطلب
+                                </label>
+                                <input 
+                                    id="example"
+                                    v-model="formData.example"
+                                    placeholder="رابط أو وصف لمثال مشابه (اختياري)"
+                                    type="text"
+                                >
+                            </div>
+                            
+                            <div class="inp">
+                                <label for="additionalNotes">
+                                    <i class="fas fa-sticky-note"></i>
+                                    ملاحظات إضافية
+                                </label>
+                                <textarea 
+                                    id="additionalNotes"
+                                    v-model="formData.additionalNotes"
+                                    placeholder="أي ملاحظات أو تفاصيل إضافية..."
+                                    rows="2"
+                                ></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- الشروط والإرسال -->
+                        <div class="section fade-in">
+                            <div class="inp">
+                                <label class="checkbox-label">
+                                    <input 
+                                        type="checkbox" 
+                                        v-model="formData.agreeToTerms"
+                                        :class="{ 'error': errors.agreeToTerms }"
+                                    >
+                                    <span class="checkmark"></span>
+                                    <span class="checkbox-text">
+                                        <i class="fas fa-check-circle"></i>
+                                        أوافق على الشروط والأحكام وسياسة الخصوصية *
+                                    </span>
+                                </label>
+                                <span v-if="errors.agreeToTerms" class="error-message">{{ errors.agreeToTerms }}</span>
+                            </div>
+                            
+                            <button 
+                                type="submit" 
+                                class="submit-btn"
+                                :class="{ 'loading': isSubmitting, 'disabled': !canSubmit }"
+                                :disabled="isSubmitting || !canSubmit"
+                            >
+                                <div v-if="!isSubmitting" class="btn-content">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <span class="btn-text">إرسال الطلب الآن</span>
+                                </div>
+                                <div v-else class="loading-content">
+                                    <div class="spinner"></div>
+                                    <span>جاري الإرسال...</span>
+                                </div>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    
-    <!-- Success Animation -->
-    <transition name="success">
-        <div v-if="showSuccess" class="success-overlay">
-            <div class="success-card">
-                <div class="success-icon">
-                    <div class="checkmark-circle">
-                        <div class="checkmark"></div>
-                    </div>
-                </div>
-                <h2>
-                    <i class="icon-celebration"></i>
-                    تم إرسال الطلب بنجاح!
-                </h2>
-                <p><strong>رقم الطلب:</strong> {{ orderNumber }}</p>
-                <p>سيتم التواصل معك في أقرب وقت ممكن</p>
-                <div class="success-actions">
-                    <button @click="showSuccess = false" class="success-btn">حسناً</button>
-                </div>
+                </form>
             </div>
         </div>
-    </transition>
-</div>
-```
-
+        
+        <!-- Success Animation -->
+        <transition name="success">
+            <div v-if="showSuccess" class="success-overlay">
+                <div class="success-card">
+                    <div class="success-icon">
+                        <div class="checkmark-circle">
+                            <div class="checkmark"></div>
+                        </div>
+                    </div>
+                    <h2>
+                        <i class="fas fa-check-circle"></i>
+                        تم إرسال الطلب بنجاح!
+                    </h2>
+                    <p><strong>رقم الطلب:</strong> {{ orderNumber }}</p>
+                    <p>سيتم التواصل معك في أقرب وقت ممكن</p>
+                    <div class="success-actions">
+                        <button @click="showSuccess = false" class="success-btn">حسناً</button>
+                    </div>
+                </div>
+            </div>
+        </transition>
+    </div>
 </template>
 
 <style scoped>
@@ -649,6 +643,9 @@ mounted() {
     font-weight: 600;
     box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
     animation: bounce 2s infinite;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 /* Form */
@@ -680,6 +677,10 @@ mounted() {
     margin-bottom: 20px;
     text-align: center;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 /* Input Styles */
@@ -697,10 +698,6 @@ mounted() {
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-.label-icon {
-    font-size: 16px;
 }
 
 .inp input,
@@ -742,47 +739,12 @@ mounted() {
     margin-top: 5px;
 }
 
-/* Options Grid */
-.options-grid {
+/* Product Grid */
+.product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
-    margin-top: 10px;
-}
-
-.option-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px 10px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.option-card:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-}
-
-.option-card.active {
-    background: rgba(0, 123, 255, 0.2);
-    border-color: #007bff;
-    color: #007bff;
-}
-
-.option-icon {
-    font-size: 24px;
-    margin-bottom: 8px;
-}
-
-.option-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: white;
+    grid-template-columns: 2fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
 /* Payment Grid */
@@ -875,6 +837,11 @@ mounted() {
     justify-content: center;
 }
 
+.submit-btn:hover:not(.disabled):not(.loading) {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
 .submit-btn.disabled {
     background: #6c757d;
     cursor: not-allowed;
@@ -952,6 +919,10 @@ mounted() {
 .success-card h2 {
     color: #28a745;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .success-card p {
@@ -976,6 +947,55 @@ mounted() {
     background: #0056b3;
 }
 
+/* Success Animation */
+.success-enter-active, .success-leave-active {
+    transition: opacity 0.5s;
+}
+
+.success-enter, .success-leave-to {
+    opacity: 0;
+}
+
+/* Icon Styles */
+.payment-icon i {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: #007bff;
+}
+
+.payment-card.active .payment-icon i {
+    color: #007bff;
+}
+
+.section-title i {
+    color: #007bff;
+    margin-right: 10px;
+}
+
+.inp label i {
+    color: #007bff;
+    width: 16px;
+    text-align: center;
+}
+
+.order-number i {
+    margin-right: 8px;
+}
+
+.btn-content i {
+    margin-right: 8px;
+}
+
+.checkbox-text i {
+    color: #28a745;
+    margin-right: 5px;
+}
+
+.success-card h2 i {
+    color: #28a745;
+    margin-right: 10px;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .form-grid {
@@ -990,9 +1010,43 @@ mounted() {
         padding: 20px 15px;
     }
     
-    .payment-grid,
-    .options-grid {
+    .payment-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .order-number {
+        font-size: 12px;
+        padding: 10px 20px;
+    }
+    
+    .logo {
+        width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section {
+        padding: 20px 15px;
+    }
+    
+    .inp input,
+    .inp textarea {
+        padding: 12px 15px;
+        font-size: 13px;
+    }
+    
+    .submit-btn {
+        padding: 12px;
+        font-size: 14px;
+    }
+    
+    .success-card {
+        margin: 20px;
+        padding: 30px 20px;
     }
 }
 </style>
