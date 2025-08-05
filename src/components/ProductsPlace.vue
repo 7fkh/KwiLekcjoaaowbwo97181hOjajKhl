@@ -161,8 +161,7 @@ export default {
     const cartData = JSON.stringify(this.cart);
     this.$router.push({ name: 'order', query: { cart: cartData } });
     this.cartOpen = false; // إغلاق السلة بعد التحويل
-   }
-}
+  },
     addToCart(product) {
       const existingItem = this.cart.find(item => item.id === product.id);
       
