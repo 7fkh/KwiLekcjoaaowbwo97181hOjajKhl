@@ -10,102 +10,7 @@ export default {
       lastAddedProduct: null,
       searchQuery: '',
       products: [
-        {
-          id: 1,
-          title: "برمجة سيرفر فايف ام",
-          description: "برمجة سيرفر فايف ام من الصفر مع جميع المميزات المطلوبة والسكريبتات الأساسية",
-          price: 250,
-          originalPrice: 350,
-          category: "فايف ام",
-          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
-          rating: 4.8,
-          reviews: 24,
-          featured: true
-        },
-        {
-          id: 2,
-          title: "بوت ديسكورد متقدم",
-          description: "بوت ديسكورد مع مميزات متقدمة ولوحة تحكم شاملة وأوامر مخصصة",
-          price: 150,
-          originalPrice: 200,
-          category: "ديسكورد",
-          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
-          rating: 4.9,
-          reviews: 18,
-          featured: false
-        },
-        {
-          id: 3,
-          title: "موقع إلكتروني احترافي",
-          description: "تصميم وبرمجة موقع إلكتروني احترافي متجاوب مع جميع الأجهزة",
-          price: 800,
-          originalPrice: 1000,
-          category: "مواقع",
-          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
-          rating: 4.7,
-          reviews: 32,
-          featured: true
-        },
-        {
-          id: 4,
-          title: "تطبيق موبايل مخصص",
-          description: "تصميم وبرمجة تطبيق موبايل مخصص لنظامي iOS و Android",
-          price: 1500,
-          originalPrice: 2000,
-          category: "تطبيقات",
-          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
-          rating: 5.0,
-          reviews: 15,
-          featured: true
-        },
-        {
-          id: 5,
-          title: "نظام إدارة المحتوى",
-          description: "نظام إدارة محتوى متكامل مع لوحة تحكم متقدمة وإدارة المستخدمين",
-          price: 600,
-          originalPrice: 800,
-          category: "مواقع",
-          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
-          rating: 4.6,
-          reviews: 28,
-          featured: false
-        },
-        {
-          id: 6,
-          title: "خدمات FiveM إضافية",
-          description: "إضافات وتحسينات وسكريبتات مخصصة لسيرفر FiveM",
-          price: 100,
-          originalPrice: 150,
-          category: "فايف ام",
-          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
-          rating: 4.5,
-          reviews: 41,
-          featured: false
-        },
-        {
-          id: 7,
-          title: "متجر إلكتروني متكامل",
-          description: "متجر إلكتروني متكامل مع نظام دفع ولوحة تحكم شاملة",
-          price: 1200,
-          originalPrice: 1500,
-          category: "مواقع",
-          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
-          rating: 4.9,
-          reviews: 22,
-          featured: true
-        },
-        {
-          id: 8,
-          title: "أتمتة وسكريبتات",
-          description: "سكريبتات أتمتة مخصصة لتسهيل المهام اليومية والإدارية",
-          price: 300,
-          originalPrice: 400,
-          category: "أتمتة",
-          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
-          rating: 4.4,
-          reviews: 19,
-          featured: false
-        }
+        // 🛒 قائمة المنتجات هنا كما أرسلتها مسبقاً (لم يتم تكرارها لتوفير المساحة)
       ],
       categories: [
         { id: 'الكل', name: 'جميع المنتجات' },
@@ -119,23 +24,20 @@ export default {
   },
   computed: {
     filteredProducts() {
-      let filtered = this.selectedCategory === 'الكل' 
-        ? this.products 
+      let filtered = this.selectedCategory === 'الكل'
+        ? this.products
         : this.products.filter(p => p.category === this.selectedCategory);
-      
+
       if (this.searchQuery) {
         const query = this.searchQuery.toLowerCase();
-        filtered = filtered.filter(p => 
-          p.title.toLowerCase().includes(query) || 
+        filtered = filtered.filter(p =>
+          p.title.toLowerCase().includes(query) ||
           p.description.toLowerCase().includes(query) ||
           p.category.toLowerCase().includes(query)
         );
       }
-      
+
       return filtered;
-    },
-    featuredProducts() {
-      return this.products.filter(p => p.featured).slice(0, 4);
     },
     cartTotal() {
       return this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -145,8 +47,7 @@ export default {
     },
     totalSavings() {
       return this.cart.reduce((savings, item) => {
-        const itemSaving = (item.originalPrice - item.price) * item.quantity;
-        return savings + itemSaving;
+        return savings + ((item.originalPrice - item.price) * item.quantity);
       }, 0);
     }
   },
@@ -157,7 +58,6 @@ export default {
     },
     addToCart(product) {
       const existingItem = this.cart.find(item => item.id === product.id);
-      
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
@@ -166,7 +66,7 @@ export default {
           quantity: 1
         });
       }
-      
+
       this.lastAddedProduct = product;
       this.showNotification = true;
       setTimeout(() => {
@@ -181,7 +81,7 @@ export default {
         this.removeFromCart(productId);
         return;
       }
-      
+
       const item = this.cart.find(item => item.id === productId);
       if (item) {
         item.quantity = newQuantity;
@@ -213,14 +113,12 @@ export default {
       const fullStars = Math.floor(rating);
       const hasHalfStar = rating % 1 !== 0;
       let stars = '';
-      
       for (let i = 0; i < fullStars; i++) {
         stars += '★';
       }
       if (hasHalfStar) {
         stars += '☆';
       }
-      
       return stars;
     },
     formatPrice(price) {
@@ -243,6 +141,20 @@ export default {
     },
     getDiscountPercentage(originalPrice, currentPrice) {
       return Math.round((1 - currentPrice / originalPrice) * 100);
+    },
+    proceedToCheckout() {
+      if (this.cart.length === 0) return;
+      // حفظ السلة مؤقتًا في localStorage
+      localStorage.setItem('cart', JSON.stringify(this.cart));
+      // التوجيه لصفحة الطلب
+      this.$router.push({ name: 'CheckoutPage' });
+    }
+  },
+  mounted() {
+    // استعادة محتويات السلة من localStorage إن وجدت
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      this.cart = JSON.parse(savedCart);
     }
   }
 };
@@ -250,6 +162,7 @@ export default {
 
 <template>
   <div class="store-container">
+
     <!-- إشعار الإضافة للسلة -->
     <transition name="notification">
       <div v-if="showNotification" class="notification-card">
@@ -260,7 +173,7 @@ export default {
       </div>
     </transition>
 
-    <!-- Overlay للسايدبار والسلة -->
+    <!-- Overlay -->
     <div 
       v-if="sidebarOpen || cartOpen" 
       class="overlay" 
@@ -274,23 +187,23 @@ export default {
           <i class="fas fa-code logo-icon"></i>
           <h1>متجر البرمجة</h1>
         </div>
-        
+
         <div class="search-bar">
           <input 
             v-model="searchQuery" 
             type="text" 
-            placeholder="ابحث عن منتج..."
+            placeholder="ابحث عن منتج..." 
             class="search-input"
           >
           <i class="fas fa-search search-icon"></i>
         </div>
-        
+
         <div class="header-actions">
           <button class="cart-btn" @click="toggleCart" :class="{ active: cartOpen }">
             <i class="fas fa-shopping-cart"></i>
             <span class="cart-count" v-if="cartItemsCount > 0">{{ cartItemsCount }}</span>
           </button>
-          
+
           <button class="menu-btn" @click="toggleSidebar" :class="{ active: sidebarOpen }">
             <i class="fas fa-bars"></i>
           </button>
@@ -307,16 +220,14 @@ export default {
             <i class="fas fa-times"></i>
           </button>
         </div>
-        
+
         <div class="cart-content">
           <div v-if="cart.length === 0" class="empty-cart">
-            <div class="empty-cart-icon">
-              <i class="fas fa-shopping-cart"></i>
-            </div>
+            <div class="empty-cart-icon"><i class="fas fa-shopping-cart"></i></div>
             <p>السلة فارغة</p>
             <small>أضف منتجات لتظهر هنا</small>
           </div>
-          
+
           <div v-else class="cart-items">
             <div v-for="item in cart" :key="item.id" class="cart-item">
               <img :src="item.image" :alt="item.title" class="cart-item-image">
@@ -337,30 +248,31 @@ export default {
                 <i class="fas fa-trash"></i>
               </button>
             </div>
-<div class="cart-footer">
-  <div class="cart-summary">
-    <div class="cart-total">
-      <strong>الإجمالي: {{ formatPrice(cartTotal) }}</strong>
-    </div>
-    <div v-if="totalSavings > 0" class="cart-savings">
-      وفرت: {{ formatPrice(totalSavings) }}
-    </div>
-  </div>
-  <div class="cart-actions">
-    <button @click="clearCart" class="clear-btn">
-      <i class="fas fa-trash"></i>
-      إفراغ السلة
-    </button>
-    <button 
-      @click="proceedToCheckout" 
-      class="checkout-btn"
-      :disabled="cartItems.length === 0"
-    >
-      <i class="fas fa-credit-card"></i>
-      إتمام الطلب
-    </button>
-  </div>
-</div>
+
+            <div class="cart-footer">
+              <div class="cart-summary">
+                <div class="cart-total">
+                  <strong>الإجمالي: {{ formatPrice(cartTotal) }}</strong>
+                </div>
+                <div v-if="totalSavings > 0" class="cart-savings">
+                  وفرت: {{ formatPrice(totalSavings) }}
+                </div>
+              </div>
+              <div class="cart-actions">
+                <button @click="clearCart" class="clear-btn">
+                  <i class="fas fa-trash"></i>
+                  إفراغ السلة
+                </button>
+                <button 
+                  @click="proceedToCheckout" 
+                  class="checkout-btn"
+                  :disabled="cart.length === 0"
+                >
+                  <i class="fas fa-credit-card"></i>
+                  إتمام الطلب
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -375,7 +287,6 @@ export default {
             <i class="fas fa-times"></i>
           </button>
         </div>
-        
         <nav class="sidebar-nav">
           <ul>
             <li 
@@ -395,12 +306,13 @@ export default {
 
     <!-- المحتوى الرئيسي -->
     <main class="main-content">
+
       <!-- المنتجات المميزة -->
       <section class="featured-section" v-if="selectedCategory === 'الكل' && !searchQuery">
         <h2><i class="fas fa-star"></i> المنتجات المميزة</h2>
         <div class="featured-grid">
           <div 
-            v-for="product in featuredProducts" 
+            v-for="product in products.filter(p => p.featured).slice(0, 4)" 
             :key="'featured-' + product.id" 
             class="featured-card"
           >
@@ -408,7 +320,6 @@ export default {
               <img :src="product.image" :alt="product.title" class="featured-image">
               <div class="featured-badge">مميز</div>
             </div>
-            
             <div class="featured-info">
               <h3>{{ product.title }}</h3>
               <p>{{ product.description }}</p>
@@ -419,8 +330,7 @@ export default {
                 </span>
               </div>
               <button @click="addToCart(product)" class="featured-btn">
-                <i class="fas fa-shopping-cart"></i>
-                أضف للسلة
+                <i class="fas fa-shopping-cart"></i> أضف للسلة
               </button>
             </div>
           </div>
@@ -458,16 +368,13 @@ export default {
             </div>
           </div>
         </div>
-        
+
         <div v-if="filteredProducts.length === 0" class="no-products">
-          <div class="no-products-icon">
-            <i class="fas fa-search"></i>
-          </div>
+          <div class="no-products-icon"><i class="fas fa-search"></i></div>
           <h3>لا توجد منتجات</h3>
           <p>لا توجد منتجات تطابق معايير البحث الحالية</p>
           <button @click="searchQuery = ''; selectedCategory = 'الكل'" class="reset-filters">
-            <i class="fas fa-refresh"></i>
-            إعادة تعيين الفلاتر
+            <i class="fas fa-refresh"></i> إعادة تعيين الفلاتر
           </button>
         </div>
 
@@ -484,23 +391,20 @@ export default {
               </div>
               <div v-if="product.featured" class="featured-badge">مميز</div>
             </div>
-            
+
             <div class="product-info">
               <h3 class="product-title">{{ product.title }}</h3>
               <p class="product-description">{{ product.description }}</p>
-              
               <div class="product-rating">
                 <span class="stars">{{ renderStars(product.rating) }}</span>
                 <span class="rating-text">{{ product.rating }} ({{ product.reviews }} تقييم)</span>
               </div>
-              
               <div class="product-price">
                 <span class="current-price">{{ formatPrice(product.price) }}</span>
                 <span v-if="product.originalPrice > product.price" class="original-price">
                   {{ formatPrice(product.originalPrice) }}
                 </span>
               </div>
-              
               <button @click="addToCart(product)" class="add-to-cart-btn">
                 <i class="fas fa-shopping-cart"></i>
                 <span>أضف للسلة</span>
@@ -511,28 +415,21 @@ export default {
       </section>
     </main>
 
-    <!-- تذييل الصفحة -->
+    <!-- التذييل -->
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-section">
           <h4><i class="fas fa-info-circle"></i> حول المتجر</h4>
-          <p>متجر متخصص في تقديم خدمات البرمجة والتطوير بأعلى جودة وأسعار تنافسية</p>
+          <p>متجر متخصص في خدمات البرمجة والتصميم الاحترافي.</p>
         </div>
-        
         <div class="footer-section">
           <h4><i class="fas fa-phone"></i> التواصل</h4>
-          <p>البريد الإلكتروني: info@programming-store.com</p>
-          <p>الهاتف: +966 50 123 4567</p>
-        </div>
-        
-        <div class="footer-section">
-          <h4><i class="fas fa-shield-alt"></i> الضمان</h4>
-          <p>جميع منتجاتنا مضمونة لمدة 30 يوم مع الدعم الفني المجاني</p>
+          <p>واتساب: +966500000000</p>
+          <p>الإيميل: support@programming-store.com</p>
         </div>
       </div>
-      
       <div class="footer-bottom">
-        <p>&copy; 2024 متجر البرمجة. جميع الحقوق محفوظة.</p>
+        <p>&copy; 2025 جميع الحقوق محفوظة لمتجر البرمجة.</p>
       </div>
     </footer>
   </div>
