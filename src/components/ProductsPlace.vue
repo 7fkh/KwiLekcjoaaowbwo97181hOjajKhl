@@ -10,7 +10,102 @@ export default {
       lastAddedProduct: null,
       searchQuery: '',
       products: [
-        // 🛒 قائمة المنتجات هنا كما أرسلتها مسبقاً (لم يتم تكرارها لتوفير المساحة)
+        {
+          id: 1,
+          title: "برمجة سيرفر فايف ام",
+          description: "برمجة سيرفر فايف ام من الصفر مع جميع المميزات المطلوبة والسكريبتات الأساسية",
+          price: 250,
+          originalPrice: 350,
+          category: "فايف ام",
+          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
+          rating: 4.8,
+          reviews: 24,
+          featured: true
+        },
+        {
+          id: 2,
+          title: "بوت ديسكورد متقدم",
+          description: "بوت ديسكورد مع مميزات متقدمة ولوحة تحكم شاملة وأوامر مخصصة",
+          price: 150,
+          originalPrice: 200,
+          category: "ديسكورد",
+          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
+          rating: 4.9,
+          reviews: 18,
+          featured: false
+        },
+        {
+          id: 3,
+          title: "موقع إلكتروني احترافي",
+          description: "تصميم وبرمجة موقع إلكتروني احترافي متجاوب مع جميع الأجهزة",
+          price: 800,
+          originalPrice: 1000,
+          category: "مواقع",
+          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
+          rating: 4.7,
+          reviews: 32,
+          featured: true
+        },
+        {
+          id: 4,
+          title: "تطبيق موبايل مخصص",
+          description: "تصميم وبرمجة تطبيق موبايل مخصص لنظامي iOS و Android",
+          price: 1500,
+          originalPrice: 2000,
+          category: "تطبيقات",
+          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
+          rating: 5.0,
+          reviews: 15,
+          featured: true
+        },
+        {
+          id: 5,
+          title: "نظام إدارة المحتوى",
+          description: "نظام إدارة محتوى متكامل مع لوحة تحكم متقدمة وإدارة المستخدمين",
+          price: 600,
+          originalPrice: 800,
+          category: "مواقع",
+          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
+          rating: 4.6,
+          reviews: 28,
+          featured: false
+        },
+        {
+          id: 6,
+          title: "خدمات FiveM إضافية",
+          description: "إضافات وتحسينات وسكريبتات مخصصة لسيرفر FiveM",
+          price: 100,
+          originalPrice: 150,
+          category: "فايف ام",
+          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
+          rating: 4.5,
+          reviews: 41,
+          featured: false
+        },
+        {
+          id: 7,
+          title: "متجر إلكتروني متكامل",
+          description: "متجر إلكتروني متكامل مع نظام دفع ولوحة تحكم شاملة",
+          price: 1200,
+          originalPrice: 1500,
+          category: "مواقع",
+          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
+          rating: 4.9,
+          reviews: 22,
+          featured: true
+        },
+        {
+          id: 8,
+          title: "أتمتة وسكريبتات",
+          description: "سكريبتات أتمتة مخصصة لتسهيل المهام اليومية والإدارية",
+          price: 300,
+          originalPrice: 400,
+          category: "أتمتة",
+          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
+          rating: 4.4,
+          reviews: 19,
+          featured: false
+        }
       ],
       categories: [
         { id: 'الكل', name: 'جميع المنتجات' },
@@ -24,20 +119,23 @@ export default {
   },
   computed: {
     filteredProducts() {
-      let filtered = this.selectedCategory === 'الكل'
-        ? this.products
+      let filtered = this.selectedCategory === 'الكل' 
+        ? this.products 
         : this.products.filter(p => p.category === this.selectedCategory);
-
+      
       if (this.searchQuery) {
         const query = this.searchQuery.toLowerCase();
-        filtered = filtered.filter(p =>
-          p.title.toLowerCase().includes(query) ||
+        filtered = filtered.filter(p => 
+          p.title.toLowerCase().includes(query) || 
           p.description.toLowerCase().includes(query) ||
           p.category.toLowerCase().includes(query)
         );
       }
-
+      
       return filtered;
+    },
+    featuredProducts() {
+      return this.products.filter(p => p.featured).slice(0, 4);
     },
     cartTotal() {
       return this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -47,7 +145,8 @@ export default {
     },
     totalSavings() {
       return this.cart.reduce((savings, item) => {
-        return savings + ((item.originalPrice - item.price) * item.quantity);
+        const itemSaving = (item.originalPrice - item.price) * item.quantity;
+        return savings + itemSaving;
       }, 0);
     }
   },
@@ -58,6 +157,7 @@ export default {
     },
     addToCart(product) {
       const existingItem = this.cart.find(item => item.id === product.id);
+      
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
@@ -66,7 +166,7 @@ export default {
           quantity: 1
         });
       }
-
+      
       this.lastAddedProduct = product;
       this.showNotification = true;
       setTimeout(() => {
@@ -81,7 +181,7 @@ export default {
         this.removeFromCart(productId);
         return;
       }
-
+      
       const item = this.cart.find(item => item.id === productId);
       if (item) {
         item.quantity = newQuantity;
@@ -113,12 +213,14 @@ export default {
       const fullStars = Math.floor(rating);
       const hasHalfStar = rating % 1 !== 0;
       let stars = '';
+      
       for (let i = 0; i < fullStars; i++) {
         stars += '★';
       }
       if (hasHalfStar) {
         stars += '☆';
       }
+      
       return stars;
     },
     formatPrice(price) {
@@ -141,20 +243,6 @@ export default {
     },
     getDiscountPercentage(originalPrice, currentPrice) {
       return Math.round((1 - currentPrice / originalPrice) * 100);
-    },
-    proceedToCheckout() {
-      if (this.cart.length === 0) return;
-      // حفظ السلة مؤقتًا في localStorage
-      localStorage.setItem('cart', JSON.stringify(this.cart));
-      // التوجيه لصفحة الطلب
-      this.$router.push({ name: 'CheckoutPage' });
-    }
-  },
-  mounted() {
-    // استعادة محتويات السلة من localStorage إن وجدت
-    const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-      this.cart = JSON.parse(savedCart);
     }
   }
 };
