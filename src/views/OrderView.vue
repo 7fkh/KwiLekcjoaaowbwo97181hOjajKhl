@@ -1351,5 +1351,5 @@ export default {
         font-size: 12px;
         padding: 10px 20px;
     }
-}
+
 </style>
