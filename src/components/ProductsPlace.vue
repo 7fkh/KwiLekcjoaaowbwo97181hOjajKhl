@@ -337,27 +337,30 @@ export default {
                 <i class="fas fa-trash"></i>
               </button>
             </div>
-            
-            <div class="cart-footer">
-              <div class="cart-summary">
-                <div class="cart-total">
-                  <strong>الإجمالي: {{ formatPrice(cartTotal) }}</strong>
-                </div>
-                <div v-if="totalSavings > 0" class="cart-savings">
-                  وفرت: {{ formatPrice(totalSavings) }}
-                </div>
-              </div>
-              <div class="cart-actions">
-                <button @click="clearCart" class="clear-btn">
-                  <i class="fas fa-trash"></i>
-                  إفراغ السلة
-                </button>
-                <button class="checkout-btn">
-                  <i class="fas fa-credit-card"></i>
-                  إتمام الطلب
-                </button>
-              </div>
-            </div>
+<div class="cart-footer">
+  <div class="cart-summary">
+    <div class="cart-total">
+      <strong>الإجمالي: {{ formatPrice(cartTotal) }}</strong>
+    </div>
+    <div v-if="totalSavings > 0" class="cart-savings">
+      وفرت: {{ formatPrice(totalSavings) }}
+    </div>
+  </div>
+  <div class="cart-actions">
+    <button @click="clearCart" class="clear-btn">
+      <i class="fas fa-trash"></i>
+      إفراغ السلة
+    </button>
+    <button 
+      @click="proceedToCheckout" 
+      class="checkout-btn"
+      :disabled="cartItems.length === 0"
+    >
+      <i class="fas fa-credit-card"></i>
+      إتمام الطلب
+    </button>
+  </div>
+</div>
           </div>
         </div>
       </div>
