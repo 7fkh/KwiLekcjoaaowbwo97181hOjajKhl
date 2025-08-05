@@ -21,7 +21,7 @@ const routes = [
   {
     path: '/laws',
     name: 'laws',
-    component: () => import('../components/laws.vue')
+    component: () => import('../components/policy.vue')
   },
   {
     path: '/products',
