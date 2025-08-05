@@ -160,7 +160,7 @@ methods: {
     if (this.cart.length === 0) return; // تأكد أن السلة غير فارغة
 
     const cartData = JSON.stringify(this.cart);
-    this.$router.push({ name: 'OrderView', query: { cart: cartData } });
+    this.$router.push({ name: 'order', query: { cart: cartData } });
     this.cartOpen = false; // إغلاق السلة بعد التحويل
   },
 
