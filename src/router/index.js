@@ -13,6 +13,7 @@ const router = createRouter({
       path: '/order',
       name: 'order',
       component: () => import('../views/OrderView.vue')
+      props: true
     },
 {
       path: '/policy',
