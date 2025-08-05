@@ -4,6 +4,9 @@ import { RouterLink } from 'vue-router'
 
 export default {
     name: 'Home',
+    components: {
+        NavBar,
+    },
     data() {
         return {
             isSubmitting: false,
@@ -13,6 +16,9 @@ export default {
                 discordId: '',
                 fullName: '',
                 contactInfo: '',
+                
+                // المنتج المحدد
+                selectedProduct: null,
                 
                 // تفاصيل الطلب
                 productName: '',
@@ -37,17 +43,13 @@ export default {
             orderNumber: null
         }
     },
-    components: {
-        NavBar,
-    },
     computed: {
         canSubmit() {
             return this.formData.discordId.trim() &&
                    this.formData.fullName.trim() &&
                    this.formData.contactInfo.trim() &&
-                   this.formData.productName.trim() &&
+                   (this.formData.selectedProduct || (this.formData.productName.trim() && this.formData.price.trim())) &&
                    this.formData.quantity > 0 &&
-                   this.formData.price.trim() &&
                    this.formData.orderDetails.trim() &&
                    this.formData.paymentMethod &&
                    this.formData.agreeToTerms;
@@ -56,21 +58,8 @@ export default {
     mounted() {
         this.generateOrderNumber();
         this.animateInputs();
-        
-        const cartQuery = this.$route.query.cart;
-        if (cartQuery) {
-            try {
-                const cartItems = JSON.parse(cartQuery);
-                if (Array.isArray(cartItems)) {
-                    const details = cartItems.map(item => {
-                        return `• ${item.title} - الكمية: ${item.quantity} - السعر: ${item.price} ريال`;
-                    }).join('\n');
-                    this.formData.orderDetails = `الطلب من السلة:\n${details}`;
-                }
-            } catch (err) {
-                console.error('فشل في تحليل بيانات السلة:', err);
-            }
-        }
+        this.loadProductFromQuery();
+        this.loadCartFromQuery();
     },
     methods: {
         generateOrderNumber() {
@@ -86,9 +75,43 @@ export default {
             });
         },
 
+        loadProductFromQuery() {
+            const selectedProduct = this.$route.query.product;
+            if (selectedProduct) {
+                try {
+                    const product = JSON.parse(selectedProduct);
+                    this.formData.selectedProduct = product;
+                    this.formData.productName = product.name || product.title;
+                    this.formData.price = product.price;
+                    this.formData.productImage = product.image;
+                    this.formData.quantity = 1;
+                } catch (err) {
+                    console.error('فشل في تحليل بيانات المنتج:', err);
+                }
+            }
+        },
+
+        loadCartFromQuery() {
+            const cartQuery = this.$route.query.cart;
+            if (cartQuery) {
+                try {
+                    const cartItems = JSON.parse(cartQuery);
+                    if (Array.isArray(cartItems)) {
+                        const details = cartItems.map(item => {
+                            return `• ${item.title} - الكمية: ${item.quantity} - السعر: ${item.price} ريال`;
+                        }).join('\n');
+                        this.formData.orderDetails = `الطلب من السلة:\n${details}`;
+                    }
+                } catch (err) {
+                    console.error('فشل في تحليل بيانات السلة:', err);
+                }
+            }
+        },
+
         validateForm() {
             this.errors = {};
             
+            // التحقق من البيانات الأساسية
             if (!this.formData.discordId.trim()) {
                 this.errors.discordId = 'ايدي الديسكورد مطلوب';
             }
@@ -98,21 +121,33 @@ export default {
             if (!this.formData.contactInfo.trim()) {
                 this.errors.contactInfo = 'رقم التواصل مطلوب';
             }
-            if (!this.formData.productName.trim()) {
-                this.errors.productName = 'اسم المنتج مطلوب';
+            
+            // التحقق من المنتج
+            if (!this.formData.selectedProduct) {
+                if (!this.formData.productName.trim()) {
+                    this.errors.productName = 'اسم المنتج مطلوب';
+                }
+                if (!this.formData.price.trim()) {
+                    this.errors.price = 'السعر مطلوب';
+                }
             }
+            
+            // التحقق من الكمية
             if (!this.formData.quantity || this.formData.quantity <= 0) {
                 this.errors.quantity = 'الكمية يجب أن تكون أكبر من 0';
             }
-            if (!this.formData.price.trim()) {
-                this.errors.price = 'السعر مطلوب';
-            }
+            
+            // التحقق من تفاصيل الطلب
             if (!this.formData.orderDetails.trim()) {
                 this.errors.orderDetails = 'تفاصيل الطلب مطلوبة';
             }
+            
+            // التحقق من طريقة الدفع
             if (!this.formData.paymentMethod) {
                 this.errors.paymentMethod = 'طريقة الدفع مطلوبة';
             }
+            
+            // التحقق من الموافقة على الشروط
             if (!this.formData.agreeToTerms) {
                 this.errors.agreeToTerms = 'يجب الموافقة على الشروط والأحكام';
             }
@@ -133,12 +168,16 @@ export default {
             const paymentMethodData = this.paymentMethods.find(p => p.value === this.formData.paymentMethod);
             
             const applyMessage = {
-                content: `تم استلام طلب`,
+                content: `تم استلام طلب جديد`,
                 embeds: [{
                     title: `🛒 رقم الطلب ${this.orderNumber}`,
-                    description: `**📦 المنتج:** ${this.formData.productName}\n**🔢 الكمية:** ${this.formData.quantity}\n**💰 السعر:** ${this.formData.price} ريال`,
                     color: parseInt('c13029', 16),
                     fields: [
+                        {
+                            name: '📦 معلومات المنتج',
+                            value: this.getProductInfo(),
+                            inline: false
+                        },
                         {
                             name: '👤 معلومات العميل',
                             value: `**الاسم:** ${this.formData.fullName}\n**ديسكورد:** ${this.formData.discordId}\n**التواصل:** ${this.formData.contactInfo}`,
@@ -154,14 +193,14 @@ export default {
                             value: paymentMethodData?.label || this.formData.paymentMethod,
                             inline: true
                         }
-                    ],
+                    ].concat(this.getOptionalFields()),
                     footer: {
                         text: `تم الإرسال في ${new Date().toLocaleString('ar-SA')} | النظام المبسط`,
                         icon_url: 'https://i.imgur.com/cgrAYPN.png'
                     },
                     timestamp: new Date().toISOString(),
                     thumbnail: {
-                        url: this.formData.productImage || 'https://i.imgur.com/cgrAYPN.png'
+                        url: this.getProductImage()
                     }
                 }]
             };
@@ -193,11 +232,67 @@ export default {
             }
         },
 
+        getProductInfo() {
+            if (this.formData.selectedProduct) {
+                const product = this.formData.selectedProduct;
+                let info = `**المنتج:** ${product.name || product.title}\n**الكمية:** ${this.formData.quantity}\n**السعر الوحدة:** ${product.price} ريال\n**المجموع:** ${this.calculateTotal()} ريال`;
+                
+                if (product.category) {
+                    info += `\n**الفئة:** ${product.category}`;
+                }
+                if (product.description) {
+                    info += `\n**الوصف:** ${product.description}`;
+                }
+                
+                return info;
+            } else {
+                let info = `**المنتج:** ${this.formData.productName}\n**الكمية:** ${this.formData.quantity}\n**السعر:** ${this.formData.price} ريال`;
+                
+                if (this.formData.productImage) {
+                    info += `\n**الصورة:** [عرض الصورة](${this.formData.productImage})`;
+                }
+                
+                return info;
+            }
+        },
+
+        getOptionalFields() {
+            const fields = [];
+            
+            if (this.formData.example) {
+                fields.push({
+                    name: '🔗 مثال/مرجع',
+                    value: this.formData.example,
+                    inline: false
+                });
+            }
+            
+            if (this.formData.additionalNotes) {
+                fields.push({
+                    name: '📋 ملاحظات إضافية',
+                    value: this.formData.additionalNotes,
+                    inline: false
+                });
+            }
+            
+            return fields;
+        },
+
+        getProductImage() {
+            if (this.formData.selectedProduct?.image) {
+                return this.formData.selectedProduct.image;
+            } else if (this.formData.productImage) {
+                return this.formData.productImage;
+            }
+            return 'https://i.imgur.com/cgrAYPN.png';
+        },
+
         resetForm() {
             this.formData = {
                 discordId: '',
                 fullName: '',
                 contactInfo: '',
+                selectedProduct: null,
                 productName: '',
                 quantity: 1,
                 productImage: '',
@@ -213,6 +308,7 @@ export default {
         },
 
         showAlert(message, type) {
+            // يمكن استبدال هذا بنظام تنبيهات أفضل
             alert(message);
         },
 
@@ -224,6 +320,25 @@ export default {
                 'visa': '<i class="fas fa-credit-card"></i>'
             };
             return icons[paymentType] || '<i class="fas fa-credit-card"></i>';
+        },
+
+        increaseQuantity() {
+            this.formData.quantity++;
+        },
+
+        decreaseQuantity() {
+            if (this.formData.quantity > 1) {
+                this.formData.quantity--;
+            }
+        },
+
+        calculateTotal() {
+            if (this.formData.selectedProduct && this.formData.selectedProduct.price) {
+                const price = parseFloat(this.formData.selectedProduct.price);
+                const total = price * this.formData.quantity;
+                return total.toFixed(2);
+            }
+            return '0.00';
         }
     }
 }
@@ -251,11 +366,84 @@ export default {
                 <!-- Order Number -->
                 <div class="order-number fade-in">
                     <i class="fas fa-ticket-alt"></i>
-                    <span> رقم الطلب: {{ orderNumber }}</span>
+                    <span>رقم الطلب: {{ orderNumber }}</span>
                 </div>
                 
                 <form @submit.prevent="sendApply" class="form">
                     <div class="form-grid">
+                        <!-- المنتج المحدد -->
+                        <div v-if="formData.selectedProduct" class="section fade-in selected-product">
+                            <h3 class="section-title">
+                                <i class="fas fa-shopping-cart"></i>
+                                المنتج المحدد
+                            </h3>
+                            
+                            <div class="product-display">
+                                <div class="product-image" v-if="formData.selectedProduct.image">
+                                    <img :src="formData.selectedProduct.image" :alt="formData.selectedProduct.name || formData.selectedProduct.title" />
+                                </div>
+                                <div class="product-info">
+                                    <h4 class="product-title">{{ formData.selectedProduct.name || formData.selectedProduct.title }}</h4>
+                                    <p class="product-description" v-if="formData.selectedProduct.description">
+                                        {{ formData.selectedProduct.description }}
+                                    </p>
+                                    <div class="product-details">
+                                        <div class="detail-item">
+                                            <i class="fas fa-tag"></i>
+                                            <span>السعر: {{ formData.selectedProduct.price }} ريال</span>
+                                        </div>
+                                        <div class="detail-item" v-if="formData.selectedProduct.category">
+                                            <i class="fas fa-list"></i>
+                                            <span>الفئة: {{ formData.selectedProduct.category }}</span>
+                                        </div>
+                                        <div class="detail-item" v-if="formData.selectedProduct.rating">
+                                            <i class="fas fa-star"></i>
+                                            <span>التقييم: {{ formData.selectedProduct.rating }}/5</span>
+                                        </div>
+                                        <div class="detail-item" v-if="formData.selectedProduct.availability">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>متوفر</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quantity-selector">
+                                        <label for="selectedQuantity">
+                                            <i class="fas fa-sort-numeric-up"></i>
+                                            الكمية المطلوبة
+                                        </label>
+                                        <div class="quantity-controls">
+                                            <button 
+                                                type="button" 
+                                                class="qty-btn minus" 
+                                                @click="decreaseQuantity" 
+                                                :disabled="formData.quantity <= 1"
+                                            >
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <input 
+                                                id="selectedQuantity"
+                                                v-model.number="formData.quantity"
+                                                type="number"
+                                                min="1"
+                                                class="qty-input"
+                                                readonly
+                                            >
+                                            <button 
+                                                type="button" 
+                                                class="qty-btn plus" 
+                                                @click="increaseQuantity"
+                                            >
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="total-price">
+                                            <strong>المجموع: {{ calculateTotal() }} ريال</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- معلومات العميل -->
                         <div class="section fade-in">
                             <h3 class="section-title">
@@ -316,7 +504,8 @@ export default {
                                 تفاصيل الطلب
                             </h3>
                             
-                            <div class="product-grid">
+                            <!-- إظهار حقول المنتج فقط إذا لم يكن هناك منتج محدد -->
+                            <div v-if="!formData.selectedProduct" class="product-grid">
                                 <div class="inp">
                                     <label for="productName">
                                         <i class="fas fa-box"></i>
@@ -349,7 +538,7 @@ export default {
                                 </div>
                             </div>
                             
-                            <div class="inp">
+                            <div v-if="!formData.selectedProduct" class="inp">
                                 <label for="productImage">
                                     <i class="fas fa-image"></i>
                                     رابط صورة المنتج (اختياري)
@@ -362,7 +551,7 @@ export default {
                                 >
                             </div>
                             
-                            <div class="inp">
+                            <div v-if="!formData.selectedProduct" class="inp">
                                 <label for="price">
                                     <i class="fas fa-dollar-sign"></i>
                                     السعر (بالريال السعودي) *
@@ -412,8 +601,11 @@ export default {
                                         class="payment-card"
                                         :class="{ 'active': formData.paymentMethod === method.value, 'popular': method.popular }"
                                         @click="formData.paymentMethod = method.value"
+                                        tabindex="0"
+                                        @keydown.enter="formData.paymentMethod = method.value"
+                                        @keydown.space.prevent="formData.paymentMethod = method.value"
                                     >
-                                        <i class="payment-icon" v-html="getPaymentIcon(method.value)"></i>
+                                        <div class="payment-icon" v-html="getPaymentIcon(method.value)"></div>
                                         <span class="payment-label">{{ method.label }}</span>
                                         <span v-if="method.popular" class="popular-badge">شائع</span>
                                     </div>
@@ -465,7 +657,6 @@ export default {
                                         v-model="formData.agreeToTerms"
                                         :class="{ 'error': errors.agreeToTerms }"
                                     >
-                                    <span class="checkmark"></span>
                                     <span class="checkbox-text">
                                         <i class="fas fa-check-circle"></i>
                                         أوافق على الشروط والأحكام وسياسة الخصوصية *
@@ -519,6 +710,7 @@ export default {
     </div>
 </template>
 
+
 <style scoped>
 /* Animations */
 @keyframes fadeInUp {
@@ -560,6 +752,7 @@ export default {
     90% { transform: translateY(-4px); }
 }
 
+/* Main Container */
 .main {
     min-height: 100vh;
     background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #1a1a2e 75%, #0a0a0a 100%);
@@ -622,8 +815,14 @@ export default {
     position: relative;
 }
 
+/* Logo */
+.logo-container {
+    text-decoration: none;
+}
+
 .logo {
     width: 150px;
+    height: auto;
     transition: all 0.3s ease;
     animation: pulse 2s infinite;
 }
@@ -683,6 +882,144 @@ export default {
     gap: 10px;
 }
 
+.section-title i {
+    color: #007bff;
+}
+
+/* Selected Product Styles */
+.selected-product {
+    background: rgba(0, 123, 255, 0.1);
+    border: 1px solid rgba(0, 123, 255, 0.3);
+}
+
+.product-display {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.product-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-info {
+    color: white;
+}
+
+.product-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.product-description {
+    font-size: 14px;
+    margin-bottom: 15px;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+.product-details {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    padding: 5px 0;
+}
+
+.detail-item i {
+    color: #007bff;
+    width: 16px;
+    text-align: center;
+}
+
+/* Quantity Selector */
+.quantity-selector {
+    margin-top: 20px;
+}
+
+.quantity-selector label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: white;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.qty-btn {
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.qty-btn:hover:not(:disabled) {
+    background: #0056b3;
+    transform: scale(1.1);
+}
+
+.qty-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+}
+
+.qty-input {
+    width: 60px;
+    height: 35px;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.total-price {
+    color: #007bff;
+    font-size: 16px;
+    text-align: center;
+    padding: 10px;
+    background: rgba(0, 123, 255, 0.1);
+    border-radius: 5px;
+    border: 1px solid rgba(0, 123, 255, 0.3);
+}
+
 /* Input Styles */
 .inp {
     display: flex;
@@ -698,6 +1035,12 @@ export default {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.inp label i {
+    color: #007bff;
+    width: 16px;
+    text-align: center;
 }
 
 .inp input,
@@ -739,7 +1082,7 @@ export default {
     margin-top: 5px;
 }
 
-/* Product Grid */
+/* Product Grid for manual entry */
 .product-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -783,6 +1126,11 @@ export default {
 .payment-icon {
     font-size: 24px;
     margin-bottom: 8px;
+    color: #007bff;
+}
+
+.payment-card.active .payment-icon {
+    color: #007bff;
 }
 
 .payment-label {
@@ -812,6 +1160,7 @@ export default {
     color: white;
     font-size: 14px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .checkbox-label input[type="checkbox"] {
@@ -820,36 +1169,50 @@ export default {
     height: 18px;
 }
 
+.checkbox-text {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.checkbox-text i {
+    color: #28a745;
+}
+
 /* Submit Button */
 .submit-btn {
     width: 100%;
     padding: 14px;
-    background: #007bff;
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
     color: white;
     border: none;
     border-radius: 10px;
     font-size: 16px;
     font-weight: bold;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
 }
 
 .submit-btn:hover:not(.disabled):not(.loading) {
-    background: #0056b3;
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
     transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
 }
 
 .submit-btn.disabled {
     background: #6c757d;
     cursor: not-allowed;
+    box-shadow: none;
 }
 
 .submit-btn.loading {
     pointer-events: none;
     background: #6c757d;
+    box-shadow: none;
 }
 
 .btn-content,
@@ -889,8 +1252,9 @@ export default {
     border-radius: 15px;
     text-align: center;
     max-width: 400px;
-    width: 100%;
+    width: 90%;
     animation: fadeInUp 0.8s ease-out forwards;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .success-icon {
@@ -906,6 +1270,7 @@ export default {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    animation: pulse 1s ease infinite;
 }
 
 .checkmark {
@@ -956,58 +1321,35 @@ export default {
     opacity: 0;
 }
 
-/* Icon Styles */
-.payment-icon i {
-    font-size: 24px;
-    margin-bottom: 8px;
-    color: #007bff;
-}
-
-.payment-card.active .payment-icon i {
-    color: #007bff;
-}
-
-.section-title i {
-    color: #007bff;
-    margin-right: 10px;
-}
-
-.inp label i {
-    color: #007bff;
-    width: 16px;
-    text-align: center;
-}
-
-.order-number i {
-    margin-right: 8px;
-}
-
-.btn-content i {
-    margin-right: 8px;
-}
-
-.checkbox-text i {
-    color: #28a745;
-    margin-right: 5px;
-}
-
-.success-card h2 i {
-    color: #28a745;
-    margin-right: 10px;
-}
-
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .form-grid {
+    .cont {
+        padding: 20px 15px;
+        max-width: 95%;
+    }
+    
+    .product-display {
         grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .product-image {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .product-title {
+        font-size: 20px;
+        text-align: center;
+    }
+    
+    .quantity-controls {
+        justify-content: center;
     }
     
     .section-title {
         font-size: 18px;
-    }
-    
-    .cont {
-        padding: 20px 15px;
     }
     
     .payment-grid {
@@ -1026,11 +1368,39 @@ export default {
     .logo {
         width: 120px;
     }
+    
+    .form-grid {
+        gap: 20px;
+    }
 }
 
 @media (max-width: 480px) {
     .section {
         padding: 20px 15px;
+    }
+    
+    .product-image {
+        height: 150px;
+    }
+    
+    .product-title {
+        font-size: 18px;
+    }
+    
+    .detail-item {
+        font-size: 13px;
+    }
+    
+    .qty-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+    
+    .qty-input {
+        width: 50px;
+        height: 30px;
+        font-size: 12px;
     }
     
     .inp input,
@@ -1045,8 +1415,98 @@ export default {
     }
     
     .success-card {
-        margin: 20px;
         padding: 30px 20px;
+        margin: 20px;
     }
+    
+    .payment-card {
+        padding: 12px 8px;
+    }
+    
+    .payment-icon {
+        font-size: 20px;
+    }
+    
+    .payment-label {
+        font-size: 11px;
+    }
+}
+
+/* Additional Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mb-15 {
+    margin-bottom: 15px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-15 {
+    margin-top: 15px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+/* Focus visible for accessibility */
+.inp input:focus-visible,
+.inp textarea:focus-visible,
+.submit-btn:focus-visible,
+.payment-card:focus-visible {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Loading state improvements */
+.submit-btn.loading .spinner {
+    margin-right: 8px;
+}
+
+/* Icon improvements */
+.section-title i,
+.inp label i,
+.btn-content i,
+.order-number i,
+.checkbox-text i,
+.success-card h2 i,
+.detail-item i {
+    flex-shrink: 0;
+}
+
+/* Smooth transitions */
+* {
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 123, 255, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 123, 255, 0.7);
 }
 </style>
