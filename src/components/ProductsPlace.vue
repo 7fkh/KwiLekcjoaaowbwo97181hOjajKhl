@@ -17,7 +17,7 @@ export default {
           price: 250,
           originalPrice: 350,
           category: "فايف ام",
-          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=689277d6&is=68912656&hm=8f8ab77237cba350f6d2327653483187e8a95261fce99b8cd912256a350de0d9&",
+          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
           rating: 4.8,
           reviews: 24,
           featured: true
@@ -29,7 +29,7 @@ export default {
           price: 150,
           originalPrice: 200,
           category: "ديسكورد",
-          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=689277d6&is=68912656&hm=8f8ab77237cba350f6d2327653483187e8a95261fce99b8cd912256a350de0d9&",
+          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
           rating: 4.9,
           reviews: 18,
           featured: false
@@ -41,7 +41,7 @@ export default {
           price: 800,
           originalPrice: 1000,
           category: "مواقع",
-          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=689277d6&is=68912656&hm=8f8ab77237cba350f6d2327653483187e8a95261fce99b8cd912256a350de0d9&",
+          image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png?ex=68742556&is=6872d3d6&hm=00b49d1e111c173858b24da3dadc37939d1bfa137d15c43020171902b629dcfa&",
           rating: 4.7,
           reviews: 32,
           featured: true
@@ -531,9 +531,9 @@ export default {
       <div class="footer-bottom">
         <p>&copy; 2024 متجر البرمجة. جميع الحقوق محفوظة.</p>
       </div>
+    </footer>
   </div>
 </template>
-
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
