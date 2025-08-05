@@ -155,6 +155,12 @@ export default {
       this.selectedCategory = category;
       this.sidebarOpen = false;
     },
+goToCheckout() {
+    this.$router.push({
+      name: 'OrderView',
+      query: {
+        cart: JSON.stringify(this.cart)
+      },
  proceedToCheckout() {
     if (this.cart.length === 0) return; // تأكد أن السلة غير فارغة
 
