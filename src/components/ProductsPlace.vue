@@ -156,13 +156,17 @@ methods: {
     this.sidebarOpen = false;
   },
 
-  goToCheckout() {
-    if (this.cart.length === 0) return; // تأكد أن السلة غير فارغة
+goToCheckout() {
+  if (this.cart.length === 0) return; // تأكد أن السلة غير فارغة
 
-    const cartData = JSON.stringify(this.cart);
-    this.$router.push({ name: 'order', query: { cart: cartData } });
-    this.cartOpen = false; // إغلاق السلة بعد التحويل
-  },
+  const cartData = JSON.stringify(this.cart);
+  this.$router.push({
+    name: 'OrderView',
+    query: { cart: cartData }
+  });
+
+  this.cartOpen = false; // إغلاق السلة بعد التحويل
+},
 
   addToCart(product) {
     const existingItem = this.cart.find(item => item.id === product.id);
