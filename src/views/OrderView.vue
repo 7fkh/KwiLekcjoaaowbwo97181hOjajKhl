@@ -1287,69 +1287,68 @@ export default {
     .form-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .section-title {
         font-size: 18px;
     }
-    
+
     .cont {
         padding: 20px 15px;
     }
-    
+
     .payment-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .product-content {
         flex-direction: column;
         text-align: center;
     }
-    
+
     .product-image {
         width: 100px;
         height: 100px;
         margin: 0 auto;
     }
-    
+
     .product-pricing {
         justify-content: center;
     }
-    
+
     .cart-item {
         flex-direction: column;
         text-align: center;
     }
-    
+
     .item-image {
         width: 60px;
         height: 60px;
         margin: 0 auto;
     }
-    
+
     .item-details {
         justify-content: center;
         flex-direction: column;
         gap: 8px;
     }
 }
-}
 
 @media (max-width: 480px) {
     .cont {
         padding: 15px 10px;
     }
-    
+
     .section {
         padding: 20px 15px;
     }
-    
+
     .logo {
         width: 120px;
     }
-    
+
     .order-number {
         font-size: 12px;
         padding: 10px 20px;
     }
-
+}
 </style>
