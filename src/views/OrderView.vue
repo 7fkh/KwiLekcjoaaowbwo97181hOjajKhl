@@ -70,10 +70,26 @@ export default {
                    this.formData.agreeToTerms;
         }
     },
-    mounted() {
-        this.generateOrderNumber();
-        this.animateInputs();
-    },
+mounted() {
+    this.generateOrderNumber();
+    this.animateInputs();
+    
+    // ✅ استيراد بيانات السلة تلقائيًا من ProductsPlace.vue
+    const cartQuery = this.$route.query.cart;
+    if (cartQuery) {
+        try {
+            const cartItems = JSON.parse(cartQuery);
+            if (Array.isArray(cartItems)) {
+                const details = cartItems.map(item => {
+                    return `• ${item.title} - الكمية: ${item.quantity} - السعر: ${item.price} ريال`;
+                }).join('\n');
+                this.formData.orderDetails = `الطلب من السلة:\n${details}`;
+            }
+        } catch (err) {
+            console.error('فشل في تحليل بيانات السلة:', err);
+        }
+    }
+},
     methods: {
         generateOrderNumber() {
             this.orderNumber = 'ORD-' + Date.now().toString(36).toUpperCase();
