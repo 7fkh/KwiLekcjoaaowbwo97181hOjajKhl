@@ -9,6 +9,7 @@ export default {
             isSubmitting: false,
             showSuccess: false,
             selectedProduct: null,
+            cartItems: [],
             formData: {
                 // معلومات العميل
                 discordId: '',
@@ -282,6 +283,7 @@ export default {
             };
             this.errors = {};
             this.selectedProduct = null;
+            this.cartItems = [];
             this.generateOrderNumber();
         },
 
@@ -338,6 +340,52 @@ export default {
                                         وفر {{ selectedProduct.originalPrice - selectedProduct.price }} ريال
                                     </span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cart Items Display -->
+                <div v-if="cartItems.length > 0" class="cart-display fade-in">
+                    <div class="cart-card">
+                        <div class="cart-header">
+                            <i class="fas fa-shopping-basket"></i>
+                            <h3>عناصر السلة</h3>
+                            <div class="cart-summary">
+                                <span class="items-count">{{ cartItemsCount }} عنصر</span>
+                                <span class="total-price">{{ cartTotal }} ريال</span>
+                            </div>
+                        </div>
+                        <div class="cart-items">
+                            <div v-for="item in cartItems" :key="item.id" class="cart-item">
+                                <div class="item-image">
+                                    <img :src="item.image" :alt="item.title">
+                                </div>
+                                <div class="item-info">
+                                    <h5>{{ item.title }}</h5>
+                                    <p class="item-description">{{ item.description }}</p>
+                                    <div class="item-details">
+                                        <div class="quantity">
+                                            <i class="fas fa-cubes"></i>
+                                            <span>الكمية: {{ item.quantity }}</span>
+                                        </div>
+                                        <div class="price">
+                                            <i class="fas fa-tag"></i>
+                                            <span>{{ item.price }} ريال</span>
+                                        </div>
+                                        <div class="subtotal">
+                                            <i class="fas fa-calculator"></i>
+                                            <span>المجموع: {{ item.price * item.quantity }} ريال</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cart-footer">
+                            <div class="total-section">
+                                <i class="fas fa-receipt"></i>
+                                <span class="total-label">الإجمالي النهائي:</span>
+                                <span class="total-amount">{{ cartTotal }} ريال سعودي</span>
                             </div>
                         </div>
                     </div>
@@ -676,13 +724,15 @@ export default {
     gap: 8px;
 }
 
-/* Selected Product */
-.selected-product {
+/* Selected Product & Cart Display */
+.selected-product,
+.cart-display {
     width: 100%;
     max-width: 800px;
 }
 
-.product-card {
+.product-card,
+.cart-card {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 25px;
@@ -690,7 +740,8 @@ export default {
     backdrop-filter: blur(10px);
 }
 
-.product-header {
+.product-header,
+.cart-header {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -698,15 +749,42 @@ export default {
     color: white;
 }
 
-.product-header i {
+.product-header i,
+.cart-header i {
     color: #007bff;
     font-size: 18px;
 }
 
-.product-header h3 {
+.product-header h3,
+.cart-header h3 {
     font-size: 18px;
     font-weight: 700;
     margin: 0;
+    flex: 1;
+}
+
+.cart-summary {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.items-count {
+    background: rgba(0, 123, 255, 0.2);
+    color: #007bff;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.total-price {
+    background: rgba(40, 167, 69, 0.2);
+    color: #28a745;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
 }
 
 .product-content {
@@ -775,6 +853,118 @@ export default {
     border-radius: 8px;
     font-size: 12px;
     font-weight: 600;
+}
+
+/* Cart Items */
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cart-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.item-image {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-info {
+    flex: 1;
+    color: white;
+}
+
+.item-info h5 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: #007bff;
+}
+
+.item-description {
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 0 0 12px 0;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.item-details {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.quantity,
+.price,
+.subtotal {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+}
+
+.quantity i {
+    color: #6c757d;
+}
+
+.price i {
+    color: #ffc107;
+}
+
+.subtotal i {
+    color: #28a745;
+}
+
+.cart-footer {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.total-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(40, 167, 69, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.total-section i {
+    color: #28a745;
+    font-size: 18px;
+}
+
+.total-label {
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.total-amount {
+    color: #28a745;
+    font-weight: 700;
+    font-size: 18px;
 }
 
 /* Form */
@@ -1124,6 +1314,24 @@ export default {
     .product-pricing {
         justify-content: center;
     }
+    
+    .cart-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .item-image {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+    }
+    
+    .item-details {
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+    }
+}
 }
 
 @media (max-width: 480px) {
