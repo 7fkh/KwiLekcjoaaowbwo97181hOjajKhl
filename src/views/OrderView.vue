@@ -21,10 +21,7 @@ export default {
                 selectedProduct: null,
                 
                 // تفاصيل الطلب
-                productName: '',
                 quantity: 1,
-                productImage: '',
-                price: '',
                 orderDetails: '',
                 paymentMethod: '',
                 
@@ -40,6 +37,80 @@ export default {
                 { value: 'paypal', label: 'PayPal', popular: false },
                 { value: 'visa', label: 'بطاقة ائتمان', popular: false },
             ],
+            products: [
+                {
+                    id: 1,
+                    name: 'تصميم لوجو احترافي',
+                    description: 'تصميم شعار احترافي مع ملفات متعددة الصيغ',
+                    price: '150',
+                    originalPrice: '200',
+                    image: 'https://via.placeholder.com/300x200/007bff/ffffff?text=Logo+Design',
+                    rating: 4.9,
+                    deliveryTime: '3-5 أيام',
+                    category: 'تصميم',
+                    popular: true,
+                    features: ['تصميم فريد', 'ملفات متعددة', 'مراجعات مجانية']
+                },
+                {
+                    id: 2,
+                    name: 'تطوير موقع ويب',
+                    description: 'تطوير موقع ويب متجاوب وحديث',
+                    price: '800',
+                    originalPrice: '1000',
+                    image: 'https://via.placeholder.com/300x200/28a745/ffffff?text=Web+Development',
+                    rating: 4.8,
+                    deliveryTime: '7-10 أيام',
+                    category: 'برمجة',
+                    popular: true,
+                    features: ['تصميم متجاوب', 'لوحة تحكم', 'دعم فني']
+                },
+                {
+                    id: 3,
+                    name: 'كتابة محتوى تسويقي',
+                    description: 'كتابة محتوى إبداعي وجذاب لوسائل التواصل',
+                    price: '100',
+                    image: 'https://via.placeholder.com/300x200/ffc107/000000?text=Content+Writing',
+                    rating: 4.7,
+                    deliveryTime: '2-3 أيام',
+                    category: 'كتابة',
+                    features: ['محتوى حصري', 'SEO محسن', 'مراجعة مجانية']
+                },
+                {
+                    id: 4,
+                    name: 'تحليل البيانات',
+                    description: 'تحليل البيانات وإنشاء تقارير مفصلة',
+                    price: '300',
+                    image: 'https://via.placeholder.com/300x200/17a2b8/ffffff?text=Data+Analysis',
+                    rating: 4.6,
+                    deliveryTime: '5-7 أيام',
+                    category: 'تحليل',
+                    features: ['تقارير تفاعلية', 'رسوم بيانية', 'استشارة مجانية']
+                },
+                {
+                    id: 5,
+                    name: 'تطبيق موبايل',
+                    description: 'تطوير تطبيق موبايل لنظامي iOS وAndroid',
+                    price: '1500',
+                    originalPrice: '2000',
+                    image: 'https://via.placeholder.com/300x200/6f42c1/ffffff?text=Mobile+App',
+                    rating: 4.9,
+                    deliveryTime: '15-20 يوم',
+                    category: 'برمجة',
+                    popular: true,
+                    features: ['متوافق مع النظامين', 'واجهة حديثة', 'دعم مستمر']
+                },
+                {
+                    id: 6,
+                    name: 'حملة إعلانية',
+                    description: 'إدارة وتصميم حملة إعلانية متكاملة',
+                    price: '500',
+                    image: 'https://via.placeholder.com/300x200/dc3545/ffffff?text=Ad+Campaign',
+                    rating: 4.5,
+                    deliveryTime: '7-14 يوم',
+                    category: 'تسويق',
+                    features: ['استهداف دقيق', 'تقارير يومية', 'تحسين مستمر']
+                }
+            ],
             orderNumber: null
         }
     },
@@ -48,7 +119,7 @@ export default {
             return this.formData.discordId.trim() &&
                    this.formData.fullName.trim() &&
                    this.formData.contactInfo.trim() &&
-                   (this.formData.selectedProduct || (this.formData.productName.trim() && this.formData.price.trim())) &&
+                   this.formData.selectedProduct &&
                    this.formData.quantity > 0 &&
                    this.formData.orderDetails.trim() &&
                    this.formData.paymentMethod &&
@@ -75,15 +146,17 @@ export default {
             });
         },
 
+        selectProduct(product) {
+            this.formData.selectedProduct = product;
+            this.formData.quantity = 1;
+        },
+
         loadProductFromQuery() {
             const selectedProduct = this.$route.query.product;
             if (selectedProduct) {
                 try {
                     const product = JSON.parse(selectedProduct);
                     this.formData.selectedProduct = product;
-                    this.formData.productName = product.name || product.title;
-                    this.formData.price = product.price;
-                    this.formData.productImage = product.image;
                     this.formData.quantity = 1;
                 } catch (err) {
                     console.error('فشل في تحليل بيانات المنتج:', err);
@@ -124,12 +197,7 @@ export default {
             
             // التحقق من المنتج
             if (!this.formData.selectedProduct) {
-                if (!this.formData.productName.trim()) {
-                    this.errors.productName = 'اسم المنتج مطلوب';
-                }
-                if (!this.formData.price.trim()) {
-                    this.errors.price = 'السعر مطلوب';
-                }
+                this.errors.selectedProduct = 'يجب اختيار منتج';
             }
             
             // التحقق من الكمية
@@ -235,7 +303,7 @@ export default {
         getProductInfo() {
             if (this.formData.selectedProduct) {
                 const product = this.formData.selectedProduct;
-                let info = `**المنتج:** ${product.name || product.title}\n**الكمية:** ${this.formData.quantity}\n**السعر الوحدة:** ${product.price} ريال\n**المجموع:** ${this.calculateTotal()} ريال`;
+                let info = `**المنتج:** ${product.name}\n**الكمية:** ${this.formData.quantity}\n**السعر الوحدة:** ${product.price} ريال\n**المجموع:** ${this.calculateTotal()} ريال`;
                 
                 if (product.category) {
                     info += `\n**الفئة:** ${product.category}`;
@@ -243,17 +311,13 @@ export default {
                 if (product.description) {
                     info += `\n**الوصف:** ${product.description}`;
                 }
-                
-                return info;
-            } else {
-                let info = `**المنتج:** ${this.formData.productName}\n**الكمية:** ${this.formData.quantity}\n**السعر:** ${this.formData.price} ريال`;
-                
-                if (this.formData.productImage) {
-                    info += `\n**الصورة:** [عرض الصورة](${this.formData.productImage})`;
+                if (product.deliveryTime) {
+                    info += `\n**وقت التسليم:** ${product.deliveryTime}`;
                 }
                 
                 return info;
             }
+            return '';
         },
 
         getOptionalFields() {
@@ -281,8 +345,6 @@ export default {
         getProductImage() {
             if (this.formData.selectedProduct?.image) {
                 return this.formData.selectedProduct.image;
-            } else if (this.formData.productImage) {
-                return this.formData.productImage;
             }
             return 'https://i.imgur.com/cgrAYPN.png';
         },
@@ -293,10 +355,7 @@ export default {
                 fullName: '',
                 contactInfo: '',
                 selectedProduct: null,
-                productName: '',
                 quantity: 1,
-                productImage: '',
-                price: '',
                 orderDetails: '',
                 paymentMethod: '',
                 example: '',
@@ -308,7 +367,6 @@ export default {
         },
 
         showAlert(message, type) {
-            // يمكن استبدال هذا بنظام تنبيهات أفضل
             alert(message);
         },
 
@@ -371,74 +429,110 @@ export default {
                 
                 <form @submit.prevent="sendApply" class="form">
                     <div class="form-grid">
-                        <!-- المنتج المحدد -->
+                        <!-- قسم المنتجات -->
+                        <div class="section fade-in">
+                            <h3 class="section-title">
+                                <i class="fas fa-shopping-bag"></i>
+                                اختر المنتج
+                            </h3>
+                            
+                            <div class="products-grid">
+                                <div v-for="product in products" 
+                                     :key="product.id" 
+                                     class="product-card"
+                                     :class="{ 'selected': formData.selectedProduct && formData.selectedProduct.id === product.id }"
+                                     @click="selectProduct(product)">
+                                    
+                                    <div class="product-image">
+                                        <img :src="product.image" :alt="product.name" />
+                                        <div v-if="product.popular" class="popular-badge">الأكثر طلباً</div>
+                                    </div>
+                                    
+                                    <div class="product-info">
+                                        <h4 class="product-name">{{ product.name }}</h4>
+                                        <p class="product-description">{{ product.description }}</p>
+                                        
+                                        <div class="product-details">
+                                            <div class="price">
+                                                <span class="current-price">{{ product.price }} ريال</span>
+                                                <span v-if="product.originalPrice" class="original-price">{{ product.originalPrice }} ريال</span>
+                                            </div>
+                                            
+                                            <div class="product-meta">
+                                                <div class="rating" v-if="product.rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <span>{{ product.rating }}/5</span>
+                                                </div>
+                                                
+                                                <div class="delivery-time" v-if="product.deliveryTime">
+                                                    <i class="fas fa-clock"></i>
+                                                    <span>{{ product.deliveryTime }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="product-features" v-if="product.features">
+                                            <div v-for="feature in product.features" :key="feature" class="feature-item">
+                                                <i class="fas fa-check"></i>
+                                                <span>{{ feature }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span v-if="errors.selectedProduct" class="error-message">{{ errors.selectedProduct }}</span>
+                        </div>
+
+                        <!-- الكمية للمنتج المحدد -->
                         <div v-if="formData.selectedProduct" class="section fade-in selected-product">
                             <h3 class="section-title">
                                 <i class="fas fa-shopping-cart"></i>
-                                المنتج المحدد
+                                تفاصيل الطلب
                             </h3>
                             
-                            <div class="product-display">
-                                <div class="product-image" v-if="formData.selectedProduct.image">
-                                    <img :src="formData.selectedProduct.image" :alt="formData.selectedProduct.name || formData.selectedProduct.title" />
-                                </div>
-                                <div class="product-info">
-                                    <h4 class="product-title">{{ formData.selectedProduct.name || formData.selectedProduct.title }}</h4>
-                                    <p class="product-description" v-if="formData.selectedProduct.description">
-                                        {{ formData.selectedProduct.description }}
-                                    </p>
-                                    <div class="product-details">
-                                        <div class="detail-item">
-                                            <i class="fas fa-tag"></i>
-                                            <span>السعر: {{ formData.selectedProduct.price }} ريال</span>
-                                        </div>
-                                        <div class="detail-item" v-if="formData.selectedProduct.category">
-                                            <i class="fas fa-list"></i>
-                                            <span>الفئة: {{ formData.selectedProduct.category }}</span>
-                                        </div>
-                                        <div class="detail-item" v-if="formData.selectedProduct.rating">
-                                            <i class="fas fa-star"></i>
-                                            <span>التقييم: {{ formData.selectedProduct.rating }}/5</span>
-                                        </div>
-                                        <div class="detail-item" v-if="formData.selectedProduct.availability">
-                                            <i class="fas fa-check-circle"></i>
-                                            <span>متوفر</span>
-                                        </div>
+                            <div class="selected-product-display">
+                                <div class="product-summary">
+                                    <div class="summary-image">
+                                        <img :src="formData.selectedProduct.image" :alt="formData.selectedProduct.name" />
                                     </div>
-                                    
-                                    <div class="quantity-selector">
-                                        <label for="selectedQuantity">
-                                            <i class="fas fa-sort-numeric-up"></i>
-                                            الكمية المطلوبة
-                                        </label>
-                                        <div class="quantity-controls">
-                                            <button 
-                                                type="button" 
-                                                class="qty-btn minus" 
-                                                @click="decreaseQuantity" 
-                                                :disabled="formData.quantity <= 1"
-                                            >
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-                                            <input 
-                                                id="selectedQuantity"
-                                                v-model.number="formData.quantity"
-                                                type="number"
-                                                min="1"
-                                                class="qty-input"
-                                                readonly
-                                            >
-                                            <button 
-                                                type="button" 
-                                                class="qty-btn plus" 
-                                                @click="increaseQuantity"
-                                            >
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                        <div class="total-price">
-                                            <strong>المجموع: {{ calculateTotal() }} ريال</strong>
-                                        </div>
+                                    <div class="summary-info">
+                                        <h4>{{ formData.selectedProduct.name }}</h4>
+                                        <p>{{ formData.selectedProduct.description }}</p>
+                                        <div class="summary-price">{{ formData.selectedProduct.price }} ريال</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="quantity-selector">
+                                    <label>
+                                        <i class="fas fa-sort-numeric-up"></i>
+                                        الكمية المطلوبة
+                                    </label>
+                                    <div class="quantity-controls">
+                                        <button 
+                                            type="button" 
+                                            class="qty-btn minus" 
+                                            @click="decreaseQuantity" 
+                                            :disabled="formData.quantity <= 1"
+                                        >
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <input 
+                                            v-model.number="formData.quantity"
+                                            type="number"
+                                            min="1"
+                                            class="qty-input"
+                                            readonly
+                                        >
+                                        <button 
+                                            type="button" 
+                                            class="qty-btn plus" 
+                                            @click="increaseQuantity"
+                                        >
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <div class="total-price">
+                                        <strong>المجموع: {{ calculateTotal() }} ريال</strong>
                                     </div>
                                 </div>
                             </div>
@@ -497,74 +591,12 @@ export default {
                             </div>
                         </div>
                         
-                        <!-- تفاصيل الطلب -->
+                        <!-- تفاصيل إضافية للطلب -->
                         <div class="section fade-in">
                             <h3 class="section-title">
                                 <i class="fas fa-clipboard-list"></i>
-                                تفاصيل الطلب
+                                تفاصيل إضافية للطلب
                             </h3>
-                            
-                            <!-- إظهار حقول المنتج فقط إذا لم يكن هناك منتج محدد -->
-                            <div v-if="!formData.selectedProduct" class="product-grid">
-                                <div class="inp">
-                                    <label for="productName">
-                                        <i class="fas fa-box"></i>
-                                        اسم المنتج *
-                                    </label>
-                                    <input 
-                                        id="productName"
-                                        v-model="formData.productName"
-                                        placeholder="أدخل اسم المنتج"
-                                        type="text"
-                                        :class="{ 'error': errors.productName }"
-                                    >
-                                    <span v-if="errors.productName" class="error-message">{{ errors.productName }}</span>
-                                </div>
-                                
-                                <div class="inp">
-                                    <label for="quantity">
-                                        <i class="fas fa-sort-numeric-up"></i>
-                                        الكمية *
-                                    </label>
-                                    <input 
-                                        id="quantity"
-                                        v-model.number="formData.quantity"
-                                        placeholder="1"
-                                        type="number"
-                                        min="1"
-                                        :class="{ 'error': errors.quantity }"
-                                    >
-                                    <span v-if="errors.quantity" class="error-message">{{ errors.quantity }}</span>
-                                </div>
-                            </div>
-                            
-                            <div v-if="!formData.selectedProduct" class="inp">
-                                <label for="productImage">
-                                    <i class="fas fa-image"></i>
-                                    رابط صورة المنتج (اختياري)
-                                </label>
-                                <input 
-                                    id="productImage"
-                                    v-model="formData.productImage"
-                                    placeholder="https://example.com/image.jpg"
-                                    type="url"
-                                >
-                            </div>
-                            
-                            <div v-if="!formData.selectedProduct" class="inp">
-                                <label for="price">
-                                    <i class="fas fa-dollar-sign"></i>
-                                    السعر (بالريال السعودي) *
-                                </label>
-                                <input 
-                                    id="price"
-                                    v-model="formData.price"
-                                    placeholder="100"
-                                    type="text"
-                                    :class="{ 'error': errors.price }"
-                                >
-                                <span v-if="errors.price" class="error-message">{{ errors.price }}</span>
-                            </div>
                             
                             <div class="inp">
                                 <label for="orderDetails">
@@ -710,7 +742,6 @@ export default {
     </div>
 </template>
 
-
 <style scoped>
 /* Animations */
 @keyframes fadeInUp {
@@ -800,7 +831,7 @@ export default {
 
 .cont {
     width: 100%;
-    max-width: 900px;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -886,44 +917,76 @@ export default {
     color: #007bff;
 }
 
-/* Selected Product Styles */
-.selected-product {
-    background: rgba(0, 123, 255, 0.1);
-    border: 1px solid rgba(0, 123, 255, 0.3);
+/* Products Grid */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
 }
 
-.product-display {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 20px;
-    align-items: start;
+.product-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 123, 255, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.2);
+}
+
+.product-card.selected {
+    border-color: #007bff;
+    background: rgba(0, 123, 255, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
 }
 
 .product-image {
-    width: 200px;
+    position: relative;
     height: 200px;
-    border-radius: 15px;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .product-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+.popular-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: linear-gradient(135deg, #ffc107, #ff8c00);
+    color: #000;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(255, 193, 7, 0.3);
 }
 
 .product-info {
+    padding: 20px;
     color: white;
 }
 
-.product-title {
-    font-size: 24px;
+.product-name {
+    font-size: 18px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     color: #007bff;
 }
 
@@ -931,39 +994,135 @@ export default {
     font-size: 14px;
     margin-bottom: 15px;
     opacity: 0.9;
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
 .product-details {
-    display: grid;
-    gap: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
-.detail-item {
+.price {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 14px;
-    padding: 5px 0;
+    margin-bottom: 10px;
 }
 
-.detail-item i {
+.current-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.original-price {
+    font-size: 14px;
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+.product-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.rating, .delivery-time {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+}
+
+.rating i {
+    color: #ffc107;
+}
+
+.delivery-time i {
     color: #007bff;
-    width: 16px;
-    text-align: center;
+}
+
+.product-features {
+    display: grid;
+    gap: 5px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.feature-item i {
+    color: #28a745;
+    font-size: 10px;
+}
+
+/* Selected Product Display */
+.selected-product {
+    background: rgba(0, 123, 255, 0.1);
+    border: 1px solid rgba(0, 123, 255, 0.3);
+}
+
+.selected-product-display {
+    display: grid;
+    gap: 20px;
+}
+
+.product-summary {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 15px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.summary-image {
+    width: 120px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.summary-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.summary-info h4 {
+    color: #007bff;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.summary-info p {
+    font-size: 13px;
+    margin-bottom: 8px;
+    opacity: 0.8;
+}
+
+.summary-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #28a745;
 }
 
 /* Quantity Selector */
 .quantity-selector {
-    margin-top: 20px;
+    display: grid;
+    gap: 15px;
 }
 
 .quantity-selector label {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 10px;
     font-weight: 600;
     color: white;
 }
@@ -971,13 +1130,13 @@ export default {
 .quantity-controls {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
+    justify-content: center;
+    gap: 15px;
 }
 
 .qty-btn {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border: none;
     background: #007bff;
     color: white;
@@ -987,6 +1146,7 @@ export default {
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: 16px;
 }
 
 .qty-btn:hover:not(:disabled) {
@@ -1000,23 +1160,24 @@ export default {
 }
 
 .qty-input {
-    width: 60px;
-    height: 35px;
+    width: 80px;
+    height: 40px;
     text-align: center;
     border: 2px solid rgba(255, 255, 255, 0.2);
     background: rgba(255, 255, 255, 0.1);
     color: white;
-    border-radius: 5px;
+    border-radius: 8px;
     font-weight: bold;
+    font-size: 16px;
 }
 
 .total-price {
     color: #007bff;
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
-    padding: 10px;
+    padding: 15px;
     background: rgba(0, 123, 255, 0.1);
-    border-radius: 5px;
+    border-radius: 10px;
     border: 1px solid rgba(0, 123, 255, 0.3);
 }
 
@@ -1082,14 +1243,6 @@ export default {
     margin-top: 5px;
 }
 
-/* Product Grid for manual entry */
-.product-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
 /* Payment Grid */
 .payment-grid {
     display: grid;
@@ -1139,7 +1292,7 @@ export default {
     color: white;
 }
 
-.popular-badge {
+.payment-card .popular-badge {
     position: absolute;
     top: -8px;
     right: -8px;
@@ -1182,11 +1335,11 @@ export default {
 /* Submit Button */
 .submit-btn {
     width: 100%;
-    padding: 14px;
+    padding: 16px;
     background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 16px;
     font-weight: bold;
     transition: all 0.3s ease;
@@ -1298,7 +1451,7 @@ export default {
 
 .success-btn {
     margin-top: 20px;
-    padding: 10px 20px;
+    padding: 12px 25px;
     background: #007bff;
     color: white;
     border: none;
@@ -1328,20 +1481,19 @@ export default {
         max-width: 95%;
     }
     
-    .product-display {
+    .products-grid {
         grid-template-columns: 1fr;
-        gap: 15px;
     }
     
-    .product-image {
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-    }
-    
-    .product-title {
-        font-size: 20px;
+    .product-summary {
+        grid-template-columns: 1fr;
         text-align: center;
+    }
+    
+    .summary-image {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
     }
     
     .quantity-controls {
@@ -1353,11 +1505,7 @@ export default {
     }
     
     .payment-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .product-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
     }
     
     .order-number {
@@ -1383,24 +1531,20 @@ export default {
         height: 150px;
     }
     
-    .product-title {
-        font-size: 18px;
-    }
-    
-    .detail-item {
-        font-size: 13px;
+    .product-name {
+        font-size: 16px;
     }
     
     .qty-btn {
-        width: 30px;
-        height: 30px;
-        font-size: 12px;
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
     }
     
     .qty-input {
-        width: 50px;
-        height: 30px;
-        font-size: 12px;
+        width: 60px;
+        height: 35px;
+        font-size: 14px;
     }
     
     .inp input,
@@ -1410,13 +1554,17 @@ export default {
     }
     
     .submit-btn {
-        padding: 12px;
+        padding: 14px;
         font-size: 14px;
     }
     
     .success-card {
         padding: 30px 20px;
         margin: 20px;
+    }
+    
+    .payment-grid {
+        grid-template-columns: 1fr;
     }
     
     .payment-card {
@@ -1430,65 +1578,6 @@ export default {
     .payment-label {
         font-size: 11px;
     }
-}
-
-/* Additional Utility Classes */
-.text-center {
-    text-align: center;
-}
-
-.mb-10 {
-    margin-bottom: 10px;
-}
-
-.mb-15 {
-    margin-bottom: 15px;
-}
-
-.mb-20 {
-    margin-bottom: 20px;
-}
-
-.mt-10 {
-    margin-top: 10px;
-}
-
-.mt-15 {
-    margin-top: 15px;
-}
-
-.mt-20 {
-    margin-top: 20px;
-}
-
-/* Focus visible for accessibility */
-.inp input:focus-visible,
-.inp textarea:focus-visible,
-.submit-btn:focus-visible,
-.payment-card:focus-visible {
-    outline: 2px solid #007bff;
-    outline-offset: 2px;
-}
-
-/* Loading state improvements */
-.submit-btn.loading .spinner {
-    margin-right: 8px;
-}
-
-/* Icon improvements */
-.section-title i,
-.inp label i,
-.btn-content i,
-.order-number i,
-.checkbox-text i,
-.success-card h2 i,
-.detail-item i {
-    flex-shrink: 0;
-}
-
-/* Smooth transitions */
-* {
-    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Custom scrollbar */
