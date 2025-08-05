@@ -150,115 +150,122 @@ export default {
       }, 0);
     }
   },
-  methods: {
-    filterProducts(category) {
-      this.selectedCategory = category;
-      this.sidebarOpen = false;
-    },
-goToCheckout() {
-    this.$router.push({
-      name: 'OrderView',
-      query: {
-        cart: JSON.stringify(this.cart)
-      },
- proceedToCheckout() {
+methods: {
+  filterProducts(category) {
+    this.selectedCategory = category;
+    this.sidebarOpen = false;
+  },
+
+  goToCheckout() {
     if (this.cart.length === 0) return; // تأكد أن السلة غير فارغة
 
     const cartData = JSON.stringify(this.cart);
-    this.$router.push({ name: 'order', query: { cart: cartData } });
+    this.$router.push({ name: 'OrderView', query: { cart: cartData } });
     this.cartOpen = false; // إغلاق السلة بعد التحويل
   },
-    addToCart(product) {
-      const existingItem = this.cart.find(item => item.id === product.id);
-      
-      if (existingItem) {
-        existingItem.quantity += 1;
-      } else {
-        this.cart.push({
-          ...product,
-          quantity: 1
-        });
-      }
-      
-      this.lastAddedProduct = product;
-      this.showNotification = true;
-      setTimeout(() => {
-        this.showNotification = false;
-      }, 3000);
-    },
-    removeFromCart(productId) {
-      this.cart = this.cart.filter(item => item.id !== productId);
-    },
-    updateQuantity(productId, newQuantity) {
-      if (newQuantity <= 0) {
-        this.removeFromCart(productId);
-        return;
-      }
-      
-      const item = this.cart.find(item => item.id === productId);
-      if (item) {
-        item.quantity = newQuantity;
-      }
-    },
-    toggleSidebar() {
-      this.sidebarOpen = !this.sidebarOpen;
-      if (this.sidebarOpen && this.cartOpen) {
-        this.cartOpen = false;
-      }
-    },
-    toggleCart() {
-      this.cartOpen = !this.cartOpen;
-      if (this.cartOpen && this.sidebarOpen) {
-        this.sidebarOpen = false;
-      }
-    },
-    closeSidebar() {
-      this.sidebarOpen = false;
-    },
-    closeCart() {
-      this.cartOpen = false;
-    },
-    clearCart() {
-      this.cart = [];
-      this.cartOpen = false;
-    },
-    renderStars(rating) {
-      const fullStars = Math.floor(rating);
-      const hasHalfStar = rating % 1 !== 0;
-      let stars = '';
-      
-      for (let i = 0; i < fullStars; i++) {
-        stars += '★';
-      }
-      if (hasHalfStar) {
-        stars += '☆';
-      }
-      
-      return stars;
-    },
-    formatPrice(price) {
-      return new Intl.NumberFormat('ar-SA', {
-        style: 'currency',
-        currency: 'SAR',
-        minimumFractionDigits: 0
-      }).format(price);
-    },
-    getCategoryIcon(categoryId) {
-      const icons = {
-        'الكل': 'fas fa-th-large',
-        'ديسكورد': 'fab fa-discord',
-        'فايف ام': 'fas fa-gamepad',
-        'مواقع': 'fas fa-globe',
-        'تطبيقات': 'fas fa-mobile-alt',
-        'أتمتة': 'fas fa-robot'
-      };
-      return icons[categoryId] || 'fas fa-tag';
-    },
-    getDiscountPercentage(originalPrice, currentPrice) {
-      return Math.round((1 - currentPrice / originalPrice) * 100);
+
+  addToCart(product) {
+    const existingItem = this.cart.find(item => item.id === product.id);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      this.cart.push({
+        ...product,
+        quantity: 1
+      });
     }
+
+    this.lastAddedProduct = product;
+    this.showNotification = true;
+    setTimeout(() => {
+      this.showNotification = false;
+    }, 3000);
+  },
+
+  removeFromCart(productId) {
+    this.cart = this.cart.filter(item => item.id !== productId);
+  },
+
+  updateQuantity(productId, newQuantity) {
+    if (newQuantity <= 0) {
+      this.removeFromCart(productId);
+      return;
+    }
+
+    const item = this.cart.find(item => item.id === productId);
+    if (item) {
+      item.quantity = newQuantity;
+    }
+  },
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+    if (this.sidebarOpen && this.cartOpen) {
+      this.cartOpen = false;
+    }
+  },
+
+  toggleCart() {
+    this.cartOpen = !this.cartOpen;
+    if (this.cartOpen && this.sidebarOpen) {
+      this.sidebarOpen = false;
+    }
+  },
+
+  closeSidebar() {
+    this.sidebarOpen = false;
+  },
+
+  closeCart() {
+    this.cartOpen = false;
+  },
+
+  clearCart() {
+    this.cart = [];
+    this.cartOpen = false;
+  },
+
+  renderStars(rating) {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+    let stars = '';
+
+    for (let i = 0; i < fullStars; i++) {
+      stars += '★';
+    }
+    if (hasHalfStar) {
+      stars += '☆';
+    }
+
+    return stars;
+  },
+
+  formatPrice(price) {
+    return new Intl.NumberFormat('ar-SA', {
+      style: 'currency',
+      currency: 'SAR',
+      minimumFractionDigits: 0
+    }).format(price);
+  },
+
+  getCategoryIcon(categoryId) {
+    const icons = {
+      'الكل': 'fas fa-th-large',
+      'ديسكورد': 'fab fa-discord',
+      'فايف ام': 'fas fa-gamepad',
+      'مواقع': 'fas fa-globe',
+      'تطبيقات': 'fas fa-mobile-alt',
+      'أتمتة': 'fas fa-robot'
+    };
+    return icons[categoryId] || 'fas fa-tag';
+  },
+
+  getDiscountPercentage(originalPrice, currentPrice) {
+    return Math.round((1 - currentPrice / originalPrice) * 100);
   }
-};
+}
+
 </script>
 
 <template>
@@ -365,7 +372,7 @@ goToCheckout() {
                   إفراغ السلة
                 </button>
                 <button 
-                  @click="proceedToCheckout" 
+                  @click="goToCheckout" 
                   class="checkout-btn"
                   :disabled="cart.length === 0"
                 >
