@@ -265,7 +265,6 @@ methods: {
     return Math.round((1 - currentPrice / originalPrice) * 100);
   }
 }
-
 </script>
 
 <template>
