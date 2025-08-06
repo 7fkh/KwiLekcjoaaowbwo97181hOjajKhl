@@ -1,6 +1,5 @@
 <script>
 import { debounce, throttle } from 'lodash';
-import from 'lodash'
 import debounce from 'lodash/debounce'
 
 export default {
