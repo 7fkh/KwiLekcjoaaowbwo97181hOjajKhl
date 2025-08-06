@@ -74,7 +74,7 @@
           <button 
             @click="performSearch" 
             class="search-btn"
-            aria-label="بحث"
+            aria-label="البحث"
             type="button"
           >
             <i class="fas fa-search search-icon"></i>
