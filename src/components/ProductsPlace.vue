@@ -142,7 +142,8 @@ export default {
 
     totalSavings() {
       return this.cart.reduce((savings, item) => {
-        const itemSaving = (item.originalPrice - item.price) * item.quantity;
+        const originalPrice = item.originalPrice || item.price;
+        const itemSaving = (originalPrice - item.price) * item.quantity;
         return savings + itemSaving;
       }, 0);
     },
@@ -208,6 +209,48 @@ export default {
       try {
         this.products = [
           {
+            id: 1,
+            title: "بوت ديسكورد متقدم",
+            description: "بوت ديسكورد احترافي مع إدارة الخوادم والموسيقى والألعاب التفاعلية",
+            price: 250,
+            originalPrice: 350,
+            category: "ديسكورد",
+            image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png",
+            rating: 4.8,
+            reviews: 45,
+            featured: true,
+            tags: ['بوت', 'ديسكورد', 'إدارة', 'موسيقى'],
+            createdAt: new Date('2024-01-15'),
+            inStock: true,
+            specifications: {
+              language: 'JavaScript/Python',
+              hosting: 'مضمن لمدة سنة',
+              support: '24/7',
+              customization: 'متاح'
+            }
+          },
+          {
+            id: 2,
+            title: "سكريبت FiveM مخصص",
+            description: "سكريبت FiveM متكامل للوظائف والاقتصاد مع واجهة مستخدم احترافية",
+            price: 400,
+            originalPrice: 500,
+            category: "فايف ام",
+            image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png",
+            rating: 4.9,
+            reviews: 38,
+            featured: true,
+            tags: ['FiveM', 'سكريبت', 'وظائف', 'اقتصاد'],
+            createdAt: new Date('2024-02-10'),
+            inStock: true,
+            specifications: {
+              language: 'Lua',
+              framework: 'ESX/QBCore',
+              database: 'MySQL',
+              support: 'شهر مجاني'
+            }
+          },
+          {
             id: 3,
             title: "موقع إلكتروني احترافي",
             description: "تصميم وبرمجة موقع إلكتروني احترافي متجاوب مع جميع الأجهزة",
@@ -219,7 +262,14 @@ export default {
             reviews: 32,
             featured: true,
             tags: ['موقع', 'تصميم', 'متجاوب'],
-            createdAt: new Date('2024-01-20')
+            createdAt: new Date('2024-01-20'),
+            inStock: true,
+            specifications: {
+              technology: 'HTML5/CSS3/JavaScript',
+              responsive: 'نعم',
+              seo: 'محسن لمحركات البحث',
+              hosting: 'سنة مجانية'
+            }
           },
           {
             id: 4,
@@ -233,7 +283,14 @@ export default {
             reviews: 15,
             featured: true,
             tags: ['تطبيق', 'موبايل', 'iOS', 'Android'],
-            createdAt: new Date('2024-03-01')
+            createdAt: new Date('2024-03-01'),
+            inStock: true,
+            specifications: {
+              platforms: 'iOS & Android',
+              technology: 'React Native/Flutter',
+              features: 'مخصصة حسب الطلب',
+              maintenance: '6 أشهر مجانية'
+            }
           },
           {
             id: 5,
@@ -247,12 +304,19 @@ export default {
             reviews: 28,
             featured: false,
             tags: ['CMS', 'إدارة', 'محتوى'],
-            createdAt: new Date('2024-01-10')
+            createdAt: new Date('2024-01-10'),
+            inStock: true,
+            specifications: {
+              technology: 'PHP/Laravel',
+              database: 'MySQL',
+              features: 'متعددة المستخدمين',
+              customization: 'قابل للتخصيص'
+            }
           },
           {
             id: 6,
             title: "خدمات FiveM إضافية",
-            description: "إضافات وتحسينات وسكريبتات مخصصة لسيرفر FiveM",
+            description: "إضافات وتحسينات وسكريپتات مخصصة لسيرفر FiveM",
             price: 100,
             originalPrice: 150,
             category: "فايف ام",
@@ -260,8 +324,15 @@ export default {
             rating: 4.5,
             reviews: 41,
             featured: false,
-            tags: ['FiveM', 'سكريبتات', 'إضافات'],
-            createdAt: new Date('2024-02-15')
+            tags: ['FiveM', 'سكريپتات', 'إضافات'],
+            createdAt: new Date('2024-02-15'),
+            inStock: true,
+            specifications: {
+              type: 'إضافات متنوعة',
+              compatibility: 'جميع الإطارات',
+              installation: 'دعم التركيب',
+              updates: 'تحديثات مجانية'
+            }
           },
           {
             id: 7,
@@ -275,7 +346,14 @@ export default {
             reviews: 22,
             featured: true,
             tags: ['متجر', 'دفع', 'تجارة إلكترونية'],
-            createdAt: new Date('2024-02-28')
+            createdAt: new Date('2024-02-28'),
+            inStock: true,
+            specifications: {
+              payments: 'بوابات دفع متعددة',
+              inventory: 'إدارة المخزون',
+              shipping: 'حساب الشحن',
+              analytics: 'تقارير مفصلة'
+            }
           },
           {
             id: 8,
@@ -289,7 +367,14 @@ export default {
             reviews: 19,
             featured: false,
             tags: ['أتمتة', 'سكريپتات', 'إدارة'],
-            createdAt: new Date('2024-01-25')
+            createdAt: new Date('2024-01-25'),
+            inStock: true,
+            specifications: {
+              language: 'Python/JavaScript',
+              automation: 'مهام متنوعة',
+              schedule: 'جدولة تلقائية',
+              integration: 'تكامل مع APIs'
+            }
           }
         ];
 
@@ -303,6 +388,7 @@ export default {
         ];
 
         this.isLoading = false;
+        this.showNotificationMessage('تم تحميل المنتجات بنجاح', 'success', 2000);
       } catch (error) {
         this.handleError('فشل في تحميل البيانات', error);
       }
@@ -314,6 +400,9 @@ export default {
       window.addEventListener('keydown', this.handleGlobalKeydown);
       window.addEventListener('beforeunload', this.saveUserData);
       document.addEventListener('visibilitychange', this.handleVisibilityChange);
+      
+      // إضافة مستمع للنقر خارج العناصر لإغلاق القوائم
+      document.addEventListener('click', this.handleOutsideClick);
     },
 
     removeEventListeners() {
@@ -321,12 +410,30 @@ export default {
       window.removeEventListener('keydown', this.handleGlobalKeydown);
       window.removeEventListener('beforeunload', this.saveUserData);
       document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+      document.removeEventListener('click', this.handleOutsideClick);
     },
 
     handleGlobalKeydown(event) {
       if (event.key === 'Escape') {
         this.closeAllPanels();
         this.closeQuickView();
+      }
+    },
+
+    handleOutsideClick(event) {
+      // إغلاق السايدبار عند النقر خارجه
+      if (this.sidebarOpen && !event.target.closest('.sidebar') && !event.target.closest('.sidebar-toggle')) {
+        this.sidebarOpen = false;
+      }
+      
+      // إغلاق السلة عند النقر خارجها
+      if (this.cartOpen && !event.target.closest('.cart-panel') && !event.target.closest('.cart-toggle')) {
+        this.cartOpen = false;
+      }
+      
+      // إغلاق العرض السريع عند النقر خارجه
+      if (this.quickViewProduct && !event.target.closest('.quick-view-modal') && !event.target.closest('.quick-view-btn')) {
+        this.quickViewProduct = null;
       }
     },
 
@@ -340,9 +447,9 @@ export default {
       }
     },
 
-    // Security Functions
+    // Security Functions - تحسين دالة التنظيف
     sanitizeInput(input) {
-      if (typeof input !== 'string') return '';
+      if (typeof input !== 'string') return String(input || '');
       return input
         .replace(/[<>\"']/g, '')
         .replace(/javascript:/gi, '')
@@ -370,15 +477,55 @@ export default {
       }
     },
 
-    // Validation Functions
+    // تحسين دالة التحقق من صحة البيانات - هذا هو الإصلاح الرئيسي
     validateProductData(product) {
-      return product && 
-             typeof product.id === 'number' && 
-             typeof product.title === 'string' && 
-             typeof product.price === 'number' && 
-             product.price > 0 &&
-             typeof product.image === 'string' &&
-             typeof product.category === 'string';
+      if (!product || typeof product !== 'object') {
+        console.warn('Product is null, undefined, or not an object:', product);
+        return false;
+      }
+
+      // التحقق من الحقول الأساسية
+      const requiredFields = ['id', 'title', 'price', 'category'];
+      for (const field of requiredFields) {
+        if (product[field] === undefined || product[field] === null) {
+          console.warn(`Product missing required field: ${field}`, product);
+          return false;
+        }
+      }
+
+      // التحقق من أنواع البيانات
+      if (typeof product.id !== 'number' || product.id <= 0) {
+        console.warn('Invalid product ID:', product.id);
+        return false;
+      }
+
+      if (typeof product.title !== 'string' || product.title.trim().length === 0) {
+        console.warn('Invalid product title:', product.title);
+        return false;
+      }
+
+      if (typeof product.price !== 'number' || product.price < 0) {
+        console.warn('Invalid product price:', product.price);
+        return false;
+      }
+
+      if (typeof product.category !== 'string' || product.category.trim().length === 0) {
+        console.warn('Invalid product category:', product.category);
+        return false;
+      }
+
+      // التحقق من الحقول الاختيارية
+      if (product.image && typeof product.image !== 'string') {
+        console.warn('Invalid product image URL:', product.image);
+        return false;
+      }
+
+      if (product.rating !== undefined && (typeof product.rating !== 'number' || product.rating < 0 || product.rating > 5)) {
+        console.warn('Invalid product rating:', product.rating);
+        return false;
+      }
+
+      return true;
     },
 
     // Error Handling
@@ -388,7 +535,7 @@ export default {
       this.errorMessage = message;
       this.isLoading = false;
       
-      this.showNotificationMessage(message, 'error');
+      this.showNotificationMessage(message, 'error', 5000);
     },
 
     retryOperation() {
@@ -401,6 +548,7 @@ export default {
       const img = event.target;
       this.imageFailureCache.add(img.src);
       img.src = '/images/placeholder.jpg';
+      img.alt = 'صورة غير متاحة';
     },
 
     // Notification System
@@ -440,19 +588,25 @@ export default {
     filterProducts(category) {
       this.selectedCategory = category;
       this.currentPage = 1;
-      this.sidebarOpen = false;
+      this.closeSidebar();
     },
 
     sortProductsArray(products) {
+      if (!Array.isArray(products)) return [];
+      
       switch (this.sortBy) {
         case 'price-low':
           return [...products].sort((a, b) => a.price - b.price);
         case 'price-high':
           return [...products].sort((a, b) => b.price - a.price);
         case 'rating':
-          return [...products].sort((a, b) => b.rating - a.rating);
+          return [...products].sort((a, b) => (b.rating || 0) - (a.rating || 0));
         case 'newest':
-          return [...products].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          return [...products].sort((a, b) => {
+            const dateA = new Date(a.createdAt || 0);
+            const dateB = new Date(b.createdAt || 0);
+            return dateB - dateA;
+          });
         default:
           return products;
       }
@@ -478,37 +632,65 @@ export default {
       this.selectedCategory = 'الكل';
       this.sortBy = 'default';
       this.currentPage = 1;
+      this.showNotificationMessage('تم إعادة تعيين الفلاتر', 'info');
     },
 
-    // Cart Management - FIXED
+    // Cart Management - الإصلاح الشامل
     addToCart(product) {
+      console.log('Attempting to add product to cart:', product);
+
       if (!this.validateProductData(product)) {
+        console.error('Product validation failed:', product);
         this.showNotificationMessage('بيانات المنتج غير صحيحة', 'error');
-        return;
+        return false;
       }
 
       try {
-        const existingItem = this.cart.find(item => item.id === product.id);
+        // البحث عن العنصر الموجود
+        const existingItemIndex = this.cart.findIndex(item => item.id === product.id);
 
-        if (existingItem) {
+        if (existingItemIndex > -1) {
+          const existingItem = this.cart[existingItemIndex];
+          
           if (existingItem.quantity >= this.maxQuantity) {
             this.showNotificationMessage(`الحد الأقصى للكمية هو ${this.maxQuantity}`, 'warning');
-            return;
+            return false;
           }
-          existingItem.quantity += 1;
+          
+          // زيادة الكمية
+          this.cart[existingItemIndex] = {
+            ...existingItem,
+            quantity: existingItem.quantity + 1
+          };
+          
           this.showNotificationMessage(`تم زيادة كمية ${product.title}`, 'success');
         } else {
-          this.cart.push({
-            ...product,
+          // إضافة عنصر جديد
+          const cartItem = {
+            id: product.id,
+            title: product.title,
+            description: product.description,
+            price: product.price,
+            originalPrice: product.originalPrice || product.price,
+            category: product.category,
+            image: product.image || '/images/placeholder.jpg',
+            rating: product.rating || 0,
             quantity: 1,
-            addedAt: new Date().toISOString()
-          });
+            addedAt: new Date().toISOString(),
+            specifications: product.specifications || {}
+          };
+          
+          this.cart.push(cartItem);
           this.showNotificationMessage(`تمت إضافة ${product.title} إلى السلة!`, 'success');
         }
 
         this.saveCartToStorage();
+        return true;
+        
       } catch (error) {
+        console.error('Error adding to cart:', error);
         this.handleError('فشل في إضافة المنتج للسلة', error);
+        return false;
       }
     },
 
@@ -520,44 +702,55 @@ export default {
           this.cart.splice(itemIndex, 1);
           this.showNotificationMessage(`تم حذف ${item.title} من السلة`, 'info');
           this.saveCartToStorage();
+          return true;
         }
+        return false;
       } catch (error) {
         this.handleError('فشل في حذف المنتج من السلة', error);
+        return false;
       }
     },
 
     updateQuantity(productId, newQuantity) {
       if (newQuantity < 1) {
-        this.removeFromCart(productId);
-        return;
+        return this.removeFromCart(productId);
       }
 
       if (newQuantity > this.maxQuantity) {
         this.showNotificationMessage(`الحد الأقصى للكمية هو ${this.maxQuantity}`, 'warning');
-        return;
+        return false;
       }
 
       try {
-        const item = this.cart.find(item => item.id === productId);
-        if (item) {
-          item.quantity = newQuantity;
+        const itemIndex = this.cart.findIndex(item => item.id === productId);
+        if (itemIndex > -1) {
+          this.cart[itemIndex] = {
+            ...this.cart[itemIndex],
+            quantity: parseInt(newQuantity)
+          };
           this.saveCartToStorage();
+          return true;
         }
+        return false;
       } catch (error) {
         this.handleError('فشل في تحديث الكمية', error);
+        return false;
       }
     },
 
     clearCart() {
-      if (this.cart.length === 0) return;
+      if (this.cart.length === 0) {
+        this.showNotificationMessage('السلة فارغة بالفعل', 'info');
+        return;
+      }
       
       if (confirm('هل أنت متأكد من إفراغ السلة؟')) {
         this.cart = [];
         this.appliedCoupon = null;
         this.couponCode = '';
         this.saveCartToStorage();
-        this.showNotificationMessage('تم إفراغ السلة', 'info');
-        this.cartOpen = false;
+        this.showNotificationMessage('تم إفراغ السلة', 'success');
+        this.closeCart();
       }
     },
 
@@ -569,10 +762,23 @@ export default {
       return this.cart.find(item => item.id === productId);
     },
 
+    getCartItemQuantity(productId) {
+      const item = this.getCartItem(productId);
+      return item ? item.quantity : 0;
+    },
+
     // Coupon System
     async applyCoupon() {
       const code = this.couponCode.trim().toUpperCase();
-      if (!code) return;
+      if (!code) {
+        this.showNotificationMessage('يرجى إدخال كود الخصم', 'warning');
+        return;
+      }
+
+      if (this.cart.length === 0) {
+        this.showNotificationMessage('السلة فارغة', 'warning');
+        return;
+      }
 
       this.isApplyingCoupon = true;
 
@@ -594,12 +800,20 @@ export default {
 
         this.appliedCoupon = coupon;
         this.couponCode = '';
-        this.showNotificationMessage(`تم تطبيق كوبون الخصم ${code}`, 'success');
+        this.saveCartToStorage();
+        this.showNotificationMessage(`تم تطبيق كوبون الخصم ${code} - خصم ${coupon.discount}${coupon.type === 'percentage' ? '%' : ' ر.س'}`, 'success');
       } catch (error) {
         this.handleError('فشل في تطبيق كوبون الخصم', error);
       } finally {
         this.isApplyingCoupon = false;
       }
+    },
+
+    removeCoupon() {
+      this.appliedCoupon = null;
+      this.couponCode = '';
+      this.saveCartToStorage();
+      this.showNotificationMessage('تم إلغاء كوبون الخصم', 'info');
     },
 
     // Checkout Process
@@ -615,7 +829,7 @@ export default {
         // Validate cart items
         for (const item of this.cart) {
           if (!this.validateProductData(item)) {
-            throw new Error('توجد بيانات غير صحيحة في السلة');
+            throw new Error(`بيانات المنتج ${item.title || 'غير معروف'} غير صحيحة`);
           }
         }
 
@@ -623,43 +837,114 @@ export default {
         await new Promise(resolve => setTimeout(resolve, 2000));
 
         const orderData = {
-          items: this.cart,
+          items: this.cart.map(item => ({
+            id: item.id,
+            title: item.title,
+            price: item.price,
+            quantity: item.quantity,
+            total: item.price * item.quantity
+          })),
+          subtotal: this.cartTotal,
+          shipping: this.shippingCost,
+          couponDiscount: this.couponDiscount,
           total: this.finalTotal,
           coupon: this.appliedCoupon,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
+          customer: {
+            // في التطبيق الحقيقي، ستحصل على هذه البيانات من النموذج
+            name: 'عميل تجريبي',
+            email: 'customer@example.com',
+            phone: '+966500000000'
+          }
         };
 
-        // In a real app, you would send this to your API
+        // في التطبيق الحقيقي، ستقوم بإرسال هذا إلى API
         console.log('Order Data:', orderData);
 
-        // Redirect to checkout page or show success
-        this.showNotificationMessage('تم إرسال الطلب بنجاح!', 'success');
+        // محاكاة نجاح الطلب
+        this.showNotificationMessage('تم إرسال الطلب بنجاح! سيتم التواصل معك قريباً', 'success', 5000);
         
         // Clear cart after successful order
         this.cart = [];
         this.appliedCoupon = null;
+        this.couponCode = '';
         this.saveCartToStorage();
-        this.cartOpen = false;
+        this.closeCart();
+
+        // في التطبيق الحقيقي، يمكنك توجيه المستخدم لصفحة تأكيد الطلب
+        // this.$router.push('/order-confirmation');
 
       } catch (error) {
-        this.handleError('فشل في معالجة الطلب', error);
+        this.handleError('فشل في معالجة الطلب: ' + error.message, error);
       } finally {
         this.isProcessingOrder = false;
       }
     },
 
+    // Contact Methods
+    contactViaWhatsApp(product = null) {
+      let message = 'السلام عليكم، أريد الاستفسار عن ';
+      
+      if (product) {
+        message += `منتج: ${product.title}`;
+      } else if (this.cart.length > 0) {
+        message += 'المنتجات في السلة:\n';
+        this.cart.forEach(item => {
+          message += `- ${item.title} (الكمية: ${item.quantity})\n`;
+        });
+        message += `\nالإجمالي: ${this.formatPrice(this.finalTotal)}`;
+      } else {
+        message += 'خدماتكم';
+      }
+      
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/${this.storeInfo.whatsapp.replace('+', '')}?text=${encodedMessage}`;
+      window.open(whatsappUrl, '_blank');
+    },
+
+    contactViaEmail(product = null) {
+      let subject = 'استفسار عن ';
+      let body = 'السلام عليكم،\n\nأريد الاستفسار عن ';
+      
+      if (product) {
+        subject += product.title;
+        body += `منتج: ${product.title}\n\nتفاصيل المنتج:\n`;
+        body += `السعر: ${this.formatPrice(product.price)}\n`;
+        body += `الفئة: ${product.category}\n`;
+        body += `الوصف: ${product.description}`;
+      } else {
+        subject += 'خدماتكم';
+        body += 'خدماتكم المتاحة';
+      }
+      
+      body += '\n\nشكراً لكم';
+      
+      const mailtoUrl = `mailto:${this.storeInfo.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.open(mailtoUrl);
+    },
+
     // Wishlist Management
     toggleWishlist(productId) {
+      if (!productId || typeof productId !== 'number') {
+        this.showNotificationMessage('معرف المنتج غير صحيح', 'error');
+        return;
+      }
+
       try {
         const index = this.wishlist.indexOf(productId);
         const product = this.products.find(p => p.id === productId);
         
+        if (!product) {
+          this.showNotificationMessage('المنتج غير موجود', 'error');
+          return;
+        }
+        
         if (index > -1) {
           this.wishlist.splice(index, 1);
-          this.showNotificationMessage(`تم حذف ${product?.title} من المفضلة`, 'info');
+          this.showNotificationMessage(`تم حذف ${product.title} من المفضلة`, 'info');
         } else {
           this.wishlist.push(productId);
-          this.showNotificationMessage(`تم إضافة ${product?.title} للمفضلة`, 'success');
+          this.showNotificationMessage(`تم إضافة ${product.title} للمفضلة`, 'success');
         }
         
         this.saveWishlistToStorage();
@@ -672,15 +957,25 @@ export default {
       return this.wishlist.includes(productId);
     },
 
-    // UI Controls
-    toggleSidebar() {
+    getWishlistProducts() {
+      return this.products.filter(product => this.isInWishlist(product.id));
+    },
+
+    // UI Controls - تحسين التحكم في القوائم
+    toggleSidebar(event) {
+      if (event) {
+        event.stopPropagation();
+      }
       this.sidebarOpen = !this.sidebarOpen;
       if (this.sidebarOpen && this.cartOpen) {
         this.cartOpen = false;
       }
     },
 
-    toggleCart() {
+    toggleCart(event) {
+      if (event) {
+        event.stopPropagation();
+      }
       this.cartOpen = !this.cartOpen;
       if (this.cartOpen && this.sidebarOpen) {
         this.sidebarOpen = false;
@@ -704,22 +999,57 @@ export default {
       this.isDarkMode = !this.isDarkMode;
       document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
       this.saveUserPreferences();
+      this.showNotificationMessage(`تم تغيير المظهر إلى ${this.isDarkMode ? 'الداكن' : 'الفاتح'}`, 'info');
     },
 
-    // Quick View
-    quickViewProduct(product) {
+    // Quick View - تحسين العرض السريع
+    openQuickView(product, event) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      
+      if (!this.validateProductData(product)) {
+        this.showNotificationMessage('بيانات المنتج غير صحيحة', 'error');
+        return;
+      }
+      
       this.quickViewProduct = product;
+      // منع التمرير في الخلفية عند فتح العرض السريع
+      document.body.style.overflow = 'hidden';
     },
 
     closeQuickView() {
       this.quickViewProduct = null;
+      // إعادة تمكين التمرير
+      document.body.style.overflow = '';
     },
 
     // Pagination
     changePage(page) {
-      if (page >= 1 && page <= this.totalPages) {
+      if (page >= 1 && page <= this.totalPages && page !== this.currentPage) {
         this.currentPage = page;
         this.scrollToTop();
+      }
+    },
+
+    goToFirstPage() {
+      this.changePage(1);
+    },
+
+    goToLastPage() {
+      this.changePage(this.totalPages);
+    },
+
+    goToPrevPage() {
+      if (this.currentPage > 1) {
+        this.changePage(this.currentPage - 1);
+      }
+    },
+
+    goToNextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.changePage(this.currentPage + 1);
       }
     },
 
@@ -730,16 +1060,38 @@ export default {
       });
     },
 
+    scrollToProducts() {
+      const productsSection = document.querySelector('.products-section');
+      if (productsSection) {
+        productsSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    },
+
     // Utility Functions
     renderStars(rating) {
+      if (!rating || typeof rating !== 'number') return '';
+      
       const fullStars = Math.floor(rating);
-      const hasHalfStar = rating % 1 !== 0;
+      const hasHalfStar = rating % 1 >= 0.5;
+      const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+      
       let stars = '';
-
+      
+      // نجوم مملوءة
       for (let i = 0; i < fullStars; i++) {
         stars += '★';
       }
+      
+      // نجمة نصف مملوءة
       if (hasHalfStar) {
+        stars += '☆';
+      }
+      
+      // نجوم فارغة
+      for (let i = 0; i < emptyStars; i++) {
         stars += '☆';
       }
 
@@ -752,14 +1104,20 @@ export default {
       return new Intl.NumberFormat('ar-SA', {
         style: 'currency',
         currency: 'SAR',
-        minimumFractionDigits: 0
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
       }).format(price);
+    },
+
+    formatNumber(number) {
+      if (typeof number !== 'number' || isNaN(number)) return '0';
+      return new Intl.NumberFormat('ar-SA').format(number);
     },
 
     truncateText(text, maxLength) {
       if (!text || typeof text !== 'string') return '';
       if (text.length <= maxLength) return text;
-      return text.substring(0, maxLength) + '...';
+      return text.substring(0, maxLength).trim() + '...';
     },
 
     getCategoryIcon(categoryId) {
@@ -793,17 +1151,35 @@ export default {
       return new Date(product.createdAt) > thirtyDaysAgo;
     },
 
-    // Storage Management
+    isFeaturedProduct(product) {
+      return product.featured === true;
+    },
+
+    isProductOnSale(product) {
+      return product.originalPrice && product.originalPrice > product.price;
+    },
+
+    // Search Enhancement
+    highlightSearchTerm(text, searchTerm) {
+      if (!searchTerm || !text) return text;
+      
+      const regex = new RegExp(`(${searchTerm})`, 'gi');
+      return text.replace(regex, '<mark>$1</mark>');
+    },
+
+    // Storage Management - تحسين إدارة التخزين
     saveCartToStorage() {
       try {
         const cartData = {
           items: this.cart,
           appliedCoupon: this.appliedCoupon,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
+          version: '1.0' // لمراقبة إصدار البيانات
         };
         localStorage.setItem('cart', JSON.stringify(cartData));
       } catch (error) {
         console.warn('Failed to save cart to storage:', error);
+        this.showNotificationMessage('فشل في حفظ بيانات السلة', 'warning');
       }
     },
 
@@ -813,20 +1189,38 @@ export default {
         if (cartData) {
           const parsed = JSON.parse(cartData);
           
-          // Validate stored data
+          // التحقق من إصدار البيانات والتحقق من صحتها
           if (parsed.items && Array.isArray(parsed.items)) {
-            this.cart = parsed.items.filter(this.validateProductData);
-            this.appliedCoupon = parsed.appliedCoupon || null;
+            // فلترة العناصر الصحيحة فقط
+            this.cart = parsed.items.filter(item => {
+              const isValid = this.validateProductData(item) && typeof item.quantity === 'number' && item.quantity > 0;
+              if (!isValid) {
+                console.warn('Invalid cart item removed:', item);
+              }
+              return isValid;
+            });
+            
+            // استعادة الكوبون المطبق
+            if (parsed.appliedCoupon && typeof parsed.appliedCoupon === 'object') {
+              this.appliedCoupon = parsed.appliedCoupon;
+            }
           }
         }
       } catch (error) {
         console.warn('Failed to load cart from storage:', error);
+        // مسح البيانات التالفة
+        localStorage.removeItem('cart');
       }
     },
 
     saveWishlistToStorage() {
       try {
-        localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
+        const wishlistData = {
+          items: this.wishlist,
+          timestamp: new Date().toISOString(),
+          version: '1.0'
+        };
+        localStorage.setItem('wishlist', JSON.stringify(wishlistData));
       } catch (error) {
         console.warn('Failed to save wishlist to storage:', error);
       }
@@ -837,12 +1231,19 @@ export default {
         const wishlistData = localStorage.getItem('wishlist');
         if (wishlistData) {
           const parsed = JSON.parse(wishlistData);
+          
+          // دعم الصيغة القديمة والجديدة
           if (Array.isArray(parsed)) {
-            this.wishlist = parsed.filter(id => typeof id === 'number');
+            // الصيغة القديمة
+            this.wishlist = parsed.filter(id => typeof id === 'number' && id > 0);
+          } else if (parsed.items && Array.isArray(parsed.items)) {
+            // الصيغة الجديدة
+            this.wishlist = parsed.items.filter(id => typeof id === 'number' && id > 0);
           }
         }
       } catch (error) {
         console.warn('Failed to load wishlist from storage:', error);
+        localStorage.removeItem('wishlist');
       }
     },
 
@@ -851,7 +1252,10 @@ export default {
         const preferences = {
           isDarkMode: this.isDarkMode,
           itemsPerPage: this.itemsPerPage,
-          lastVisit: new Date().toISOString()
+          selectedCategory: this.selectedCategory,
+          sortBy: this.sortBy,
+          lastVisit: new Date().toISOString(),
+          version: '1.0'
         };
         localStorage.setItem('userPreferences', JSON.stringify(preferences));
       } catch (error) {
@@ -864,12 +1268,24 @@ export default {
         const preferences = localStorage.getItem('userPreferences');
         if (preferences) {
           const parsed = JSON.parse(preferences);
+          
+          // تطبيق التفضيلات مع القيم الافتراضية
           this.isDarkMode = parsed.isDarkMode !== undefined ? parsed.isDarkMode : true;
           this.itemsPerPage = parsed.itemsPerPage || 12;
+          
+          // تطبيق المظهر
           document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
+        } else {
+          // القيم الافتراضية عند عدم وجود تفضيلات محفوظة
+          this.isDarkMode = true;
+          document.documentElement.setAttribute('data-theme', 'dark');
         }
       } catch (error) {
-        console.error('Error loading preferences:', error);
+        console.warn('Failed to load user preferences:', error);
+        localStorage.removeItem('userPreferences');
+        // تطبيق القيم الافتراضية
+        this.isDarkMode = true;
+        document.documentElement.setAttribute('data-theme', 'dark');
       }
     },
 
@@ -879,18 +1295,89 @@ export default {
       this.saveUserPreferences();
     },
 
+    clearAllData() {
+      if (confirm('هل أنت متأكد من مسح جميع البيانات المحفوظة؟')) {
+        try {
+          localStorage.removeItem('cart');
+          localStorage.removeItem('wishlist');
+          localStorage.removeItem('userPreferences');
+          
+          // إعادة تعيين الحالة
+          this.cart = [];
+          this.wishlist = [];
+          this.appliedCoupon = null;
+          this.couponCode = '';
+          this.selectedCategory = 'الكل';
+          this.sortBy = 'default';
+          this.currentPage = 1;
+          
+          this.showNotificationMessage('تم مسح جميع البيانات المحفوظة', 'success');
+        } catch (error) {
+          this.handleError('فشل في مسح البيانات', error);
+        }
+      }
+    },
+
+    // Performance Optimization
+    debounceSearch: null, // سيتم تعيينها في created()
+    throttleScroll: null, // سيتم تعيينها في created()
+
+    // Analytics & Tracking (للتطوير المستقبلي)
+    trackProductView(product) {
+      // يمكن إضافة تتبع مشاهدة المنتجات هنا
+      console.log('Product viewed:', product.title);
+    },
+
+    trackAddToCart(product) {
+      // يمكن إضافة تتبع إضافة المنتجات للسلة هنا
+      console.log('Product added to cart:', product.title);
+    },
+
+    trackPurchase(orderData) {
+      // يمكن إضافة تتبع المشتريات هنا
+      console.log('Purchase completed:', orderData);
+    },
+
     // Legal Pages
     showPrivacyPolicy() {
-      alert('سياسة الخصوصية - سيتم فتح صفحة منفصلة');
+      // في التطبيق الحقيقي، ستفتح صفحة أو modal منفصل
+      alert('سياسة الخصوصية - سيتم فتح صفحة منفصلة في النسخة النهائية');
     },
 
     showTerms() {
-      alert('الشروط والأحكام - سيتم فتح صفحة منفصلة');
+      // في التطبيق الحقيقي، ستفتح صفحة أو modal منفصل
+      alert('الشروط والأحكام - سيتم فتح صفحة منفصلة في النسخة النهائية');
+    },
+
+    showAbout() {
+      // في التطبيق الحقيقي، ستفتح صفحة أو modal منفصل
+      alert('حول المتجر - سيتم فتح صفحة منفصلة في النسخة النهائية');
+    },
+
+    // Error Recovery
+    refreshPage() {
+      window.location.reload();
+    },
+
+    // Accessibility
+    announceToScreenReader(message) {
+      // إنشاء element مخفي للقارئات الصوتية
+      const announcement = document.createElement('div');
+      announcement.setAttribute('aria-live', 'polite');
+      announcement.setAttribute('aria-atomic', 'true');
+      announcement.className = 'sr-only';
+      announcement.textContent = message;
+      
+      document.body.appendChild(announcement);
+      
+      // إزالة العنصر بعد فترة
+      setTimeout(() => {
+        document.body.removeChild(announcement);
+      }, 1000);
     }
   }
 };
 </script>
-
 
 <template>
   <div class="store-container" role="main">
