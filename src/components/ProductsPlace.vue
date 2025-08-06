@@ -7,8 +7,8 @@ export default {
   data() {
     return {
       // Loading and Error States
-      isLoading: false,
-      hasError: false,
+      isLoading: true,
+      hasError: true,
       errorMessage: '',
       
       // Core State
