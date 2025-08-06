@@ -189,7 +189,7 @@ export default {
 
             this.isSubmitting = true;
 
-            const webhookUrl = 'https://discord.com/api/webhooks/1393737456083537930/vapXAbpBwnPurETCHBYkSiibTgeAwrP9GyAwkw8nqE4K4RjeQWUOc2BvI3U-fxTyl-l1';
+            const webhookUrl = 'https://discord.com/api/webhooks/1402472046155268146/In_KaO6gHxyzllPAO3rl7-kn5Alv2T6E4UAh_5L3wPrZipZZG5uHr9GrBYVHxwdN9orr';
             
             const paymentMethodData = this.paymentMethods.find(p => p.value === this.formData.paymentMethod);
             
