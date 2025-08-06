@@ -1,629 +1,7 @@
-<template>
-  <div class="store-container" role="main">
-    <!-- Skip Link للوصول السريع -->
-    <a href="#main-content" class="skip-link">تخطي إلى المحتوى الرئيسي</a>
-
-    <!-- Loading Screen -->
-    <div v-if="isLoading" class="loading-screen" role="status" aria-label="جاري التحميل">
-      <div class="loading-spinner">
-        <div class="spinner"></div>
-        <p>جاري التحميل...</p>
-      </div>
-    </div>
-
-    <!-- Error Boundary -->
-    <div v-if="hasError" class="error-boundary" role="alert">
-      <div class="error-content">
-        <i class="fas fa-exclamation-triangle error-icon"></i>
-        <h3>حدث خطأ غير متوقع</h3>
-        <p>{{ errorMessage }}</p>
-        <button @click="retryOperation" class="btn-primary">إعادة المحاولة</button>
-      </div>
-    </div>
-
-    <!-- إشعار الإضافة للسلة -->
-    <transition name="notification" appear>
-      <div 
-        v-if="showNotification" 
-        class="notification-card"
-        role="alert"
-        :aria-live="notificationType === 'error' ? 'assertive' : 'polite'"
-      >
-        <div class="notification-content" :class="notificationType">
-          <i :class="getNotificationIcon(notificationType)" class="notification-icon"></i>
-          <span class="notification-text">{{ notificationMessage }}</span>
-          <button @click="closeNotification" class="notification-close" aria-label="إغلاق الإشعار">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-      </div>
-    </transition>
-
-    <!-- Overlay -->
-    <div 
-      v-if="sidebarOpen || cartOpen" 
-      class="overlay" 
-      @click="closeAllPanels"
-      @keydown.escape="closeAllPanels"
-      tabindex="0"
-      aria-label="إغلاق القوائم"
-    ></div>
-
-    <!-- رأس الصفحة -->
-    <header class="header" role="banner">
-      <div class="header-content">
-        <div class="logo">
-          <i class="fas fa-code logo-icon" role="img" aria-label="شعار المتجر"></i>
-          <h1>{{ storeInfo.name }}</h1>
-        </div>
-
-        <div class="search-bar" role="search">
-          <label for="search-input" class="sr-only">البحث في المنتجات</label>
-          <input 
-            id="search-input"
-            v-model="searchQuery" 
-            type="text" 
-            :placeholder="searchPlaceholder"
-            class="search-input"
-            :aria-describedby="searchQuery ? 'search-results-count' : null"
-            @input="debouncedSearch"
-            @keydown.enter="performSearch"
-            autocomplete="off"
-            spellcheck="false"
-          >
-          <button 
-            @click="performSearch" 
-            class="search-btn"
-            aria-label="البحث"
-            type="button"
-          >
-            <i class="fas fa-search search-icon"></i>
-          </button>
-          <button 
-            v-if="searchQuery"
-            @click="clearSearch" 
-            class="clear-search-btn"
-            aria-label="مسح البحث"
-            type="button"
-          >
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-
-        <div class="header-actions">
-          <button 
-            class="cart-btn" 
-            @click="toggleCart" 
-            :class="{ active: cartOpen }"
-            :aria-expanded="cartOpen"
-            aria-controls="cart-panel"
-            :aria-label="`سلة المشتريات - ${cartItemsCount} عنصر`"
-          >
-            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-            <span v-if="cartItemsCount > 0" class="cart-count" :aria-label="`${cartItemsCount} عنصر في السلة`">
-              {{ cartItemsCount > 99 ? '99+' : cartItemsCount }}
-            </span>
-          </button>
-
-          <button 
-            class="menu-btn" 
-            @click="toggleSidebar" 
-            :class="{ active: sidebarOpen }"
-            :aria-expanded="sidebarOpen"
-            aria-controls="sidebar-panel"
-            aria-label="قائمة التصنيفات"
-          >
-            <i class="fas fa-bars" aria-hidden="true"></i>
-          </button>
-
-          <button 
-            v-if="isDarkMode !== null"
-            @click="toggleTheme" 
-            class="theme-btn"
-            :aria-label="isDarkMode ? 'تغيير إلى الوضع النهاري' : 'تغيير إلى الوضع الليلي'"
-          >
-            <i :class="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'" aria-hidden="true"></i>
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <!-- نافذة السلة -->
-    <transition name="slide-left">
-      <div 
-        v-if="cartOpen" 
-        id="cart-panel"
-        class="cart-popup"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="cart-title"
-        @keydown.escape="closeCart"
-      >
-        <div class="cart-header">
-          <h3 id="cart-title"><i class="fas fa-shopping-cart" aria-hidden="true"></i> سلة المشتريات</h3>
-          <button class="close-btn" @click="closeCart" aria-label="إغلاق السلة">
-            <i class="fas fa-times" aria-hidden="true"></i>
-          </button>
-        </div>
-
-        <div class="cart-content">
-          <div v-if="cart.length === 0" class="empty-cart">
-            <div class="empty-cart-icon">
-              <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-            </div>
-            <p>السلة فارغة</p>
-            <small>أضف منتجات لتظهر هنا</small>
-          </div>
-
-          <div v-else class="cart-items">
-            <div 
-              v-for="item in cart" 
-              :key="`cart-${item.id}`" 
-              class="cart-item"
-              :aria-label="`${item.title} - ${formatPrice(item.price)} - الكمية ${item.quantity}`"
-            >
-              <img 
-                :src="sanitizeImageUrl(item.image)" 
-                :alt="item.title" 
-                class="cart-item-image"
-                loading="lazy"
-                @error="handleImageError"
-              >
-              <div class="cart-item-details">
-                <h4>{{ truncateText(item.title, 50) }}</h4>
-                <p class="cart-item-price">{{ formatPrice(item.price) }}</p>
-                <div class="quantity-controls" role="group" :aria-label="`تحكم في كمية ${item.title}`">
-                  <button 
-                    @click="updateQuantity(item.id, item.quantity - 1)" 
-                    class="qty-btn"
-                    :disabled="item.quantity <= 1"
-                    :aria-label="`تقليل كمية ${item.title}`"
-                  >
-                    <i class="fas fa-minus" aria-hidden="true"></i>
-                  </button>
-                  <span class="quantity" :aria-label="`الكمية الحالية ${item.quantity}`">{{ item.quantity }}</span>
-                  <button 
-                    @click="updateQuantity(item.id, item.quantity + 1)" 
-                    class="qty-btn"
-                    :disabled="item.quantity >= maxQuantity"
-                    :aria-label="`زيادة كمية ${item.title}`"
-                  >
-                    <i class="fas fa-plus" aria-hidden="true"></i>
-                  </button>
-                </div>
-              </div>
-              <button 
-                @click="removeFromCart(item.id)" 
-                class="remove-btn"
-                :aria-label="`إزالة ${item.title} من السلة`"
-              >
-                <i class="fas fa-trash" aria-hidden="true"></i>
-              </button>
-            </div>
-
-            <div class="cart-footer">
-              <div class="cart-summary">
-                <div class="cart-total">
-                  <strong>الإجمالي: {{ formatPrice(cartTotal) }}</strong>
-                </div>
-                <div v-if="totalSavings > 0" class="cart-savings">
-                  وفرت: {{ formatPrice(totalSavings) }}
-                </div>
-                <div v-if="shippingCost > 0" class="shipping-cost">
-                  الشحن: {{ formatPrice(shippingCost) }}
-                </div>
-                <div v-if="appliedCoupon" class="coupon-discount">
-                  خصم الكوبون ({{ appliedCoupon.code }}): -{{ formatPrice(couponDiscount) }}
-                </div>
-                <div class="final-total">
-                  <strong>المجموع الكلي: {{ formatPrice(finalTotal) }}</strong>
-                </div>
-              </div>
-
-              <div class="coupon-section">
-                <div class="coupon-input-group">
-                  <input 
-                    v-model="couponCode"
-                    type="text" 
-                    placeholder="كود الخصم"
-                    class="coupon-input"
-                    :disabled="isApplyingCoupon"
-                    @keydown.enter="applyCoupon"
-                  >
-                  <button 
-                    @click="applyCoupon"
-                    class="apply-coupon-btn"
-                    :disabled="!couponCode.trim() || isApplyingCoupon"
-                  >
-                    {{ isApplyingCoupon ? 'جاري التطبيق...' : 'تطبيق' }}
-                  </button>
-                </div>
-              </div>
-
-              <div class="cart-actions">
-                <button @click="clearCart" class="clear-btn" :disabled="isProcessingOrder">
-                  <i class="fas fa-trash" aria-hidden="true"></i>
-                  إفراغ السلة
-                </button>
-                <button 
-                  @click="goToCheckout" 
-                  class="checkout-btn"
-                  :disabled="cart.length === 0 || isProcessingOrder"
-                >
-                  <i class="fas fa-credit-card" aria-hidden="true"></i>
-                  {{ isProcessingOrder ? 'جاري المعالجة...' : 'إتمام الطلب' }}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
-
-    <!-- الشريط الجانبي -->
-    <transition name="slide-right">
-      <div 
-        v-if="sidebarOpen" 
-        id="sidebar-panel"
-        class="sidebar"
-        role="navigation"
-        aria-labelledby="sidebar-title"
-        @keydown.escape="closeSidebar"
-      >
-        <div class="sidebar-header">
-          <h3 id="sidebar-title"><i class="fas fa-list" aria-hidden="true"></i> الأقسام</h3>
-          <button class="close-btn" @click="closeSidebar" aria-label="إغلاق قائمة الأقسام">
-            <i class="fas fa-times" aria-hidden="true"></i>
-          </button>
-        </div>
-        <nav class="sidebar-nav">
-          <ul role="list">
-            <li 
-              v-for="category in categories" 
-              :key="category.id"
-              @click="filterProducts(category.id)"
-              @keydown.enter="filterProducts(category.id)"
-              @keydown.space.prevent="filterProducts(category.id)"
-              :class="{ active: selectedCategory === category.id }"
-              tabindex="0"
-              role="button"
-              :aria-pressed="selectedCategory === category.id"
-              :aria-label="`تصفية المنتجات حسب ${category.name}`"
-            >
-              <i :class="getCategoryIcon(category.id)" aria-hidden="true"></i>
-              <span class="category-name">{{ category.name }}</span>
-              <span class="category-count">({{ getCategoryCount(category.id) }})</span>
-              <i class="fas fa-chevron-left category-arrow" aria-hidden="true"></i>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </transition>
-
-    <!-- المحتوى الرئيسي -->
-    <main id="main-content" class="main-content">
-
-      <!-- المنتجات المميزة -->
-      <section 
-        v-if="shouldShowFeatured && featuredProducts.length > 0" 
-        class="featured-section"
-        aria-labelledby="featured-title"
-      >
-        <h2 id="featured-title">
-          <i class="fas fa-star" aria-hidden="true"></i> 
-          المنتجات المميزة
-        </h2>
-        <div class="featured-grid" role="grid">
-          <article 
-            v-for="product in featuredProducts" 
-            :key="`featured-${product.id}`" 
-            class="featured-card"
-            role="gridcell"
-            :aria-label="`منتج مميز: ${product.title}`"
-          >
-            <div class="featured-image-container">
-              <img 
-                :src="sanitizeImageUrl(product.image)" 
-                :alt="product.title" 
-                class="featured-image"
-                loading="lazy"
-                @error="handleImageError"
-              >
-              <div class="featured-badge" aria-label="منتج مميز">مميز</div>
-              <div v-if="product.originalPrice > product.price" class="discount-badge">
-                خصم {{ getDiscountPercentage(product.originalPrice, product.price) }}%
-              </div>
-            </div>
-            <div class="featured-info">
-              <h3>{{ product.title }}</h3>
-              <p>{{ truncateText(product.description, 100) }}</p>
-              <div class="product-rating" :aria-label="`تقييم ${product.rating} من 5`">
-                <span class="stars" :aria-hidden="true">{{ renderStars(product.rating) }}</span>
-                <span class="rating-text">({{ product.reviews }} تقييم)</span>
-              </div>
-              <div class="featured-price">
-                <span class="current-price">{{ formatPrice(product.price) }}</span>
-                <span v-if="product.originalPrice > product.price" class="original-price">
-                  {{ formatPrice(product.originalPrice) }}
-                </span>
-              </div>
-              <button 
-                @click="addToCart(product)" 
-                class="featured-btn"
-                :disabled="isProductInCart(product.id) && getCartItem(product.id)?.quantity >= maxQuantity"
-                :aria-label="`إضافة ${product.title} إلى السلة بسعر ${formatPrice(product.price)}`"
-              >
-                <i class="fas fa-shopping-cart" aria-hidden="true"></i> 
-                {{ isProductInCart(product.id) ? 'زيادة الكمية' : 'أضف للسلة' }}
-              </button>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <!-- فلاتر التصنيفات -->
-      <section class="categories-section" aria-labelledby="categories-title">
-        <h2 id="categories-title">
-          <i class="fas fa-tags" aria-hidden="true"></i> 
-          التصنيفات
-        </h2>
-        <div class="categories-filter" role="tablist">
-          <button 
-            v-for="category in categories" 
-            :key="`filter-${category.id}`"
-            @click="filterProducts(category.id)"
-            :class="{ active: selectedCategory === category.id }"
-            class="category-btn"
-            role="tab"
-            :aria-selected="selectedCategory === category.id"
-            :aria-controls="'products-section'"
-            :aria-label="`عرض منتجات ${category.name}`"
-          >
-            <i :class="getCategoryIcon(category.id)" aria-hidden="true"></i>
-            <span>{{ category.name }}</span>
-            <span class="category-count">({{ getCategoryCount(category.id) }})</span>
-          </button>
-        </div>
-      </section>
-
-      <!-- عرض المنتجات -->
-      <section id="products-section" class="products-section" aria-labelledby="products-title" role="tabpanel">
-        <div class="section-header">
-          <h2 id="products-title">
-            <i class="fas fa-box" aria-hidden="true"></i> 
-            المنتجات
-          </h2>
-          <div class="products-info">
-            <span id="search-results-count" class="products-count">
-              {{ filteredProducts.length }} منتج
-            </span>
-            <div v-if="searchQuery" class="search-info">
-              نتائج البحث عن: "{{ searchQuery }}"
-              <button @click="clearSearch" class="clear-search" aria-label="مسح البحث">
-                <i class="fas fa-times" aria-hidden="true"></i>
-              </button>
-            </div>
-            <div class="sort-controls">
-              <label for="sort-select" class="sr-only">ترتيب المنتجات</label>
-              <select 
-                id="sort-select"
-                v-model="sortBy" 
-                class="sort-select"
-                @change="sortProducts"
-              >
-                <option value="default">الترتيب الافتراضي</option>
-                <option value="price-low">السعر: من الأقل للأعلى</option>
-                <option value="price-high">السعر: من الأعلى للأقل</option>
-                <option value="rating">الأعلى تقييماً</option>
-                <option value="newest">الأحدث</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div v-if="filteredProducts.length === 0" class="no-products">
-          <div class="no-products-icon">
-            <i class="fas fa-search" aria-hidden="true"></i>
-          </div>
-          <h3>لا توجد منتجات</h3>
-          <p>لا توجد منتجات تطابق معايير البحث الحالية</p>
-          <button @click="resetFilters" class="reset-filters">
-            <i class="fas fa-refresh" aria-hidden="true"></i> إعادة تعيين الفلاتر
-          </button>
-        </div>
-
-        <div v-else class="products-grid" role="grid">
-          <article 
-            v-for="product in paginatedProducts" 
-            :key="product.id" 
-            class="product-card"
-            role="gridcell"
-            :aria-label="`${product.title} - ${formatPrice(product.price)}`"
-          >
-            <div class="product-image-container">
-              <img 
-                :src="sanitizeImageUrl(product.image)" 
-                :alt="product.title" 
-                class="product-image"
-                loading="lazy"
-                @error="handleImageError"
-              >
-              <div class="product-badges">
-                <div v-if="product.originalPrice > product.price" class="product-badge discount">
-                  خصم {{ getDiscountPercentage(product.originalPrice, product.price) }}%
-                </div>
-                <div v-if="product.featured" class="product-badge featured">مميز</div>
-                <div v-if="isNewProduct(product)" class="product-badge new">جديد</div>
-              </div>
-              <button 
-                @click="toggleWishlist(product.id)"
-                class="wishlist-btn"
-                :class="{ active: isInWishlist(product.id) }"
-                :aria-label="isInWishlist(product.id) ? `إزالة ${product.title} من المفضلة` : `إضافة ${product.title} للمفضلة`"
-              >
-                <i :class="isInWishlist(product.id) ? 'fas fa-heart' : 'far fa-heart'" aria-hidden="true"></i>
-              </button>
-            </div>
-
-            <div class="product-info">
-              <h3 class="product-title">{{ product.title }}</h3>
-              <p class="product-description">{{ truncateText(product.description, 80) }}</p>
-              <div class="product-rating" :aria-label="`تقييم ${product.rating} من 5`">
-                <span class="stars" :aria-hidden="true">{{ renderStars(product.rating) }}</span>
-                <span class="rating-text">{{ product.rating }} ({{ product.reviews }} تقييم)</span>
-              </div>
-              <div class="product-tags">
-                <span v-for="tag in product.tags" :key="tag" class="product-tag">{{ tag }}</span>
-              </div>
-              <div class="product-price">
-                <span class="current-price">{{ formatPrice(product.price) }}</span>
-                <span v-if="product.originalPrice > product.price" class="original-price">
-                  {{ formatPrice(product.originalPrice) }}
-                </span>
-              </div>
-              <div class="product-actions">
-                <button 
-                  @click="addToCart(product)" 
-                  class="add-to-cart-btn"
-                  :disabled="isProductInCart(product.id) && getCartItem(product.id)?.quantity >= maxQuantity"
-                  :aria-label="`إضافة ${product.title} إلى السلة بسعر ${formatPrice(product.price)}`"
-                >
-                  <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-                  <span>{{ isProductInCart(product.id) ? 'زيادة الكمية' : 'أضف للسلة' }}</span>
-                </button>
-                <button 
-                  @click="quickViewProduct(product)"
-                  class="quick-view-btn"
-                  :aria-label="`عرض سريع لمنتج ${product.title}`"
-                >
-                  <i class="fas fa-eye" aria-hidden="true"></i>
-                </button>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <!-- Pagination -->
-        <div v-if="totalPages > 1" class="pagination" role="navigation" aria-label="صفحات المنتجات">
-          <button 
-            @click="changePage(currentPage - 1)"
-            :disabled="currentPage === 1"
-            class="pagination-btn"
-            aria-label="الصفحة السابقة"
-          >
-            <i class="fas fa-chevron-right" aria-hidden="true"></i>
-          </button>
-          
-          <button 
-            v-for="page in visiblePages"
-            :key="page"
-            @click="changePage(page)"
-            :class="{ active: page === currentPage }"
-            class="pagination-btn"
-            :aria-label="`الصفحة ${page}`"
-            :aria-current="page === currentPage ? 'page' : undefined"
-          >
-            {{ page }}
-          </button>
-          
-          <button 
-            @click="changePage(currentPage + 1)"
-            :disabled="currentPage === totalPages"
-            class="pagination-btn"
-            aria-label="الصفحة التالية"
-          >
-            <i class="fas fa-chevron-left" aria-hidden="true"></i>
-          </button>
-        </div>
-
-      </section>
-    </main>
-
-    <!-- Quick View Modal -->
-    <transition name="modal">
-      <div v-if="quickViewProduct" class="modal-backdrop" @click.self="closeQuickView">
-        <div class="modal-content quick-view-modal" role="dialog" aria-modal="true" aria-labelledby="quick-view-title">
-          <div class="modal-header">
-            <h3 id="quick-view-title">{{ quickViewProduct.title }}</h3>
-            <button @click="closeQuickView" class="close-btn" aria-label="إغلاق العرض السريع">
-              <i class="fas fa-times" aria-hidden="true"></i>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="quick-view-content">
-              <div class="quick-view-image">
-                <img :src="sanitizeImageUrl(quickViewProduct.image)" :alt="quickViewProduct.title" loading="lazy">
-              </div>
-              <div class="quick-view-details">
-                <p>{{ quickViewProduct.description }}</p>
-                <div class="product-rating">
-                  <span class="stars">{{ renderStars(quickViewProduct.rating) }}</span>
-                  <span class="rating-text">{{ quickViewProduct.rating }} ({{ quickViewProduct.reviews }} تقييم)</span>
-                </div>
-                <div class="product-price">
-                  <span class="current-price">{{ formatPrice(quickViewProduct.price) }}</span>
-                  <span v-if="quickViewProduct.originalPrice > quickViewProduct.price" class="original-price">
-                    {{ formatPrice(quickViewProduct.originalPrice) }}
-                  </span>
-                </div>
-                <button @click="addToCart(quickViewProduct); closeQuickView()" class="btn-primary btn-block">
-                  <i class="fas fa-shopping-cart" aria-hidden="true"></i>
-                  أضف للسلة
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
-
-    <!-- التذييل -->
-    <footer class="footer" role="contentinfo">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> حول المتجر</h4>
-          <p>{{ storeInfo.description }}</p>
-        </div>
-        <div class="footer-section">
-          <h4><i class="fas fa-phone" aria-hidden="true"></i> التواصل</h4>
-          <p>واتساب: {{ storeInfo.whatsapp }}</p>
-          <p>الإيميل: {{ storeInfo.email }}</p>
-        </div>
-        <div class="footer-section">
-          <h4><i class="fas fa-shield-alt" aria-hidden="true"></i> الأمان</h4>
-          <p>جميع المعاملات محمية بأعلى معايير الأمان</p>
-          <div class="security-badges">
-            <i class="fas fa-lock" aria-label="اتصال آمن"></i>
-            <i class="fas fa-certificate" aria-label="موثق"></i>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; {{ currentYear }} جميع الحقوق محفوظة لـ{{ storeInfo.name }}.</p>
-        <div class="footer-links">
-          <a href="#privacy" @click.prevent="showPrivacyPolicy">سياسة الخصوصية</a>
-          <a href="#terms" @click.prevent="showTerms">الشروط والأحكام</a>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Back to top button -->
-    <transition name="fade">
-      <button 
-        v-if="showBackToTop"
-        @click="scrollToTop"
-        class="back-to-top"
-        aria-label="العودة لأعلى الصفحة"
-      >
-        <i class="fas fa-chevron-up" aria-hidden="true"></i>
-      </button>
-    </transition>
-
-  </div>
-</template>
-
 <script>
 import { debounce, throttle } from 'lodash';
+import from 'lodash'
+import debounce from 'lodash/debounce'
 
 export default {
   name: 'OrderView',
@@ -1548,6 +926,631 @@ export default {
   }
 };
 </script>
+
+
+<template>
+  <div class="store-container" role="main">
+    <!-- Skip Link للوصول السريع -->
+    <a href="#main-content" class="skip-link">تخطي إلى المحتوى الرئيسي</a>
+
+    <!-- Loading Screen -->
+    <div v-if="isLoading" class="loading-screen" role="status" aria-label="جاري التحميل">
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>جاري التحميل...</p>
+      </div>
+    </div>
+
+    <!-- Error Boundary -->
+    <div v-if="hasError" class="error-boundary" role="alert">
+      <div class="error-content">
+        <i class="fas fa-exclamation-triangle error-icon"></i>
+        <h3>حدث خطأ غير متوقع</h3>
+        <p>{{ errorMessage }}</p>
+        <button @click="retryOperation" class="btn-primary">إعادة المحاولة</button>
+      </div>
+    </div>
+
+    <!-- إشعار الإضافة للسلة -->
+    <transition name="notification" appear>
+      <div 
+        v-if="showNotification" 
+        class="notification-card"
+        role="alert"
+        :aria-live="notificationType === 'error' ? 'assertive' : 'polite'"
+      >
+        <div class="notification-content" :class="notificationType">
+          <i :class="getNotificationIcon(notificationType)" class="notification-icon"></i>
+          <span class="notification-text">{{ notificationMessage }}</span>
+          <button @click="closeNotification" class="notification-close" aria-label="إغلاق الإشعار">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+    </transition>
+
+    <!-- Overlay -->
+    <div 
+      v-if="sidebarOpen || cartOpen" 
+      class="overlay" 
+      @click="closeAllPanels"
+      @keydown.escape="closeAllPanels"
+      tabindex="0"
+      aria-label="إغلاق القوائم"
+    ></div>
+
+    <!-- رأس الصفحة -->
+    <header class="header" role="banner">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-code logo-icon" role="img" aria-label="شعار المتجر"></i>
+          <h1>{{ storeInfo.name }}</h1>
+        </div>
+
+        <div class="search-bar" role="search">
+          <label for="search-input" class="sr-only">البحث في المنتجات</label>
+          <input 
+            id="search-input"
+            v-model="searchQuery" 
+            type="text" 
+            :placeholder="searchPlaceholder"
+            class="search-input"
+            :aria-describedby="searchQuery ? 'search-results-count' : null"
+            @input="debouncedSearch"
+            @keydown.enter="performSearch"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button 
+            @click="performSearch" 
+            class="search-btn"
+            aria-label="البحث"
+            type="button"
+          >
+            <i class="fas fa-search search-icon"></i>
+          </button>
+          <button 
+            v-if="searchQuery"
+            @click="clearSearch" 
+            class="clear-search-btn"
+            aria-label="مسح البحث"
+            type="button"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="header-actions">
+          <button 
+            class="cart-btn" 
+            @click="toggleCart" 
+            :class="{ active: cartOpen }"
+            :aria-expanded="cartOpen"
+            aria-controls="cart-panel"
+            :aria-label="`سلة المشتريات - ${cartItemsCount} عنصر`"
+          >
+            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            <span v-if="cartItemsCount > 0" class="cart-count" :aria-label="`${cartItemsCount} عنصر في السلة`">
+              {{ cartItemsCount > 99 ? '99+' : cartItemsCount }}
+            </span>
+          </button>
+
+          <button 
+            class="menu-btn" 
+            @click="toggleSidebar" 
+            :class="{ active: sidebarOpen }"
+            :aria-expanded="sidebarOpen"
+            aria-controls="sidebar-panel"
+            aria-label="قائمة التصنيفات"
+          >
+            <i class="fas fa-bars" aria-hidden="true"></i>
+          </button>
+
+          <button 
+            v-if="isDarkMode !== null"
+            @click="toggleTheme" 
+            class="theme-btn"
+            :aria-label="isDarkMode ? 'تغيير إلى الوضع النهاري' : 'تغيير إلى الوضع الليلي'"
+          >
+            <i :class="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- نافذة السلة -->
+    <transition name="slide-left">
+      <div 
+        v-if="cartOpen" 
+        id="cart-panel"
+        class="cart-popup"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="cart-title"
+        @keydown.escape="closeCart"
+      >
+        <div class="cart-header">
+          <h3 id="cart-title"><i class="fas fa-shopping-cart" aria-hidden="true"></i> سلة المشتريات</h3>
+          <button class="close-btn" @click="closeCart" aria-label="إغلاق السلة">
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="cart-content">
+          <div v-if="cart.length === 0" class="empty-cart">
+            <div class="empty-cart-icon">
+              <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            </div>
+            <p>السلة فارغة</p>
+            <small>أضف منتجات لتظهر هنا</small>
+          </div>
+
+          <div v-else class="cart-items">
+            <div 
+              v-for="item in cart" 
+              :key="`cart-${item.id}`" 
+              class="cart-item"
+              :aria-label="`${item.title} - ${formatPrice(item.price)} - الكمية ${item.quantity}`"
+            >
+              <img 
+                :src="sanitizeImageUrl(item.image)" 
+                :alt="item.title" 
+                class="cart-item-image"
+                loading="lazy"
+                @error="handleImageError"
+              >
+              <div class="cart-item-details">
+                <h4>{{ truncateText(item.title, 50) }}</h4>
+                <p class="cart-item-price">{{ formatPrice(item.price) }}</p>
+                <div class="quantity-controls" role="group" :aria-label="`تحكم في كمية ${item.title}`">
+                  <button 
+                    @click="updateQuantity(item.id, item.quantity - 1)" 
+                    class="qty-btn"
+                    :disabled="item.quantity <= 1"
+                    :aria-label="`تقليل كمية ${item.title}`"
+                  >
+                    <i class="fas fa-minus" aria-hidden="true"></i>
+                  </button>
+                  <span class="quantity" :aria-label="`الكمية الحالية ${item.quantity}`">{{ item.quantity }}</span>
+                  <button 
+                    @click="updateQuantity(item.id, item.quantity + 1)" 
+                    class="qty-btn"
+                    :disabled="item.quantity >= maxQuantity"
+                    :aria-label="`زيادة كمية ${item.title}`"
+                  >
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <button 
+                @click="removeFromCart(item.id)" 
+                class="remove-btn"
+                :aria-label="`إزالة ${item.title} من السلة`"
+              >
+                <i class="fas fa-trash" aria-hidden="true"></i>
+              </button>
+            </div>
+
+            <div class="cart-footer">
+              <div class="cart-summary">
+                <div class="cart-total">
+                  <strong>الإجمالي: {{ formatPrice(cartTotal) }}</strong>
+                </div>
+                <div v-if="totalSavings > 0" class="cart-savings">
+                  وفرت: {{ formatPrice(totalSavings) }}
+                </div>
+                <div v-if="shippingCost > 0" class="shipping-cost">
+                  الشحن: {{ formatPrice(shippingCost) }}
+                </div>
+                <div v-if="appliedCoupon" class="coupon-discount">
+                  خصم الكوبون ({{ appliedCoupon.code }}): -{{ formatPrice(couponDiscount) }}
+                </div>
+                <div class="final-total">
+                  <strong>المجموع الكلي: {{ formatPrice(finalTotal) }}</strong>
+                </div>
+              </div>
+
+              <div class="coupon-section">
+                <div class="coupon-input-group">
+                  <input 
+                    v-model="couponCode"
+                    type="text" 
+                    placeholder="كود الخصم"
+                    class="coupon-input"
+                    :disabled="isApplyingCoupon"
+                    @keydown.enter="applyCoupon"
+                  >
+                  <button 
+                    @click="applyCoupon"
+                    class="apply-coupon-btn"
+                    :disabled="!couponCode.trim() || isApplyingCoupon"
+                  >
+                    {{ isApplyingCoupon ? 'جاري التطبيق...' : 'تطبيق' }}
+                  </button>
+                </div>
+              </div>
+
+              <div class="cart-actions">
+                <button @click="clearCart" class="clear-btn" :disabled="isProcessingOrder">
+                  <i class="fas fa-trash" aria-hidden="true"></i>
+                  إفراغ السلة
+                </button>
+                <button 
+                  @click="goToCheckout" 
+                  class="checkout-btn"
+                  :disabled="cart.length === 0 || isProcessingOrder"
+                >
+                  <i class="fas fa-credit-card" aria-hidden="true"></i>
+                  {{ isProcessingOrder ? 'جاري المعالجة...' : 'إتمام الطلب' }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+
+    <!-- الشريط الجانبي -->
+    <transition name="slide-right">
+      <div 
+        v-if="sidebarOpen" 
+        id="sidebar-panel"
+        class="sidebar"
+        role="navigation"
+        aria-labelledby="sidebar-title"
+        @keydown.escape="closeSidebar"
+      >
+        <div class="sidebar-header">
+          <h3 id="sidebar-title"><i class="fas fa-list" aria-hidden="true"></i> الأقسام</h3>
+          <button class="close-btn" @click="closeSidebar" aria-label="إغلاق قائمة الأقسام">
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+        <nav class="sidebar-nav">
+          <ul role="list">
+            <li 
+              v-for="category in categories" 
+              :key="category.id"
+              @click="filterProducts(category.id)"
+              @keydown.enter="filterProducts(category.id)"
+              @keydown.space.prevent="filterProducts(category.id)"
+              :class="{ active: selectedCategory === category.id }"
+              tabindex="0"
+              role="button"
+              :aria-pressed="selectedCategory === category.id"
+              :aria-label="`تصفية المنتجات حسب ${category.name}`"
+            >
+              <i :class="getCategoryIcon(category.id)" aria-hidden="true"></i>
+              <span class="category-name">{{ category.name }}</span>
+              <span class="category-count">({{ getCategoryCount(category.id) }})</span>
+              <i class="fas fa-chevron-left category-arrow" aria-hidden="true"></i>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </transition>
+
+    <!-- المحتوى الرئيسي -->
+    <main id="main-content" class="main-content">
+
+      <!-- المنتجات المميزة -->
+      <section 
+        v-if="shouldShowFeatured && featuredProducts.length > 0" 
+        class="featured-section"
+        aria-labelledby="featured-title"
+      >
+        <h2 id="featured-title">
+          <i class="fas fa-star" aria-hidden="true"></i> 
+          المنتجات المميزة
+        </h2>
+        <div class="featured-grid" role="grid">
+          <article 
+            v-for="product in featuredProducts" 
+            :key="`featured-${product.id}`" 
+            class="featured-card"
+            role="gridcell"
+            :aria-label="`منتج مميز: ${product.title}`"
+          >
+            <div class="featured-image-container">
+              <img 
+                :src="sanitizeImageUrl(product.image)" 
+                :alt="product.title" 
+                class="featured-image"
+                loading="lazy"
+                @error="handleImageError"
+              >
+              <div class="featured-badge" aria-label="منتج مميز">مميز</div>
+              <div v-if="product.originalPrice > product.price" class="discount-badge">
+                خصم {{ getDiscountPercentage(product.originalPrice, product.price) }}%
+              </div>
+            </div>
+            <div class="featured-info">
+              <h3>{{ product.title }}</h3>
+              <p>{{ truncateText(product.description, 100) }}</p>
+              <div class="product-rating" :aria-label="`تقييم ${product.rating} من 5`">
+                <span class="stars" :aria-hidden="true">{{ renderStars(product.rating) }}</span>
+                <span class="rating-text">({{ product.reviews }} تقييم)</span>
+              </div>
+              <div class="featured-price">
+                <span class="current-price">{{ formatPrice(product.price) }}</span>
+                <span v-if="product.originalPrice > product.price" class="original-price">
+                  {{ formatPrice(product.originalPrice) }}
+                </span>
+              </div>
+              <button 
+                @click="addToCart(product)" 
+                class="featured-btn"
+                :disabled="isProductInCart(product.id) && getCartItem(product.id)?.quantity >= maxQuantity"
+                :aria-label="`إضافة ${product.title} إلى السلة بسعر ${formatPrice(product.price)}`"
+              >
+                <i class="fas fa-shopping-cart" aria-hidden="true"></i> 
+                {{ isProductInCart(product.id) ? 'زيادة الكمية' : 'أضف للسلة' }}
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- فلاتر التصنيفات -->
+      <section class="categories-section" aria-labelledby="categories-title">
+        <h2 id="categories-title">
+          <i class="fas fa-tags" aria-hidden="true"></i> 
+          التصنيفات
+        </h2>
+        <div class="categories-filter" role="tablist">
+          <button 
+            v-for="category in categories" 
+            :key="`filter-${category.id}`"
+            @click="filterProducts(category.id)"
+            :class="{ active: selectedCategory === category.id }"
+            class="category-btn"
+            role="tab"
+            :aria-selected="selectedCategory === category.id"
+            :aria-controls="'products-section'"
+            :aria-label="`عرض منتجات ${category.name}`"
+          >
+            <i :class="getCategoryIcon(category.id)" aria-hidden="true"></i>
+            <span>{{ category.name }}</span>
+            <span class="category-count">({{ getCategoryCount(category.id) }})</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- عرض المنتجات -->
+      <section id="products-section" class="products-section" aria-labelledby="products-title" role="tabpanel">
+        <div class="section-header">
+          <h2 id="products-title">
+            <i class="fas fa-box" aria-hidden="true"></i> 
+            المنتجات
+          </h2>
+          <div class="products-info">
+            <span id="search-results-count" class="products-count">
+              {{ filteredProducts.length }} منتج
+            </span>
+            <div v-if="searchQuery" class="search-info">
+              نتائج البحث عن: "{{ searchQuery }}"
+              <button @click="clearSearch" class="clear-search" aria-label="مسح البحث">
+                <i class="fas fa-times" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="sort-controls">
+              <label for="sort-select" class="sr-only">ترتيب المنتجات</label>
+              <select 
+                id="sort-select"
+                v-model="sortBy" 
+                class="sort-select"
+                @change="sortProducts"
+              >
+                <option value="default">الترتيب الافتراضي</option>
+                <option value="price-low">السعر: من الأقل للأعلى</option>
+                <option value="price-high">السعر: من الأعلى للأقل</option>
+                <option value="rating">الأعلى تقييماً</option>
+                <option value="newest">الأحدث</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="filteredProducts.length === 0" class="no-products">
+          <div class="no-products-icon">
+            <i class="fas fa-search" aria-hidden="true"></i>
+          </div>
+          <h3>لا توجد منتجات</h3>
+          <p>لا توجد منتجات تطابق معايير البحث الحالية</p>
+          <button @click="resetFilters" class="reset-filters">
+            <i class="fas fa-refresh" aria-hidden="true"></i> إعادة تعيين الفلاتر
+          </button>
+        </div>
+
+        <div v-else class="products-grid" role="grid">
+          <article 
+            v-for="product in paginatedProducts" 
+            :key="product.id" 
+            class="product-card"
+            role="gridcell"
+            :aria-label="`${product.title} - ${formatPrice(product.price)}`"
+          >
+            <div class="product-image-container">
+              <img 
+                :src="sanitizeImageUrl(product.image)" 
+                :alt="product.title" 
+                class="product-image"
+                loading="lazy"
+                @error="handleImageError"
+              >
+              <div class="product-badges">
+                <div v-if="product.originalPrice > product.price" class="product-badge discount">
+                  خصم {{ getDiscountPercentage(product.originalPrice, product.price) }}%
+                </div>
+                <div v-if="product.featured" class="product-badge featured">مميز</div>
+                <div v-if="isNewProduct(product)" class="product-badge new">جديد</div>
+              </div>
+              <button 
+                @click="toggleWishlist(product.id)"
+                class="wishlist-btn"
+                :class="{ active: isInWishlist(product.id) }"
+                :aria-label="isInWishlist(product.id) ? `إزالة ${product.title} من المفضلة` : `إضافة ${product.title} للمفضلة`"
+              >
+                <i :class="isInWishlist(product.id) ? 'fas fa-heart' : 'far fa-heart'" aria-hidden="true"></i>
+              </button>
+            </div>
+
+            <div class="product-info">
+              <h3 class="product-title">{{ product.title }}</h3>
+              <p class="product-description">{{ truncateText(product.description, 80) }}</p>
+              <div class="product-rating" :aria-label="`تقييم ${product.rating} من 5`">
+                <span class="stars" :aria-hidden="true">{{ renderStars(product.rating) }}</span>
+                <span class="rating-text">{{ product.rating }} ({{ product.reviews }} تقييم)</span>
+              </div>
+              <div class="product-tags">
+                <span v-for="tag in product.tags" :key="tag" class="product-tag">{{ tag }}</span>
+              </div>
+              <div class="product-price">
+                <span class="current-price">{{ formatPrice(product.price) }}</span>
+                <span v-if="product.originalPrice > product.price" class="original-price">
+                  {{ formatPrice(product.originalPrice) }}
+                </span>
+              </div>
+              <div class="product-actions">
+                <button 
+                  @click="addToCart(product)" 
+                  class="add-to-cart-btn"
+                  :disabled="isProductInCart(product.id) && getCartItem(product.id)?.quantity >= maxQuantity"
+                  :aria-label="`إضافة ${product.title} إلى السلة بسعر ${formatPrice(product.price)}`"
+                >
+                  <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                  <span>{{ isProductInCart(product.id) ? 'زيادة الكمية' : 'أضف للسلة' }}</span>
+                </button>
+                <button 
+                  @click="quickViewProduct(product)"
+                  class="quick-view-btn"
+                  :aria-label="`عرض سريع لمنتج ${product.title}`"
+                >
+                  <i class="fas fa-eye" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Pagination -->
+        <div v-if="totalPages > 1" class="pagination" role="navigation" aria-label="صفحات المنتجات">
+          <button 
+            @click="changePage(currentPage - 1)"
+            :disabled="currentPage === 1"
+            class="pagination-btn"
+            aria-label="الصفحة السابقة"
+          >
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+          </button>
+          
+          <button 
+            v-for="page in visiblePages"
+            :key="page"
+            @click="changePage(page)"
+            :class="{ active: page === currentPage }"
+            class="pagination-btn"
+            :aria-label="`الصفحة ${page}`"
+            :aria-current="page === currentPage ? 'page' : undefined"
+          >
+            {{ page }}
+          </button>
+          
+          <button 
+            @click="changePage(currentPage + 1)"
+            :disabled="currentPage === totalPages"
+            class="pagination-btn"
+            aria-label="الصفحة التالية"
+          >
+            <i class="fas fa-chevron-left" aria-hidden="true"></i>
+          </button>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- Quick View Modal -->
+    <transition name="modal">
+      <div v-if="quickViewProduct" class="modal-backdrop" @click.self="closeQuickView">
+        <div class="modal-content quick-view-modal" role="dialog" aria-modal="true" aria-labelledby="quick-view-title">
+          <div class="modal-header">
+            <h3 id="quick-view-title">{{ quickViewProduct.title }}</h3>
+            <button @click="closeQuickView" class="close-btn" aria-label="إغلاق العرض السريع">
+              <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="quick-view-content">
+              <div class="quick-view-image">
+                <img :src="sanitizeImageUrl(quickViewProduct.image)" :alt="quickViewProduct.title" loading="lazy">
+              </div>
+              <div class="quick-view-details">
+                <p>{{ quickViewProduct.description }}</p>
+                <div class="product-rating">
+                  <span class="stars">{{ renderStars(quickViewProduct.rating) }}</span>
+                  <span class="rating-text">{{ quickViewProduct.rating }} ({{ quickViewProduct.reviews }} تقييم)</span>
+                </div>
+                <div class="product-price">
+                  <span class="current-price">{{ formatPrice(quickViewProduct.price) }}</span>
+                  <span v-if="quickViewProduct.originalPrice > quickViewProduct.price" class="original-price">
+                    {{ formatPrice(quickViewProduct.originalPrice) }}
+                  </span>
+                </div>
+                <button @click="addToCart(quickViewProduct); closeQuickView()" class="btn-primary btn-block">
+                  <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                  أضف للسلة
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </transition>
+
+    <!-- التذييل -->
+    <footer class="footer" role="contentinfo">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4><i class="fas fa-info-circle" aria-hidden="true"></i> حول المتجر</h4>
+          <p>{{ storeInfo.description }}</p>
+        </div>
+        <div class="footer-section">
+          <h4><i class="fas fa-phone" aria-hidden="true"></i> التواصل</h4>
+          <p>واتساب: {{ storeInfo.whatsapp }}</p>
+          <p>الإيميل: {{ storeInfo.email }}</p>
+        </div>
+        <div class="footer-section">
+          <h4><i class="fas fa-shield-alt" aria-hidden="true"></i> الأمان</h4>
+          <p>جميع المعاملات محمية بأعلى معايير الأمان</p>
+          <div class="security-badges">
+            <i class="fas fa-lock" aria-label="اتصال آمن"></i>
+            <i class="fas fa-certificate" aria-label="موثق"></i>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; {{ currentYear }} جميع الحقوق محفوظة لـ{{ storeInfo.name }}.</p>
+        <div class="footer-links">
+          <a href="#privacy" @click.prevent="showPrivacyPolicy">سياسة الخصوصية</a>
+          <a href="#terms" @click.prevent="showTerms">الشروط والأحكام</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <transition name="fade">
+      <button 
+        v-if="showBackToTop"
+        @click="scrollToTop"
+        class="back-to-top"
+        aria-label="العودة لأعلى الصفحة"
+      >
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
+      </button>
+    </transition>
+
+  </div>
+</template>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
