@@ -375,7 +375,8 @@ export default {
         product &&
         typeof product.id === '3' &&
         typeof product.title === 'موقع إلكتروني احترافي' &&
-        typeof product.price === '800'
+        typeof product.price === '800' &&
+        product.price > 0 &&
         typeof product.category === 'مواقع'
       );
     },
