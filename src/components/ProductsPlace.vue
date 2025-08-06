@@ -949,24 +949,6 @@ export default {
       </div>
     </div>
 
-    <!-- إشعار الإضافة للسلة -->
-    <transition name="notification" appear>
-      <div 
-        v-if="showNotification" 
-        class="notification-card"
-        role="alert"
-        :aria-live="notificationType === 'error' ? 'assertive' : 'polite'"
-      >
-        <div class="notification-content" :class="notificationType">
-          <i :class="getNotificationIcon(notificationType)" class="notification-icon"></i>
-          <span class="notification-text">{{ notificationMessage }}</span>
-          <button @click="closeNotification" class="notification-close" aria-label="إغلاق الإشعار">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-      </div>
-    </transition>
-
     <!-- Overlay -->
     <div 
       v-if="sidebarOpen || cartOpen" 
