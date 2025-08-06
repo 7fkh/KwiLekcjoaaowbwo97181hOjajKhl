@@ -279,8 +279,8 @@ export default {
           },
           {
             id: 8,
-            title: "أتمتة وسكريبتات",
-            description: "سكريبتات أتمتة مخصصة لتسهيل المهام اليومية والإدارية",
+            title: "أتمتة وسكريپتات",
+            description: "سكريپتات أتمتة مخصصة لتسهيل المهام اليومية والإدارية",
             price: 300,
             originalPrice: 400,
             category: "أتمتة",
@@ -370,6 +370,16 @@ export default {
       }
     },
 
+    // Validation Functions
+    validateProductData(product) {
+      return product && 
+             typeof product.id === 'number' && 
+             typeof product.title === 'string' && 
+             typeof product.price === 'number' && 
+             product.price > 0 &&
+             typeof product.image === 'string' &&
+             typeof product.category === 'string';
+    },
 
     // Error Handling
     handleError(message, error = null) {
@@ -470,6 +480,12 @@ export default {
       this.currentPage = 1;
     },
 
+    // Cart Management - FIXED
+    addToCart(product) {
+      if (!this.validateProductData(product)) {
+        this.showNotificationMessage('بيانات المنتج غير صحيحة', 'error');
+        return;
+      }
 
       try {
         const existingItem = this.cart.find(item => item.id === product.id);
@@ -844,18 +860,18 @@ export default {
     },
 
     loadUserPreferences() {
-  try {
-    const preferences = localStorage.getItem('userPreferences');
-    if (preferences) {
-      const parsed = JSON.parse(preferences);
-      this.isDarkMode = parsed.isDarkMode !== undefined ? parsed.isDarkMode : true;
-      this.itemsPerPage = parsed.itemsPerPage || 12;
-      document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
-    }
-  } catch (error) {
-    console.error('Error loading preferences:', error);
-  }
-},
+      try {
+        const preferences = localStorage.getItem('userPreferences');
+        if (preferences) {
+          const parsed = JSON.parse(preferences);
+          this.isDarkMode = parsed.isDarkMode !== undefined ? parsed.isDarkMode : true;
+          this.itemsPerPage = parsed.itemsPerPage || 12;
+          document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
+        }
+      } catch (error) {
+        console.error('Error loading preferences:', error);
+      }
+    },
 
     saveUserData() {
       this.saveCartToStorage();
