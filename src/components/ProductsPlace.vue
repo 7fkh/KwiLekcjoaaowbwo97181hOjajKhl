@@ -208,20 +208,6 @@ export default {
       try {
         this.products = [
           {
-            id: 2,
-            title: "بوت ديسكورد متقدم",
-            description: "بوت ديسكورد مع مميزات متقدمة ولوحة تحكم شاملة وأوامر مخصصة",
-            price: 150,
-            originalPrice: 200,
-            category: "ديسكورد",
-            image: "https://cdn.discordapp.com/attachments/1324222259878957098/1391531649409482832/png.png",
-            rating: 4.9,
-            reviews: 18,
-            featured: false,
-            tags: ['ديسكورد', 'بوت', 'أوامر'],
-            createdAt: new Date('2024-02-01')
-          },
-          {
             id: 3,
             title: "موقع إلكتروني احترافي",
             description: "تصميم وبرمجة موقع إلكتروني احترافي متجاوب مع جميع الأجهزة",
@@ -302,7 +288,7 @@ export default {
             rating: 4.4,
             reviews: 19,
             featured: false,
-            tags: ['أتمتة', 'سكريبتات', 'إدارة'],
+            tags: ['أتمتة', 'سكريپتات', 'إدارة'],
             createdAt: new Date('2024-01-25')
           }
         ];
@@ -313,7 +299,7 @@ export default {
           { id: 'فايف ام', name: 'خدمات FiveM' },
           { id: 'مواقع', name: 'المواقع الإلكترونية' },
           { id: 'تطبيقات', name: 'تطبيقات الموبايل' },
-          { id: 'أتمتة', name: 'الأتمتة والسكريبتات' }
+          { id: 'أتمتة', name: 'الأتمتة والسكريپتات' }
         ];
 
         this.isLoading = false;
@@ -881,15 +867,7 @@ export default {
           this.isDarkMode = parsed.isDarkMode !== undefined ? parsed.isDarkMode : true;
           this.itemsPerPage = parsed.itemsPerPage || 12;
           
-          document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
-        } else {
-          this.isDarkMode = true;
           document.documentElement.setAttribute('data-theme', 'dark');
-        }
-      } catch (error) {
-        console.warn('Failed to load user preferences:', error);
-        this.isDarkMode = true;
-        document.documentElement.setAttribute('data-theme', 'dark');
       }
     },
 
