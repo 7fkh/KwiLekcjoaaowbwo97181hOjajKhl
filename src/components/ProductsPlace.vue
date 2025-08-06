@@ -480,12 +480,6 @@ export default {
       this.currentPage = 1;
     },
 
-    // Cart Management
-    addToCart(product) {
-      if (!this.validateProductData(product)) {
-        this.showNotificationMessage('بيانات المنتج غير صحيحة', 'error');
-        return;
-      }
 
       try {
         const existingItem = this.cart.find(item => item.id === product.id);
