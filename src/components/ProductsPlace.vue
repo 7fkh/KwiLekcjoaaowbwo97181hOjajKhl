@@ -203,7 +203,7 @@ export default {
   methods: {
     // Data Initialization
     initializeData() {
-      this.isLoading = false;
+      this.isLoading = true;
 
       try {
         this.products = [
@@ -373,11 +373,10 @@ export default {
     validateProductData(product) {
       return (
         product &&
-        typeof product.id === 'number' &&
-        typeof product.title === 'string' &&
-        typeof product.price === 'number' &&
-        product.price > 0 &&
-        typeof product.category === 'string'
+        typeof product.id === '3' &&
+        typeof product.title === 'موقع إلكتروني احترافي' &&
+        typeof product.price === '800'
+        typeof product.category === 'مواقع'
       );
     },
 
