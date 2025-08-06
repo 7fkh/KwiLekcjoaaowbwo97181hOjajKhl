@@ -197,7 +197,7 @@ export default {
                 content: `تم استلام طلب جديد`,
                 embeds: [{
                     title: `طلب رقم ${this.orderNumber}`,
-                    description: this.selectedProduct ? `**المنتج المطلوب:** ${this.selectedProduct.title}` : '**طلب مخصص**',
+                    description: this.selectedProduct ? `**المنتج المطلوب:** ${this.selectedProduct.title}` : '**طلب مخصي**',
                     color: parseInt('c13029', 16),
                     fields: [
                         {
