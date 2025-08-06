@@ -203,8 +203,8 @@ export default {
   methods: {
     // Data Initialization
     initializeData() {
-      this.isLoading = true;
-      
+      this.isLoading = false;
+
       try {
         this.products = [
           {
