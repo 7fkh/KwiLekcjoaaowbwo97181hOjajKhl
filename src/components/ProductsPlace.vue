@@ -860,16 +860,18 @@ export default {
     },
 
     loadUserPreferences() {
-      try {
-        const preferences = localStorage.getItem('userPreferences');
-        if (preferences) {
-          const parsed = JSON.parse(preferences);
-          this.isDarkMode = parsed.isDarkMode !== undefined ? parsed.isDarkMode : true;
-          this.itemsPerPage = parsed.itemsPerPage || 12;
-          
-          document.documentElement.setAttribute('data-theme', 'dark');
-      }
-    },
+  try {
+    const preferences = localStorage.getItem('userPreferences');
+    if (preferences) {
+      const parsed = JSON.parse(preferences);
+      this.isDarkMode = parsed.isDarkMode !== undefined ? parsed.isDarkMode : true;
+      this.itemsPerPage = parsed.itemsPerPage || 12;
+      document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
+    }
+  } catch (error) {
+    console.error('Error loading preferences:', error);
+  }
+},
 
     saveUserData() {
       this.saveCartToStorage();
